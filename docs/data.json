@@ -1,14 +1,14 @@
 {
-  "erzeugt": "2026-09-17T09:46",
+  "erzeugt": "2026-09-17T09:52",
   "projekt": "VanMaster",
   "kennzahlen": {
     "aufgaben_fertig": 1,
     "aufgaben_gesamt": 25,
-    "teile": 54,
-    "kosten": 2566.3,
+    "teile": 56,
+    "kosten": 2620.53,
     "kosten_bestellt": 443.3,
     "gewicht": 0.0,
-    "offene_entscheidungen": 0
+    "offene_entscheidungen": 1
   },
   "bereiche": [
     {
@@ -78,8 +78,8 @@
     },
     {
       "name": "Möbel",
-      "teile": 11,
-      "kosten": 299.0,
+      "teile": 13,
+      "kosten": 353.23,
       "gewicht": 0.0,
       "verbaut": 0
     },
@@ -1402,33 +1402,9 @@
       "gewicht_n": 0.0
     },
     {
-      "id": "griffe-fuer-kaesten-magnete",
-      "titel": "Griffe für Kästen + Magnete",
-      "beschreibung": "",
-      "kategorie": "Möbel",
-      "system": "Möbel",
-      "menge": "1",
-      "einheit": "Stk",
-      "preis": "",
-      "status": "Idee",
-      "prioritaet": "Nice-to-have",
-      "link": "",
-      "haendler": "",
-      "fuer_aufgabe": "",
-      "entscheidung": "",
-      "kennwerte": "",
-      "gewicht_kg": "",
-      "notiz": "",
-      "gekauft_am": "",
-      "menge_n": 1.0,
-      "preis_n": 0.0,
-      "gesamt": 0.0,
-      "gewicht_n": 0.0
-    },
-    {
       "id": "holz-epicply",
       "titel": "Holz (EpicPLY)",
-      "beschreibung": "",
+      "beschreibung": "Multiplex für Korpusse und Fronten, auch Hängeschränke",
       "kategorie": "Möbel",
       "system": "Möbel",
       "menge": "1",
@@ -1440,9 +1416,9 @@
       "haendler": "EpicPly",
       "fuer_aufgabe": "",
       "entscheidung": "",
-      "kennwerte": "",
+      "kennwerte": "Klappen 14–16 mm (Vorgabe Push-Lock-Schloss)",
       "gewicht_kg": "",
-      "notiz": "",
+      "notiz": "Stärken und Plattenmenge offen — hängt am Layout. Türstärke durch das Schloss auf 14–16 mm festgelegt.",
       "gekauft_am": "",
       "menge_n": 1.0,
       "preis_n": 0.0,
@@ -1474,6 +1450,30 @@
       "gewicht_n": 0.0
     },
     {
+      "id": "klappenbeschlag-grass-kinvaro-t-57",
+      "titel": "Klappenbeschlag Grass Kinvaro T-57",
+      "beschreibung": "Hochschwenk-Automatik für die Hängeschrank-Klappen",
+      "kategorie": "Möbel",
+      "system": "Möbel",
+      "menge": "1",
+      "einheit": "Paar",
+      "preis": "25.00",
+      "status": "Recherche",
+      "prioritaet": "Hoch",
+      "link": "https://www.amazon.de/dp/B01AC7CZ58",
+      "haendler": "Gedotec / Amazon",
+      "fuer_aufgabe": "schraenke",
+      "entscheidung": "",
+      "kennwerte": "240 N, Klappe bis 6,2 kg, Öffnungswinkel 75/90°, 138 x 46 mm",
+      "gewicht_kg": "",
+      "notiz": "Produktlink vom Nutzer. Stückzahl offen — 1 Paar je Klappe.",
+      "gekauft_am": "",
+      "menge_n": 1.0,
+      "preis_n": 25.0,
+      "gesamt": 25.0,
+      "gewicht_n": 0.0
+    },
+    {
       "id": "matratze",
       "titel": "Matratze",
       "beschreibung": "",
@@ -1495,6 +1495,54 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
+      "gewicht_n": 0.0
+    },
+    {
+      "id": "moebelmagnete",
+      "titel": "Möbelmagnete",
+      "beschreibung": "Halten die Hängeschrank-Klappen zu",
+      "kategorie": "Möbel",
+      "system": "Möbel",
+      "menge": "1",
+      "einheit": "Stk",
+      "preis": "",
+      "status": "Idee",
+      "prioritaet": "Mittel",
+      "link": "",
+      "haendler": "",
+      "fuer_aufgabe": "schraenke",
+      "entscheidung": "",
+      "kennwerte": "",
+      "gewicht_kg": "",
+      "notiz": "Typ und Anzahl offen. Ersetzt zusammen mit dem Push-Lock den Miro-Platzhalter 'Griffe für Kästen + Magnete'.",
+      "gekauft_am": "",
+      "menge_n": 1.0,
+      "preis_n": 0.0,
+      "gesamt": 0.0,
+      "gewicht_n": 0.0
+    },
+    {
+      "id": "push-lock-schrankschloss",
+      "titel": "Push-Lock Schrankschloss",
+      "beschreibung": "Verschließbarer Druckknopf-Griff für die Hängeschrank-Klappen",
+      "kategorie": "Möbel",
+      "system": "Möbel",
+      "menge": "1",
+      "einheit": "Set",
+      "preis": "29.23",
+      "status": "Recherche",
+      "prioritaet": "Hoch",
+      "link": "https://www.amazon.de/dp/B0BCVGCT12",
+      "haendler": "OBQcare / Amazon",
+      "fuer_aufgabe": "schraenke",
+      "entscheidung": "",
+      "kennwerte": "5er-Set, Bohrung 26 mm, für Türen 14–16 mm, 55 x 23 x 19 mm",
+      "gewicht_kg": "",
+      "notiz": "Produktlink vom Nutzer. Anzahl Klappen noch offen.",
+      "gekauft_am": "",
+      "menge_n": 1.0,
+      "preis_n": 29.23,
+      "gesamt": 29.23,
       "gewicht_n": 0.0
     },
     {
@@ -1810,7 +1858,19 @@
       "gewicht_n": 0.0
     }
   ],
-  "entscheidungen": [],
+  "entscheidungen": [
+    {
+      "titel": "Hängeschränke platzieren",
+      "status": "offen",
+      "bereich": "Möbel",
+      "meta": {
+        "status": "offen",
+        "bereich": "Möbel"
+      },
+      "text": "# Hängeschränke platzieren\n\nWo die Oberschränke sitzen, entscheidet der Nutzer. Hier stehen nur seine\neigenen Rohnotizen, unbewertet.\n\n## Frage\n\nAuf welcher Länge und auf welcher Seite laufen die Hängeschränke?\n\n## Notizen vom Nutzer\n\n- Hängeschränke bis zum Ende des Kühlschranks, nicht zu tief.\n- Beim Bett keine Hängeschränke auf der Fahrerseite.\n- Offen: schöner Abschluss zum Bett hin?\n- Beim Öffnen auf Kopfhöhe achten.\n\n## Bilder\n\nVier Sammelbilder liegen unter [[Möbel]] in `vault/Medien/`: zwei Fotos aus\nfertigen Ausbauten (Oberschränke in Holzoptik, LED-Streifen darunter) und zwei\nCAD-Ansichten von Schrankkorpussen — einer mit Wabenmuster im Seitenteil zur\nGewichtsersparnis, einer mit Lattenrost-Rückwand. Keine Maße darauf.\n\n## Wahl\n\n_(offen — entscheidet der Nutzer)_\n\n## Verknüpft\n\n- Systeme: [[Möbel]]\n- Aufgaben: [[Möbel]]",
+      "datei": "vault/Entscheidungen/Hängeschränke platzieren.md"
+    }
+  ],
   "anleitungen": [],
   "systeme": [
     {
@@ -1876,7 +1936,7 @@
         "system": "Möbel",
         "status": "offen"
       },
-      "text": "# Möbel\n\nBett, Küchenblock, Schränke, Befestigung an der Karosserie.\n\n## Stand\n\n_(noch nichts eingetragen)_\n\n## Auslegung\n\n_(Zahlen, sobald gerechnet — siehe [[Recherche]])_\n\n## Verknüpft\n\n- Aufgaben: [[Möbel]] in `vault/Aufgaben/`\n- Teile: [[Möbel]] in `vault/Stückliste/`",
+      "text": "# Möbel\n\nBett, Küchenblock, Schränke, Befestigung an der Karosserie.\n\n## Stand\n\n### Hängeschränke\n\nKorpus und Fronten aus EpicPLY-Multiplex. Die Fronten sind Klappen, die nach\noben schwenken, keine seitlich öffnenden Türen — so steht beim Kochen nichts\nauf Kopfhöhe im Weg.\n\n**Beschläge**\n\n- Klappenbeschlag Grass Kinvaro T-57 (Hochschwenk-Automatik, 240 N). Trägt\n  Klappen bis 6,2 kg, öffnet auf 75 oder 90°. Ein Paar je Klappe.\n- Verschließbares Push-Lock-Schloss statt Griff: sitzt bündig, hakt nicht am\n  Kopf und hält die Klappe auf der Fahrt zu.\n- Zusätzlich Möbelmagnete an den Klappen.\n\n**Was das für den Zuschnitt heißt**\n\n- Die Klappen müssen **14–16 mm** stark sein, sonst passt das Push-Lock nicht.\n  Pro Schloss ein Loch mit 26 mm Durchmesser in der Front.\n- Klappengewicht pro Beschlagpaar unter 6,2 kg halten. Bei 15 mm Multiplex\n  (rund 10 kg/m²) heißt das: Klappenfläche höchstens etwa 0,6 m².\n- Über der Klappe muss der Öffnungsweg frei bleiben — der Beschlag schwenkt\n  die Front nach oben vor die Decke.\n\n## Auslegung\n\n_(Zahlen, sobald gerechnet — siehe [[Recherche]])_\n\n## Verknüpft\n\n- Aufgaben: [[Möbel]] in `vault/Aufgaben/`\n- Teile: [[Möbel]] in `vault/Stückliste/`",
       "datei": "vault/Systeme/Möbel.md"
     },
     {
@@ -1910,6 +1970,30 @@
       "bereich": "Dämmung",
       "datei": "2026-09-17-boden-kleben.png",
       "pfad": "medien/daemmung/2026-09-17-boden-kleben.png"
+    },
+    {
+      "name": "2026-09-17-haengeschrank-front-offen",
+      "bereich": "Möbel",
+      "datei": "2026-09-17-haengeschrank-front-offen.png",
+      "pfad": "medien/moebel/2026-09-17-haengeschrank-front-offen.png"
+    },
+    {
+      "name": "2026-09-17-haengeschrank-wohnbereich-led",
+      "bereich": "Möbel",
+      "datei": "2026-09-17-haengeschrank-wohnbereich-led.png",
+      "pfad": "medien/moebel/2026-09-17-haengeschrank-wohnbereich-led.png"
+    },
+    {
+      "name": "2026-09-17-schrankkorpus-cad-lattenruecken",
+      "bereich": "Möbel",
+      "datei": "2026-09-17-schrankkorpus-cad-lattenruecken.png",
+      "pfad": "medien/moebel/2026-09-17-schrankkorpus-cad-lattenruecken.png"
+    },
+    {
+      "name": "2026-09-17-schrankkorpus-cad-wabe",
+      "bereich": "Möbel",
+      "datei": "2026-09-17-schrankkorpus-cad-wabe.png",
+      "pfad": "medien/moebel/2026-09-17-schrankkorpus-cad-wabe.png"
     }
   ],
   "dokumente": []

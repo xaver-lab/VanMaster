@@ -16,9 +16,11 @@ erzeugt: true
 | Drehsitz Fahrer | 1 Stk | 0,00 € | 0,00 € | Idee | Nice-to-have |  |  |
 | Eisenwinkel | 1 Stk | 0,00 € | 0,00 € | Geliefert | Hoch |  |  |
 | [Fenster (weitere)](https://belluna.eu/kategorie/fenster/) | 1 Stk | 0,00 € | 0,00 € | Idee | Mittel | Belluna |  |
-| Griffe für Kästen + Magnete | 1 Stk | 0,00 € | 0,00 € | Idee | Nice-to-have |  |  |
 | [Holz (EpicPLY)](https://epicply.de/) | 1 Stk | 0,00 € | 0,00 € | Idee | Hoch | EpicPly |  |
 | Holzlack | 1 Stk | 0,00 € | 0,00 € | Idee | Mittel |  |  |
+| [Klappenbeschlag Grass Kinvaro T-57](https://www.amazon.de/dp/B01AC7CZ58) | 1 Paar | 25,00 € | 25,00 € | Recherche | Hoch | Gedotec / Amazon | [[schraenke]] |
 | Matratze | 1 Stk | 0,00 € | 0,00 € | Idee | Mittel |  |  |
+| Möbelmagnete | 1 Stk | 0,00 € | 0,00 € | Idee | Mittel |  | [[schraenke]] |
+| [Push-Lock Schrankschloss](https://www.amazon.de/dp/B0BCVGCT12) | 1 Set | 29,23 € | 29,23 € | Recherche | Hoch | OBQcare / Amazon | [[schraenke]] |
 
-**Summe Möbel:** 299,00 € · 0.0 kg
+**Summe Möbel:** 353,23 € · 0.0 kg
