@@ -1,11 +1,11 @@
 {
-  "erzeugt": "2026-09-17T08:57",
+  "erzeugt": "2026-09-17T09:25",
   "projekt": "VanMaster",
   "kennzahlen": {
     "aufgaben_fertig": 1,
     "aufgaben_gesamt": 25,
-    "teile": 47,
-    "kosten": 2655.3,
+    "teile": 46,
+    "kosten": 2566.3,
     "kosten_bestellt": 443.3,
     "gewicht": 0.0,
     "offene_entscheidungen": 0
@@ -50,8 +50,8 @@
   "kategorien": [
     {
       "name": "Elektrik",
-      "teile": 14,
-      "kosten": 1842.3,
+      "teile": 13,
+      "kosten": 1753.3,
       "gewicht": 0.0,
       "verbaut": 0
     },
@@ -672,30 +672,6 @@
       "menge_n": 2.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
-    },
-    {
-      "id": "sicherungskasten",
-      "titel": "Sicherungskasten",
-      "beschreibung": "",
-      "kategorie": "Elektrik",
-      "system": "",
-      "menge": "1",
-      "einheit": "",
-      "preis": "89",
-      "status": "Idee",
-      "prioritaet": "",
-      "link": "",
-      "haendler": "",
-      "fuer_aufgabe": "",
-      "entscheidung": "",
-      "kennwerte": "",
-      "gewicht_kg": "",
-      "notiz": "",
-      "gekauft_am": "",
-      "menge_n": 1.0,
-      "preis_n": 89.0,
-      "gesamt": 89.0,
       "gewicht_n": 0.0
     },
     {
@@ -1646,7 +1622,7 @@
         "system": "Elektrik",
         "status": "offen"
       },
-      "text": "# Elektrik\n\nBatterien, Laderegler, Solar, Verteilung, Verbraucher.\n\n## Stand\n\n_(noch nichts eingetragen)_\n\n## Auslegung\n\n_(Zahlen, sobald gerechnet — siehe [[Recherche]])_\n\n## Verknüpft\n\n- Aufgaben: [[Elektrik]] in `vault/Aufgaben/`\n- Teile: [[Elektrik]] in `vault/Stückliste/`",
+      "text": "# Elektrik\n\nBatterien, Laderegler, Solar, Verteilung, Verbraucher.\n\n## Stand\n\nSkizze aus dem Miro-Board (Frame \"Elektrik\", übernommen 2026-09-17):\n\n- Quellen: PV-Modul (6mm² Kabel + Stecker) und Autobatterie laufen je über eine\n  Sicherung (6A bzw. 16A DC) zum DC-Laderegler. Die Batteriebank (300 Ah) läuft\n  über eine Sicherung (10A DC pro Batterie) zum zentralen Verteiler.\n- Der Verteiler speist gesicherte Zonen (je 6A DC, 2x2,5mm² Kabel):\n  - Vorne: Lampen 12V, USB 12V\n  - Bett: Lampen 12V, USB 12V\n  - Dach: Dachlüfter, Soundsystem\n  - Küche: USB-Steckdose, Schalter → Wasserpumpe, Taster → Abwasser-Ventil,\n    Füllanzeige → LED\n  - AC 230V: Wechselrichter → 230V-Steckdose, Beamer\n- Die Standheizung (Diesel) hängt an einer eigenen Sicherung direkt am Verteiler.\n- Kabeltypen im Diagramm: 2x2,5mm² (Verbraucher), Yf 10mm² (Hauptleitungen\n  Batterie/Laderegler), 3x1,5mm² (vereinzelt).\n\nRohauszug (SVG) in `_input/miro_export.md`.\n\n## Auslegung\n\n_(Zahlen, sobald gerechnet — siehe [[Recherche]])_\n\n## Verknüpft\n\n- Aufgaben: [[Elektrik]] in `vault/Aufgaben/`\n- Teile: [[Elektrik]] in `vault/Stückliste/`",
       "datei": "vault/Systeme/Elektrik.md"
     },
     {
@@ -1657,7 +1633,7 @@
         "system": "Heizung",
         "status": "offen"
       },
-      "text": "# Heizung\n\nHeizgerät, Abgasführung, Luftverteilung.\n\n## Stand\n\n_(noch nichts eingetragen)_\n\n## Auslegung\n\n_(Zahlen, sobald gerechnet — siehe [[Recherche]])_\n\n## Verknüpft\n\n- Aufgaben: [[Heizung]] in `vault/Aufgaben/`\n- Teile: [[Heizung]] in `vault/Stückliste/`",
+      "text": "# Heizung\n\nHeizgerät, Abgasführung, Luftverteilung.\n\n## Stand\n\nSkizze aus dem Miro-Board (Frame \"Heizung\", übernommen 2026-09-17):\n\nDieseltank → Dieselfilter → Dieselpumpe → Standheizung (mit Ventilator).\nLufteinlass → Standheizung → Luftauslass, zusätzlich → Abgasschlauch.\nEin Elektro-Schalter steuert Dieselpumpe und Standheizung.\n\nAuf dem Board selbst mit einer orangen Notiz \"Noch nicht richtig!!!!!!\"\nmarkiert — laut Nutzer noch nicht final, nicht als Entscheidung werten.\n\nRohauszug (SVG) in `_input/miro_export.md`.\n\n## Auslegung\n\n_(Zahlen, sobald gerechnet — siehe [[Recherche]])_\n\n## Verknüpft\n\n- Aufgaben: [[Heizung]] in `vault/Aufgaben/`\n- Teile: [[Heizung]] in `vault/Stückliste/`",
       "datei": "vault/Systeme/Heizung.md"
     },
     {
@@ -1690,7 +1666,7 @@
         "system": "Wasser",
         "status": "offen"
       },
-      "text": "# Wasser\n\nFrisch- und Grauwasser, Pumpe, Leitungen, Spüle. Kein Warmwasser, keine Dusche.\n\n## Stand\n\n_(noch nichts eingetragen)_\n\n## Auslegung\n\n_(Zahlen, sobald gerechnet — siehe [[Recherche]])_\n\n## Verknüpft\n\n- Aufgaben: [[Wasser]] in `vault/Aufgaben/`\n- Teile: [[Wasser]] in `vault/Stückliste/`",
+      "text": "# Wasser\n\nFrisch- und Grauwasser, Pumpe, Leitungen, Spüle. Kein Warmwasser, keine Dusche.\n\n## Stand\n\nSkizze aus dem Miro-Board (Frame \"Wasser\", übernommen 2026-09-17):\n\nWassertank → (Schalter →) Pumpe → Wasserverteiler (2x absperrbar) →\nWasserhahn / Dusche → Waschbecken → Abwassertank (mit Füllanzeige) →\nAblassventil (mit Taster).\n\nDeckt sich mit der Projektübersicht (kein Warmwasser). Im Diagramm taucht\ntrotzdem ein \"Dusche\"-Abzweig auf — evtl. nur zum Abspülen/Außendusche, nicht\nals Innendusche. Noch zu klären.\n\nRohauszug (SVG) in `_input/miro_export.md`.\n\n## Auslegung\n\n_(Zahlen, sobald gerechnet — siehe [[Recherche]])_\n\n## Verknüpft\n\n- Aufgaben: [[Wasser]] in `vault/Aufgaben/`\n- Teile: [[Wasser]] in `vault/Stückliste/`",
       "datei": "vault/Systeme/Wasser.md"
     }
   ],

@@ -16,7 +16,6 @@ erzeugt: true
 | Licht Küche | 1 Stk | 0,00 € | 0,00 € | Idee | Mittel |  |  |
 | Schläuche für Verkabelung | 1 Stk | 0,00 € | 0,00 € | Idee | Hoch |  |  |
 | Sicherung Flachsicherungsblock | 2 Stk | 0,00 € | 0,00 € | Geliefert | Hoch | Amazon |  |
-| Sicherungskasten | 1  | 89,00 € | 89,00 € | Idee |  |  |  |
 | Solarmodule | 1 Stk | 0,00 € | 0,00 € | Geliefert | Kritisch |  | [[solar-montieren]] |
 | Speichersystem (BMA) | 1 Stk | 0,00 € | 0,00 € | Recherche | Hoch | BMA, Firma Tobi |  |
 | USB-Steckdose für PC (108W) | 1 Stk | 0,00 € | 0,00 € | Idee | Nice-to-have | Amazon |  |
@@ -24,4 +23,4 @@ erzeugt: true
 | Wandlampe | 2 Stk | 0,00 € | 0,00 € | Idee | Mittel | Amazon |  |
 | Wechselrichter | 1 Stk | 0,00 € | 0,00 € | Geliefert | Mittel |  |  |
 
-**Summe Elektrik:** 1 842,30 € · 0.0 kg
+**Summe Elektrik:** 1 753,30 € · 0.0 kg

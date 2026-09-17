@@ -7,7 +7,7 @@ erzeugt: true
 
 > Erzeugt aus data/parts.csv — nicht von Hand ändern.
 
-- [[Elektrik]] — 14 Teile, 1 842,30 €
+- [[Elektrik]] — 13 Teile, 1 753,30 €
 - [[Wasser]] — 10 Teile, 0,00 €
 - [[Heizung]] — 1 Teile, 0,00 €
 - [[Möbel]] — 11 Teile, 299,00 €
@@ -15,4 +15,4 @@ erzeugt: true
 - [[Stauraum]] — 6 Teile, 157,00 €
 - [[Verbrauchsmaterial]] — 2 Teile, 28,00 €
 
-**Gesamt:** 2 655,30 €
+**Gesamt:** 2 566,30 €
