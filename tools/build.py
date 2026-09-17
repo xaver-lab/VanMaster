@@ -1,11 +1,12 @@
 """Dashboard-Daten erzeugen — docs/data.json ist reine Ausgabe."""
 from __future__ import annotations
 
+import json
 from datetime import datetime
 
 from . import parts, status, tasks
 from .common import (
-    ANLEITUNGEN_DIR, DASHBOARD_JSON, ENTSCHEIDUNGEN_DIR, MEDIEN_DIR,
+    ANLEITUNGEN_DIR, DASHBOARD_JSON, DOCS, ENTSCHEIDUNGEN_DIR, MEDIEN_DIR,
     PART_KATEGORIEN, RECHERCHE_DIR, SYSTEME_DIR, VAULT,
     read_text, split_frontmatter, write_json,
 )
@@ -106,6 +107,11 @@ def daten() -> dict:
 def build() -> str:
     d = daten()
     write_json(DASHBOARD_JSON, d)
+    # Zweite Ausgabe als JS, damit das Dashboard auch per Doppelklick
+    # (file://) läuft — dort blockiert der Browser fetch().
+    js = ("window.VANMASTER_DATEN = "
+          + json.dumps(d, ensure_ascii=False, separators=(",", ":")) + ";\n")
+    (DOCS / "data.js").write_text(js, encoding="utf-8", newline="\n")
     k = d["kennzahlen"]
     return (f"docs/data.json geschrieben — {k['aufgaben_gesamt']} Aufgaben, "
             f"{k['teile']} Teile, {len(d['medien'])} Bilder")

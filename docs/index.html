@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#14181f">
+<title>VanMaster</title>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><text y='14' font-size='14'>🚐</text></svg>">
+</head>
+<body>
+
+<header>
+  <h1>VanMaster</h1>
+  <p id="stand">lädt …</p>
+</header>
+
+<section id="kennzahlen" class="kennzahlen"></section>
+
+<nav id="tabs">
+  <button data-tab="uebersicht" class="aktiv">Übersicht</button>
+  <button data-tab="aufgaben">Aufgaben</button>
+  <button data-tab="stueckliste">Stückliste</button>
+</nav>
+
+<main>
+  <section id="uebersicht" class="tab aktiv"></section>
+
+  <section id="aufgaben" class="tab">
+    <div class="filterleiste">
+      <input id="aufgaben-suche" type="search" placeholder="Aufgabe suchen …">
+      <label><input type="checkbox" id="nur-offen"> nur offene</label>
+    </div>
+    <div id="aufgaben-baum"></div>
+  </section>
+
+  <section id="stueckliste" class="tab">
+    <div class="filterleiste">
+      <select id="f-kategorie"><option value="">alle Kategorien</option></select>
+      <select id="f-status"><option value="">alle Status</option></select>
+      <input id="teile-suche" type="search" placeholder="Teil suchen …">
+    </div>
+    <p id="teile-summe" class="summe"></p>
+    <div id="teile-tabelle"></div>
+  </section>
+</main>
+
+<footer><p>Erzeugt aus dem Repo — Änderungen in Obsidian oder per <code>camper</code>.</p></footer>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

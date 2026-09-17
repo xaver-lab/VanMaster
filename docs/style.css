@@ -1,0 +1,156 @@
+:root {
+  --bg: #14181f;
+  --flaeche: #1c222c;
+  --flaeche-hoch: #242c38;
+  --linie: #2f3947;
+  --text: #e6ebf2;
+  --gedaempft: #93a0b4;
+  --akzent: #ffb84d;
+  --gut: #57c98a;
+  --wartet: #7aa2f7;
+  --radius: 12px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 0 0 3rem;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+  -webkit-text-size-adjust: 100%;
+}
+
+header {
+  padding: 1.2rem 1rem 0.6rem;
+  background: linear-gradient(180deg, #1b222c, var(--bg));
+}
+header h1 { margin: 0; font-size: 1.4rem; letter-spacing: 0.02em; }
+header p { margin: 0.2rem 0 0; color: var(--gedaempft); font-size: 0.85rem; }
+
+/* Kennzahlen */
+.kennzahlen {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.6rem;
+  padding: 0.8rem 1rem;
+}
+.kachel {
+  background: var(--flaeche);
+  border: 1px solid var(--linie);
+  border-radius: var(--radius);
+  padding: 0.7rem 0.8rem;
+}
+.kachel .wert { font-size: 1.35rem; font-weight: 600; }
+.kachel .titel { color: var(--gedaempft); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; }
+
+/* Tabs */
+nav {
+  display: flex;
+  gap: 0.4rem;
+  padding: 0 1rem;
+  overflow-x: auto;
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  z-index: 5;
+  border-bottom: 1px solid var(--linie);
+}
+nav button {
+  flex: 1 0 auto;
+  min-height: 46px;
+  padding: 0 1rem;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  color: var(--gedaempft);
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+nav button.aktiv { color: var(--text); border-bottom-color: var(--akzent); }
+
+main { padding: 1rem; }
+.tab { display: none; scroll-margin-top: 64px; }
+.tab.aktiv { display: block; }
+
+h2 { font-size: 1rem; margin: 1.4rem 0 0.6rem; color: var(--gedaempft);
+     text-transform: uppercase; letter-spacing: 0.08em; }
+
+/* Fortschritt */
+.fortschritt { display: flex; align-items: center; gap: 0.6rem; margin: 0.35rem 0; }
+.fortschritt .name { flex: 0 0 8.5rem; }
+.balken { flex: 1; height: 8px; background: var(--flaeche-hoch);
+          border-radius: 99px; overflow: hidden; }
+.balken span { display: block; height: 100%; background: var(--gut); }
+.fortschritt .zahl { color: var(--gedaempft); font-size: 0.82rem;
+                     font-variant-numeric: tabular-nums; }
+
+/* Aufgabenbaum */
+.bereich { background: var(--flaeche); border: 1px solid var(--linie);
+           border-radius: var(--radius); margin-bottom: 0.6rem; overflow: hidden; }
+.bereich > summary {
+  list-style: none; cursor: pointer; padding: 0.8rem 1rem;
+  display: flex; align-items: center; gap: 0.7rem; min-height: 52px;
+}
+.bereich > summary::-webkit-details-marker { display: none; }
+.bereich > summary::before { content: "▸"; color: var(--gedaempft); }
+.bereich[open] > summary::before { content: "▾"; }
+.bereich > summary .name { flex: 1; font-weight: 600; }
+.bereich ul { list-style: none; margin: 0; padding: 0 1rem 0.8rem 1.6rem; }
+.bereich li { padding: 0.35rem 0; display: flex; gap: 0.55rem; align-items: flex-start; }
+.bereich li.ebene-1 { padding-left: 1.2rem; }
+.bereich li.ebene-2 { padding-left: 2.4rem; }
+.kasten { flex: 0 0 auto; width: 1.15rem; color: var(--gedaempft); }
+li.erledigt .titel { color: var(--gedaempft); text-decoration: line-through; }
+li.verworfen .titel { color: var(--gedaempft); opacity: 0.6; }
+li.laeuft .kasten { color: var(--akzent); }
+.gruppe { color: var(--gedaempft); font-size: 0.8rem; margin: 0.6rem 0 0.1rem;
+          text-transform: uppercase; letter-spacing: 0.06em; }
+.marke { font-size: 0.72rem; padding: 0.05rem 0.45rem; border-radius: 99px;
+         border: 1px solid var(--linie); color: var(--gedaempft); white-space: nowrap; }
+.marke.kritisch { color: #ff9b8a; border-color: #5a3a38; }
+.marke.hoch { color: var(--akzent); border-color: #5a4a28; }
+.marke.blocker { color: var(--wartet); border-color: #32436b; }
+
+/* Filter */
+.filterleiste { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.8rem; }
+.filterleiste select, .filterleiste input:not([type="checkbox"]) {
+  flex: 1 1 8rem; min-height: 44px; padding: 0 0.7rem;
+  background: var(--flaeche); color: var(--text);
+  border: 1px solid var(--linie); border-radius: 10px; font-size: 0.95rem;
+}
+.filterleiste label { display: flex; align-items: center; gap: 0.4rem;
+                      color: var(--gedaempft); font-size: 0.9rem;
+                      flex: 0 0 auto; padding: 0 0.4rem; }
+.filterleiste input[type="checkbox"] { width: 1.15rem; height: 1.15rem;
+                                       accent-color: var(--akzent); }
+.summe { color: var(--gedaempft); font-size: 0.9rem; margin: 0 0 0.6rem; }
+.summe b { color: var(--text); }
+
+/* Teileliste */
+.teil {
+  background: var(--flaeche); border: 1px solid var(--linie);
+  border-radius: var(--radius); padding: 0.7rem 0.85rem; margin-bottom: 0.5rem;
+}
+.teil .kopf { display: flex; justify-content: space-between; gap: 0.6rem; }
+.teil .name { font-weight: 600; }
+.teil .preis { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.teil .zeile2 { display: flex; flex-wrap: wrap; gap: 0.4rem;
+                margin-top: 0.4rem; color: var(--gedaempft); font-size: 0.82rem; }
+.teil a { color: var(--wartet); }
+.status { font-size: 0.72rem; padding: 0.05rem 0.45rem; border-radius: 99px;
+          border: 1px solid var(--linie); }
+.status.Verbaut { color: var(--gut); border-color: #2c5a41; }
+.status.Bestellt, .status.Geliefert { color: var(--wartet); border-color: #32436b; }
+.status.Entschieden { color: var(--akzent); border-color: #5a4a28; }
+
+.leer { color: var(--gedaempft); padding: 1.5rem 0; text-align: center; }
+
+footer { padding: 2rem 1rem 0; color: var(--gedaempft); font-size: 0.8rem;
+         text-align: center; }
+footer code { background: var(--flaeche); padding: 0.1rem 0.35rem; border-radius: 6px; }
+
+@media (min-width: 720px) {
+  header, .kennzahlen, nav, main, footer { max-width: 960px; margin-inline: auto; }
+}
