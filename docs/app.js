@@ -44,6 +44,8 @@ function zeichnen() {
   });
   kennzahlen();
   uebersicht();
+  bereichLeiste();
+  bereichZeigen(BEREICH_AUS_HASH() || (DATEN.bereiche[0] || {}).name);
   aufgabenbaum();
   teileFilterFuellen();
   teileliste();
@@ -215,6 +217,32 @@ function blockiert(a) {
     karte[id].status !== "erledigt" && karte[id].status !== "verworfen");
 }
 
+/** Aufgabenliste eines Bereichs — im Aufgaben-Tab und auf der Bereichsseite. */
+function aufgabenListe(aufgaben, karte, bereich) {
+  const ul = neu("ul", "aufgaben");
+  let gruppe = null;
+  for (const a of aufgaben) {
+    if (a.gruppe && a.gruppe !== gruppe && a.gruppe !== bereich) {
+      gruppe = a.gruppe;
+      ul.append(neu("li", "gruppe", gruppe));
+    }
+    const li = neu("li", `${a.status} ebene-${Math.min(a.ebene, 2)}`);
+    li.append(neu("span", "kasten", KASTEN[a.status] || "☐"));
+    li.append(neu("span", "titel", a.titel));
+    if (a.prio) li.append(neu("span", "marke " + a.prio, a.prio));
+    const offeneBlocker = a.braucht
+      .map((id) => karte[id])
+      .filter((b) => b && b.status !== "erledigt" && b.status !== "verworfen");
+    if (offeneBlocker.length) {
+      li.append(neu("span", "marke blocker",
+                    "braucht: " + offeneBlocker.map((b) => b.titel).join(", ")));
+    }
+    ul.append(li);
+  }
+  return ul;
+}
+
+
 function aufgabenbaum() {
   const ziel = el("aufgaben-baum");
   const suche = el("aufgaben-suche").value.trim().toLowerCase();
@@ -249,28 +277,7 @@ function aufgabenbaum() {
                 neu("span", "zahl", `${fertig}/${blaetter.length}`));
     box.append(kopf);
 
-    const ul = neu("ul");
-    let gruppe = null;
-    for (const a of gezeigt) {
-      if (a.gruppe && a.gruppe !== gruppe && a.gruppe !== name) {
-        gruppe = a.gruppe;
-        ul.append(neu("li", "gruppe", gruppe));
-      }
-      const li = neu("li", `${a.status} ebene-${Math.min(a.ebene, 2)}`);
-      li.append(neu("span", "kasten", KASTEN[a.status] || "☐"));
-      const text = neu("span", "titel", a.titel);
-      li.append(text);
-      if (a.prio) li.append(neu("span", "marke " + a.prio, a.prio));
-      const offeneBlocker = a.braucht
-        .map((id) => karte[id])
-        .filter((b) => b && b.status !== "erledigt" && b.status !== "verworfen");
-      if (offeneBlocker.length) {
-        li.append(neu("span", "marke blocker",
-                      "braucht: " + offeneBlocker.map((b) => b.titel).join(", ")));
-      }
-      ul.append(li);
-    }
-    box.append(ul);
+    box.append(aufgabenListe(gezeigt, karte, name));
 
     const bilder = DATEN.medien.filter((m) => m.bereich === name);
     const docs = (DATEN.dokumente || []).filter((m) => m.bereich === name);
@@ -344,16 +351,294 @@ function teileliste() {
   }
 }
 
+/* ------------------------------------------------------------- Markdown */
+
+/* Kleiner Renderer — reicht für die Bereichstexte, keine Bibliothek nötig. */
+function mdInline(s) {
+  return s
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+    .replace(/`([^`]+)`/g, "<code>$1</code>")
+    .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+    .replace(/\[\[([^\]|]+)(?:\|[^\]]+)?\]\]/g, "$1")
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g,
+             '<a href="$2" target="_blank" rel="noopener">$1</a>');
+}
+
+function md(text) {
+  const aus = [];
+  let liste = null;
+  let absatz = [];
+  const absatzEnde = () => {
+    if (absatz.length) {
+      aus.push("<p>" + mdInline(absatz.join(" ")) + "</p>");
+      absatz = [];
+    }
+  };
+  const listeEnde = () => {
+    if (liste) { aus.push("</" + liste + ">"); liste = null; }
+  };
+
+  for (const roh of (text || "").split("\n")) {
+    const z = roh.trim();
+    if (!z) { absatzEnde(); listeEnde(); continue; }
+
+    const ueberschrift = z.match(/^(#{1,6})\s+(.*)$/);
+    if (ueberschrift) {
+      absatzEnde(); listeEnde();
+      const stufe = Math.min(ueberschrift[1].length + 2, 6);
+      aus.push("<h" + stufe + ">" + mdInline(ueberschrift[2]) + "</h" + stufe + ">");
+      continue;
+    }
+
+    const punkt = z.match(/^[-*]\s+(.*)$/);
+    const nummer = z.match(/^\d+\.\s+(.*)$/);
+    if (punkt || nummer) {
+      absatzEnde();
+      const art = punkt ? "ul" : "ol";
+      if (liste !== art) { listeEnde(); aus.push("<" + art + ">"); liste = art; }
+      aus.push("<li>" + mdInline((punkt || nummer)[1]) + "</li>");
+      continue;
+    }
+
+    // Eingerückte Fortsetzung gehört zum vorigen Listenpunkt.
+    if (liste && /^\s/.test(roh)) {
+      aus[aus.length - 1] = aus[aus.length - 1]
+        .replace(/<\/li>$/, " " + mdInline(z) + "</li>");
+      continue;
+    }
+
+    listeEnde();
+    absatz.push(z);
+  }
+  absatzEnde(); listeEnde();
+  return aus.join("");
+}
+
+function textblock(ueberschrift, text) {
+  if (!text) return null;
+  const box = neu("div", "textblock");
+  box.append(neu("h3", null, ueberschrift));
+  const inhalt = neu("div", "fliess");
+  inhalt.innerHTML = md(text);
+  box.append(inhalt);
+  return box;
+}
+
+/* ------------------------------------------------------------- Bereiche */
+
+let BEREICH_AKTIV = "";
+
+const bereichTeile = (name) => DATEN.teile.filter(
+  (t) => t.system === name || t.kategorie === name);
+
+const bereichEinzelteile = (name) => (DATEN.bauteile || []).filter(
+  (r) => r.bereich === name);
+
+function bereichLeiste() {
+  const leiste = el("bereich-leiste");
+  leiste.innerHTML = "";
+  for (const b of DATEN.bereiche) {
+    const knopf = neu("button");
+    knopf.dataset.bereich = b.name;
+    knopf.append(neu("span", "name", b.name));
+    if (b.gesamt) knopf.append(neu("span", "zahl", b.fertig + "/" + b.gesamt));
+    knopf.addEventListener("click", () => {
+      location.hash = "bereiche/" + encodeURIComponent(b.name);
+    });
+    leiste.append(knopf);
+  }
+}
+
+function bereichZeigen(name) {
+  const b = DATEN.bereiche.find((x) => x.name === name) || DATEN.bereiche[0];
+  if (!b) return;
+  BEREICH_AKTIV = b.name;
+  for (const k of el("bereich-leiste").children) {
+    k.classList.toggle("aktiv", k.dataset.bereich === b.name);
+  }
+  bereichInhalt(b);
+}
+
+function bereichInhalt(b) {
+  const ziel = el("bereich-inhalt");
+  ziel.innerHTML = "";
+
+  const kopf = neu("div", "bereich-kopf");
+  kopf.append(neu("h2", null, b.name));
+  if (b.kurz) kopf.append(neu("p", "kurz", b.kurz));
+  const zeile = neu("div", "zeile2");
+  zeile.append(neu("span", "status " + b.status, b.status));
+  if (b.gesamt) zeile.append(neu("span", null, b.fertig + "/" + b.gesamt + " Aufgaben"));
+  kopf.append(zeile);
+  if (b.gesamt) kopf.append(fortschrittszeile("", b.fertig, b.gesamt));
+  ziel.append(kopf);
+
+  for (const paar of [["Beschreibung", b.beschreibung], ["Stand", b.stand],
+                      ["Auslegung", b.auslegung], ["Notizen", b.notizen]]) {
+    const block = textblock(paar[0], paar[1]);
+    if (block) ziel.append(block);
+  }
+
+  if (b.links && b.links.length) {
+    const box = neu("div", "textblock");
+    box.append(neu("h3", null, "Links"));
+    const liste = neu("ul", "dokumente");
+    for (const l of b.links) {
+      const li = neu("li");
+      const a = neu("a", null, l.titel);
+      a.href = l.url;
+      a.target = "_blank";
+      a.rel = "noopener";
+      li.append(a);
+      if (l.zusatz) li.append(neu("span", "zusatz", " — " + l.zusatz));
+      liste.append(li);
+    }
+    box.append(liste);
+    ziel.append(box);
+  }
+
+  const bilder = DATEN.medien.filter((m) => m.bereich === b.name);
+  const docs = (DATEN.dokumente || []).filter((m) => m.bereich === b.name);
+  if (bilder.length || docs.length) {
+    const box = neu("div", "textblock");
+    box.append(neu("h3", null, "Bilder und Unterlagen"));
+    if (bilder.length) box.append(bilderstreifen(bilder));
+    if (docs.length) box.append(dokumentliste(docs));
+    ziel.append(box);
+  }
+
+  ziel.append(modellblock(b.name));
+
+  const aufgaben = DATEN.aufgaben.filter((a) => a.bereich === b.name);
+  if (aufgaben.length) {
+    const box = neu("div", "textblock");
+    box.append(neu("h3", null, "Aufgaben"));
+    box.append(aufgabenListe(aufgaben, nachId(), b.name));
+    ziel.append(box);
+  }
+
+  ziel.append(einzelteilblock(b.name));
+
+  const teile = bereichTeile(b.name);
+  if (teile.length) {
+    const box = neu("div", "textblock");
+    const summe = teile.reduce((s, t) => s + t.gesamt, 0);
+    box.append(neu("h3", null, "Teile aus der Stückliste (" + teile.length + ")"));
+    box.append(neu("p", "summe", euro(summe)));
+    const liste = neu("ul", "kurzteile");
+    for (const t of teile) {
+      const li = neu("li");
+      li.append(neu("span", "status " + t.status, t.status || "—"));
+      li.append(neu("span", "titel", t.titel));
+      if (t.kennwerte) li.append(neu("span", "zusatz", t.kennwerte));
+      liste.append(li);
+    }
+    box.append(liste);
+    ziel.append(box);
+  }
+
+  const ent = (DATEN.entscheidungen || []).filter((e) => e.bereich === b.name);
+  if (ent.length) {
+    const box = neu("div", "textblock");
+    box.append(neu("h3", null, "Entscheidungen"));
+    for (const e of ent) {
+      const details = neu("details", "entscheidung");
+      const kopfz = neu("summary");
+      kopfz.append(neu("span", "status " + e.status, e.status),
+                   neu("span", "titel", e.titel));
+      details.append(kopfz);
+      const rumpf = neu("div", "fliess");
+      rumpf.innerHTML = md(e.text);
+      details.append(rumpf);
+      box.append(details);
+    }
+    ziel.append(box);
+  }
+}
+
+/* Platz für die 3D-Zeichnungen — heute Dateiliste, später der Betrachter. */
+function modellblock(name) {
+  const modelle = (DATEN.modelle || []).filter((m) => m.bereich === name);
+  const box = neu("div", "textblock modelle");
+  box.append(neu("h3", null, "3D-Modell"));
+  const buehne = neu("div", "modell-buehne");
+  if (!modelle.length) {
+    buehne.append(neu("p", "leer",
+      "Noch keine Zeichnung. Dateien nach vault/Modelle/" + name +
+      "/ legen und `camper media` laufen lassen."));
+    box.append(buehne);
+    return box;
+  }
+  // Hier zieht der Betrachter ein, sobald eine .glb-Datei vorliegt.
+  buehne.append(neu("p", "leer", modelle.length + " Datei(en) hinterlegt."));
+  box.append(buehne, dokumentliste(modelle));
+  return box;
+}
+
+function einzelteilblock(name) {
+  const rows = bereichEinzelteile(name);
+  const box = neu("div", "textblock");
+  box.append(neu("h3", null, "Einzelteile (" + rows.length + ")"));
+  if (!rows.length) {
+    box.append(neu("p", "leer",
+      "Noch keine. Anlegen mit `camper bauteile add --titel … --bereich " +
+      name + "`."));
+    return box;
+  }
+  const tabelle = neu("table", "einzelteile");
+  const kopf = neu("tr");
+  for (const spalte of ["Teil", "Maß (mm)", "Anz", "Material", "Quelle", "Status"]) {
+    kopf.append(neu("th", null, spalte));
+  }
+  tabelle.append(kopf);
+  for (const r of rows) {
+    const tr = neu("tr");
+    const erste = neu("td");
+    erste.append(neu("span", "titel", r.titel));
+    if (r.teil_id) erste.append(neu("span", "zusatz", " aus " + r.teil_id));
+    tr.append(erste);
+    tr.append(neu("td", "mass", r.mass || "—"));
+    tr.append(neu("td", null, r.anzahl || "1"));
+    tr.append(neu("td", null, r.material || "—"));
+    tr.append(neu("td", "quelle", r.massquelle || "—"));
+    const st = neu("td");
+    st.append(neu("span", "status " + r.status, r.status || "—"));
+    tr.append(st);
+    tabelle.append(tr);
+  }
+  const rahmen = neu("div", "tabellenrand");
+  rahmen.append(tabelle);
+  box.append(rahmen);
+  const qm = rows.reduce((s, r) => s + (r.flaeche_m2 || 0), 0);
+  if (qm) box.append(neu("p", "summe", qm.toFixed(2) + " m² Fläche gesamt"));
+  return box;
+}
+
 /* --------------------------------------------------------------- Bedienung */
+
+/** #bereiche/Möbel → "Möbel"; sonst leer. */
+function BEREICH_AUS_HASH() {
+  const teile = location.hash.slice(1).split("/");
+  return teile[0] === "bereiche" && teile[1]
+    ? decodeURIComponent(teile[1]) : "";
+}
+
+function tabZeigen(name) {
+  for (const b of el("tabs").children) {
+    b.classList.toggle("aktiv", b.dataset.tab === name);
+  }
+  for (const s of document.querySelectorAll(".tab")) {
+    s.classList.toggle("aktiv", s.id === name);
+  }
+}
 
 el("tabs").addEventListener("click", (e) => {
   const knopf = e.target.closest("button");
   if (!knopf) return;
-  for (const b of el("tabs").children) b.classList.toggle("aktiv", b === knopf);
-  for (const s of document.querySelectorAll(".tab")) {
-    s.classList.toggle("aktiv", s.id === knopf.dataset.tab);
-  }
-  location.hash = knopf.dataset.tab;
+  location.hash = knopf.dataset.tab === "bereiche" && BEREICH_AKTIV
+    ? "bereiche/" + encodeURIComponent(BEREICH_AKTIV)
+    : knopf.dataset.tab;
+  tabZeigen(knopf.dataset.tab);
 });
 
 for (const id of ["f-kategorie", "f-status", "teile-suche"]) {
@@ -370,8 +655,11 @@ window.addEventListener("keydown", (e) => {
 });
 
 window.addEventListener("hashchange", () => {
-  const knopf = document.querySelector(`#tabs button[data-tab="${location.hash.slice(1)}"]`);
-  if (knopf) knopf.click();
+  const tab = location.hash.slice(1).split("/")[0];
+  if (!document.querySelector(`#tabs button[data-tab="${tab}"]`)) return;
+  tabZeigen(tab);
+  const name = BEREICH_AUS_HASH();
+  if (name) bereichZeigen(name);
 });
 
 laden().then(() => {

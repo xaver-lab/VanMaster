@@ -98,9 +98,12 @@ h2 { font-size: 1rem; margin: 1.4rem 0 0.6rem; color: var(--gedaempft);
 .bereich[open] > summary::before { content: "▾"; }
 .bereich > summary .name { flex: 1; font-weight: 600; }
 .bereich ul { list-style: none; margin: 0; padding: 0 1rem 0.8rem 1.6rem; }
-.bereich li { padding: 0.35rem 0; display: flex; gap: 0.55rem; align-items: flex-start; }
-.bereich li.ebene-1 { padding-left: 1.2rem; }
-.bereich li.ebene-2 { padding-left: 2.4rem; }
+ul.aufgaben { list-style: none; margin: 0; padding: 0; }
+.bereich li, ul.aufgaben li { padding: 0.35rem 0; display: flex; gap: 0.55rem;
+                              align-items: flex-start; flex-wrap: wrap; }
+ul.aufgaben .titel { flex: 1 1 60%; }
+.bereich li.ebene-1, ul.aufgaben li.ebene-1 { padding-left: 1.2rem; }
+.bereich li.ebene-2, ul.aufgaben li.ebene-2 { padding-left: 2.4rem; }
 .kasten { flex: 0 0 auto; width: 1.15rem; color: var(--gedaempft); }
 li.erledigt .titel { color: var(--gedaempft); text-decoration: line-through; }
 li.verworfen .titel { color: var(--gedaempft); opacity: 0.6; }
@@ -108,7 +111,8 @@ li.laeuft .kasten { color: var(--akzent); }
 .gruppe { color: var(--gedaempft); font-size: 0.8rem; margin: 0.6rem 0 0.1rem;
           text-transform: uppercase; letter-spacing: 0.06em; }
 .marke { font-size: 0.72rem; padding: 0.05rem 0.45rem; border-radius: 99px;
-         border: 1px solid var(--linie); color: var(--gedaempft); white-space: nowrap; }
+         border: 1px solid var(--linie); color: var(--gedaempft); }
+.marke.blocker { white-space: normal; }
 .marke.kritisch { color: #ff9b8a; border-color: #5a3a38; }
 .marke.hoch { color: var(--akzent); border-color: #5a4a28; }
 .marke.blocker { color: var(--wartet); border-color: #32436b; }
@@ -185,3 +189,120 @@ footer code { background: var(--flaeche); padding: 0.1rem 0.35rem; border-radius
 #lupe img { max-width: 100%; max-height: 85vh; object-fit: contain;
             border-radius: 8px; }
 #lupe p { margin: 0; color: var(--gedaempft); font-size: 0.85rem; }
+
+/* Bereiche */
+nav.unterleiste {
+  position: static;
+  padding: 0 0 0.6rem;
+  margin-bottom: 0.4rem;
+  border-bottom: 1px solid var(--linie);
+  gap: 0.4rem;
+}
+nav.unterleiste button {
+  flex: 0 0 auto;
+  min-height: 34px;
+  padding: 0.25rem 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: 1px solid var(--linie);
+  border-radius: 99px;
+  background: var(--flaeche);
+  font-size: 0.85rem;
+}
+nav.unterleiste button.aktiv {
+  color: var(--bg);
+  background: var(--akzent);
+  border-color: var(--akzent);
+}
+nav.unterleiste button .zahl { font-size: 0.72rem; opacity: 0.75; }
+
+.bereich-kopf { margin-bottom: 1.2rem; }
+.bereich-kopf h2 {
+  margin: 0.2rem 0 0.3rem;
+  font-size: 1.35rem;
+  color: var(--text);
+  text-transform: none;
+  letter-spacing: 0;
+}
+.bereich-kopf .kurz { margin: 0 0 0.5rem; color: var(--gedaempft); }
+.bereich-kopf .zeile2 { display: flex; gap: 0.6rem; align-items: center;
+                        color: var(--gedaempft); font-size: 0.82rem; }
+.status.geplant { color: var(--gedaempft); }
+.status.in-arbeit { color: var(--akzent); border-color: #5a4a28; }
+.status.fertig { color: var(--gut); border-color: #2c5a41; }
+.status.offen { color: var(--akzent); border-color: #5a4a28; }
+.status.entschieden { color: var(--gut); border-color: #2c5a41; }
+.status.Idee, .status.Recherche { color: var(--gedaempft); }
+.status.Geplant { color: var(--wartet); border-color: #32436b; }
+.status.Zugeschnitten { color: var(--akzent); border-color: #5a4a28; }
+
+.textblock {
+  background: var(--flaeche);
+  border: 1px solid var(--linie);
+  border-radius: var(--radius);
+  padding: 0.9rem 1rem;
+  margin-bottom: 0.9rem;
+}
+.textblock > h3 {
+  margin: 0 0 0.7rem;
+  font-size: 0.78rem;
+  color: var(--gedaempft);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.textblock > ul { margin-bottom: 0; }
+
+.fliess { font-size: 0.93rem; line-height: 1.6; }
+.fliess p { margin: 0 0 0.7rem; }
+.fliess p:last-child, .fliess ul:last-child, .fliess ol:last-child { margin-bottom: 0; }
+.fliess h3, .fliess h4, .fliess h5, .fliess h6 {
+  margin: 1rem 0 0.4rem; font-size: 0.95rem; color: var(--text);
+}
+.fliess ul, .fliess ol { margin: 0 0 0.7rem; padding-left: 1.2rem; }
+.fliess li { margin-bottom: 0.25rem; }
+.fliess a { color: var(--wartet); }
+.fliess code { background: var(--flaeche-hoch); padding: 0.1rem 0.35rem;
+               border-radius: 6px; font-size: 0.86em; }
+.fliess strong { color: var(--text); }
+
+.dokumente .zusatz { color: var(--gedaempft); font-size: 0.85rem; }
+
+.kurzteile { list-style: none; margin: 0; padding: 0; }
+.kurzteile li { display: flex; gap: 0.55rem; align-items: baseline;
+                padding: 0.3rem 0; border-top: 1px solid var(--linie);
+                flex-wrap: wrap; }
+.kurzteile li:first-child { border-top: none; }
+.kurzteile .titel { flex: 1 1 auto; font-size: 0.92rem; }
+.kurzteile .zusatz { color: var(--gedaempft); font-size: 0.8rem; }
+
+.tabellenrand { overflow-x: auto; }
+.einzelteile { width: 100%; min-width: 440px; border-collapse: collapse;
+               font-size: 0.86rem; }
+.einzelteile th {
+  text-align: left; font-weight: normal; color: var(--gedaempft);
+  font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.06em;
+  padding-bottom: 0.4rem;
+}
+.einzelteile td { padding: 0.45rem 0.5rem 0.45rem 0;
+                  border-top: 1px solid var(--linie); vertical-align: top; }
+.einzelteile td.mass { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.einzelteile td.quelle { color: var(--gedaempft); font-size: 0.8rem; }
+.einzelteile .zusatz { color: var(--gedaempft); font-size: 0.78rem; }
+
+.modell-buehne {
+  min-height: 130px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px dashed var(--linie);
+  border-radius: var(--radius);
+  background: var(--flaeche-hoch);
+  margin-bottom: 0.6rem;
+}
+.modell-buehne .leer { padding: 1rem; margin: 0; font-size: 0.85rem; }
+
+.entscheidung { border-top: 1px solid var(--linie); padding: 0.5rem 0; }
+.entscheidung:first-of-type { border-top: none; }
+.entscheidung summary { cursor: pointer; display: flex; gap: 0.55rem;
+                        align-items: center; }
+.entscheidung summary .titel { font-size: 0.92rem; }
+.entscheidung .fliess { padding: 0.6rem 0 0.2rem; }

@@ -19,6 +19,7 @@
 
 <nav id="tabs">
   <button data-tab="uebersicht" class="aktiv">Übersicht</button>
+  <button data-tab="bereiche">Bereiche</button>
   <button data-tab="aufgaben">Aufgaben</button>
   <button data-tab="stueckliste">Stückliste</button>
   <button data-tab="bilder">Bilder</button>
@@ -26,6 +27,11 @@
 
 <main>
   <section id="uebersicht" class="tab aktiv"></section>
+
+  <section id="bereiche" class="tab">
+    <nav id="bereich-leiste" class="unterleiste"></nav>
+    <div id="bereich-inhalt"></div>
+  </section>
 
   <section id="aufgaben" class="tab">
     <div class="filterleiste">
