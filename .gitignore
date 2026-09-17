@@ -4,6 +4,9 @@ __pycache__/
 .venv/
 venv/
 
+# input Folder
+_input/
+
 # Erzeugte Excel-Datei (Arbeitskopie, nicht die Wahrheit)
 data/generated/*.xlsx
 ~$*.xlsx
