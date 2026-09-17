@@ -4,10 +4,10 @@ from __future__ import annotations
 import json
 from datetime import datetime
 
-from . import media, parts, status, tasks
+from . import bauteile, bereiche, media, parts, status, tasks
 from .common import (
     ANLEITUNGEN_DIR, DASHBOARD_JSON, DOCS, ENTSCHEIDUNGEN_DIR,
-    PART_KATEGORIEN, RECHERCHE_DIR, SYSTEME_DIR, VAULT,
+    PART_KATEGORIEN, RECHERCHE_DIR, VAULT,
     read_text, split_frontmatter, write_json,
 )
 
@@ -36,10 +36,23 @@ def daten() -> dict:
     teile = parts.load()
     fertig, gesamt_n = tasks.fortschritt(alle)
 
-    bereiche = []
-    for name, liste in sorted(tasks.nach_bereich(alle).items()):
+    nach_b = tasks.nach_bereich(alle)
+    bereiche_json = []
+    for b in bereiche.load():
+        bfertig, bgesamt = tasks.fortschritt(nach_b.get(b["name"], []))
+        bereiche_json.append({**b, "fertig": bfertig, "gesamt": bgesamt})
+    # Bereiche, die nur als Aufgabenkopf vorkommen, gehen nicht verloren.
+    bekannt = {b["name"] for b in bereiche_json}
+    for name, liste in sorted(nach_b.items()):
+        if name in bekannt:
+            continue
         bfertig, bgesamt = tasks.fortschritt(liste)
-        bereiche.append({"name": name, "fertig": bfertig, "gesamt": bgesamt})
+        bereiche_json.append({
+            "name": name, "kurz": "", "status": "geplant",
+            "beschreibung": "", "stand": "", "auslegung": "", "notizen": "",
+            "links": [], "datei": "",
+            "fertig": bfertig, "gesamt": bgesamt,
+        })
 
     kategorien = []
     for kat in PART_KATEGORIEN:
@@ -61,6 +74,14 @@ def daten() -> dict:
         eintrag["gewicht_n"] = round(parts.gewicht(t), 2)
         teile_json.append(eintrag)
 
+    bauteile_json = []
+    for r in bauteile.load():
+        eintrag = dict(r)
+        eintrag["flaeche_m2"] = round(bauteile.flaeche(r), 3)
+        eintrag["laufmeter"] = round(bauteile.laufmeter(r), 2)
+        eintrag["mass"] = bauteile.mass_text(r)
+        bauteile_json.append(eintrag)
+
     bestellt = [t for t in teile
                 if t["status"] in ("Bestellt", "Geliefert", "Verbaut")]
     return {
@@ -74,17 +95,19 @@ def daten() -> dict:
             "kosten_bestellt": round(parts.summe(bestellt), 2),
             "gewicht": round(parts.gewicht_summe(teile), 2),
             "offene_entscheidungen": len(status.offene_entscheidungen()),
+            "bauteile": len(bauteile_json),
         },
-        "bereiche": bereiche,
+        "bereiche": bereiche_json,
         "kategorien": kategorien,
         "aufgaben": alle,
         "teile": teile_json,
+        "bauteile": bauteile_json,
         "entscheidungen": seiten(ENTSCHEIDUNGEN_DIR),
         "anleitungen": seiten(ANLEITUNGEN_DIR),
-        "systeme": seiten(SYSTEME_DIR),
         "recherche": seiten(RECHERCHE_DIR),
         "medien": m["bilder"],
         "dokumente": m["dokumente"],
+        "modelle": m["modelle"],
     }
 
 
@@ -97,6 +120,7 @@ def build() -> str:
           + json.dumps(d, ensure_ascii=False, separators=(",", ":")) + ";\n")
     (DOCS / "data.js").write_text(js, encoding="utf-8", newline="\n")
     k = d["kennzahlen"]
-    return (f"docs/data.json geschrieben — {k['aufgaben_gesamt']} Aufgaben, "
-            f"{k['teile']} Teile, {len(d['medien'])} Bilder, "
-            f"{len(d['dokumente'])} Dokumente")
+    return (f"docs/data.json geschrieben — {len(d['bereiche'])} Bereiche, "
+            f"{k['aufgaben_gesamt']} Aufgaben, {k['teile']} Teile, "
+            f"{k['bauteile']} Einzelteile, {len(d['medien'])} Bilder, "
+            f"{len(d['dokumente'])} Dokumente, {len(d['modelle'])} Modelle")

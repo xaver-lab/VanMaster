@@ -14,8 +14,12 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from tools import build, media, parts, status, tasks  # noqa: E402
-from tools.common import PART_KATEGORIEN, fail  # noqa: E402
+from tools import (  # noqa: E402
+    bauteile, bereiche, build, media, parts, status, tasks,
+)
+from tools.common import (  # noqa: E402
+    BAUTEIL_ART, BAUTEIL_STATUS, MASSQUELLE, PART_KATEGORIEN, fail,
+)
 
 
 def zeige(text: str, daten=None, als_json: bool = False) -> None:
@@ -27,10 +31,12 @@ def zeige(text: str, daten=None, als_json: bool = False) -> None:
 
 def cmd_sync(args) -> None:
     schritte = [parts.to_markdown(), media.index_text(), build.build()]
-    try:
-        schritte.insert(1, parts.to_excel())
-    except PermissionError:
-        schritte.insert(1, "Excel übersprungen — Datei ist gerade geöffnet.")
+    for name, mach in (("Stückliste", parts.to_excel),
+                       ("Einzelteile", bauteile.to_excel)):
+        try:
+            schritte.insert(1, mach())
+        except PermissionError:
+            schritte.insert(1, f"Excel {name} übersprungen — Datei ist offen.")
     print("Sync:\n" + "\n".join(f"  - {s}" for s in schritte))
 
 
@@ -95,8 +101,45 @@ def cmd_buy(args) -> None:
     print(parts.buy_next(limit=args.limit))
 
 
-def cmd_system(args) -> None:
-    print(status.system(args.name))
+def cmd_bereich(args) -> None:
+    if args.json:
+        b = bereiche.find(args.name)
+        zeige("", b or {}, True)
+        return
+    print(status.bereich(args.name))
+
+
+def cmd_bereiche(args) -> None:
+    if args.json:
+        zeige("", build.daten()["bereiche"], True)
+        return
+    print(bereiche.overview_text())
+
+
+def cmd_bauteile(args) -> None:
+    if args.was == "query":
+        rows = bauteile.filtered(bauteile.load(), bereich=args.bereich,
+                                 art=args.art, status=args.status,
+                                 text=args.text)
+        zeige(bauteile.query_text(rows), rows, args.json)
+    elif args.was == "excel":
+        print(bauteile.to_excel())
+    elif args.was == "import":
+        print(bauteile.import_excel(apply=args.apply))
+    elif args.was == "set":
+        if not (args.id and args.feld and args.wert):
+            fail("Aufruf: bauteile set <id> <feld> <wert>")
+        print(bauteile.set_field(args.id, args.feld, args.wert))
+    elif args.was == "add":
+        if not (args.titel and args.bereich):
+            fail("Aufruf: bauteile add --titel \"Seitenwand\" --bereich Möbel")
+        print(bauteile.add(
+            args.titel, args.bereich, art=args.art, material=args.material,
+            laenge_mm=args.laenge, breite_mm=args.breite, dicke_mm=args.dicke,
+            anzahl=args.anzahl, teil_id=args.teil, fuer_aufgabe=args.aufgabe,
+            massquelle=args.massquelle, notiz=args.notiz))
+    else:
+        print(bauteile.overview_text())
 
 
 def cmd_find(args) -> None:
@@ -169,9 +212,39 @@ def parser() -> argparse.ArgumentParser:
     s.add_argument("--limit", type=int, default=0)
     s.set_defaults(func=cmd_buy)
 
-    s = sub.add_parser("system", help="Lage eines Systems")
+    s = sub.add_parser("bereich", help="alles zu einem Arbeitsbereich")
     s.add_argument("name")
-    s.set_defaults(func=cmd_system)
+    s.add_argument("--json", action="store_true")
+    s.set_defaults(func=cmd_bereich)
+
+    s = sub.add_parser("bereiche", help="alle Arbeitsbereiche")
+    s.add_argument("--json", action="store_true")
+    s.set_defaults(func=cmd_bereiche)
+
+    s = sub.add_parser("bauteile", help="Einzelteile mit Maßen")
+    s.add_argument("was", nargs="?", default="overview",
+                   choices=["overview", "query", "excel", "import",
+                            "set", "add"])
+    s.add_argument("id", nargs="?")
+    s.add_argument("feld", nargs="?")
+    s.add_argument("wert", nargs="?")
+    s.add_argument("--titel")
+    s.add_argument("--bereich")
+    s.add_argument("--art", choices=BAUTEIL_ART)
+    s.add_argument("--material")
+    s.add_argument("--laenge", help="Länge in mm")
+    s.add_argument("--breite", help="Breite in mm")
+    s.add_argument("--dicke", help="Dicke in mm")
+    s.add_argument("--anzahl")
+    s.add_argument("--teil", help="Kennung des Stücklisten-Teils, aus dem es entsteht")
+    s.add_argument("--aufgabe")
+    s.add_argument("--massquelle", choices=MASSQUELLE)
+    s.add_argument("--status", choices=BAUTEIL_STATUS)
+    s.add_argument("--notiz")
+    s.add_argument("--text")
+    s.add_argument("--apply", action="store_true", help="Import wirklich schreiben")
+    s.add_argument("--json", action="store_true")
+    s.set_defaults(func=cmd_bauteile)
 
     s = sub.add_parser("find", help="Volltextsuche, liefert Pfade")
     s.add_argument("text")

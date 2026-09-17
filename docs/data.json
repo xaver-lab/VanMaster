@@ -1,5 +1,5 @@
 {
-  "erzeugt": "2026-09-17T09:52",
+  "erzeugt": "2026-09-17T11:49",
   "projekt": "VanMaster",
   "kennzahlen": {
     "aufgaben_fertig": 1,
@@ -8,41 +8,122 @@
     "kosten": 2620.53,
     "kosten_bestellt": 443.3,
     "gewicht": 0.0,
-    "offene_entscheidungen": 1
+    "offene_entscheidungen": 1,
+    "bauteile": 0
   },
   "bereiche": [
     {
       "name": "Dämmung",
+      "kurz": "Rostvorsorge, Entdröhnung, Armaflex, Dampfbremse, Bodenaufbau",
+      "status": "in-arbeit",
+      "beschreibung": "Rostvorsorge, Entdröhnung, Wärmedämmung und Dampfbremse an Boden, Wänden,\nDecke, Radkästen und Türen. Grundlage für alles, was später darauf steht.",
+      "stand": "Aus dem Ordner `Isolierung` übernommen (2026-09-17).\n\n### Aufbau in Schichten\n\n1. Rost behandeln, wo welcher sitzt. Produkt offen, im Rohmaterial steht\n   Hammerite mit Fragezeichen.\n2. Blech mit Bremsenreiniger entfetten — sonst hält weder Matte noch Kleber.\n3. Antidröhnmatten auf die freien Blechflächen kleben.\n4. Armaflex flächig: 19 mm an die Wände (15 m²), 6 mm auf den Boden (5 m²),\n   1,5 mm an die Decke (5 m²). Für die Steher ist zusätzlich eine Rolle\n   6 mm vorgesehen, das ist noch nicht fix.\n5. Boden: Holzlatten mit Polymax aufkleben, darauf der Bodenaufbau.\n\n### Regeln aus dem Rohmaterial\n\n- Nicht in die Träger dämmen. Gedämmt werden Seitenwände, Decke, Radkasten,\n  Kabine und Türen.\n- Kondensation ist der Grund für die geschlossenzellige Bauweise: Armaflex\n  nimmt selbst kein Wasser auf, deshalb darf hinter der Dämmung keine Luft\n  an kaltes Blech kommen. Lückenlos kleben statt stopfen.\n- Die Lattenhöhe am Boden ist offen und bestimmt die spätere Stehhöhe mit.\n\n### Reihenfolge\n\nDer Boden wird erst gedämmt, wenn die Auszüge von Küche und Bett am Boden\ngeplant sind — die Holzlatten müssen dort liegen, wo später Last und\nVerschraubungen hinkommen. Das ist eine Layout-Entscheidung und wartet auf\nden Nutzer.",
+      "auslegung": "",
+      "notizen": "- Bedeutet „Abgeschlossen\" in der Miro-Einkaufsliste entschieden oder bereits\n  gekauft? Die Teile stehen vorerst auf „Entschieden\".\n- Kürzel „VL\" bei der Armaflex-Rolle ungeklärt.\n- Mengen für Antidröhnmatten, Holzlatten und Kleber noch nicht gerechnet.",
+      "links": [],
+      "datei": "vault/Bereiche/Dämmung.md",
       "fertig": 0,
       "gesamt": 4
     },
     {
       "name": "Elektrik",
+      "kurz": "Batterien, Laderegler, Solar, Verteilung, Verbraucher",
+      "status": "in-arbeit",
+      "beschreibung": "Batterien, Laderegler, Solar, Verteilung, Verbraucher.",
+      "stand": "Skizze aus dem Miro-Board (Frame \"Elektrik\", übernommen 2026-09-17):\n\n- Quellen: PV-Modul (6mm² Kabel + Stecker) und Autobatterie laufen je über eine\n  Sicherung (6A bzw. 16A DC) zum DC-Laderegler. Die Batteriebank (300 Ah) läuft\n  über eine Sicherung (10A DC pro Batterie) zum zentralen Verteiler.\n- Der Verteiler speist gesicherte Zonen (je 6A DC, 2x2,5mm² Kabel):\n  - Vorne: Lampen 12V, USB 12V\n  - Bett: Lampen 12V, USB 12V\n  - Dach: Dachlüfter, Soundsystem\n  - Küche: USB-Steckdose, Schalter → Wasserpumpe, Taster → Abwasser-Ventil,\n    Füllanzeige → LED\n  - AC 230V: Wechselrichter → 230V-Steckdose, Beamer\n- Die Standheizung (Diesel) hängt an einer eigenen Sicherung direkt am Verteiler.\n- Kabeltypen im Diagramm: 2x2,5mm² (Verbraucher), Yf 10mm² (Hauptleitungen\n  Batterie/Laderegler), 3x1,5mm² (vereinzelt).\n\nRohauszug (SVG) in `_input/miro_export.md`.",
+      "auslegung": "",
+      "notizen": "",
+      "links": [],
+      "datei": "vault/Bereiche/Elektrik.md",
       "fertig": 0,
       "gesamt": 5
     },
     {
       "name": "Heizung",
+      "kurz": "Heizgerät, Abgasführung, Luftverteilung",
+      "status": "geplant",
+      "beschreibung": "Heizgerät, Abgasführung, Luftverteilung.",
+      "stand": "Skizze aus dem Miro-Board (Frame \"Heizung\", übernommen 2026-09-17):\n\nDieseltank → Dieselfilter → Dieselpumpe → Standheizung (mit Ventilator).\nLufteinlass → Standheizung → Luftauslass, zusätzlich → Abgasschlauch.\nEin Elektro-Schalter steuert Dieselpumpe und Standheizung.\n\nAuf dem Board selbst mit einer orangen Notiz \"Noch nicht richtig!!!!!!\"\nmarkiert — laut Nutzer noch nicht final, nicht als Entscheidung werten.\n\nRohauszug (SVG) in `_input/miro_export.md`.",
+      "auslegung": "",
+      "notizen": "- Die Miro-Skizze ist vom Nutzer als „noch nicht richtig\" markiert.",
+      "links": [],
+      "datei": "vault/Bereiche/Heizung.md",
       "fertig": 0,
       "gesamt": 3
     },
     {
+      "name": "Karosserie",
+      "kurz": "Innenmaße, Fenster- und Dachausschnitte, Rost, Durchführungen",
+      "status": "geplant",
+      "beschreibung": "Alles am Fahrzeug selbst: Innenmaße und Konstruktionsgrundlagen, Ausschnitte\nfür Fenster und Dachfenster, Rostbehandlung, Durchführungen und Befestigungs-\npunkte am Blech.",
+      "stand": "",
+      "auslegung": "",
+      "notizen": "- Überschneidet sich mit dem Bereich Vorbereitung: Rost prüfen, Entkernen und\n  Innenmaße aufnehmen liegen dort als Aufgaben. Beim Aufräumen der Struktur\n  klären, ob die beiden Bereiche zusammengehören.",
+      "links": [],
+      "datei": "vault/Bereiche/Karosserie.md",
+      "fertig": 0,
+      "gesamt": 0
+    },
+    {
       "name": "Küche",
+      "kurz": "Kochstelle, Kühlschrank, Spüle, Stauraum",
+      "status": "geplant",
+      "beschreibung": "Kochstelle, Kühlschrank, Spüle, Stauraum.",
+      "stand": "",
+      "auslegung": "",
+      "notizen": "",
+      "links": [],
+      "datei": "vault/Bereiche/Küche.md",
       "fertig": 0,
       "gesamt": 3
     },
     {
       "name": "Möbel",
+      "kurz": "Bett, Küchenblock, Hängeschränke, Stauraum, Befestigung",
+      "status": "in-arbeit",
+      "beschreibung": "Bett, Küchenblock, Schränke, Befestigung an der Karosserie.",
+      "stand": "### Hängeschränke\n\nKorpus und Fronten aus EpicPLY-Multiplex. Die Fronten sind Klappen, die nach\noben schwenken, keine seitlich öffnenden Türen — so steht beim Kochen nichts\nauf Kopfhöhe im Weg.\n\n**Beschläge**\n\n- Klappenbeschlag Grass Kinvaro T-57 (Hochschwenk-Automatik, 240 N). Trägt\n  Klappen bis 6,2 kg, öffnet auf 75 oder 90°. Ein Paar je Klappe.\n- Verschließbares Push-Lock-Schloss statt Griff: sitzt bündig, hakt nicht am\n  Kopf und hält die Klappe auf der Fahrt zu.\n- Zusätzlich Möbelmagnete an den Klappen.\n\n**Was das für den Zuschnitt heißt**\n\n- Die Klappen müssen **14–16 mm** stark sein, sonst passt das Push-Lock nicht.\n  Pro Schloss ein Loch mit 26 mm Durchmesser in der Front.\n- Klappengewicht pro Beschlagpaar unter 6,2 kg halten. Bei 15 mm Multiplex\n  (rund 10 kg/m²) heißt das: Klappenfläche höchstens etwa 0,6 m².\n- Über der Klappe muss der Öffnungsweg frei bleiben — der Beschlag schwenkt\n  die Front nach oben vor die Decke.",
+      "auslegung": "",
+      "notizen": "- Wabenmuster im CAD-Seitenteil ist eine Idee zur Gewichtsersparnis, noch nicht\n  gerechnet.\n- Stückzahl der Klappen hängt am Layout, deshalb stehen die Beschlagmengen offen.",
+      "links": [
+        {
+          "titel": "Klappenbeschlag Grass Kinvaro T-57",
+          "url": "https://www.amazon.de/dp/B01AC7CZ58",
+          "zusatz": "Hochschwenk-Automatik, 240 N"
+        },
+        {
+          "titel": "Push-Lock Schrankschloss",
+          "url": "https://www.amazon.de/dp/B0BCVGCT12",
+          "zusatz": "5er-Set, Türstärke 14–16 mm"
+        }
+      ],
+      "datei": "vault/Bereiche/Möbel.md",
       "fertig": 0,
       "gesamt": 4
     },
     {
       "name": "Vorbereitung",
+      "kurz": "Aufmaß, Rost, Entkernen — was vor dem Ausbau passiert",
+      "status": "in-arbeit",
+      "beschreibung": "Was vor dem eigentlichen Ausbau passiert: Innenmaße aufnehmen, Rost suchen und\nbehandeln, alte Verkleidung und Holzboden herausnehmen.",
+      "stand": "",
+      "auslegung": "",
+      "notizen": "- Gehört inhaltlich eng zum Bereich Karosserie — beim Aufräumen der Struktur\n  klären, ob die beiden zusammengelegt werden.",
+      "links": [],
+      "datei": "vault/Bereiche/Vorbereitung.md",
       "fertig": 1,
       "gesamt": 3
     },
     {
       "name": "Wasser",
+      "kurz": "Frisch- und Grauwasser, Pumpe, Leitungen, Spüle",
+      "status": "geplant",
+      "beschreibung": "Frisch- und Grauwasser, Pumpe, Leitungen, Spüle. Kein Warmwasser, keine Dusche.",
+      "stand": "Skizze aus dem Miro-Board (Frame \"Wasser\", übernommen 2026-09-17):\n\nWassertank → (Schalter →) Pumpe → Wasserverteiler (2x absperrbar) →\nWasserhahn / Dusche → Waschbecken → Abwassertank (mit Füllanzeige) →\nAblassventil (mit Taster).\n\nDeckt sich mit der Projektübersicht (kein Warmwasser).",
+      "auslegung": "",
+      "notizen": "- Im Diagramm taucht ein „Dusche\"-Abzweig auf — evtl. nur zum Abspülen oder als\n  Außendusche, nicht als Innendusche. Noch zu klären.\n- Rohauszug (SVG) in `_input/miro_export.md`.",
+      "links": [],
+      "datei": "vault/Bereiche/Wasser.md",
       "fertig": 0,
       "gesamt": 3
     }
@@ -118,8 +199,8 @@
       "braucht": [],
       "prio": "kritisch",
       "dauer": "",
-      "datei": "vault\\Aufgaben\\Dämmung.md",
-      "zeile": 10
+      "datei": "vault\\Bereiche\\Dämmung.md",
+      "zeile": 64
     },
     {
       "id": "hohlraeume-daemmen",
@@ -135,8 +216,8 @@
       ],
       "prio": "",
       "dauer": "",
-      "datei": "vault\\Aufgaben\\Dämmung.md",
-      "zeile": 11
+      "datei": "vault\\Bereiche\\Dämmung.md",
+      "zeile": 65
     },
     {
       "id": "dampfbremse",
@@ -150,8 +231,8 @@
       "braucht": [],
       "prio": "",
       "dauer": "",
-      "datei": "vault\\Aufgaben\\Dämmung.md",
-      "zeile": 12
+      "datei": "vault\\Bereiche\\Dämmung.md",
+      "zeile": 66
     },
     {
       "id": "boden-aufbauen",
@@ -167,8 +248,8 @@
       ],
       "prio": "",
       "dauer": "",
-      "datei": "vault\\Aufgaben\\Dämmung.md",
-      "zeile": 13
+      "datei": "vault\\Bereiche\\Dämmung.md",
+      "zeile": 67
     },
     {
       "id": "strombilanz",
@@ -182,8 +263,8 @@
       "braucht": [],
       "prio": "kritisch",
       "dauer": "",
-      "datei": "vault\\Aufgaben\\Elektrik.md",
-      "zeile": 10
+      "datei": "vault\\Bereiche\\Elektrik.md",
+      "zeile": 49
     },
     {
       "id": "batteriebank-entscheiden",
@@ -199,8 +280,8 @@
       ],
       "prio": "kritisch",
       "dauer": "",
-      "datei": "vault\\Aufgaben\\Elektrik.md",
-      "zeile": 11
+      "datei": "vault\\Bereiche\\Elektrik.md",
+      "zeile": 50
     },
     {
       "id": "batteriehalterung",
@@ -216,8 +297,8 @@
       ],
       "prio": "",
       "dauer": "",
-      "datei": "vault\\Aufgaben\\Elektrik.md",
-      "zeile": 15
+      "datei": "vault\\Bereiche\\Elektrik.md",
+      "zeile": 54
     },
     {
       "id": "solar-montieren",
@@ -231,8 +312,8 @@
       "braucht": [],
       "prio": "hoch",
       "dauer": "",
-      "datei": "vault\\Aufgaben\\Elektrik.md",
-      "zeile": 16
+      "datei": "vault\\Bereiche\\Elektrik.md",
+      "zeile": 55
     },
     {
       "id": "verteilung",
@@ -248,8 +329,8 @@
       ],
       "prio": "",
       "dauer": "",
-      "datei": "vault\\Aufgaben\\Elektrik.md",
-      "zeile": 17
+      "datei": "vault\\Bereiche\\Elektrik.md",
+      "zeile": 56
     },
     {
       "id": "heizung-entscheiden",
@@ -263,8 +344,8 @@
       "braucht": [],
       "prio": "kritisch",
       "dauer": "",
-      "datei": "vault\\Aufgaben\\Heizung.md",
-      "zeile": 10
+      "datei": "vault\\Bereiche\\Heizung.md",
+      "zeile": 42
     },
     {
       "id": "heizung-einbauort",
@@ -280,8 +361,8 @@
       ],
       "prio": "",
       "dauer": "",
-      "datei": "vault\\Aufgaben\\Heizung.md",
-      "zeile": 11
+      "datei": "vault\\Bereiche\\Heizung.md",
+      "zeile": 43
     },
     {
       "id": "heizung-einbauen",
@@ -297,8 +378,8 @@
       ],
       "prio": "",
       "dauer": "",
-      "datei": "vault\\Aufgaben\\Heizung.md",
-      "zeile": 12
+      "datei": "vault\\Bereiche\\Heizung.md",
+      "zeile": 44
     },
     {
       "id": "kochstelle-entscheiden",
@@ -312,8 +393,8 @@
       "braucht": [],
       "prio": "hoch",
       "dauer": "",
-      "datei": "vault\\Aufgaben\\Küche.md",
-      "zeile": 10
+      "datei": "vault\\Bereiche\\Küche.md",
+      "zeile": 33
     },
     {
       "id": "kuehlschrank-entscheiden",
@@ -329,8 +410,8 @@
       ],
       "prio": "hoch",
       "dauer": "",
-      "datei": "vault\\Aufgaben\\Küche.md",
-      "zeile": 11
+      "datei": "vault\\Bereiche\\Küche.md",
+      "zeile": 34
     },
     {
       "id": "kueche-einbauen",
@@ -346,8 +427,8 @@
       ],
       "prio": "",
       "dauer": "",
-      "datei": "vault\\Aufgaben\\Küche.md",
-      "zeile": 12
+      "datei": "vault\\Bereiche\\Küche.md",
+      "zeile": 35
     },
     {
       "id": "layout",
@@ -361,8 +442,8 @@
       "braucht": [],
       "prio": "kritisch",
       "dauer": "",
-      "datei": "vault\\Aufgaben\\Möbel.md",
-      "zeile": 10
+      "datei": "vault\\Bereiche\\Möbel.md",
+      "zeile": 57
     },
     {
       "id": "bettrahmen",
@@ -378,8 +459,8 @@
       ],
       "prio": "",
       "dauer": "",
-      "datei": "vault\\Aufgaben\\Möbel.md",
-      "zeile": 11
+      "datei": "vault\\Bereiche\\Möbel.md",
+      "zeile": 58
     },
     {
       "id": "kuechenblock",
@@ -395,8 +476,8 @@
       ],
       "prio": "",
       "dauer": "",
-      "datei": "vault\\Aufgaben\\Möbel.md",
-      "zeile": 12
+      "datei": "vault\\Bereiche\\Möbel.md",
+      "zeile": 59
     },
     {
       "id": "schraenke",
@@ -412,8 +493,8 @@
       ],
       "prio": "",
       "dauer": "",
-      "datei": "vault\\Aufgaben\\Möbel.md",
-      "zeile": 13
+      "datei": "vault\\Bereiche\\Möbel.md",
+      "zeile": 60
     },
     {
       "id": "masse-aufnehmen",
@@ -427,8 +508,8 @@
       "braucht": [],
       "prio": "kritisch",
       "dauer": "",
-      "datei": "vault\\Aufgaben\\Vorbereitung.md",
-      "zeile": 10
+      "datei": "vault\\Bereiche\\Vorbereitung.md",
+      "zeile": 35
     },
     {
       "id": "rost-pruefen",
@@ -442,8 +523,8 @@
       "braucht": [],
       "prio": "hoch",
       "dauer": "",
-      "datei": "vault\\Aufgaben\\Vorbereitung.md",
-      "zeile": 11
+      "datei": "vault\\Bereiche\\Vorbereitung.md",
+      "zeile": 36
     },
     {
       "id": "entkernen",
@@ -459,8 +540,8 @@
       ],
       "prio": "hoch",
       "dauer": "",
-      "datei": "vault\\Aufgaben\\Vorbereitung.md",
-      "zeile": 12
+      "datei": "vault\\Bereiche\\Vorbereitung.md",
+      "zeile": 37
     },
     {
       "id": "tankgroessen",
@@ -474,8 +555,8 @@
       "braucht": [],
       "prio": "hoch",
       "dauer": "",
-      "datei": "vault\\Aufgaben\\Wasser.md",
-      "zeile": 10
+      "datei": "vault\\Bereiche\\Wasser.md",
+      "zeile": 41
     },
     {
       "id": "wasser-leitungen",
@@ -491,8 +572,8 @@
       ],
       "prio": "",
       "dauer": "",
-      "datei": "vault\\Aufgaben\\Wasser.md",
-      "zeile": 11
+      "datei": "vault\\Bereiche\\Wasser.md",
+      "zeile": 42
     },
     {
       "id": "spuele-einbauen",
@@ -508,8 +589,8 @@
       ],
       "prio": "",
       "dauer": "",
-      "datei": "vault\\Aufgaben\\Wasser.md",
-      "zeile": 12
+      "datei": "vault\\Bereiche\\Wasser.md",
+      "zeile": 43
     }
   ],
   "teile": [
@@ -1858,6 +1939,7 @@
       "gewicht_n": 0.0
     }
   ],
+  "bauteile": [],
   "entscheidungen": [
     {
       "titel": "Hängeschränke platzieren",
@@ -1867,90 +1949,11 @@
         "status": "offen",
         "bereich": "Möbel"
       },
-      "text": "# Hängeschränke platzieren\n\nWo die Oberschränke sitzen, entscheidet der Nutzer. Hier stehen nur seine\neigenen Rohnotizen, unbewertet.\n\n## Frage\n\nAuf welcher Länge und auf welcher Seite laufen die Hängeschränke?\n\n## Notizen vom Nutzer\n\n- Hängeschränke bis zum Ende des Kühlschranks, nicht zu tief.\n- Beim Bett keine Hängeschränke auf der Fahrerseite.\n- Offen: schöner Abschluss zum Bett hin?\n- Beim Öffnen auf Kopfhöhe achten.\n\n## Bilder\n\nVier Sammelbilder liegen unter [[Möbel]] in `vault/Medien/`: zwei Fotos aus\nfertigen Ausbauten (Oberschränke in Holzoptik, LED-Streifen darunter) und zwei\nCAD-Ansichten von Schrankkorpussen — einer mit Wabenmuster im Seitenteil zur\nGewichtsersparnis, einer mit Lattenrost-Rückwand. Keine Maße darauf.\n\n## Wahl\n\n_(offen — entscheidet der Nutzer)_\n\n## Verknüpft\n\n- Systeme: [[Möbel]]\n- Aufgaben: [[Möbel]]",
+      "text": "# Hängeschränke platzieren\n\nWo die Oberschränke sitzen, entscheidet der Nutzer. Hier stehen nur seine\neigenen Rohnotizen, unbewertet.\n\n## Frage\n\nAuf welcher Länge und auf welcher Seite laufen die Hängeschränke?\n\n## Notizen vom Nutzer\n\n- Hängeschränke bis zum Ende des Kühlschranks, nicht zu tief.\n- Beim Bett keine Hängeschränke auf der Fahrerseite.\n- Offen: schöner Abschluss zum Bett hin?\n- Beim Öffnen auf Kopfhöhe achten.\n\n## Bilder\n\nVier Sammelbilder liegen unter [[Möbel]] in `vault/Medien/`: zwei Fotos aus\nfertigen Ausbauten (Oberschränke in Holzoptik, LED-Streifen darunter) und zwei\nCAD-Ansichten von Schrankkorpussen — einer mit Wabenmuster im Seitenteil zur\nGewichtsersparnis, einer mit Lattenrost-Rückwand. Keine Maße darauf.\n\n## Wahl\n\n_(offen — entscheidet der Nutzer)_\n\n## Verknüpft\n\n- Bereich: [[Möbel]]",
       "datei": "vault/Entscheidungen/Hängeschränke platzieren.md"
     }
   ],
   "anleitungen": [],
-  "systeme": [
-    {
-      "titel": "Dämmung",
-      "status": "offen",
-      "bereich": "Dämmung",
-      "meta": {
-        "system": "Dämmung",
-        "status": "offen"
-      },
-      "text": "# Dämmung\n\nRostvorsorge, Entdröhnung, Wärmedämmung und Dampfbremse an Boden, Wänden,\nDecke, Radkästen und Türen. Grundlage für alles, was später darauf steht.\n\n## Stand\n\nAus dem Ordner `Isolierung` übernommen (2026-09-17).\n\n### Aufbau in Schichten\n\n1. Rost behandeln, wo welcher sitzt. Produkt offen, im Rohmaterial steht\n   Hammerite mit Fragezeichen.\n2. Blech mit Bremsenreiniger entfetten — sonst hält weder Matte noch Kleber.\n3. Antidröhnmatten auf die freien Blechflächen kleben.\n4. Armaflex flächig: 19 mm an die Wände (15 m²), 6 mm auf den Boden (5 m²),\n   1,5 mm an die Decke (5 m²). Für die Steher ist zusätzlich eine Rolle\n   6 mm vorgesehen, das ist noch nicht fix.\n5. Boden: Holzlatten mit Polymax aufkleben, darauf der Bodenaufbau.\n\n### Regeln aus dem Rohmaterial\n\n- Nicht in die Träger dämmen. Gedämmt werden Seitenwände, Decke, Radkasten,\n  Kabine und Türen.\n- Kondensation ist der Grund für die geschlossenzellige Bauweise: Armaflex\n  nimmt selbst kein Wasser auf, deshalb darf hinter der Dämmung keine Luft\n  an kaltes Blech kommen. Lückenlos kleben statt stopfen.\n- Die Lattenhöhe am Boden ist offen und bestimmt die spätere Stehhöhe mit.\n\n### Reihenfolge\n\nDer Boden wird erst gedämmt, wenn die Auszüge von Küche und Bett am Boden\ngeplant sind — die Holzlatten müssen dort liegen, wo später Last und\nVerschraubungen hinkommen. Das ist eine Layout-Entscheidung und wartet auf\nden Nutzer.\n\n### Offen\n\n- Bedeutet „Abgeschlossen\" in der Miro-Einkaufsliste entschieden oder bereits\n  gekauft? Die Teile stehen vorerst auf „Entschieden\".\n- Kürzel „VL\" bei der Armaflex-Rolle ungeklärt.\n- Mengen für Antidröhnmatten, Holzlatten und Kleber noch nicht gerechnet.\n\n## Auslegung\n\n_(Dämmstärken, Flächen, Materialbedarf — sobald gerechnet)_\n\n## Verknüpft\n\n- Aufgaben: [[Dämmung]] in `vault/Aufgaben/`\n- Teile: [[Dämmung]] in `vault/Stückliste/`",
-      "datei": "vault/Systeme/Dämmung.md"
-    },
-    {
-      "titel": "Elektrik",
-      "status": "offen",
-      "bereich": "Elektrik",
-      "meta": {
-        "system": "Elektrik",
-        "status": "offen"
-      },
-      "text": "# Elektrik\n\nBatterien, Laderegler, Solar, Verteilung, Verbraucher.\n\n## Stand\n\nSkizze aus dem Miro-Board (Frame \"Elektrik\", übernommen 2026-09-17):\n\n- Quellen: PV-Modul (6mm² Kabel + Stecker) und Autobatterie laufen je über eine\n  Sicherung (6A bzw. 16A DC) zum DC-Laderegler. Die Batteriebank (300 Ah) läuft\n  über eine Sicherung (10A DC pro Batterie) zum zentralen Verteiler.\n- Der Verteiler speist gesicherte Zonen (je 6A DC, 2x2,5mm² Kabel):\n  - Vorne: Lampen 12V, USB 12V\n  - Bett: Lampen 12V, USB 12V\n  - Dach: Dachlüfter, Soundsystem\n  - Küche: USB-Steckdose, Schalter → Wasserpumpe, Taster → Abwasser-Ventil,\n    Füllanzeige → LED\n  - AC 230V: Wechselrichter → 230V-Steckdose, Beamer\n- Die Standheizung (Diesel) hängt an einer eigenen Sicherung direkt am Verteiler.\n- Kabeltypen im Diagramm: 2x2,5mm² (Verbraucher), Yf 10mm² (Hauptleitungen\n  Batterie/Laderegler), 3x1,5mm² (vereinzelt).\n\nRohauszug (SVG) in `_input/miro_export.md`.\n\n## Auslegung\n\n_(Zahlen, sobald gerechnet — siehe [[Recherche]])_\n\n## Verknüpft\n\n- Aufgaben: [[Elektrik]] in `vault/Aufgaben/`\n- Teile: [[Elektrik]] in `vault/Stückliste/`",
-      "datei": "vault/Systeme/Elektrik.md"
-    },
-    {
-      "titel": "Heizung",
-      "status": "offen",
-      "bereich": "Heizung",
-      "meta": {
-        "system": "Heizung",
-        "status": "offen"
-      },
-      "text": "# Heizung\n\nHeizgerät, Abgasführung, Luftverteilung.\n\n## Stand\n\nSkizze aus dem Miro-Board (Frame \"Heizung\", übernommen 2026-09-17):\n\nDieseltank → Dieselfilter → Dieselpumpe → Standheizung (mit Ventilator).\nLufteinlass → Standheizung → Luftauslass, zusätzlich → Abgasschlauch.\nEin Elektro-Schalter steuert Dieselpumpe und Standheizung.\n\nAuf dem Board selbst mit einer orangen Notiz \"Noch nicht richtig!!!!!!\"\nmarkiert — laut Nutzer noch nicht final, nicht als Entscheidung werten.\n\nRohauszug (SVG) in `_input/miro_export.md`.\n\n## Auslegung\n\n_(Zahlen, sobald gerechnet — siehe [[Recherche]])_\n\n## Verknüpft\n\n- Aufgaben: [[Heizung]] in `vault/Aufgaben/`\n- Teile: [[Heizung]] in `vault/Stückliste/`",
-      "datei": "vault/Systeme/Heizung.md"
-    },
-    {
-      "titel": "Karosserie",
-      "status": "offen",
-      "bereich": "Karosserie",
-      "meta": {
-        "system": "Karosserie",
-        "status": "offen"
-      },
-      "text": "# Karosserie\n\nAlles am Fahrzeug selbst: Innenmaße und Konstruktionsgrundlagen, Ausschnitte\nfür Fenster und Dachfenster, Rostbehandlung, Durchführungen und Befestigungs-\npunkte am Blech.\n\n## Stand\n\n_(wird beim Einarbeiten des Rohmaterials gefüllt)_\n\n## Maße\n\n_(Fahrzeug- und Innenmaße, sobald aus den Skizzen übernommen)_\n\n## Verknüpft\n\n- Aufgaben: [[Vorbereitung]] in `vault/Aufgaben/`\n- Systeme: [[Dämmung]], [[Möbel]]",
-      "datei": "vault/Systeme/Karosserie.md"
-    },
-    {
-      "titel": "Küche",
-      "status": "offen",
-      "bereich": "Küche",
-      "meta": {
-        "system": "Küche",
-        "status": "offen"
-      },
-      "text": "# Küche\n\nKochstelle, Kühlschrank, Spüle, Stauraum.\n\n## Stand\n\n_(noch nichts eingetragen)_\n\n## Auslegung\n\n_(Zahlen, sobald gerechnet — siehe [[Recherche]])_\n\n## Verknüpft\n\n- Aufgaben: [[Küche]] in `vault/Aufgaben/`\n- Teile: [[Küche]] in `vault/Stückliste/`",
-      "datei": "vault/Systeme/Küche.md"
-    },
-    {
-      "titel": "Möbel",
-      "status": "offen",
-      "bereich": "Möbel",
-      "meta": {
-        "system": "Möbel",
-        "status": "offen"
-      },
-      "text": "# Möbel\n\nBett, Küchenblock, Schränke, Befestigung an der Karosserie.\n\n## Stand\n\n### Hängeschränke\n\nKorpus und Fronten aus EpicPLY-Multiplex. Die Fronten sind Klappen, die nach\noben schwenken, keine seitlich öffnenden Türen — so steht beim Kochen nichts\nauf Kopfhöhe im Weg.\n\n**Beschläge**\n\n- Klappenbeschlag Grass Kinvaro T-57 (Hochschwenk-Automatik, 240 N). Trägt\n  Klappen bis 6,2 kg, öffnet auf 75 oder 90°. Ein Paar je Klappe.\n- Verschließbares Push-Lock-Schloss statt Griff: sitzt bündig, hakt nicht am\n  Kopf und hält die Klappe auf der Fahrt zu.\n- Zusätzlich Möbelmagnete an den Klappen.\n\n**Was das für den Zuschnitt heißt**\n\n- Die Klappen müssen **14–16 mm** stark sein, sonst passt das Push-Lock nicht.\n  Pro Schloss ein Loch mit 26 mm Durchmesser in der Front.\n- Klappengewicht pro Beschlagpaar unter 6,2 kg halten. Bei 15 mm Multiplex\n  (rund 10 kg/m²) heißt das: Klappenfläche höchstens etwa 0,6 m².\n- Über der Klappe muss der Öffnungsweg frei bleiben — der Beschlag schwenkt\n  die Front nach oben vor die Decke.\n\n## Auslegung\n\n_(Zahlen, sobald gerechnet — siehe [[Recherche]])_\n\n## Verknüpft\n\n- Aufgaben: [[Möbel]] in `vault/Aufgaben/`\n- Teile: [[Möbel]] in `vault/Stückliste/`",
-      "datei": "vault/Systeme/Möbel.md"
-    },
-    {
-      "titel": "Wasser",
-      "status": "offen",
-      "bereich": "Wasser",
-      "meta": {
-        "system": "Wasser",
-        "status": "offen"
-      },
-      "text": "# Wasser\n\nFrisch- und Grauwasser, Pumpe, Leitungen, Spüle. Kein Warmwasser, keine Dusche.\n\n## Stand\n\nSkizze aus dem Miro-Board (Frame \"Wasser\", übernommen 2026-09-17):\n\nWassertank → (Schalter →) Pumpe → Wasserverteiler (2x absperrbar) →\nWasserhahn / Dusche → Waschbecken → Abwassertank (mit Füllanzeige) →\nAblassventil (mit Taster).\n\nDeckt sich mit der Projektübersicht (kein Warmwasser). Im Diagramm taucht\ntrotzdem ein \"Dusche\"-Abzweig auf — evtl. nur zum Abspülen/Außendusche, nicht\nals Innendusche. Noch zu klären.\n\nRohauszug (SVG) in `_input/miro_export.md`.\n\n## Auslegung\n\n_(Zahlen, sobald gerechnet — siehe [[Recherche]])_\n\n## Verknüpft\n\n- Aufgaben: [[Wasser]] in `vault/Aufgaben/`\n- Teile: [[Wasser]] in `vault/Stückliste/`",
-      "datei": "vault/Systeme/Wasser.md"
-    }
-  ],
   "recherche": [],
   "medien": [
     {
@@ -1996,5 +1999,6 @@
       "pfad": "medien/moebel/2026-09-17-schrankkorpus-cad-wabe.png"
     }
   ],
-  "dokumente": []
+  "dokumente": [],
+  "modelle": []
 }

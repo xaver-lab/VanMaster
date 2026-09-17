@@ -1,9 +1,12 @@
 ---
-system: Dämmung
-status: offen
+bereich: Dämmung
+kurz: Rostvorsorge, Entdröhnung, Armaflex, Dampfbremse, Bodenaufbau
+status: in-arbeit
 ---
 
 # Dämmung
+
+## Beschreibung
 
 Rostvorsorge, Entdröhnung, Wärmedämmung und Dampfbremse an Boden, Wänden,
 Decke, Radkästen und Türen. Grundlage für alles, was später darauf steht.
@@ -39,18 +42,26 @@ geplant sind — die Holzlatten müssen dort liegen, wo später Last und
 Verschraubungen hinkommen. Das ist eine Layout-Entscheidung und wartet auf
 den Nutzer.
 
-### Offen
+## Auslegung
+
+_(Dämmstärken, Flächen, Materialbedarf — sobald gerechnet)_
+
+## Notizen
 
 - Bedeutet „Abgeschlossen" in der Miro-Einkaufsliste entschieden oder bereits
   gekauft? Die Teile stehen vorerst auf „Entschieden".
 - Kürzel „VL" bei der Armaflex-Rolle ungeklärt.
 - Mengen für Antidröhnmatten, Holzlatten und Kleber noch nicht gerechnet.
 
-## Auslegung
+## Links
 
-_(Dämmstärken, Flächen, Materialbedarf — sobald gerechnet)_
+_(noch keine)_
 
-## Verknüpft
+## Aufgaben
 
-- Aufgaben: [[Dämmung]] in `vault/Aufgaben/`
-- Teile: [[Dämmung]] in `vault/Stückliste/`
+### Boden, Wand, Decke
+
+- [ ] Dämmstoff festlegen ^daemmstoff-entscheiden #kritisch
+- [ ] Hohlräume und Streben dämmen ^hohlraeume-daemmen @braucht:daemmstoff-entscheiden
+- [ ] Dampfbremse setzen ^dampfbremse
+- [ ] Boden aufbauen ^boden-aufbauen @braucht:hohlraeume-daemmen

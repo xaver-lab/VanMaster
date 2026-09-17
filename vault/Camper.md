@@ -12,26 +12,36 @@ Selbstausbau zum Vollzeit-Campervan. Diese Seite verlinkt alles.
 - [[Stückliste]] — alle Teile, Kosten, Gewicht (erzeugt)
 - [[Medien]] — Fotos und Skizzen (erzeugt)
 
-## Aufgaben
+## Bereiche
 
-[[Vorbereitung]] · [[Dämmung]] · [[Elektrik]] · [[Wasser]] · [[Heizung]] ·
-[[Möbel]] · [[Küche]]
+[[Vorbereitung]] · [[Karosserie]] · [[Dämmung]] · [[Elektrik]] · [[Wasser]] ·
+[[Heizung]] · [[Möbel]] · [[Küche]]
 
-## Systeme
-
-[[Elektrik]] · [[Wasser]] · [[Heizung]] · [[Möbel]] · [[Küche]]
+Ein Bereich ist ein Arbeitsraum: Beschreibung, Stand, Auslegung, Notizen,
+Links und Aufgaben in einer Datei. Bilder, Teile, Einzelteile und Modelle
+kommen aus den Daten dazu — `python camper.py bereich Möbel` zeigt alles
+zusammen.
 
 ## Ordner
 
 | Ordner | Inhalt |
 |---|---|
-| `Aufgaben/` | eine Datei je Bereich, verschachtelte Checkboxen |
-| `Systeme/` | Stand und Auslegung je System |
+| `Bereiche/` | eine Datei je Arbeitsbereich, feste Abschnitte, Aufgaben unten |
 | `Entscheidungen/` | eine Datei je Entscheidung: Frage, Optionen, Wahl, Begründung |
 | `Anleitungen/` | Wie etwas gebaut wird |
 | `Recherche/` | Produktvergleiche, Notizen, Quellen |
 | `Stückliste/` | erzeugt aus `data/parts.csv` — nicht von Hand ändern |
-| `Medien/` | Fotos, 3D-Bilder, Skizzen |
+| `Medien/` | Fotos und Skizzen |
+| `Modelle/` | 3D-Zeichnungen je Bereich |
+
+Einzelteile mit Maßen — Bretter, Leisten, Zuschnitte — stehen nicht im Vault,
+sondern in `data/bauteile.csv` (`camper bauteile`).
+
+## Abschnitte einer Bereichsdatei
+
+`## Beschreibung` · `## Stand` · `## Auslegung` · `## Notizen` · `## Links` ·
+`## Aufgaben` — in dieser Reihenfolge. Aufgaben werden nur im letzten
+Abschnitt gelesen, eine Checkbox in den Notizen bleibt ein Merker.
 
 ## Aufgaben schreiben
 

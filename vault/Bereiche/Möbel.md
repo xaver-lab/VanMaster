@@ -1,9 +1,12 @@
 ---
-system: Möbel
-status: offen
+bereich: Möbel
+kurz: Bett, Küchenblock, Hängeschränke, Stauraum, Befestigung
+status: in-arbeit
 ---
 
 # Möbel
+
+## Beschreibung
 
 Bett, Küchenblock, Schränke, Befestigung an der Karosserie.
 
@@ -34,9 +37,24 @@ auf Kopfhöhe im Weg.
 
 ## Auslegung
 
-_(Zahlen, sobald gerechnet — siehe [[Recherche]])_
+_(Zahlen, sobald gerechnet)_
 
-## Verknüpft
+## Notizen
 
-- Aufgaben: [[Möbel]] in `vault/Aufgaben/`
-- Teile: [[Möbel]] in `vault/Stückliste/`
+- Wabenmuster im CAD-Seitenteil ist eine Idee zur Gewichtsersparnis, noch nicht
+  gerechnet.
+- Stückzahl der Klappen hängt am Layout, deshalb stehen die Beschlagmengen offen.
+
+## Links
+
+- [Klappenbeschlag Grass Kinvaro T-57](https://www.amazon.de/dp/B01AC7CZ58) — Hochschwenk-Automatik, 240 N
+- [Push-Lock Schrankschloss](https://www.amazon.de/dp/B0BCVGCT12) — 5er-Set, Türstärke 14–16 mm
+
+## Aufgaben
+
+### Aufbau
+
+- [ ] Layout festlegen (macht der Nutzer) ^layout #kritisch
+- [ ] Bettrahmen bauen ^bettrahmen @braucht:layout
+- [ ] Küchenblock bauen ^kuechenblock @braucht:layout
+- [ ] Stauraum und Schränke ^schraenke @braucht:layout

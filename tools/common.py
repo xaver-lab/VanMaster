@@ -17,15 +17,17 @@ INPUT = ROOT / "_input"
 
 PARTS_CSV = DATA / "parts.csv"
 PARTS_XLSX = GENERATED / "Stueckliste.xlsx"
+BAUTEILE_CSV = DATA / "bauteile.csv"
+BAUTEILE_XLSX = GENERATED / "Bauteile.xlsx"
 DASHBOARD_JSON = DOCS / "data.json"
 
-TASKS_DIR = VAULT / "Aufgaben"
+BEREICHE_DIR = VAULT / "Bereiche"
 PARTS_MD_DIR = VAULT / "Stückliste"
-SYSTEME_DIR = VAULT / "Systeme"
 ENTSCHEIDUNGEN_DIR = VAULT / "Entscheidungen"
 ANLEITUNGEN_DIR = VAULT / "Anleitungen"
 RECHERCHE_DIR = VAULT / "Recherche"
 MEDIEN_DIR = VAULT / "Medien"
+MODELLE_DIR = VAULT / "Modelle"
 
 # Reihenfolge = Fortschritt eines Teils vom Einfall bis zum Einbau.
 PART_STATUS = ["Idee", "Recherche", "Entschieden", "Bestellt", "Geliefert", "Verbaut"]
@@ -34,6 +36,20 @@ PART_KATEGORIEN = [
     "Dämmung", "Elektrik", "Wasser", "Heizung", "Möbel", "Küche",
     "Stauraum", "Werkzeug", "Verbrauchsmaterial",
 ]
+
+# Bereichsdatei: feste Abschnitte, in dieser Reihenfolge.
+BEREICH_ABSCHNITTE = [
+    "Beschreibung", "Stand", "Auslegung", "Notizen", "Links", "Aufgaben",
+]
+BEREICH_STATUS = ["geplant", "in-arbeit", "fertig"]
+
+# Einzelteile: was selbst gebaut oder zugeschnitten wird.
+BAUTEIL_ART = [
+    "Platte", "Leiste", "Kantholz", "Blech", "Rohr", "Kabel", "Beschlag",
+    "Sonstiges",
+]
+BAUTEIL_STATUS = ["Idee", "Geplant", "Zugeschnitten", "Verbaut"]
+MASSQUELLE = ["geschaetzt", "gemessen", "cad"]
 
 _UMLAUTE = {"ä": "ae", "ö": "oe", "ü": "ue", "ß": "ss"}
 
@@ -92,6 +108,26 @@ def split_frontmatter(text: str) -> tuple[dict, str]:
             value = value.strip().strip("\"'")
             meta[key] = value if value else []
     return meta, body
+
+
+def abschnitte(body: str) -> dict[str, str]:
+    """Markdown-Rumpf an den ##-Überschriften zerlegen.
+
+    Liefert {Überschrift: Text}. Alles vor der ersten ## steht unter "".
+    ###-Überschriften bleiben Teil ihres Abschnitts.
+    """
+    teile: dict[str, str] = {}
+    kopf = ""
+    puffer: list[str] = []
+    for zeile in body.splitlines():
+        if zeile.startswith("## ") and not zeile.startswith("### "):
+            teile[kopf] = "\n".join(puffer).strip()
+            kopf = zeile[3:].strip()
+            puffer = []
+            continue
+        puffer.append(zeile)
+    teile[kopf] = "\n".join(puffer).strip()
+    return teile
 
 
 def frontmatter(meta: dict) -> str:

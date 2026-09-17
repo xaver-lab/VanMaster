@@ -32,5 +32,4 @@ _(offen — entscheidet der Nutzer)_
 
 ## Verknüpft
 
-- Systeme: [[Möbel]]
-- Aufgaben: [[Möbel]]
+- Bereich: [[Möbel]]

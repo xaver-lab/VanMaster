@@ -1,9 +1,12 @@
 ---
-system: Elektrik
-status: offen
+bereich: Elektrik
+kurz: Batterien, Laderegler, Solar, Verteilung, Verbraucher
+status: in-arbeit
 ---
 
 # Elektrik
+
+## Beschreibung
 
 Batterien, Laderegler, Solar, Verteilung, Verbraucher.
 
@@ -29,9 +32,25 @@ Rohauszug (SVG) in `_input/miro_export.md`.
 
 ## Auslegung
 
-_(Zahlen, sobald gerechnet — siehe [[Recherche]])_
+_(Zahlen, sobald gerechnet)_
 
-## Verknüpft
+## Notizen
 
-- Aufgaben: [[Elektrik]] in `vault/Aufgaben/`
-- Teile: [[Elektrik]] in `vault/Stückliste/`
+_(noch keine)_
+
+## Links
+
+_(noch keine)_
+
+## Aufgaben
+
+### Auslegung
+
+- [/] Strombilanz rechnen (Verbraucher, Tagesbedarf) ^strombilanz #kritisch
+- [ ] Batteriebank und Laderegler festlegen ^batteriebank-entscheiden #kritisch @braucht:strombilanz
+
+### Einbau
+
+- [ ] Batteriehalterung bauen ^batteriehalterung @braucht:batteriebank-entscheiden
+- [ ] Solarmodule montieren ^solar-montieren #hoch
+- [ ] Verteilung und Sicherungen setzen ^verteilung @braucht:batteriehalterung

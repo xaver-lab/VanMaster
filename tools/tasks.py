@@ -1,4 +1,4 @@
-"""Aufgabenbaum: verschachtelte Checkboxen in vault/Aufgaben/*.md.
+"""Aufgabenbaum: verschachtelte Checkboxen in vault/Bereiche/*.md.
 
 Zeilenformat, so wie Obsidian es nativ abhakt:
 
@@ -8,13 +8,16 @@ Zeilenformat, so wie Obsidian es nativ abhakt:
 
 Kästchen: [ ] offen · [/] läuft · [x] erledigt · [-] verworfen.
 Marken: ^kennung (Obsidian-Blockanker) · #prio · @braucht:<kennung> · @dauer:<text>
+
+Gelesen wird nur der Abschnitt "## Aufgaben" einer Bereichsdatei — eine
+Checkbox in den Notizen ist ein Merker, keine Aufgabe.
 """
 from __future__ import annotations
 
 import re
 from pathlib import Path
 
-from .common import TASKS_DIR, bar, fail, read_text, slug, split_frontmatter
+from .common import BEREICHE_DIR, bar, fail, read_text, slug, split_frontmatter
 
 BOX = {" ": "offen", "/": "laeuft", "x": "erledigt", "X": "erledigt", "-": "verworfen"}
 BOX_ZEICHEN = {"offen": " ", "laeuft": "/", "erledigt": "x", "verworfen": "-"}
@@ -35,14 +38,21 @@ def ebene(einzug: str) -> int:
 def load() -> list[dict]:
     """Alle Aufgaben aller Bereichsdateien, flach mit Eltern-/Kind-Bezügen."""
     aufgaben: list[dict] = []
-    if not TASKS_DIR.exists():
+    if not BEREICHE_DIR.exists():
         return aufgaben
-    for datei in sorted(TASKS_DIR.glob("*.md")):
+    for datei in sorted(BEREICHE_DIR.glob("*.md")):
         meta, _ = split_frontmatter(read_text(datei))
         bereich = meta.get("bereich") or datei.stem
         gruppe = ""
+        drin = False
         stapel: dict[int, str] = {}
         for nr, zeile in enumerate(read_text(datei).splitlines(), start=1):
+            if zeile.startswith("## ") and not zeile.startswith("### "):
+                drin = zeile[3:].strip().lower() == "aufgaben"
+                gruppe = ""
+                continue
+            if not drin:
+                continue
             if zeile.startswith("#"):
                 gruppe = zeile.lstrip("#").strip()
                 continue
@@ -83,7 +93,7 @@ def load() -> list[dict]:
                 "braucht": braucht,
                 "prio": prio,
                 "dauer": dauer,
-                "datei": str(datei.relative_to(TASKS_DIR.parent.parent)),
+                "datei": str(datei.relative_to(BEREICHE_DIR.parent.parent)),
                 "zeile": nr,
             })
             stapel[tiefe] = kennung
@@ -133,7 +143,7 @@ def blocker(a: dict, nach_id: dict[str, dict]) -> list[dict]:
 def next_tasks(limit: int = 8, bereich: str = "") -> str:
     aufgaben = load()
     if not aufgaben:
-        return "Noch keine Aufgaben in vault/Aufgaben/."
+        return "Noch keine Aufgaben in vault/Bereiche/."
     nach_id = {a["id"]: a for a in aufgaben}
     offen = [a for a in blaetter(aufgaben) if a["status"] not in ERLEDIGT]
     if bereich:
@@ -211,7 +221,7 @@ def set_status(task_id: str, status: str) -> str:
         fail(f"Keine Aufgabe zu '{task_id}' gefunden.")
     if status not in BOX_ZEICHEN:
         fail(f"Status muss einer von {', '.join(BOX_ZEICHEN)} sein.")
-    datei = Path(TASKS_DIR.parent.parent / a["datei"])
+    datei = Path(BEREICHE_DIR.parent.parent / a["datei"])
     zeilen = read_text(datei).splitlines()
     i = a["zeile"] - 1
     treffer = ZEILE.match(zeilen[i])
@@ -226,7 +236,7 @@ def set_status(task_id: str, status: str) -> str:
 def overview_text() -> str:
     aufgaben = load()
     if not aufgaben:
-        return "Noch keine Aufgaben in vault/Aufgaben/."
+        return "Noch keine Aufgaben in vault/Bereiche/."
     zeilen = []
     for bereich, liste in sorted(nach_bereich(aufgaben).items()):
         fertig, gesamt_n = fortschritt(liste)

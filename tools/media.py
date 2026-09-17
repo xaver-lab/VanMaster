@@ -1,23 +1,32 @@
-"""Bilder und Dokumente aus _input einsortieren, verkleinern, verlinken."""
+"""Bilder, Dokumente und 3D-Modelle aus _input einsortieren und verlinken."""
 from __future__ import annotations
 
 import shutil
 from datetime import date
 from pathlib import Path
 
-from .common import DOCS, INPUT, MEDIEN_DIR, slug, write_text
+from .common import DOCS, INPUT, MEDIEN_DIR, MODELLE_DIR, slug, write_text
 
 BILDER = (".jpg", ".jpeg", ".png", ".webp")
 DOKUMENTE = (".pdf", ".docx", ".doc", ".odt", ".xlsx")
+# 3D-Zeichnungen. .glb/.gltf lassen sich im Browser zeigen, der Rest ist
+# vorerst nur Download — der Viewer kommt, wenn die erste Datei da ist.
+MODELLE = (".glb", ".gltf", ".stl", ".step", ".stp", ".3mf", ".f3d", ".skp", ".dxf")
+MODELLE_WEB = (".glb", ".gltf", ".stl")
 MAX_KANTE = 1600
 # Das Dashboard liegt auf dem Handy — die Web-Kopie darf kleiner sein.
 WEB_KANTE = 1000
 WEB_DIR = DOCS / "medien"
 
 
+def wurzel(endung: str) -> Path:
+    """Modelle liegen getrennt von Bildern — sie werden anders benutzt."""
+    return MODELLE_DIR if endung.lower() in MODELLE else MEDIEN_DIR
+
+
 def zielname(quelle: Path, bereich: str) -> Path:
     stamm = slug(quelle.stem) or "bild"
-    ordner = MEDIEN_DIR / (bereich or "Unsortiert")
+    ordner = wurzel(quelle.suffix) / (bereich or "Unsortiert")
     ziel = ordner / f"{date.today():%Y-%m-%d}-{stamm}{quelle.suffix.lower()}"
     i = 2
     while ziel.exists():
@@ -103,11 +112,14 @@ def web_export() -> dict:
     Bilder werden dabei ein zweites Mal verkleinert, Dokumente bleiben wie sie
     sind. Was im Vault verschwunden ist, fliegt hier mit raus.
     """
-    bilder, dokumente, behalten = [], [], set()
+    bilder, dokumente, modelle, behalten = [], [], [], set()
     for datei, bereich, art in ablage():
-        rel = datei.relative_to(MEDIEN_DIR)
+        basis = MODELLE_DIR if art == "modell" else MEDIEN_DIR
+        rel = datei.relative_to(basis)
         # Umlaute im Ordnernamen nur im Vault — die Web-Kopie bleibt ASCII.
         rel = Path(*[slug(teil) for teil in rel.parts[:-1]], rel.name)
+        if art == "modell":
+            rel = Path("modelle", rel)
         ziel = WEB_DIR / rel
         behalten.add(ziel)
         if not ziel.exists() or ziel.stat().st_mtime < datei.stat().st_mtime:
@@ -119,7 +131,11 @@ def web_export() -> dict:
         eintrag = {"name": datei.stem, "bereich": bereich,
                    "datei": datei.name,
                    "pfad": "medien/" + rel.as_posix()}
-        (bilder if art == "bild" else dokumente).append(eintrag)
+        if art == "modell":
+            eintrag["zeigbar"] = datei.suffix.lower() in MODELLE_WEB
+            modelle.append(eintrag)
+        else:
+            (bilder if art == "bild" else dokumente).append(eintrag)
 
     if WEB_DIR.exists():
         for alt in sorted(WEB_DIR.rglob("*"), reverse=True):
@@ -127,7 +143,7 @@ def web_export() -> dict:
                 alt.unlink()
             elif alt.is_dir() and not any(alt.iterdir()):
                 alt.rmdir()
-    return {"bilder": bilder, "dokumente": dokumente}
+    return {"bilder": bilder, "dokumente": dokumente, "modelle": modelle}
 
 
 def einsortieren(bereich: str = "", apply: bool = True,
@@ -136,7 +152,7 @@ def einsortieren(bereich: str = "", apply: bool = True,
     Einarbeiten wird Stück für Stück übernommen, nicht alles auf einmal."""
     quelle_wurzel = INPUT / ordner if ordner else INPUT
     quellen = [p for p in sorted(quelle_wurzel.rglob("*"))
-               if p.suffix.lower() in BILDER + DOKUMENTE]         if quelle_wurzel.exists() else []
+               if p.suffix.lower() in BILDER + DOKUMENTE + MODELLE]         if quelle_wurzel.exists() else []
     if not quellen:
         return (f"Nichts in {quelle_wurzel.name}/. "
                 f"Im Vault verlinkt: {index()}.")
@@ -144,12 +160,12 @@ def einsortieren(bereich: str = "", apply: bool = True,
     for quelle in quellen:
         ziel = zielname(quelle, bereich)
         if not apply:
-            zeilen.append(f"  {quelle.name} → {ziel.relative_to(MEDIEN_DIR.parent)}")
+            zeilen.append(f"  {quelle.name} → {ziel.relative_to(MEDIEN_DIR.parent.parent)}")
             continue
         hinweis = uebernehmen(quelle, ziel)
         quelle.unlink()
         zeilen.append(f"  {quelle.name} → "
-                      f"{ziel.relative_to(MEDIEN_DIR.parent)} ({hinweis})")
+                      f"{ziel.relative_to(MEDIEN_DIR.parent.parent)} ({hinweis})")
     kopf = (f"{len(quellen)} Dateien"
             + ("" if apply else " würden einsortiert (Probelauf)"))
     schluss = f"\nIm Vault verlinkt: {index()}." if apply else ""

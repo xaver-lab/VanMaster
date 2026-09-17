@@ -1,9 +1,12 @@
 ---
-system: Heizung
-status: offen
+bereich: Heizung
+kurz: Heizgerät, Abgasführung, Luftverteilung
+status: geplant
 ---
 
 # Heizung
+
+## Beschreibung
 
 Heizgerät, Abgasführung, Luftverteilung.
 
@@ -22,9 +25,20 @@ Rohauszug (SVG) in `_input/miro_export.md`.
 
 ## Auslegung
 
-_(Zahlen, sobald gerechnet — siehe [[Recherche]])_
+_(Zahlen, sobald gerechnet)_
 
-## Verknüpft
+## Notizen
 
-- Aufgaben: [[Heizung]] in `vault/Aufgaben/`
-- Teile: [[Heizung]] in `vault/Stückliste/`
+- Die Miro-Skizze ist vom Nutzer als „noch nicht richtig" markiert.
+
+## Links
+
+_(noch keine)_
+
+## Aufgaben
+
+### Anlage
+
+- [ ] Heizungstyp entscheiden (Diesel/Gas) ^heizung-entscheiden #kritisch
+- [ ] Einbauort und Abgasführung klären ^heizung-einbauort @braucht:heizung-entscheiden
+- [ ] Heizung einbauen ^heizung-einbauen @braucht:heizung-einbauort
