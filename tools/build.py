@@ -7,7 +7,7 @@ from datetime import datetime
 from . import bauteile, bereiche, media, parts, status, tasks
 from .common import (
     ANLEITUNGEN_DIR, DASHBOARD_JSON, DOCS, ENTSCHEIDUNGEN_DIR,
-    PART_KATEGORIEN, RECHERCHE_DIR, VAULT,
+    PART_KATEGORIEN, RECHERCHE_DIR, SORTIERUNGEN, STANDARD_SORTIERUNG, VAULT,
     read_text, split_frontmatter, write_json,
 )
 
@@ -30,7 +30,7 @@ def seiten(ordner) -> list[dict]:
     return out
 
 
-def daten() -> dict:
+def daten(sortierung: str = STANDARD_SORTIERUNG) -> dict:
     m = media.web_export()
     alle = tasks.load()
     teile = parts.load()
@@ -48,11 +48,14 @@ def daten() -> dict:
             continue
         bfertig, bgesamt = tasks.fortschritt(liste)
         bereiche_json.append({
-            "name": name, "kurz": "", "status": "geplant",
+            "name": name, "kurz": "", "status": "geplant", "phase": None,
             "beschreibung": "", "stand": "", "auslegung": "", "notizen": "",
             "links": [], "datei": "",
             "fertig": bfertig, "gesamt": bgesamt,
         })
+    # Reihenfolge kommt fertig aus data.json — das Dashboard sortiert nur um,
+    # wenn der Nutzer den Wechsler anfasst.
+    bereiche_json = bereiche.sortiere(bereiche_json, sortierung)
 
     kategorien = []
     for kat in PART_KATEGORIEN:
@@ -87,6 +90,7 @@ def daten() -> dict:
     return {
         "erzeugt": datetime.now().isoformat(timespec="minutes"),
         "projekt": "VanMaster",
+        "sortierung": sortierung if sortierung in SORTIERUNGEN else STANDARD_SORTIERUNG,
         "kennzahlen": {
             "aufgaben_fertig": fertig,
             "aufgaben_gesamt": gesamt_n,
@@ -111,8 +115,13 @@ def daten() -> dict:
     }
 
 
-def build() -> str:
-    d = daten()
+def build(sortierung: str = STANDARD_SORTIERUNG) -> str:
+    return schreiben(daten(sortierung))
+
+
+def schreiben(d: dict) -> str:
+    """Erzeugte Daten ablegen — getrennt von daten(), damit der Server die
+    frisch gebauten Daten direkt weiterreichen kann, ohne zweimal zu bauen."""
     write_json(DASHBOARD_JSON, d)
     # Zweite Ausgabe als JS, damit das Dashboard auch per Doppelklick
     # (file://) läuft — dort blockiert der Browser fetch().

@@ -2,6 +2,7 @@
 bereich: Wasser
 kurz: Frisch- und Grauwasser, Pumpe, Leitungen, Spüle
 status: geplant
+phase: 5
 ---
 
 # Wasser

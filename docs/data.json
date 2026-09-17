@@ -1,6 +1,7 @@
 {
-  "erzeugt": "2026-09-17T12:55",
+  "erzeugt": "2026-09-17T22:34",
   "projekt": "VanMaster",
+  "sortierung": "baustellen",
   "kennzahlen": {
     "aufgaben_fertig": 1,
     "aufgaben_gesamt": 27,
@@ -13,22 +14,35 @@
   },
   "bereiche": [
     {
-      "name": "Dämmung",
-      "kurz": "Rostvorsorge, Entdröhnung, Armaflex, Dampfbremse, Bodenaufbau",
+      "name": "Möbel",
+      "kurz": "Bett, Küchenblock, Hängeschränke, Sitzbank, Tisch, Toilette, Stauraum",
       "status": "in-arbeit",
-      "beschreibung": "Rostvorsorge, Entdröhnung, Wärmedämmung und Dampfbremse an Boden, Wänden,\nDecke, Radkästen und Türen. Grundlage für alles, was später darauf steht.",
-      "stand": "Aus dem Ordner `Isolierung` übernommen (2026-09-17).\n\n### Aufbau in Schichten\n\n1. Rost behandeln, wo welcher sitzt. Produkt offen, im Rohmaterial steht\n   Hammerite mit Fragezeichen.\n2. Blech mit Bremsenreiniger entfetten — sonst hält weder Matte noch Kleber.\n3. Antidröhnmatten auf die freien Blechflächen kleben.\n4. Armaflex flächig: 19 mm an die Wände (15 m²), 6 mm auf den Boden (5 m²),\n   1,5 mm an die Decke (5 m²). Für die Steher ist zusätzlich eine Rolle\n   6 mm vorgesehen, das ist noch nicht fix.\n5. Boden: Holzlatten mit Polymax aufkleben, darauf der Bodenaufbau.\n\n### Regeln aus dem Rohmaterial\n\n- Nicht in die Träger dämmen. Gedämmt werden Seitenwände, Decke, Radkasten,\n  Kabine und Türen.\n- Kondensation ist der Grund für die geschlossenzellige Bauweise: Armaflex\n  nimmt selbst kein Wasser auf, deshalb darf hinter der Dämmung keine Luft\n  an kaltes Blech kommen. Lückenlos kleben statt stopfen.\n- Die Lattenhöhe am Boden ist offen und bestimmt die spätere Stehhöhe mit.\n\n### Reihenfolge\n\nDer Boden wird erst gedämmt, wenn die Auszüge von Küche und Bett am Boden\ngeplant sind — die Holzlatten müssen dort liegen, wo später Last und\nVerschraubungen hinkommen. Das ist eine Layout-Entscheidung und wartet auf\nden Nutzer.",
+      "phase": 6,
+      "beschreibung": "Bett, Küchenblock, Schränke, Sitzbank mit Toilette, Tisch, Befestigung an der Karosserie.",
+      "stand": "### Hängeschränke\n\nKorpus und Fronten aus EpicPLY-Multiplex. Die Fronten sind Klappen, die nach\noben schwenken, keine seitlich öffnenden Türen — so steht beim Kochen nichts\nauf Kopfhöhe im Weg.\n\n**Beschläge**\n\n- Klappenbeschlag Grass Kinvaro T-57 (Hochschwenk-Automatik, 240 N). Trägt\n  Klappen bis 6,2 kg, öffnet auf 75 oder 90°. Ein Paar je Klappe.\n- Verschließbares Push-Lock-Schloss statt Griff: sitzt bündig, hakt nicht am\n  Kopf und hält die Klappe auf der Fahrt zu.\n- Zusätzlich Möbelmagnete an den Klappen.\n\n**Was das für den Zuschnitt heißt**\n\n- Die Klappen müssen **14–16 mm** stark sein, sonst passt das Push-Lock nicht.\n  Pro Schloss ein Loch mit 26 mm Durchmesser in der Front.\n- Klappengewicht pro Beschlagpaar unter 6,2 kg halten. Bei 15 mm Multiplex\n  (rund 10 kg/m²) heißt das: Klappenfläche höchstens etwa 0,6 m².\n- Über der Klappe muss der Öffnungsweg frei bleiben — der Beschlag schwenkt\n  die Front nach oben vor die Decke.\n\n### Sitzbank, Tisch und Toilette\n\n**Toilette.** Eine Kassettentoilette (Porta-Potti-Bauart) sitzt ausziehbar in\neiner Lade neben der Sitzbank — auf einem Rollbrett mit kleinen Lenkrollen,\nsodass sie sich beim Entleeren einfach herausziehen lässt. Ein\nKlopapierhalter mit zwei Rollen sitzt in derselben Lade daneben.\n\n**Tisch.** Zweiteilige Bambus-Tischplatte auf einem einzelnen Metallbein:\neine kleinere Platte liegt über einer größeren, vermutlich zum Vergrößern der\nFläche verschieb- oder klappbar. Separat dazu ein Wandarm-Tisch, der sich zum\nBeifahrersitz hin schwenken lässt und dort als kleine Ablage direkt am\nFahrersitzbereich dient — deckt sich mit der Notiz „Ausklapptisch zum\nBeifahrersitz\" unter [[Küche]].\n\n**Gewürzregal.** Schmales Auszugregal mit Drahtkörben auf einer\nVollauszugschiene, an eine Schrankseite montiert.",
       "auslegung": "",
-      "notizen": "- Bedeutet „Abgeschlossen\" in der Miro-Einkaufsliste entschieden oder bereits\n  gekauft? Die Teile stehen vorerst auf „Entschieden\".\n- Kürzel „VL\" bei der Armaflex-Rolle ungeklärt.\n- Mengen für Antidröhnmatten, Holzlatten und Kleber noch nicht gerechnet.",
-      "links": [],
-      "datei": "vault/Bereiche/Dämmung.md",
+      "notizen": "- Wabenmuster im CAD-Seitenteil ist eine Idee zur Gewichtsersparnis, noch nicht\n  gerechnet.\n- Stückzahl der Klappen hängt am Layout, deshalb stehen die Beschlagmengen offen.\n\nAus `_input/Kühlschrank und Sitzbank/` (Rohnotizen und Ideenbilder, unbewertet):\n\n- Ideenbild eines fertigen Ausbaus zeigt Hängeschränke, Dachfenster und\n  Kochstelle im Zusammenspiel — als grober Raumeindruck, keine Maße.\n- Toilettenmodell, Rollbrett-Konstruktion und Tischform sind noch offen.",
+      "links": [
+        {
+          "titel": "Klappenbeschlag Grass Kinvaro T-57",
+          "url": "https://www.amazon.de/dp/B01AC7CZ58",
+          "zusatz": "Hochschwenk-Automatik, 240 N"
+        },
+        {
+          "titel": "Push-Lock Schrankschloss",
+          "url": "https://www.amazon.de/dp/B0BCVGCT12",
+          "zusatz": "5er-Set, Türstärke 14–16 mm"
+        }
+      ],
+      "datei": "vault/Bereiche/Möbel.md",
       "fertig": 0,
-      "gesamt": 4
+      "gesamt": 6
     },
     {
       "name": "Elektrik",
       "kurz": "Batterien, Laderegler, Solar, Verteilung, Verbraucher",
       "status": "in-arbeit",
+      "phase": 4,
       "beschreibung": "Batterien, Laderegler, Solar, Verteilung, Verbraucher.",
       "stand": "Skizze aus dem Miro-Board (Frame \"Elektrik\", übernommen 2026-09-17):\n\n- Quellen: PV-Modul (6mm² Kabel + Stecker) und Autobatterie laufen je über eine\n  Sicherung (6A bzw. 16A DC) zum DC-Laderegler. Die Batteriebank (300 Ah) läuft\n  über eine Sicherung (10A DC pro Batterie) zum zentralen Verteiler.\n- Der Verteiler speist gesicherte Zonen (je 6A DC, 2x2,5mm² Kabel):\n  - Vorne: Lampen 12V, USB 12V\n  - Bett: Lampen 12V, USB 12V\n  - Dach: Dachlüfter, Soundsystem\n  - Küche: USB-Steckdose, Schalter → Wasserpumpe, Taster → Abwasser-Ventil,\n    Füllanzeige → LED\n  - AC 230V: Wechselrichter → 230V-Steckdose, Beamer\n- Die Standheizung (Diesel) hängt an einer eigenen Sicherung direkt am Verteiler.\n- Kabeltypen im Diagramm: 2x2,5mm² (Verbraucher), Yf 10mm² (Hauptleitungen\n  Batterie/Laderegler), 3x1,5mm² (vereinzelt).\n\nRohauszug (SVG) in `_input/miro_export.md`.",
       "auslegung": "",
@@ -39,35 +53,24 @@
       "gesamt": 5
     },
     {
-      "name": "Heizung",
-      "kurz": "Heizgerät, Abgasführung, Luftverteilung",
-      "status": "geplant",
-      "beschreibung": "Heizgerät, Abgasführung, Luftverteilung.",
-      "stand": "Skizze aus dem Miro-Board (Frame \"Heizung\", übernommen 2026-09-17):\n\nDieseltank → Dieselfilter → Dieselpumpe → Standheizung (mit Ventilator).\nLufteinlass → Standheizung → Luftauslass, zusätzlich → Abgasschlauch.\nEin Elektro-Schalter steuert Dieselpumpe und Standheizung.\n\nAuf dem Board selbst mit einer orangen Notiz \"Noch nicht richtig!!!!!!\"\nmarkiert — laut Nutzer noch nicht final, nicht als Entscheidung werten.\n\nRohauszug (SVG) in `_input/miro_export.md`.",
+      "name": "Dämmung",
+      "kurz": "Rostvorsorge, Entdröhnung, Armaflex, Dampfbremse, Bodenaufbau",
+      "status": "in-arbeit",
+      "phase": 3,
+      "beschreibung": "Rostvorsorge, Entdröhnung, Wärmedämmung und Dampfbremse an Boden, Wänden,\nDecke, Radkästen und Türen. Grundlage für alles, was später darauf steht.",
+      "stand": "Aus dem Ordner `Isolierung` übernommen (2026-09-17).\n\n### Aufbau in Schichten\n\n1. Rost behandeln, wo welcher sitzt. Produkt offen, im Rohmaterial steht\n   Hammerite mit Fragezeichen.\n2. Blech mit Bremsenreiniger entfetten — sonst hält weder Matte noch Kleber.\n3. Antidröhnmatten auf die freien Blechflächen kleben.\n4. Armaflex flächig: 19 mm an die Wände (15 m²), 6 mm auf den Boden (5 m²),\n   1,5 mm an die Decke (5 m²). Für die Steher ist zusätzlich eine Rolle\n   6 mm vorgesehen, das ist noch nicht fix.\n5. Boden: Holzlatten mit Polymax aufkleben, darauf der Bodenaufbau.\n\n### Regeln aus dem Rohmaterial\n\n- Nicht in die Träger dämmen. Gedämmt werden Seitenwände, Decke, Radkasten,\n  Kabine und Türen.\n- Kondensation ist der Grund für die geschlossenzellige Bauweise: Armaflex\n  nimmt selbst kein Wasser auf, deshalb darf hinter der Dämmung keine Luft\n  an kaltes Blech kommen. Lückenlos kleben statt stopfen.\n- Die Lattenhöhe am Boden ist offen und bestimmt die spätere Stehhöhe mit.\n\n### Reihenfolge\n\nDer Boden wird erst gedämmt, wenn die Auszüge von Küche und Bett am Boden\ngeplant sind — die Holzlatten müssen dort liegen, wo später Last und\nVerschraubungen hinkommen. Das ist eine Layout-Entscheidung und wartet auf\nden Nutzer.",
       "auslegung": "",
-      "notizen": "- Die Miro-Skizze ist vom Nutzer als „noch nicht richtig\" markiert.",
+      "notizen": "- Bedeutet „Abgeschlossen\" in der Miro-Einkaufsliste entschieden oder bereits\n  gekauft? Die Teile stehen vorerst auf „Entschieden\".\n- Kürzel „VL\" bei der Armaflex-Rolle ungeklärt.\n- Mengen für Antidröhnmatten, Holzlatten und Kleber noch nicht gerechnet.",
       "links": [],
-      "datei": "vault/Bereiche/Heizung.md",
+      "datei": "vault/Bereiche/Dämmung.md",
       "fertig": 0,
-      "gesamt": 3
-    },
-    {
-      "name": "Karosserie",
-      "kurz": "Innenmaße, Fenster- und Dachausschnitte, Rost, Durchführungen",
-      "status": "geplant",
-      "beschreibung": "Alles am Fahrzeug selbst: Innenmaße und Konstruktionsgrundlagen, Ausschnitte\nfür Fenster und Dachfenster, Rostbehandlung, Durchführungen und Befestigungs-\npunkte am Blech.",
-      "stand": "",
-      "auslegung": "",
-      "notizen": "- Überschneidet sich mit dem Bereich Vorbereitung: Rost prüfen, Entkernen und\n  Innenmaße aufnehmen liegen dort als Aufgaben. Beim Aufräumen der Struktur\n  klären, ob die beiden Bereiche zusammengehören.",
-      "links": [],
-      "datei": "vault/Bereiche/Karosserie.md",
-      "fertig": 0,
-      "gesamt": 0
+      "gesamt": 4
     },
     {
       "name": "Küche",
       "kurz": "Kochstelle, Kühlschrank, Spüle, Stauraum",
       "status": "in-arbeit",
+      "phase": 7,
       "beschreibung": "Der Küchenblock an der Schiebetür: Gaskocher, Spüle, Kompressorkühlschrank und\ndarunter Stauraum. Er ist das Möbel mit den meisten Anschlüssen — Frisch- und\nAbwasser, 12 V für den Kühlschrank, Gas für den Kocher — und gleichzeitig das\nStück, das die Gangbreite bestimmt.",
       "stand": "**Kühlschrank.** Drei Belluna-Modelle sind durchgerechnet (80 L, 85 L, 92 L),\nErgebnis in [[Kühlschrank Modell]]. Feststehende Punkte:\n\n- Alle drei liegen bei 45–50 W Spitze, also rund 4,2 A bei 12 V. Die\n  6-A-Sicherung der Küchenzone reicht. Tagesverbrauch etwa 390 Wh, das sind\n  13–15 % der 300 Ah LiFePO4.\n- Die Einbautiefe steuert den Gang: 44–45 cm lassen bei 171 cm Innenbreite\n  etwa 81–82 cm Gang, 54 cm nur noch 72 cm.\n- Türanschlag soll links sitzen, Griff rechts, damit die Tür zur\n  Fahrerseitenwand aufschwingt und den Gang frei lässt.\n\n**Wasser in der Küche.** Frischwasser kommt aus Weithalskanistern DIN 96 im\nKüchenschacht (siehe [[Wasser]]). Der Abwassertank soll nicht mehr in der Tür\nsitzen.\n\n**Klappen.** Für Waschbecken-, Kocher- und Wassertankklappe ist ein\nEasyConnect-Scharnier-Set von Camping Wagner vorgesehen. Die Klappenstärke\nliegt durch das Push-Lock-Schloss bei 14–16 mm (siehe [[Möbel]]).",
       "auslegung": "| | Wert | Quelle |\n|---|---|---|\n| Innenbreite Laderaum | 171 cm | Fahrzeugmaß |\n| Gang bei 44–45 cm Kühlschranktiefe | 81–82 cm | gerechnet |\n| Gang bei 54 cm Kühlschranktiefe | 72 cm | gerechnet |\n| Kühlschrank Spitzenlast | 45–50 W ≈ 4,2 A bei 12 V | Herstellerangabe |\n| Kühlschrank Tagesverbrauch | ~390 Wh ≈ 13–15 % der Bank | gerechnet |\n| Sicherung Küchenzone | 6 A | Elektrikplanung, reicht aus |\n| Klappenstärke | 14–16 mm | Vorgabe Push-Lock-Schloss |",
@@ -109,33 +112,10 @@
       "gesamt": 3
     },
     {
-      "name": "Möbel",
-      "kurz": "Bett, Küchenblock, Hängeschränke, Sitzbank, Tisch, Toilette, Stauraum",
-      "status": "in-arbeit",
-      "beschreibung": "Bett, Küchenblock, Schränke, Sitzbank mit Toilette, Tisch, Befestigung an der Karosserie.",
-      "stand": "### Hängeschränke\n\nKorpus und Fronten aus EpicPLY-Multiplex. Die Fronten sind Klappen, die nach\noben schwenken, keine seitlich öffnenden Türen — so steht beim Kochen nichts\nauf Kopfhöhe im Weg.\n\n**Beschläge**\n\n- Klappenbeschlag Grass Kinvaro T-57 (Hochschwenk-Automatik, 240 N). Trägt\n  Klappen bis 6,2 kg, öffnet auf 75 oder 90°. Ein Paar je Klappe.\n- Verschließbares Push-Lock-Schloss statt Griff: sitzt bündig, hakt nicht am\n  Kopf und hält die Klappe auf der Fahrt zu.\n- Zusätzlich Möbelmagnete an den Klappen.\n\n**Was das für den Zuschnitt heißt**\n\n- Die Klappen müssen **14–16 mm** stark sein, sonst passt das Push-Lock nicht.\n  Pro Schloss ein Loch mit 26 mm Durchmesser in der Front.\n- Klappengewicht pro Beschlagpaar unter 6,2 kg halten. Bei 15 mm Multiplex\n  (rund 10 kg/m²) heißt das: Klappenfläche höchstens etwa 0,6 m².\n- Über der Klappe muss der Öffnungsweg frei bleiben — der Beschlag schwenkt\n  die Front nach oben vor die Decke.\n\n### Sitzbank, Tisch und Toilette\n\n**Toilette.** Eine Kassettentoilette (Porta-Potti-Bauart) sitzt ausziehbar in\neiner Lade neben der Sitzbank — auf einem Rollbrett mit kleinen Lenkrollen,\nsodass sie sich beim Entleeren einfach herausziehen lässt. Ein\nKlopapierhalter mit zwei Rollen sitzt in derselben Lade daneben.\n\n**Tisch.** Zweiteilige Bambus-Tischplatte auf einem einzelnen Metallbein:\neine kleinere Platte liegt über einer größeren, vermutlich zum Vergrößern der\nFläche verschieb- oder klappbar. Separat dazu ein Wandarm-Tisch, der sich zum\nBeifahrersitz hin schwenken lässt und dort als kleine Ablage direkt am\nFahrersitzbereich dient — deckt sich mit der Notiz „Ausklapptisch zum\nBeifahrersitz\" unter [[Küche]].\n\n**Gewürzregal.** Schmales Auszugregal mit Drahtkörben auf einer\nVollauszugschiene, an eine Schrankseite montiert.",
-      "auslegung": "",
-      "notizen": "- Wabenmuster im CAD-Seitenteil ist eine Idee zur Gewichtsersparnis, noch nicht\n  gerechnet.\n- Stückzahl der Klappen hängt am Layout, deshalb stehen die Beschlagmengen offen.\n\nAus `_input/Kühlschrank und Sitzbank/` (Rohnotizen und Ideenbilder, unbewertet):\n\n- Ideenbild eines fertigen Ausbaus zeigt Hängeschränke, Dachfenster und\n  Kochstelle im Zusammenspiel — als grober Raumeindruck, keine Maße.\n- Toilettenmodell, Rollbrett-Konstruktion und Tischform sind noch offen.",
-      "links": [
-        {
-          "titel": "Klappenbeschlag Grass Kinvaro T-57",
-          "url": "https://www.amazon.de/dp/B01AC7CZ58",
-          "zusatz": "Hochschwenk-Automatik, 240 N"
-        },
-        {
-          "titel": "Push-Lock Schrankschloss",
-          "url": "https://www.amazon.de/dp/B0BCVGCT12",
-          "zusatz": "5er-Set, Türstärke 14–16 mm"
-        }
-      ],
-      "datei": "vault/Bereiche/Möbel.md",
-      "fertig": 0,
-      "gesamt": 6
-    },
-    {
       "name": "Vorbereitung",
       "kurz": "Aufmaß, Rost, Entkernen — was vor dem Ausbau passiert",
       "status": "in-arbeit",
+      "phase": 1,
       "beschreibung": "Was vor dem eigentlichen Ausbau passiert: Innenmaße aufnehmen, Rost suchen und\nbehandeln, alte Verkleidung und Holzboden herausnehmen.",
       "stand": "",
       "auslegung": "",
@@ -146,9 +126,24 @@
       "gesamt": 3
     },
     {
+      "name": "Heizung",
+      "kurz": "Heizgerät, Abgasführung, Luftverteilung",
+      "status": "geplant",
+      "phase": 5,
+      "beschreibung": "Heizgerät, Abgasführung, Luftverteilung.",
+      "stand": "Skizze aus dem Miro-Board (Frame \"Heizung\", übernommen 2026-09-17):\n\nDieseltank → Dieselfilter → Dieselpumpe → Standheizung (mit Ventilator).\nLufteinlass → Standheizung → Luftauslass, zusätzlich → Abgasschlauch.\nEin Elektro-Schalter steuert Dieselpumpe und Standheizung.\n\nAuf dem Board selbst mit einer orangen Notiz \"Noch nicht richtig!!!!!!\"\nmarkiert — laut Nutzer noch nicht final, nicht als Entscheidung werten.\n\nRohauszug (SVG) in `_input/miro_export.md`.",
+      "auslegung": "",
+      "notizen": "- Die Miro-Skizze ist vom Nutzer als „noch nicht richtig\" markiert.",
+      "links": [],
+      "datei": "vault/Bereiche/Heizung.md",
+      "fertig": 0,
+      "gesamt": 3
+    },
+    {
       "name": "Wasser",
       "kurz": "Frisch- und Grauwasser, Pumpe, Leitungen, Spüle",
       "status": "geplant",
+      "phase": 5,
       "beschreibung": "Frisch- und Grauwasser, Pumpe, Leitungen, Spüle. Kein Warmwasser, keine Dusche.",
       "stand": "Skizze aus dem Miro-Board (Frame \"Wasser\", übernommen 2026-09-17):\n\nWassertank → (Schalter →) Pumpe → Wasserverteiler (2x absperrbar) →\nWasserhahn / Dusche → Waschbecken → Abwassertank (mit Füllanzeige) →\nAblassventil (mit Taster).\n\nDeckt sich mit der Projektübersicht (kein Warmwasser).",
       "auslegung": "",
@@ -163,6 +158,20 @@
       "datei": "vault/Bereiche/Wasser.md",
       "fertig": 0,
       "gesamt": 3
+    },
+    {
+      "name": "Karosserie",
+      "kurz": "Innenmaße, Fenster- und Dachausschnitte, Rost, Durchführungen",
+      "status": "geplant",
+      "phase": 2,
+      "beschreibung": "Alles am Fahrzeug selbst: Innenmaße und Konstruktionsgrundlagen, Ausschnitte\nfür Fenster und Dachfenster, Rostbehandlung, Durchführungen und Befestigungs-\npunkte am Blech.",
+      "stand": "",
+      "auslegung": "",
+      "notizen": "- Überschneidet sich mit dem Bereich Vorbereitung: Rost prüfen, Entkernen und\n  Innenmaße aufnehmen liegen dort als Aufgaben. Beim Aufräumen der Struktur\n  klären, ob die beiden Bereiche zusammengehören.",
+      "links": [],
+      "datei": "vault/Bereiche/Karosserie.md",
+      "fertig": 0,
+      "gesamt": 0
     }
   ],
   "kategorien": [
@@ -227,7 +236,7 @@
     {
       "id": "daemmstoff-entscheiden",
       "titel": "Dämmstoff festlegen",
-      "status": "offen",
+      "status": "laeuft",
       "bereich": "Dämmung",
       "gruppe": "Boden, Wand, Decke",
       "ebene": 0,
@@ -237,7 +246,7 @@
       "prio": "kritisch",
       "dauer": "",
       "datei": "vault\\Bereiche\\Dämmung.md",
-      "zeile": 64
+      "zeile": 65
     },
     {
       "id": "hohlraeume-daemmen",
@@ -254,7 +263,7 @@
       "prio": "",
       "dauer": "",
       "datei": "vault\\Bereiche\\Dämmung.md",
-      "zeile": 65
+      "zeile": 66
     },
     {
       "id": "dampfbremse",
@@ -269,7 +278,7 @@
       "prio": "",
       "dauer": "",
       "datei": "vault\\Bereiche\\Dämmung.md",
-      "zeile": 66
+      "zeile": 67
     },
     {
       "id": "boden-aufbauen",
@@ -286,7 +295,7 @@
       "prio": "",
       "dauer": "",
       "datei": "vault\\Bereiche\\Dämmung.md",
-      "zeile": 67
+      "zeile": 68
     },
     {
       "id": "strombilanz",
@@ -301,7 +310,7 @@
       "prio": "kritisch",
       "dauer": "",
       "datei": "vault\\Bereiche\\Elektrik.md",
-      "zeile": 49
+      "zeile": 50
     },
     {
       "id": "batteriebank-entscheiden",
@@ -318,7 +327,7 @@
       "prio": "kritisch",
       "dauer": "",
       "datei": "vault\\Bereiche\\Elektrik.md",
-      "zeile": 50
+      "zeile": 51
     },
     {
       "id": "batteriehalterung",
@@ -335,7 +344,7 @@
       "prio": "",
       "dauer": "",
       "datei": "vault\\Bereiche\\Elektrik.md",
-      "zeile": 54
+      "zeile": 55
     },
     {
       "id": "solar-montieren",
@@ -350,7 +359,7 @@
       "prio": "hoch",
       "dauer": "",
       "datei": "vault\\Bereiche\\Elektrik.md",
-      "zeile": 55
+      "zeile": 56
     },
     {
       "id": "verteilung",
@@ -367,7 +376,7 @@
       "prio": "",
       "dauer": "",
       "datei": "vault\\Bereiche\\Elektrik.md",
-      "zeile": 56
+      "zeile": 57
     },
     {
       "id": "heizung-entscheiden",
@@ -382,7 +391,7 @@
       "prio": "kritisch",
       "dauer": "",
       "datei": "vault\\Bereiche\\Heizung.md",
-      "zeile": 42
+      "zeile": 43
     },
     {
       "id": "heizung-einbauort",
@@ -399,7 +408,7 @@
       "prio": "",
       "dauer": "",
       "datei": "vault\\Bereiche\\Heizung.md",
-      "zeile": 43
+      "zeile": 44
     },
     {
       "id": "heizung-einbauen",
@@ -416,7 +425,7 @@
       "prio": "",
       "dauer": "",
       "datei": "vault\\Bereiche\\Heizung.md",
-      "zeile": 44
+      "zeile": 45
     },
     {
       "id": "kochstelle-entscheiden",
@@ -431,7 +440,7 @@
       "prio": "hoch",
       "dauer": "",
       "datei": "vault\\Bereiche\\Küche.md",
-      "zeile": 89
+      "zeile": 90
     },
     {
       "id": "kuehlschrank-entscheiden",
@@ -448,7 +457,7 @@
       "prio": "hoch",
       "dauer": "",
       "datei": "vault\\Bereiche\\Küche.md",
-      "zeile": 90
+      "zeile": 91
     },
     {
       "id": "kueche-einbauen",
@@ -465,7 +474,7 @@
       "prio": "",
       "dauer": "",
       "datei": "vault\\Bereiche\\Küche.md",
-      "zeile": 91
+      "zeile": 92
     },
     {
       "id": "layout",
@@ -480,7 +489,7 @@
       "prio": "kritisch",
       "dauer": "",
       "datei": "vault\\Bereiche\\Möbel.md",
-      "zeile": 80
+      "zeile": 81
     },
     {
       "id": "bettrahmen",
@@ -497,7 +506,7 @@
       "prio": "",
       "dauer": "",
       "datei": "vault\\Bereiche\\Möbel.md",
-      "zeile": 81
+      "zeile": 82
     },
     {
       "id": "kuechenblock",
@@ -514,7 +523,7 @@
       "prio": "",
       "dauer": "",
       "datei": "vault\\Bereiche\\Möbel.md",
-      "zeile": 82
+      "zeile": 83
     },
     {
       "id": "schraenke",
@@ -531,7 +540,7 @@
       "prio": "",
       "dauer": "",
       "datei": "vault\\Bereiche\\Möbel.md",
-      "zeile": 83
+      "zeile": 84
     },
     {
       "id": "sitzbank",
@@ -548,7 +557,7 @@
       "prio": "",
       "dauer": "",
       "datei": "vault\\Bereiche\\Möbel.md",
-      "zeile": 84
+      "zeile": 85
     },
     {
       "id": "tisch",
@@ -565,7 +574,7 @@
       "prio": "",
       "dauer": "",
       "datei": "vault\\Bereiche\\Möbel.md",
-      "zeile": 85
+      "zeile": 86
     },
     {
       "id": "masse-aufnehmen",
@@ -580,7 +589,7 @@
       "prio": "kritisch",
       "dauer": "",
       "datei": "vault\\Bereiche\\Vorbereitung.md",
-      "zeile": 35
+      "zeile": 36
     },
     {
       "id": "rost-pruefen",
@@ -595,7 +604,7 @@
       "prio": "hoch",
       "dauer": "",
       "datei": "vault\\Bereiche\\Vorbereitung.md",
-      "zeile": 36
+      "zeile": 37
     },
     {
       "id": "entkernen",
@@ -612,7 +621,7 @@
       "prio": "hoch",
       "dauer": "",
       "datei": "vault\\Bereiche\\Vorbereitung.md",
-      "zeile": 37
+      "zeile": 38
     },
     {
       "id": "tankgroessen",
@@ -627,7 +636,7 @@
       "prio": "hoch",
       "dauer": "",
       "datei": "vault\\Bereiche\\Wasser.md",
-      "zeile": 51
+      "zeile": 52
     },
     {
       "id": "wasser-leitungen",
@@ -644,7 +653,7 @@
       "prio": "",
       "dauer": "",
       "datei": "vault\\Bereiche\\Wasser.md",
-      "zeile": 52
+      "zeile": 53
     },
     {
       "id": "spuele-einbauen",
@@ -661,7 +670,7 @@
       "prio": "",
       "dauer": "",
       "datei": "vault\\Bereiche\\Wasser.md",
-      "zeile": 53
+      "zeile": 54
     }
   ],
   "teile": [

@@ -18,8 +18,14 @@ from tools import (  # noqa: E402
     bauteile, bereiche, build, media, parts, status, tasks,
 )
 from tools.common import (  # noqa: E402
-    BAUTEIL_ART, BAUTEIL_STATUS, MASSQUELLE, PART_KATEGORIEN, fail,
+    BAUTEIL_ART, BAUTEIL_STATUS, MASSQUELLE, PART_KATEGORIEN, SORTIERUNGEN,
+    STANDARD_SORTIERUNG, fail,
 )
+
+
+def sortierung(args) -> str:
+    """Reihenfolge der Bereiche — überall dieselbe, siehe tools/bereiche.py."""
+    return getattr(args, "sortierung", None) or STANDARD_SORTIERUNG
 
 
 def zeige(text: str, daten=None, als_json: bool = False) -> None:
@@ -30,7 +36,8 @@ def zeige(text: str, daten=None, als_json: bool = False) -> None:
 
 
 def cmd_sync(args) -> None:
-    schritte = [parts.to_markdown(), media.index_text(), build.build()]
+    schritte = [parts.to_markdown(), media.index_text(),
+                build.build(sortierung(args))]
     for name, mach in (("Stückliste", parts.to_excel),
                        ("Einzelteile", bauteile.to_excel)):
         try:
@@ -41,10 +48,11 @@ def cmd_sync(args) -> None:
 
 
 def cmd_status(args) -> None:
+    art = sortierung(args)
     if args.json:
-        zeige("", build.daten()["kennzahlen"], True)
+        zeige("", build.daten(art)["kennzahlen"], True)
         return
-    print(status.brief() if args.brief else status.full())
+    print(status.brief(art) if args.brief else status.full(art))
 
 
 def cmd_tasks(args) -> None:
@@ -56,9 +64,10 @@ def cmd_tasks(args) -> None:
                      if a["status"] not in tasks.ERLEDIGT]
             zeige("", [a for a in offen if not tasks.blocker(a, nach_id)], True)
             return
-        print(tasks.next_tasks(limit=args.limit, bereich=args.bereich or ""))
+        print(tasks.next_tasks(limit=args.limit, bereich=args.bereich or "",
+                               sortierung=sortierung(args)))
     else:
-        print(tasks.overview_text())
+        print(tasks.overview_text(sortierung(args)))
 
 
 def cmd_task(args) -> None:
@@ -110,10 +119,11 @@ def cmd_bereich(args) -> None:
 
 
 def cmd_bereiche(args) -> None:
+    art = sortierung(args)
     if args.json:
-        zeige("", build.daten()["bereiche"], True)
+        zeige("", build.daten(art)["bereiche"], True)
         return
-    print(bereiche.overview_text())
+    print(bereiche.overview_text(art))
 
 
 def cmd_bauteile(args) -> None:
@@ -152,7 +162,13 @@ def cmd_media(args) -> None:
 
 
 def cmd_build(args) -> None:
-    print(build.build())
+    print(build.build(sortierung(args)))
+
+
+def cmd_serve(args) -> None:
+    from tools import serve
+    serve.run(port=args.port, offen=args.offen, oeffnen=not args.kein_browser,
+              sortierung=sortierung(args))
 
 
 def cmd_ui(args) -> None:
@@ -166,11 +182,21 @@ def parser() -> argparse.ArgumentParser:
     sub = p.add_subparsers(dest="befehl", required=True)
 
     s = sub.add_parser("sync", help="alles neu erzeugen")
+    s.add_argument("--sortierung", choices=SORTIERUNGEN,
+                   default=STANDARD_SORTIERUNG,
+                   help="Reihenfolge der Themen: baustellen (Status und "
+                        "offene Aufgaben), phase (Bauabschnitt aus dem Kopf "
+                        "der Bereichsdatei) oder name")
     s.set_defaults(func=cmd_sync)
 
     s = sub.add_parser("status", help="Lageüberblick")
     s.add_argument("--brief", action="store_true", help="kompakt für den Chat")
     s.add_argument("--json", action="store_true")
+    s.add_argument("--sortierung", choices=SORTIERUNGEN,
+                   default=STANDARD_SORTIERUNG,
+                   help="Reihenfolge der Themen: baustellen (Status und "
+                        "offene Aufgaben), phase (Bauabschnitt aus dem Kopf "
+                        "der Bereichsdatei) oder name")
     s.set_defaults(func=cmd_status)
 
     s = sub.add_parser("tasks", help="Aufgabenüberblick")
@@ -178,6 +204,11 @@ def parser() -> argparse.ArgumentParser:
     s.add_argument("--bereich")
     s.add_argument("--limit", type=int, default=8)
     s.add_argument("--json", action="store_true")
+    s.add_argument("--sortierung", choices=SORTIERUNGEN,
+                   default=STANDARD_SORTIERUNG,
+                   help="Reihenfolge der Themen: baustellen (Status und "
+                        "offene Aufgaben), phase (Bauabschnitt aus dem Kopf "
+                        "der Bereichsdatei) oder name")
     s.set_defaults(func=cmd_tasks)
 
     s = sub.add_parser("task", help="Aufgabe abhaken oder umstellen")
@@ -219,6 +250,11 @@ def parser() -> argparse.ArgumentParser:
 
     s = sub.add_parser("bereiche", help="alle Arbeitsbereiche")
     s.add_argument("--json", action="store_true")
+    s.add_argument("--sortierung", choices=SORTIERUNGEN,
+                   default=STANDARD_SORTIERUNG,
+                   help="Reihenfolge der Themen: baustellen (Status und "
+                        "offene Aufgaben), phase (Bauabschnitt aus dem Kopf "
+                        "der Bereichsdatei) oder name")
     s.set_defaults(func=cmd_bereiche)
 
     s = sub.add_parser("bauteile", help="Einzelteile mit Maßen")
@@ -257,7 +293,25 @@ def parser() -> argparse.ArgumentParser:
     s.set_defaults(func=cmd_media)
 
     s = sub.add_parser("build", help="Dashboard-Daten bauen")
+    s.add_argument("--sortierung", choices=SORTIERUNGEN,
+                   default=STANDARD_SORTIERUNG,
+                   help="Reihenfolge der Themen: baustellen (Status und "
+                        "offene Aufgaben), phase (Bauabschnitt aus dem Kopf "
+                        "der Bereichsdatei) oder name")
     s.set_defaults(func=cmd_build)
+
+    s = sub.add_parser("serve", help="Dashboard mit Schreibzugriff starten")
+    s.add_argument("--port", type=int, default=8765)
+    s.add_argument("--offen", action="store_true",
+                   help="auch vom Handy im WLAN erreichbar")
+    s.add_argument("--kein-browser", dest="kein_browser", action="store_true",
+                   help="Browser nicht selbst öffnen")
+    s.add_argument("--sortierung", choices=SORTIERUNGEN,
+                   default=STANDARD_SORTIERUNG,
+                   help="Reihenfolge der Themen: baustellen (Status und "
+                        "offene Aufgaben), phase (Bauabschnitt aus dem Kopf "
+                        "der Bereichsdatei) oder name")
+    s.set_defaults(func=cmd_serve)
 
     s = sub.add_parser("ui", help="Tkinter-Fenster")
     s.set_defaults(func=cmd_ui)

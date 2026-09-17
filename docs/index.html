@@ -1,67 +1,164 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" data-thema="dunkel">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#14181f">
+<meta name="theme-color" content="#101319">
 <title>VanMaster</title>
 <link rel="stylesheet" href="style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><text y='14' font-size='14'>🚐</text></svg>">
 </head>
 <body>
 
-<header>
-  <h1>VanMaster</h1>
-  <p id="stand">lädt …</p>
-</header>
+<div class="app">
 
-<section id="kennzahlen" class="kennzahlen"></section>
-
-<nav id="tabs">
-  <button data-tab="uebersicht" class="aktiv">Übersicht</button>
-  <button data-tab="bereiche">Bereiche</button>
-  <button data-tab="aufgaben">Aufgaben</button>
-  <button data-tab="stueckliste">Stückliste</button>
-  <button data-tab="bilder">Bilder</button>
-</nav>
-
-<main>
-  <section id="uebersicht" class="tab aktiv"></section>
-
-  <section id="bereiche" class="tab">
-    <nav id="bereich-leiste" class="unterleiste"></nav>
-    <div id="bereich-inhalt"></div>
-  </section>
-
-  <section id="aufgaben" class="tab">
-    <div class="filterleiste">
-      <input id="aufgaben-suche" type="search" placeholder="Aufgabe suchen …">
-      <label><input type="checkbox" id="nur-offen"> nur offene</label>
+  <!-- Seitenschiene: am Laptop links, am Handy unten als Leiste -->
+  <aside class="schiene">
+    <div class="marke">
+      <span class="zeichen">🚐</span>
+      <span class="wort">VanMaster</span>
     </div>
-    <div id="aufgaben-baum"></div>
-  </section>
 
-  <section id="stueckliste" class="tab">
-    <div class="filterleiste">
-      <select id="f-kategorie"><option value="">alle Kategorien</option></select>
-      <select id="f-status"><option value="">alle Status</option></select>
-      <input id="teile-suche" type="search" placeholder="Teil suchen …">
+    <nav id="hauptnav" class="hauptnav">
+      <button data-ansicht="start"     data-taste="1"><span class="icon">◉</span><span class="text">Start</span></button>
+      <button data-ansicht="themen"    data-taste="2"><span class="icon">▤</span><span class="text">Themen</span></button>
+      <button data-ansicht="aufgaben"  data-taste="3"><span class="icon">✓</span><span class="text">Aufgaben</span><span class="pille" id="nav-offen"></span></button>
+      <button data-ansicht="teile"     data-taste="4"><span class="icon">◫</span><span class="text">Teile</span></button>
+      <button data-ansicht="zuschnitt" data-taste="5"><span class="icon">▭</span><span class="text">Zuschnitt</span></button>
+      <button data-ansicht="medien"    data-taste="6"><span class="icon">▦</span><span class="text">Medien</span></button>
+    </nav>
+
+    <div class="schienenfuss">
+      <button id="thema-schalter" class="flachknopf" title="Hell / dunkel (T)">◐<span class="text">Ansicht</span></button>
+      <p id="stand" class="stand">lädt …</p>
     </div>
-    <p id="teile-summe" class="summe"></p>
-    <div id="teile-tabelle"></div>
-  </section>
+  </aside>
 
-  <section id="bilder" class="tab">
-    <div class="filterleiste">
-      <select id="f-bereich"><option value="">alle Bereiche</option></select>
-    </div>
-    <div id="bilder-liste"></div>
-  </section>
-</main>
+  <div class="rahmen">
+    <header class="kopf">
+      <div class="kopf-titel">
+        <h1 id="kopf-h1">Start</h1>
+        <p id="kopf-unter"></p>
+      </div>
+      <div class="kopf-werkzeuge">
+        <button id="suchknopf" class="suchknopf">
+          <span>⌕</span><span class="text">Suchen</span><kbd>Strg K</kbd>
+        </button>
+        <span id="verbindung" class="verbindung" title="Schreibzugriff">·</span>
+      </div>
+    </header>
 
-<div id="lupe" hidden><img alt=""><p></p></div>
+    <main id="buehne">
 
-<footer><p>Erzeugt aus dem Repo — Änderungen in Obsidian oder per <code>camper</code>.</p></footer>
+      <!-- ------------------------------------------------------ Start -->
+      <section id="start" class="ansicht aktiv">
+        <div id="kennzahlen" class="kennzahlen"></div>
+        <div class="spalten">
+          <div class="spalte">
+            <section class="karte">
+              <div class="karten-kopf"><h2>Als Nächstes</h2><span id="naechste-zahl" class="zaehler"></span></div>
+              <div id="naechste"></div>
+            </section>
+          </div>
+          <div class="spalte">
+            <section class="karte">
+              <div class="karten-kopf"><h2>Themen</h2></div>
+              <div id="start-bereiche"></div>
+            </section>
+            <section class="karte">
+              <div class="karten-kopf"><h2>Kosten je Kategorie</h2><span id="kosten-summe" class="zaehler"></span></div>
+              <div id="start-kosten"></div>
+            </section>
+            <section class="karte" id="start-entscheidungen-karte" hidden>
+              <div class="karten-kopf"><h2>Offene Entscheidungen</h2></div>
+              <div id="start-entscheidungen"></div>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <!-- ----------------------------------------------------- Themen -->
+      <section id="themen" class="ansicht arbeitsraum">
+        <div class="raum-spalte">
+          <div class="raum-wechsler">
+            <label for="themen-sortierung">Reihenfolge</label>
+            <select id="themen-sortierung" class="wahl"></select>
+          </div>
+          <div class="raum-liste" id="themen-liste"></div>
+        </div>
+        <div class="raum-blatt" id="themen-blatt">
+          <div class="blatt-kopf" id="thema-kopf"></div>
+          <nav class="segmente" id="thema-segmente"></nav>
+          <div class="blatt-inhalt" id="thema-inhalt"></div>
+        </div>
+      </section>
+
+      <!-- --------------------------------------------------- Aufgaben -->
+      <section id="aufgaben" class="ansicht">
+        <div class="leiste">
+          <input id="aufgaben-suche" type="search" placeholder="Aufgabe suchen …" autocomplete="off">
+          <div class="chips" id="aufgaben-chips"></div>
+          <select id="aufgaben-gruppierung" class="wahl">
+            <option value="bereich">nach Thema</option>
+            <option value="prio">nach Priorität</option>
+            <option value="flach">flache Liste</option>
+          </select>
+        </div>
+        <div id="aufgaben-liste"></div>
+      </section>
+
+      <!-- ------------------------------------------------------ Teile -->
+      <section id="teile" class="ansicht">
+        <div class="leiste">
+          <input id="teile-suche" type="search" placeholder="Teil, Händler, Kennwert …" autocomplete="off">
+          <select id="teile-kategorie" class="wahl"><option value="">alle Kategorien</option></select>
+          <div class="chips" id="teile-chips"></div>
+        </div>
+        <div id="teile-summe" class="summenband"></div>
+        <div id="teile-liste"></div>
+      </section>
+
+      <!-- -------------------------------------------------- Zuschnitt -->
+      <section id="zuschnitt" class="ansicht">
+        <div class="leiste">
+          <input id="zuschnitt-suche" type="search" placeholder="Einzelteil suchen …" autocomplete="off">
+          <select id="zuschnitt-bereich" class="wahl"><option value="">alle Themen</option></select>
+        </div>
+        <div id="zuschnitt-summe" class="summenband"></div>
+        <div id="zuschnitt-liste"></div>
+      </section>
+
+      <!-- ----------------------------------------------------- Medien -->
+      <section id="medien" class="ansicht">
+        <div class="leiste">
+          <select id="medien-bereich" class="wahl"><option value="">alle Themen</option></select>
+          <div class="chips" id="medien-chips"></div>
+        </div>
+        <div id="medien-liste"></div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<!-- Suchpalette -->
+<div id="palette" class="palette" hidden>
+  <div class="palette-kasten" role="dialog" aria-label="Suche">
+    <input id="palette-eingabe" type="text" placeholder="Springen zu … Thema, Aufgabe, Teil, Bild" autocomplete="off">
+    <div id="palette-treffer" class="palette-treffer"></div>
+    <div class="palette-fuss"><kbd>↑</kbd><kbd>↓</kbd> wählen · <kbd>↵</kbd> öffnen · <kbd>Esc</kbd> schließen</div>
+  </div>
+</div>
+
+<!-- Bildlupe -->
+<div id="lupe" class="lupe" hidden>
+  <button class="lupe-zu" aria-label="Schließen">✕</button>
+  <button class="lupe-pfeil links" aria-label="Zurück">‹</button>
+  <figure><img alt=""><figcaption></figcaption></figure>
+  <button class="lupe-pfeil rechts" aria-label="Weiter">›</button>
+</div>
+
+<div id="toasts" class="toasts"></div>
 
 <script src="data.js"></script>
 <script src="app.js"></script>

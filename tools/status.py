@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from . import bauteile, bereiche, media, parts, tasks
 from .common import (
-    ENTSCHEIDUNGEN_DIR, PART_STATUS, RECHERCHE_DIR, VAULT,
+    ENTSCHEIDUNGEN_DIR, PART_STATUS, RECHERCHE_DIR, STANDARD_SORTIERUNG, VAULT,
     bar, euro, read_text, split_frontmatter,
 )
 
@@ -19,7 +19,7 @@ def offene_entscheidungen() -> list[str]:
     return offen
 
 
-def brief() -> str:
+def brief(sortierung: str = STANDARD_SORTIERUNG) -> str:
     """Ein Absatz: Fortschritt, Kosten, nächster Schritt, offene Entscheidungen."""
     alle = tasks.load()
     fertig, gesamt_n = tasks.fortschritt(alle)
@@ -38,7 +38,10 @@ def brief() -> str:
     nach_id = {a["id"]: a for a in alle}
     offen = [a for a in tasks.blaetter(alle) if a["status"] not in tasks.ERLEDIGT]
     frei = [a for a in offen if not tasks.blocker(a, nach_id)]
-    frei.sort(key=lambda a: (tasks.PRIOS.get(a["prio"], 2), a["bereich"]))
+    ordnung = bereiche.reihenfolge(sortierung)
+    frei.sort(key=lambda a: (tasks.PRIOS.get(a["prio"], 2),
+                             ordnung.index(a["bereich"])
+                             if a["bereich"] in ordnung else len(ordnung)))
     if frei:
         naechste = ", ".join(f"{a['titel']} [{a['id']}]" for a in frei[:3])
         zeilen.append(f"Als Nächstes: {naechste}")
@@ -55,9 +58,10 @@ def brief() -> str:
     return "\n".join(zeilen)
 
 
-def full() -> str:
+def full(sortierung: str = STANDARD_SORTIERUNG) -> str:
     teile = parts.load()
-    bloecke = [brief(), "", tasks.overview_text(), "", parts.overview_text()]
+    bloecke = [brief(sortierung), "", tasks.overview_text(sortierung), "",
+               parts.overview_text()]
 
     zeilen = []
     for st in PART_STATUS:

@@ -30,6 +30,7 @@ python camper.py system elektrik     # Lage eines Systems
 python camper.py find "Heizung"      # Volltextsuche
 python camper.py media               # Bilder aus _input einsortieren
 python camper.py sync                # alles neu erzeugen
+python camper.py serve               # Dashboard mit Schreibzugriff
 python camper.py ui                  # Fenster mit Knöpfen
 ```
 
@@ -41,11 +42,17 @@ Python 3.13, keine Adminrechte nötig:
 pip install --user openpyxl Pillow
 ```
 
-Dashboard lokal ansehen:
+Dashboard starten:
 
 ```bash
-python -m http.server 8765 --directory docs
+python camper.py serve          # http://localhost:8765, öffnet den Browser
+python camper.py serve --offen  # dazu vom Handy im WLAN erreichbar
 ```
+
+Mit `serve` schreiben die Kästchen und die Statusknöpfe direkt in Vault und
+`parts.csv`. Ohne Server — Doppelklick auf `docs/index.html` oder GitHub
+Pages — ist das Dashboard reine Anzeige und zeigt statt der Änderung den
+passenden `camper`-Befehl zum Kopieren.
 
 ## Stückliste bearbeiten
 

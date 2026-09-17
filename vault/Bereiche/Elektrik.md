@@ -2,6 +2,7 @@
 bereich: Elektrik
 kurz: Batterien, Laderegler, Solar, Verteilung, Verbraucher
 status: in-arbeit
+phase: 4
 ---
 
 # Elektrik

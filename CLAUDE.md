@@ -18,6 +18,9 @@ Die Regeln des übergeordneten Schreibprojekts (`Privat/CLAUDE.md`) gelten hier
 - Ein Bereich ist ein Arbeitsraum: `vault/Bereiche/<Name>.md` mit den festen
   Abschnitten Beschreibung, Stand, Auslegung, Notizen, Links, Aufgaben — in
   dieser Reihenfolge. Aufgaben werden nur unter `## Aufgaben` gelesen.
+- Im Kopf der Bereichsdatei steht `phase: <n>`, die Nummer des Bauabschnitts
+  (1 = zuerst). Daraus entsteht die Sortierung "Bauabschnitt"; ohne das Feld
+  sortiert das Thema hinten. Die Reihenfolge selbst legt der Nutzer fest.
 - `parts.csv` ist, was gekauft wird. `bauteile.csv` ist, was daraus gebaut
   wird — Bretter, Leisten, Zuschnitte mit Maßen in mm. Ein Holzbrett gehört
   nicht in die Stückliste.
@@ -31,7 +34,11 @@ Die Regeln des übergeordneten Schreibprojekts (`Privat/CLAUDE.md`) gelten hier
 ## Befehle
 
 `python camper.py <befehl>` — Übersicht mit `python camper.py --help`.
+Wo Themen in Reihe stehen, gilt `--sortierung baustellen|phase|name`
+(Voreinstellung `baustellen`) — dieselbe Reihenfolge wie im Dashboard.
 Jeder Befehl gibt kompakten, antwortfertigen Text aus; `--json` liefert Rohdaten.
+`python camper.py serve` startet das Dashboard mit Schreibzugriff — dort
+abgehakte Aufgaben landen direkt im Vault, Statuswechsel in `parts.csv`.
 
 ## Python-Umgebung
 

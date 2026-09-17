@@ -2,6 +2,7 @@
 bereich: Möbel
 kurz: Bett, Küchenblock, Hängeschränke, Sitzbank, Tisch, Toilette, Stauraum
 status: in-arbeit
+phase: 6
 ---
 
 # Möbel

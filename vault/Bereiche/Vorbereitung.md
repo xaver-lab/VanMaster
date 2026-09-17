@@ -2,6 +2,7 @@
 bereich: Vorbereitung
 kurz: Aufmaß, Rost, Entkernen — was vor dem Ausbau passiert
 status: in-arbeit
+phase: 1
 ---
 
 # Vorbereitung

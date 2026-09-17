@@ -2,6 +2,7 @@
 bereich: Heizung
 kurz: Heizgerät, Abgasführung, Luftverteilung
 status: geplant
+phase: 5
 ---
 
 # Heizung

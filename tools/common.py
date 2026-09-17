@@ -43,6 +43,17 @@ BEREICH_ABSCHNITTE = [
 ]
 BEREICH_STATUS = ["geplant", "in-arbeit", "fertig"]
 
+# Reihenfolge der Bereiche — die Logik dazu steht in tools/bereiche.py.
+SORTIERUNGEN = ["baustellen", "phase", "name"]
+SORT_WORT = {
+    "baustellen": "Baustellen zuerst",
+    "phase": "Bauabschnitt",
+    "name": "alphabetisch",
+}
+# Voreinstellung für Befehle und Dashboard. Das Dashboard merkt sich davon
+# abweichende Wahl im localStorage.
+STANDARD_SORTIERUNG = "baustellen"
+
 # Einzelteile: was selbst gebaut oder zugeschnitten wird.
 BAUTEIL_ART = [
     "Platte", "Leiste", "Kantholz", "Blech", "Rohr", "Kabel", "Beschlag",

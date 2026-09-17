@@ -19,9 +19,16 @@ tools/tasks.py     Aufgabenbaum lesen, auswerten, Kästchen umsetzen
 tools/status.py    Lageberichte, Systemsicht, Volltextsuche
 tools/build.py     docs/data.json + docs/data.js
 tools/media.py     Bilder einsortieren, verkleinern, verlinken
+tools/serve.py     Dashboard-Server mit Schreib-API (nur Standardbibliothek)
 tools/ui.py        Tkinter-Fenster
 docs/              index.html, style.css, app.js — kein Build-Werkzeug
 ```
+
+Das Dashboard läuft in zwei Betriebsarten: statisch (Doppelklick, GitHub
+Pages) nur lesend, mit `camper serve` schreiben Kästchen und Statusknöpfe
+über `POST api/task` und `POST api/teil` direkt in Vault und `parts.csv`.
+Neue Interaktionen gehören auf beide Wege: schreibend über die API, sonst
+den passenden `camper`-Befehl zum Kopieren anbieten.
 
 Wahrheit sind `data/parts.csv` und die Markdown-Dateien im Vault. Alles unter
 `data/generated/`, `vault/Stückliste/` und `docs/data.*` ist Ausgabe.
@@ -33,8 +40,8 @@ Wahrheit sind `data/parts.csv` und die Markdown-Dateien im Vault. Alles unter
    sonst ist sie am Van nicht da.
 3. Nach Änderungen `python camper.py sync` durchlaufen lassen und die Ausgabe
    ansehen.
-4. Dashboard prüfen: `python -m http.server 8765 --directory docs`, am
-   Handyformat testen (375 px), nicht nur am Laptop.
+4. Dashboard prüfen: `python camper.py serve --kein-browser`, am Handyformat
+   testen (375 px), nicht nur am Laptop.
 
 ## Regeln der Ausgabe
 

@@ -2,6 +2,7 @@
 bereich: Karosserie
 kurz: Innenmaße, Fenster- und Dachausschnitte, Rost, Durchführungen
 status: geplant
+phase: 2
 ---
 
 # Karosserie

@@ -17,7 +17,10 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
-from .common import BEREICHE_DIR, bar, fail, read_text, slug, split_frontmatter
+from .common import (
+    BEREICHE_DIR, STANDARD_SORTIERUNG, bar, fail, read_text, slug,
+    split_frontmatter,
+)
 
 BOX = {" ": "offen", "/": "laeuft", "x": "erledigt", "X": "erledigt", "-": "verworfen"}
 BOX_ZEICHEN = {"offen": " ", "laeuft": "/", "erledigt": "x", "verworfen": "-"}
@@ -140,7 +143,10 @@ def blocker(a: dict, nach_id: dict[str, dict]) -> list[dict]:
             if b in nach_id and nach_id[b]["status"] not in ERLEDIGT]
 
 
-def next_tasks(limit: int = 8, bereich: str = "") -> str:
+def next_tasks(limit: int = 8, bereich: str = "",
+               sortierung: str = STANDARD_SORTIERUNG) -> str:
+    from . import bereiche
+
     aufgaben = load()
     if not aufgaben:
         return "Noch keine Aufgaben in vault/Bereiche/."
@@ -150,8 +156,11 @@ def next_tasks(limit: int = 8, bereich: str = "") -> str:
         offen = [a for a in offen if a["bereich"].lower() == bereich.lower()]
     frei = [a for a in offen if not blocker(a, nach_id)]
     blockiert = [a for a in offen if blocker(a, nach_id)]
+    ordnung = bereiche.reihenfolge(sortierung)
     frei.sort(key=lambda a: (PRIOS.get(a["prio"], 2), a["status"] != "laeuft",
-                             a["bereich"], a["titel"]))
+                             ordnung.index(a["bereich"])
+                             if a["bereich"] in ordnung else len(ordnung),
+                             a["titel"]))
 
     zeilen = []
     for a in frei[:limit]:
@@ -233,12 +242,20 @@ def set_status(task_id: str, status: str) -> str:
     return f"{a['titel']}: {a['status']} → {status}"
 
 
-def overview_text() -> str:
+def overview_text(sortierung: str = "") -> str:
+    from . import bereiche
+
     aufgaben = load()
     if not aufgaben:
         return "Noch keine Aufgaben in vault/Bereiche/."
+    # Gleiche Reihenfolge wie Themenliste und Dashboard.
+    gruppen = nach_bereich(aufgaben)
+    ordnung = bereiche.reihenfolge(sortierung or STANDARD_SORTIERUNG)
+    reihe = sorted(gruppen, key=lambda n: (ordnung.index(n) if n in ordnung
+                                           else len(ordnung), n.lower()))
     zeilen = []
-    for bereich, liste in sorted(nach_bereich(aufgaben).items()):
+    for bereich in reihe:
+        liste = gruppen[bereich]
         fertig, gesamt_n = fortschritt(liste)
         zeilen.append(f"  {bereich:<16} {bar(fertig, gesamt_n)}")
     fertig, gesamt_n = fortschritt(aufgaben)

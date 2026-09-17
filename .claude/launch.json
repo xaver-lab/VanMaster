@@ -6,6 +6,12 @@
       "runtimeExecutable": "python",
       "runtimeArgs": ["-m", "http.server", "8777", "--directory", "docs"],
       "port": 8777
+    },
+    {
+      "name": "camper-serve",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["camper.py", "serve", "--kein-browser"],
+      "port": 8765
     }
   ]
 }

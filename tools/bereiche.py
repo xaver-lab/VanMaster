@@ -11,7 +11,11 @@ Aufbau:
     bereich: Möbel
     kurz: Bett, Küchenblock, Hängeschränke
     status: in-arbeit
+    phase: 4
     ---
+
+`phase:` ist die Nummer des Bauabschnitts (1 = zuerst). Fehlt sie, sortiert der
+Bereich hinten — die Dateien müssen nicht alle gleichzeitig umgestellt werden.
 
     # Möbel
 
@@ -27,7 +31,8 @@ from __future__ import annotations
 import re
 
 from .common import (
-    BEREICHE_DIR, abschnitte, read_text, split_frontmatter,
+    BEREICHE_DIR, SORTIERUNGEN, STANDARD_SORTIERUNG, abschnitte, read_text,
+    split_frontmatter,
 )
 
 # - [Titel](url) — Zusatz   ·   der Zusatz ist freiwillig
@@ -67,6 +72,7 @@ def load() -> list[dict]:
             "name": meta.get("bereich") or datei.stem,
             "kurz": meta.get("kurz", ""),
             "status": meta.get("status", "geplant"),
+            "phase": phase(meta.get("phase")),
             "beschreibung": _sauber(teile.get("Beschreibung", "")),
             "stand": _sauber(teile.get("Stand", "")),
             "auslegung": _sauber(teile.get("Auslegung", "")),
@@ -75,6 +81,66 @@ def load() -> list[dict]:
             "datei": str(datei.relative_to(BEREICHE_DIR.parent.parent)).replace("\\", "/"),
         })
     return bereiche
+
+# ------------------------------------------------------------- Sortierung
+#
+# Die einzige Stelle, an der die Reihenfolge der Bereiche festgelegt wird.
+# Das Dashboard übernimmt sie aus docs/data.json und sortiert nur für den
+# Wechsler selbst um (docs/app.js, bereicheSortiert) — dieselben Regeln.
+
+# Baustellen zuerst: woran gearbeitet wird, vor dem, was noch ansteht.
+STATUS_RANG = {"in-arbeit": 0, "geplant": 1, "fertig": 2}
+
+OHNE_PHASE = 999  # kein `phase:` im Kopf → hinten, aber nicht weg.
+
+
+def phase(wert) -> int | None:
+    """`phase: 2` aus dem Kopf — alles Unbrauchbare zählt als nicht gesetzt."""
+    try:
+        return int(str(wert).strip())
+    except (TypeError, ValueError):
+        return None
+
+
+def _offen(b: dict) -> int:
+    return max(int(b.get("gesamt") or 0) - int(b.get("fertig") or 0), 0)
+
+
+def schluessel(art: str):
+    """Sortierschlüssel für einen Bereich — erwartet fertig/gesamt am Eintrag."""
+    def nach_name(b):
+        return b["name"].lower()
+    if art == "name":
+        return nach_name
+    if art == "phase":
+        # Innerhalb eines Abschnitts weiter wie bei "baustellen", damit auch
+        # dort das Naheliegende oben steht.
+        return lambda b: (b.get("phase") if b.get("phase") is not None else OHNE_PHASE,
+                          STATUS_RANG.get(b.get("status"), 1), -_offen(b), nach_name(b))
+    return lambda b: (STATUS_RANG.get(b.get("status"), 1), -_offen(b), nach_name(b))
+
+
+def sortiere(alle: list[dict], art: str = STANDARD_SORTIERUNG) -> list[dict]:
+    if art not in SORTIERUNGEN:
+        art = STANDARD_SORTIERUNG
+    return sorted(alle, key=schluessel(art))
+
+
+def mit_fortschritt(alle: list[dict] | None = None) -> list[dict]:
+    """Bereiche samt fertig/gesamt — ohne die zählt keine Sortierung richtig."""
+    from . import tasks
+
+    nach_b = tasks.nach_bereich(tasks.load())
+    ergebnis = []
+    for b in (load() if alle is None else alle):
+        fertig, gesamt = tasks.fortschritt(nach_b.get(b["name"], []))
+        ergebnis.append({**b, "fertig": fertig, "gesamt": gesamt})
+    return ergebnis
+
+
+def reihenfolge(art: str = STANDARD_SORTIERUNG) -> list[str]:
+    """Nur die Namen, in der gewählten Reihenfolge — für Listen und Gruppen."""
+    return [b["name"] for b in sortiere(mit_fortschritt(), art)]
 
 
 def namen() -> list[str]:
@@ -91,21 +157,20 @@ def find(name: str, alle: list[dict] | None = None) -> dict | None:
     return treffer[0] if len(treffer) == 1 else None
 
 
-def overview_text() -> str:
-    from .common import bar, table
-    from . import tasks
+def overview_text(sortierung: str = STANDARD_SORTIERUNG) -> str:
+    from .common import SORT_WORT, bar, table
 
-    alle = load()
+    alle = sortiere(mit_fortschritt(), sortierung)
     if not alle:
         return "Noch keine Bereiche in vault/Bereiche/."
-    nach_b = tasks.nach_bereich(tasks.load())
     zeilen = []
     for b in alle:
-        fertig, gesamt = tasks.fortschritt(nach_b.get(b["name"], []))
+        ph = b.get("phase")
         zeilen.append([
-            b["name"], b["status"],
-            f"{fertig}/{gesamt}" if gesamt else "—",
-            bar(fertig, gesamt) if gesamt else "",
+            b["name"], str(ph) if ph is not None else "—", b["status"],
+            f"{b['fertig']}/{b['gesamt']}" if b["gesamt"] else "—",
+            bar(b["fertig"], b["gesamt"]) if b["gesamt"] else "",
             b["kurz"],
         ])
-    return table(zeilen, ["Bereich", "Status", "Aufgaben", "", "Kurz"])
+    kopf = table(zeilen, ["Bereich", "Ph", "Status", "Aufgaben", "", "Kurz"])
+    return f"{kopf}\n\nSortierung: {SORT_WORT.get(sortierung, sortierung)}"

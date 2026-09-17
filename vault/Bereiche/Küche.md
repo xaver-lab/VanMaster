@@ -2,6 +2,7 @@
 bereich: Küche
 kurz: Kochstelle, Kühlschrank, Spüle, Stauraum
 status: in-arbeit
+phase: 7
 ---
 
 # Küche
