@@ -1,5 +1,5 @@
 {
-  "erzeugt": "2026-09-17T08:36",
+  "erzeugt": "2026-09-17T08:39",
   "projekt": "VanMaster",
   "kennzahlen": {
     "aufgaben_fertig": 1,
@@ -632,7 +632,63 @@
   ],
   "entscheidungen": [],
   "anleitungen": [],
-  "systeme": [],
+  "systeme": [
+    {
+      "titel": "Elektrik",
+      "status": "offen",
+      "bereich": "Elektrik",
+      "meta": {
+        "system": "Elektrik",
+        "status": "offen"
+      },
+      "text": "# Elektrik\n\nBatterien, Laderegler, Solar, Verteilung, Verbraucher.\n\n## Stand\n\n_(noch nichts eingetragen)_\n\n## Auslegung\n\n_(Zahlen, sobald gerechnet — siehe [[Recherche]])_\n\n## Verknüpft\n\n- Aufgaben: [[Elektrik]] in `vault/Aufgaben/`\n- Teile: [[Elektrik]] in `vault/Stückliste/`",
+      "datei": "vault/Systeme/Elektrik.md"
+    },
+    {
+      "titel": "Heizung",
+      "status": "offen",
+      "bereich": "Heizung",
+      "meta": {
+        "system": "Heizung",
+        "status": "offen"
+      },
+      "text": "# Heizung\n\nHeizgerät, Abgasführung, Luftverteilung.\n\n## Stand\n\n_(noch nichts eingetragen)_\n\n## Auslegung\n\n_(Zahlen, sobald gerechnet — siehe [[Recherche]])_\n\n## Verknüpft\n\n- Aufgaben: [[Heizung]] in `vault/Aufgaben/`\n- Teile: [[Heizung]] in `vault/Stückliste/`",
+      "datei": "vault/Systeme/Heizung.md"
+    },
+    {
+      "titel": "Küche",
+      "status": "offen",
+      "bereich": "Küche",
+      "meta": {
+        "system": "Küche",
+        "status": "offen"
+      },
+      "text": "# Küche\n\nKochstelle, Kühlschrank, Spüle, Stauraum.\n\n## Stand\n\n_(noch nichts eingetragen)_\n\n## Auslegung\n\n_(Zahlen, sobald gerechnet — siehe [[Recherche]])_\n\n## Verknüpft\n\n- Aufgaben: [[Küche]] in `vault/Aufgaben/`\n- Teile: [[Küche]] in `vault/Stückliste/`",
+      "datei": "vault/Systeme/Küche.md"
+    },
+    {
+      "titel": "Möbel",
+      "status": "offen",
+      "bereich": "Möbel",
+      "meta": {
+        "system": "Möbel",
+        "status": "offen"
+      },
+      "text": "# Möbel\n\nBett, Küchenblock, Schränke, Befestigung an der Karosserie.\n\n## Stand\n\n_(noch nichts eingetragen)_\n\n## Auslegung\n\n_(Zahlen, sobald gerechnet — siehe [[Recherche]])_\n\n## Verknüpft\n\n- Aufgaben: [[Möbel]] in `vault/Aufgaben/`\n- Teile: [[Möbel]] in `vault/Stückliste/`",
+      "datei": "vault/Systeme/Möbel.md"
+    },
+    {
+      "titel": "Wasser",
+      "status": "offen",
+      "bereich": "Wasser",
+      "meta": {
+        "system": "Wasser",
+        "status": "offen"
+      },
+      "text": "# Wasser\n\nFrisch- und Grauwasser, Pumpe, Leitungen, Spüle. Kein Warmwasser, keine Dusche.\n\n## Stand\n\n_(noch nichts eingetragen)_\n\n## Auslegung\n\n_(Zahlen, sobald gerechnet — siehe [[Recherche]])_\n\n## Verknüpft\n\n- Aufgaben: [[Wasser]] in `vault/Aufgaben/`\n- Teile: [[Wasser]] in `vault/Stückliste/`",
+      "datei": "vault/Systeme/Wasser.md"
+    }
+  ],
   "recherche": [],
   "medien": []
 }

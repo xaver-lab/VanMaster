@@ -45,7 +45,8 @@ def brief() -> str:
 
     bestellen = [t for t in teile if t["status"] == "Entschieden"]
     if bestellen:
-        zeilen.append(f"Zu bestellen: {len(bestellen)} Teile für "
+        wort = "Teil" if len(bestellen) == 1 else "Teile"
+        zeilen.append(f"Zu bestellen: {len(bestellen)} {wort} für "
                       f"{euro(parts.summe(bestellen))}")
 
     offen_e = offene_entscheidungen()
