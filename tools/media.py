@@ -130,11 +130,16 @@ def web_export() -> dict:
     return {"bilder": bilder, "dokumente": dokumente}
 
 
-def einsortieren(bereich: str = "", apply: bool = True) -> str:
-    quellen = [p for p in sorted(INPUT.rglob("*"))
-               if p.suffix.lower() in BILDER + DOKUMENTE] if INPUT.exists() else []
+def einsortieren(bereich: str = "", apply: bool = True,
+                 ordner: str = "") -> str:
+    """`ordner` grenzt auf einen Unterordner von _input/ ein — beim
+    Einarbeiten wird Stück für Stück übernommen, nicht alles auf einmal."""
+    quelle_wurzel = INPUT / ordner if ordner else INPUT
+    quellen = [p for p in sorted(quelle_wurzel.rglob("*"))
+               if p.suffix.lower() in BILDER + DOKUMENTE]         if quelle_wurzel.exists() else []
     if not quellen:
-        return f"Nichts in _input/. Im Vault verlinkt: {index()}."
+        return (f"Nichts in {quelle_wurzel.name}/. "
+                f"Im Vault verlinkt: {index()}.")
     zeilen = []
     for quelle in quellen:
         ziel = zielname(quelle, bereich)

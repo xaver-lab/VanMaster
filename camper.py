@@ -104,7 +104,8 @@ def cmd_find(args) -> None:
 
 
 def cmd_media(args) -> None:
-    print(media.einsortieren(bereich=args.bereich or "", apply=not args.dry))
+    print(media.einsortieren(bereich=args.bereich or "", apply=not args.dry,
+                         ordner=args.ordner or ""))
 
 
 def cmd_build(args) -> None:
@@ -176,8 +177,9 @@ def parser() -> argparse.ArgumentParser:
     s.add_argument("text")
     s.set_defaults(func=cmd_find)
 
-    s = sub.add_parser("media", help="Bilder aus _input einsortieren")
+    s = sub.add_parser("media", help="Bilder und Dokumente aus _input einsortieren")
     s.add_argument("--bereich")
+    s.add_argument("--ordner", help="nur diesen Unterordner von _input/")
     s.add_argument("--dry", action="store_true", help="nur zeigen, nichts bewegen")
     s.set_defaults(func=cmd_media)
 
