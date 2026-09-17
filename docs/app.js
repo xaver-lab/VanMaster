@@ -377,10 +377,34 @@ function md(text) {
   const listeEnde = () => {
     if (liste) { aus.push("</" + liste + ">"); liste = null; }
   };
+  let tabelle = null;
+  const tabelleEnde = () => {
+    if (tabelle) { aus.push("</table></div>"); tabelle = null; }
+  };
+  // | a | b |  ·  die Trennzeile aus Strichen wird nur erkannt, nicht gezeigt.
+  const zellen = (z) => z.slice(1, -1).split("|").map((c) => c.trim());
 
   for (const roh of (text || "").split("\n")) {
     const z = roh.trim();
-    if (!z) { absatzEnde(); listeEnde(); continue; }
+    if (!z) { absatzEnde(); listeEnde(); tabelleEnde(); continue; }
+
+    if (z.startsWith("|") && z.endsWith("|")) {
+      absatzEnde(); listeEnde();
+      if (/^\|[\s|:-]+\|$/.test(z)) {
+        if (tabelle === "kopf") tabelle = "rumpf";
+        continue;
+      }
+      const kopfzeile = tabelle === null;
+      if (kopfzeile) {
+        aus.push('<div class="tabellenrand"><table class="fliesstabelle">');
+        tabelle = "kopf";
+      }
+      const tag = kopfzeile ? "th" : "td";
+      aus.push("<tr>" + zellen(z).map(
+        (c) => "<" + tag + ">" + mdInline(c) + "</" + tag + ">").join("") + "</tr>");
+      continue;
+    }
+    tabelleEnde();
 
     const ueberschrift = z.match(/^(#{1,6})\s+(.*)$/);
     if (ueberschrift) {
@@ -410,7 +434,7 @@ function md(text) {
     listeEnde();
     absatz.push(z);
   }
-  absatzEnde(); listeEnde();
+  absatzEnde(); listeEnde(); tabelleEnde();
   return aus.join("");
 }
 

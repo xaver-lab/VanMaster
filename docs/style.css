@@ -306,3 +306,24 @@ nav.unterleiste button .zahl { font-size: 0.72rem; opacity: 0.75; }
                         align-items: center; }
 .entscheidung summary .titel { font-size: 0.92rem; }
 .entscheidung .fliess { padding: 0.6rem 0 0.2rem; }
+
+/* Tabellen in den Bereichstexten */
+table.fliesstabelle {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 380px;
+  font-size: 0.92rem;
+  margin: 0.6rem 0;
+}
+table.fliesstabelle th,
+table.fliesstabelle td {
+  border-bottom: 1px solid var(--linie);
+  padding: 0.35rem 0.6rem;
+  text-align: left;
+  vertical-align: top;
+}
+table.fliesstabelle th {
+  color: var(--gedaempft);
+  font-weight: 600;
+}
+table.fliesstabelle td:first-child { color: var(--text); }

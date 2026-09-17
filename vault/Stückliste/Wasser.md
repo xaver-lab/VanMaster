@@ -13,6 +13,9 @@ erzeugt: true
 | Abwasserschlauch mit Rückschlagklappe | 1 Stk | 0,00 € | 0,00 € | Idee | Mittel |  |  |
 | Frischwasserschlauch | 1 Stk | 0,00 € | 0,00 € | Idee | Mittel |  |  |
 | Frischwassertank | 1 Stk | 0,00 € | 0,00 € | Recherche | Hoch | Campingwagner | [[tankgroessen]] |
+| Füllstandsanzeige Abwasser | 1 Stk | 0,00 € | 0,00 € | Idee | Mittel |  | [[tankgroessen]] |
+| Pumpenschalter Frischwasser | 1 Stk | 0,00 € | 0,00 € | Idee | Mittel |  | [[wasser-leitungen]] |
+| Taster Abwasser-Ablass | 1 Stk | 0,00 € | 0,00 € | Idee | Mittel |  | [[wasser-leitungen]] |
 | Wasserdruckhalteanlage | 1 Stk | 0,00 € | 0,00 € | Idee | Mittel |  |  |
 | Wasserfilter (mit Druckhalteanlage) | 1 Stk | 0,00 € | 0,00 € | Idee | Mittel |  |  |
 | Wasserfilter Vorfilter | 1 Stk | 0,00 € | 0,00 € | Idee | Mittel |  |  |

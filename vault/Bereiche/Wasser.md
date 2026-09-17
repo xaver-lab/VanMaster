@@ -30,9 +30,19 @@ _(Zahlen, sobald gerechnet)_
   Außendusche, nicht als Innendusche. Noch zu klären.
 - Rohauszug (SVG) in `_input/miro_export.md`.
 
+Aus `_input/Küche/infos.txt` (Rohnotizen, unbewertet):
+
+- Wasserhahn neben der Arbeitsplatte, damit man auch bei geschlossener Platte
+  Wasser holen kann.
+- Abwassertank nicht mehr in der Tür (Abblaseventil). Er soll selten ausgebaut
+  werden; wenn doch, dann gleich zusammen mit dem Frischwasser.
+- Frischwasser als Weithalskanister DIN 96 im Küchenschacht, Größe noch offen.
+  Zubehör dazu: Pumpe, Schlauch, Schalter. Für Abwasser: Ventil, Taster,
+  Füllanzeige.
+
 ## Links
 
-_(noch keine)_
+- [Comet Weithalskanister DIN 96](https://www.comet-pumpen.de/produkte-caravan-freizeit/kanister/kanister-din-96/weithalskanister.html) — Frischwasser als Kanisterlösung
 
 ## Aufgaben
 
