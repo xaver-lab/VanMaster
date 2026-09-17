@@ -12,7 +12,7 @@ kein Warmwasser, keine Dusche**.
 ## Wie gesucht wird
 
 1. Erst nachsehen, was schon da ist: `python camper.py find "<thema>"` und ein
-   Blick in `vault/Recherche/`, `vault/Entscheidungen/`, `vault/Systeme/`.
+   Blick in `vault/Recherche/`, `vault/Entscheidungen/`, `vault/Bereiche/`.
 2. Dann gezielt ins Netz, in dieser Reihenfolge:
    Herstellerdaten und Datenblätter → Foren → Blogs → Videos.
 3. Quellen nennen. Bei Bauteilen die Zahlen mitbringen, die wir brauchen:

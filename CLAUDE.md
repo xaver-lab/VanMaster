@@ -13,11 +13,19 @@ Die Regeln des übergeordneten Schreibprojekts (`Privat/CLAUDE.md`) gelten hier
 
 ## Datenhaltung
 
-- Einzige Wahrheit: `data/parts.csv` und die Markdown-Dateien in `vault/`.
+- Einzige Wahrheit: `data/parts.csv`, `data/bauteile.csv` und die
+  Markdown-Dateien in `vault/`.
+- Ein Bereich ist ein Arbeitsraum: `vault/Bereiche/<Name>.md` mit den festen
+  Abschnitten Beschreibung, Stand, Auslegung, Notizen, Links, Aufgaben — in
+  dieser Reihenfolge. Aufgaben werden nur unter `## Aufgaben` gelesen.
+- `parts.csv` ist, was gekauft wird. `bauteile.csv` ist, was daraus gebaut
+  wird — Bretter, Leisten, Zuschnitte mit Maßen in mm. Ein Holzbrett gehört
+  nicht in die Stückliste.
 - Alles unter `data/generated/`, `vault/Stückliste/` und `docs/data.json` wird
   erzeugt. Nie von Hand ändern — Änderungen gehen beim nächsten `sync` verloren.
-- Die CSV nicht direkt editieren: `camper parts excel` → in Excel arbeiten →
-  `camper parts import` (zeigt erst einen Vergleich).
+- Die CSVs nicht direkt editieren: `camper parts excel` → in Excel arbeiten →
+  `camper parts import` (zeigt erst einen Vergleich). Für die Einzelteile
+  genauso mit `camper bauteile excel` / `import`.
 - Nach inhaltlichen Änderungen einmal `python camper.py sync` laufen lassen.
 
 ## Befehle

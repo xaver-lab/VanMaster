@@ -33,21 +33,24 @@ Camper/
 ├── tools/                 Python-Module
 │   ├── parts.py           Stückliste: CSV <-> Excel <-> Markdown
 │   ├── tasks.py           Aufgabenbaum lesen, auswerten, ändern
+│   ├── bereiche.py        Bereichsdateien lesen und zerlegen
+│   ├── bauteile.py        Einzelteile mit Maßen
 │   ├── media.py           Bilder einsortieren, verkleinern, verlinken
 │   ├── build.py           Dashboard-Daten erzeugen
 │   ├── status.py          kompakte Lageberichte für den Chat
 │   └── ui.py              Tkinter-Fenster mit Knöpfen
 ├── vault/                 der Obsidian-Vault
 │   ├── Camper.md                 Startseite, verlinkt alles
-│   ├── Aufgaben/                 eine Datei pro Bereich, verschachtelte Checkboxen
-│   ├── Systeme/                  Elektrik, Wasser, Heizung, Möbel, Küche
+│   ├── Bereiche/                 ein Arbeitsbereich je Datei, Aufgaben inbegriffen
 │   ├── Entscheidungen/           eine Datei pro Entscheidung
 │   ├── Anleitungen/              "Bettrahmen bauen", "Kabel crimpen"
 │   ├── Recherche/                Produktvergleiche, Notizen
 │   ├── Stückliste/               erzeugt — nicht von Hand ändern
-│   └── Medien/                   Fotos, 3D-Bilder, Skizzen
+│   ├── Medien/                   Fotos und Skizzen
+│   └── Modelle/                  3D-Zeichnungen je Bereich
 ├── data/
-│   ├── parts.csv                 die Wahrheit für die Stückliste
+│   ├── parts.csv                 die Wahrheit für die Stückliste (was gekauft wird)
+│   ├── bauteile.csv              Einzelteile mit Maßen (was gebaut wird)
 │   └── generated/                Excel + Dashboard-JSON, beides erzeugt
 ├── _input/                Rohablage: Miro-Auszüge, Fotos, Links, Notizen
 │                          bleibt liegen, bis integriert — dann geleert
@@ -55,8 +58,8 @@ Camper/
 └── .claude/skills/        die drei Skills, mitversioniert
 ```
 
-Obsidian trägt das Ganze über `[[Wikilinks]]`: Aufgabe → Anleitung → Systemseite →
-Entscheidung → Bauteil. Jede Datei bekommt einen kleinen YAML-Kopf (Bereich, Status,
+Obsidian trägt das Ganze über `[[Wikilinks]]`: Bereich → Anleitung →
+Entscheidung → Teil. Jede Datei bekommt einen kleinen YAML-Kopf (Bereich, Status,
 Kosten), aus dem sich später Dataview-Abfragen speisen.
 
 ---
@@ -65,8 +68,10 @@ Kosten), aus dem sich später Dataview-Abfragen speisen.
 
 | Inhalt | Format | Begründung |
 |---|---|---|
-| Aufgaben | Markdown, verschachtelte Checkboxen | Obsidian hakt nativ ab, GitHub zeigt es lesbar, Git-Diff sauber |
-| Anleitungen, Recherche, Systeme | Markdown mit YAML-Kopf | überall lesbar, von Hand und maschinell pflegbar |
+| Bereiche | eine Markdown-Datei je Bereich, feste Abschnitte | alles zu einem Thema an einem Ort, am Stück lesbar |
+| Aufgaben | Markdown, verschachtelte Checkboxen im Abschnitt `## Aufgaben` | Obsidian hakt nativ ab, GitHub zeigt es lesbar, Git-Diff sauber |
+| Anleitungen, Recherche | Markdown mit YAML-Kopf | überall lesbar, von Hand und maschinell pflegbar |
+| Einzelteile | CSV als Quelle | Maße rechenbar, Excel-Runde wie bei der Stückliste |
 | Entscheidungen | eine Markdown-Datei je Entscheidung | Frage, Optionen, Wahl, Begründung — nachvollziehbar |
 | Stückliste | CSV als Quelle | Textdatei, guter Git-Diff, in VS Code und Excel bearbeitbar |
 | Dashboard | erzeugtes JSON | nur Ausgabe, nie Eingabe |
@@ -125,7 +130,9 @@ camper parts import  Excel zurücklesen, mit Vergleich vorher
 camper parts set     Status/Feld eines Teils ändern
 camper task done     Aufgabe abhaken
 camper buy next      Einkaufsvorschlag, nach Händler gruppiert
-camper system <name> Lage eines Systems inkl. Bilanz
+camper bereich <name> alles zu einem Arbeitsbereich in einem Aufruf
+camper bereiche      alle Bereiche mit Fortschritt
+camper bauteile      Einzelteile mit Maßen anlegen, abfragen, Excel-Runde
 camper find "<text>" Volltextsuche, liefert Pfade statt Inhalte
 camper media         Bilder aus _input einsortieren, verkleinern, verlinken
 camper build         Dashboard bauen
@@ -198,7 +205,7 @@ Danach genau der Befehl, der zur Frage passt:
 | Was ist als Nächstes dran? | `camper tasks next` |
 | Lass uns X angehen | `camper brief <aufgabe>` |
 | Was müssen wir bestellen? | `camper buy next` |
-| Wie steht die Elektrik? | `camper system elektrik` |
+| Wie steht die Elektrik? | `camper bereich Elektrik` |
 | Was war nochmal mit Y? | `camper find "Y"` |
 
 Das ist der schnellste Weg zur Antwort, kein Sparzwang. Reicht ein Befehl nicht,
@@ -295,8 +302,8 @@ mit der Ausbau-Pipeline:
 | Ordner | `vault/`, `data/`, `tools/` | eigener Zweig, z. B. `smarthome/` mit eigenem `vault/`, `data/` |
 | CLI | `camper.py` mit den bestehenden Befehlen | eigener Namespace, z. B. `camper smarthome ...`, statt in die bestehenden Befehle hineinzuwachsen |
 | Skill | `camper`, `camper-dev`, `camper-research` | eigener vierter Skill, z. B. `camper-smarthome` |
-| Dashboard | Tabs für Aufgaben/Stückliste/Systeme | eigener zusätzlicher Tab, eigenes generiertes JSON — mischt sich nicht mit `data.json` des Ausbaus |
-| Aufgaben | `vault/Aufgaben/*.md` | eigene Datei, klar als Nebenprojekt gekennzeichnet, nicht in die Ausbau-Fortschrittszahlen eingerechnet |
+| Dashboard | Tabs für Bereiche/Aufgaben/Stückliste | eigener zusätzlicher Tab, eigenes generiertes JSON — mischt sich nicht mit `data.json` des Ausbaus |
+| Aufgaben | `vault/Bereiche/*.md` | eigene Datei, klar als Nebenprojekt gekennzeichnet, nicht in die Ausbau-Fortschrittszahlen eingerechnet |
 
 Grund für die Trennung: Smart Home ist Hobby-Nebenprojekt, soll parallel
 laufen können, ohne die Ausbau-Pipeline zu verkomplizieren oder deren
