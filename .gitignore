@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Erzeugte Excel-Datei (Arbeitskopie, nicht die Wahrheit)
+data/generated/*.xlsx
+~$*.xlsx
+
+# OS / Editor
+Thumbs.db
+desktop.ini
+.DS_Store
+.obsidian/workspace*.json

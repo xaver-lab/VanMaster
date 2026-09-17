@@ -1,0 +1,7 @@
+id,titel,beschreibung,kategorie,system,menge,einheit,preis,status,prioritaet,link,haendler,fuer_aufgabe,entscheidung,kennwerte,gewicht_kg,notiz,gekauft_am
+aufbaubatterie-lifepo4,Aufbaubatterie LiFePO4,,Elektrik,Elektrik,1,Stk,1399,Entschieden,Kritisch,,Offgridtec,strombilanz,,"300 Ah gesamt, 12 V",,Angebot,
+sicherungskasten,Sicherungskasten,,Elektrik,,1,,89,Idee,,,,,,,,,
+solarmodule,Solarmodule,,Elektrik,Elektrik,1,Stk,,Idee,Kritisch,,,solar-montieren,,,,,
+frischwassertank,Frischwassertank,,Wasser,Wasser,1,Stk,,Idee,Hoch,,,tankgroessen,,,,,
+standheizung,Standheizung,,Heizung,Heizung,1,Stk,,Idee,Kritisch,,,heizung-entscheiden,,,,,
+kompressorkuehlschrank,Kompressorkühlschrank,,Küche,Küche,1,Stk,,Idee,Hoch,,,kuehlschrank-entscheiden,,,,,
