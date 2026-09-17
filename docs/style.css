@@ -154,3 +154,34 @@ footer code { background: var(--flaeche); padding: 0.1rem 0.35rem; border-radius
 @media (min-width: 720px) {
   header, .kennzahlen, nav, main, footer { max-width: 960px; margin-inline: auto; }
 }
+
+/* Bilder */
+.galerie {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 0.5rem;
+  margin-bottom: 0.8rem;
+}
+.kachel-bild {
+  padding: 0; border: 1px solid var(--linie); border-radius: 10px;
+  background: var(--flaeche); overflow: hidden; cursor: zoom-in;
+  aspect-ratio: 4 / 3;
+}
+.kachel-bild img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.dokumente { list-style: none; margin: 0 0 0.8rem; padding: 0; }
+.dokumente li { padding: 0.35rem 0; }
+.dokumente a { color: var(--wartet); }
+.dokumente a::before { content: "📄 "; }
+.anhang { padding: 0 1rem 0.9rem 1.6rem; border-top: 1px solid var(--linie);
+          margin-top: 0.2rem; padding-top: 0.6rem; }
+
+#lupe {
+  position: fixed; inset: 0; z-index: 20; cursor: zoom-out;
+  background: rgba(8, 10, 14, 0.94);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 0.8rem; padding: 1rem;
+}
+#lupe[hidden] { display: none; }
+#lupe img { max-width: 100%; max-height: 85vh; object-fit: contain;
+            border-radius: 8px; }
+#lupe p { margin: 0; color: var(--gedaempft); font-size: 0.85rem; }

@@ -21,6 +21,7 @@
   <button data-tab="uebersicht" class="aktiv">Übersicht</button>
   <button data-tab="aufgaben">Aufgaben</button>
   <button data-tab="stueckliste">Stückliste</button>
+  <button data-tab="bilder">Bilder</button>
 </nav>
 
 <main>
@@ -43,7 +44,16 @@
     <p id="teile-summe" class="summe"></p>
     <div id="teile-tabelle"></div>
   </section>
+
+  <section id="bilder" class="tab">
+    <div class="filterleiste">
+      <select id="f-bereich"><option value="">alle Bereiche</option></select>
+    </div>
+    <div id="bilder-liste"></div>
+  </section>
 </main>
+
+<div id="lupe" hidden><img alt=""><p></p></div>
 
 <footer><p>Erzeugt aus dem Repo — Änderungen in Obsidian oder per <code>camper</code>.</p></footer>
 

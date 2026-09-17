@@ -1,14 +1,18 @@
-"""Bilder aus _input einsortieren, verkleinern, im Vault verlinken."""
+"""Bilder und Dokumente aus _input einsortieren, verkleinern, verlinken."""
 from __future__ import annotations
 
 import shutil
 from datetime import date
 from pathlib import Path
 
-from .common import INPUT, MEDIEN_DIR, slug, write_text
+from .common import DOCS, INPUT, MEDIEN_DIR, slug, write_text
 
 BILDER = (".jpg", ".jpeg", ".png", ".webp")
+DOKUMENTE = (".pdf", ".docx", ".doc", ".odt", ".xlsx")
 MAX_KANTE = 1600
+# Das Dashboard liegt auf dem Handy — die Web-Kopie darf kleiner sein.
+WEB_KANTE = 1000
+WEB_DIR = DOCS / "medien"
 
 
 def zielname(quelle: Path, bereich: str) -> Path:
@@ -22,8 +26,8 @@ def zielname(quelle: Path, bereich: str) -> Path:
     return ziel
 
 
-def verkleinern(quelle: Path, ziel: Path) -> str:
-    """Lange Kante auf MAX_KANTE — am Handy zählt jedes Megabyte."""
+def verkleinern(quelle: Path, ziel: Path, kante: int = MAX_KANTE) -> str:
+    """Lange Kante auf `kante` — am Handy zählt jedes Megabyte."""
     try:
         from PIL import Image
     except ImportError:
@@ -33,8 +37,8 @@ def verkleinern(quelle: Path, ziel: Path) -> str:
     with Image.open(quelle) as bild:
         bild = bild.convert("RGB") if bild.mode in ("P", "RGBA") and \
             ziel.suffix.lower() in (".jpg", ".jpeg") else bild
-        if max(bild.size) > MAX_KANTE:
-            bild.thumbnail((MAX_KANTE, MAX_KANTE))
+        if max(bild.size) > kante:
+            bild.thumbnail((kante, kante))
             hinweis = f"verkleinert auf {bild.size[0]}x{bild.size[1]}"
         else:
             hinweis = f"{bild.size[0]}x{bild.size[1]}"
@@ -43,25 +47,46 @@ def verkleinern(quelle: Path, ziel: Path) -> str:
     return hinweis
 
 
-def index() -> int:
-    """Übersichtsseite mit Einbettungen, nach Bereich gruppiert."""
+def uebernehmen(quelle: Path, ziel: Path) -> str:
+    """Bild verkleinern, alles andere unverändert kopieren."""
+    if quelle.suffix.lower() in BILDER:
+        return verkleinern(quelle, ziel)
+    ziel.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(quelle, ziel)
+    return f"{ziel.stat().st_size // 1024} kB"
+
+
+def ablage() -> list[tuple[Path, str, str]]:
+    """Alles im Medienordner als (Datei, Bereich, Art)."""
     if not MEDIEN_DIR.exists():
-        return 0
-    nach_bereich: dict[str, list[Path]] = {}
+        return []
+    out = []
     for datei in sorted(MEDIEN_DIR.rglob("*")):
-        if datei.suffix.lower() not in BILDER:
+        endung = datei.suffix.lower()
+        art = "bild" if endung in BILDER else \
+            "dokument" if endung in DOKUMENTE else ""
+        if not art:
             continue
         rel = datei.relative_to(MEDIEN_DIR)
-        bereich = rel.parts[0] if len(rel.parts) > 1 else "Unsortiert"
-        nach_bereich.setdefault(bereich, []).append(datei)
+        out.append((datei, rel.parts[0] if len(rel.parts) > 1 else "Unsortiert",
+                    art))
+    return out
+
+
+def index() -> int:
+    """Übersichtsseite mit Einbettungen, nach Bereich gruppiert."""
+    nach_bereich: dict[str, list[tuple[Path, str]]] = {}
+    for datei, bereich, art in ablage():
+        nach_bereich.setdefault(bereich, []).append((datei, art))
     zeilen = ["---", "typ: medien", "erzeugt: true", "---", "", "# Medien", "",
               "> Erzeugt von `camper media` — nicht von Hand ändern.", ""]
     anzahl = 0
-    for bereich, dateien in sorted(nach_bereich.items()):
+    for bereich, eintraege in sorted(nach_bereich.items()):
         zeilen += [f"## {bereich}", ""]
-        for datei in dateien:
+        for datei, art in eintraege:
             rel = datei.relative_to(MEDIEN_DIR.parent).as_posix()
-            zeilen.append(f"![[{rel}]]")
+            zeilen.append(f"![[{rel}]]" if art == "bild"
+                          else f"- [[{rel}|{datei.name}]]")
             anzahl += 1
         zeilen.append("")
     write_text(MEDIEN_DIR / "Medien.md", "\n".join(zeilen))
@@ -69,25 +94,58 @@ def index() -> int:
 
 
 def index_text() -> str:
-    return f"{index()} Bilder in vault/Medien/Medien.md verlinkt"
+    return f"{index()} Dateien in vault/Medien/Medien.md verlinkt"
+
+
+def web_export() -> dict:
+    """Kopien neben dem Dashboard — ausgeliefert wird nur `docs/`.
+
+    Bilder werden dabei ein zweites Mal verkleinert, Dokumente bleiben wie sie
+    sind. Was im Vault verschwunden ist, fliegt hier mit raus.
+    """
+    bilder, dokumente, behalten = [], [], set()
+    for datei, bereich, art in ablage():
+        rel = datei.relative_to(MEDIEN_DIR)
+        # Umlaute im Ordnernamen nur im Vault — die Web-Kopie bleibt ASCII.
+        rel = Path(*[slug(teil) for teil in rel.parts[:-1]], rel.name)
+        ziel = WEB_DIR / rel
+        behalten.add(ziel)
+        if not ziel.exists() or ziel.stat().st_mtime < datei.stat().st_mtime:
+            if art == "bild":
+                verkleinern(datei, ziel, WEB_KANTE)
+            else:
+                ziel.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(datei, ziel)
+        eintrag = {"name": datei.stem, "bereich": bereich,
+                   "datei": datei.name,
+                   "pfad": "medien/" + rel.as_posix()}
+        (bilder if art == "bild" else dokumente).append(eintrag)
+
+    if WEB_DIR.exists():
+        for alt in sorted(WEB_DIR.rglob("*"), reverse=True):
+            if alt.is_file() and alt not in behalten:
+                alt.unlink()
+            elif alt.is_dir() and not any(alt.iterdir()):
+                alt.rmdir()
+    return {"bilder": bilder, "dokumente": dokumente}
 
 
 def einsortieren(bereich: str = "", apply: bool = True) -> str:
     quellen = [p for p in sorted(INPUT.rglob("*"))
-               if p.suffix.lower() in BILDER] if INPUT.exists() else []
+               if p.suffix.lower() in BILDER + DOKUMENTE] if INPUT.exists() else []
     if not quellen:
-        return f"Keine Bilder in _input/. Im Vault verlinkt: {index()}."
+        return f"Nichts in _input/. Im Vault verlinkt: {index()}."
     zeilen = []
     for quelle in quellen:
         ziel = zielname(quelle, bereich)
         if not apply:
             zeilen.append(f"  {quelle.name} → {ziel.relative_to(MEDIEN_DIR.parent)}")
             continue
-        hinweis = verkleinern(quelle, ziel)
+        hinweis = uebernehmen(quelle, ziel)
         quelle.unlink()
         zeilen.append(f"  {quelle.name} → "
                       f"{ziel.relative_to(MEDIEN_DIR.parent)} ({hinweis})")
-    kopf = (f"{len(quellen)} Bilder"
+    kopf = (f"{len(quellen)} Dateien"
             + ("" if apply else " würden einsortiert (Probelauf)"))
     schluss = f"\nIm Vault verlinkt: {index()}." if apply else ""
     return f"{kopf}\n" + "\n".join(zeilen) + schluss

@@ -4,14 +4,12 @@ from __future__ import annotations
 import json
 from datetime import datetime
 
-from . import parts, status, tasks
+from . import media, parts, status, tasks
 from .common import (
-    ANLEITUNGEN_DIR, DASHBOARD_JSON, DOCS, ENTSCHEIDUNGEN_DIR, MEDIEN_DIR,
+    ANLEITUNGEN_DIR, DASHBOARD_JSON, DOCS, ENTSCHEIDUNGEN_DIR,
     PART_KATEGORIEN, RECHERCHE_DIR, SYSTEME_DIR, VAULT,
     read_text, split_frontmatter, write_json,
 )
-
-BILDER = (".jpg", ".jpeg", ".png", ".webp", ".gif")
 
 
 def seiten(ordner) -> list[dict]:
@@ -32,23 +30,8 @@ def seiten(ordner) -> list[dict]:
     return out
 
 
-def medien() -> list[dict]:
-    if not MEDIEN_DIR.exists():
-        return []
-    out = []
-    for datei in sorted(MEDIEN_DIR.rglob("*")):
-        if datei.suffix.lower() not in BILDER:
-            continue
-        rel = datei.relative_to(MEDIEN_DIR)
-        out.append({
-            "name": datei.stem,
-            "bereich": rel.parts[0] if len(rel.parts) > 1 else "",
-            "pfad": "../vault/Medien/" + str(rel).replace("\\", "/"),
-        })
-    return out
-
-
 def daten() -> dict:
+    m = media.web_export()
     alle = tasks.load()
     teile = parts.load()
     fertig, gesamt_n = tasks.fortschritt(alle)
@@ -100,7 +83,8 @@ def daten() -> dict:
         "anleitungen": seiten(ANLEITUNGEN_DIR),
         "systeme": seiten(SYSTEME_DIR),
         "recherche": seiten(RECHERCHE_DIR),
-        "medien": medien(),
+        "medien": m["bilder"],
+        "dokumente": m["dokumente"],
     }
 
 
@@ -114,4 +98,5 @@ def build() -> str:
     (DOCS / "data.js").write_text(js, encoding="utf-8", newline="\n")
     k = d["kennzahlen"]
     return (f"docs/data.json geschrieben — {k['aufgaben_gesamt']} Aufgaben, "
-            f"{k['teile']} Teile, {len(d['medien'])} Bilder")
+            f"{k['teile']} Teile, {len(d['medien'])} Bilder, "
+            f"{len(d['dokumente'])} Dokumente")

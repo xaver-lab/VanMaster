@@ -1,5 +1,5 @@
 {
-  "erzeugt": "2026-09-17T09:25",
+  "erzeugt": "2026-09-17T09:41",
   "projekt": "VanMaster",
   "kennzahlen": {
     "aufgaben_fertig": 1,
@@ -1615,6 +1615,17 @@
   "anleitungen": [],
   "systeme": [
     {
+      "titel": "Dämmung",
+      "status": "offen",
+      "bereich": "Dämmung",
+      "meta": {
+        "system": "Dämmung",
+        "status": "offen"
+      },
+      "text": "# Dämmung\n\nRostvorsorge, Entdröhnung, Wärmedämmung und Dampfbremse an Boden, Wänden,\nDecke, Radkästen und Türen. Grundlage für alles, was später darauf steht.\n\n## Stand\n\n_(wird beim Einarbeiten des Rohmaterials gefüllt)_\n\n## Auslegung\n\n_(Dämmstärken, Flächen, Materialbedarf — sobald gerechnet)_\n\n## Verknüpft\n\n- Aufgaben: [[Dämmung]] in `vault/Aufgaben/`\n- Teile: [[Dämmung]] in `vault/Stückliste/`",
+      "datei": "vault/Systeme/Dämmung.md"
+    },
+    {
       "titel": "Elektrik",
       "status": "offen",
       "bereich": "Elektrik",
@@ -1635,6 +1646,17 @@
       },
       "text": "# Heizung\n\nHeizgerät, Abgasführung, Luftverteilung.\n\n## Stand\n\nSkizze aus dem Miro-Board (Frame \"Heizung\", übernommen 2026-09-17):\n\nDieseltank → Dieselfilter → Dieselpumpe → Standheizung (mit Ventilator).\nLufteinlass → Standheizung → Luftauslass, zusätzlich → Abgasschlauch.\nEin Elektro-Schalter steuert Dieselpumpe und Standheizung.\n\nAuf dem Board selbst mit einer orangen Notiz \"Noch nicht richtig!!!!!!\"\nmarkiert — laut Nutzer noch nicht final, nicht als Entscheidung werten.\n\nRohauszug (SVG) in `_input/miro_export.md`.\n\n## Auslegung\n\n_(Zahlen, sobald gerechnet — siehe [[Recherche]])_\n\n## Verknüpft\n\n- Aufgaben: [[Heizung]] in `vault/Aufgaben/`\n- Teile: [[Heizung]] in `vault/Stückliste/`",
       "datei": "vault/Systeme/Heizung.md"
+    },
+    {
+      "titel": "Karosserie",
+      "status": "offen",
+      "bereich": "Karosserie",
+      "meta": {
+        "system": "Karosserie",
+        "status": "offen"
+      },
+      "text": "# Karosserie\n\nAlles am Fahrzeug selbst: Innenmaße und Konstruktionsgrundlagen, Ausschnitte\nfür Fenster und Dachfenster, Rostbehandlung, Durchführungen und Befestigungs-\npunkte am Blech.\n\n## Stand\n\n_(wird beim Einarbeiten des Rohmaterials gefüllt)_\n\n## Maße\n\n_(Fahrzeug- und Innenmaße, sobald aus den Skizzen übernommen)_\n\n## Verknüpft\n\n- Aufgaben: [[Vorbereitung]] in `vault/Aufgaben/`\n- Systeme: [[Dämmung]], [[Möbel]]",
+      "datei": "vault/Systeme/Karosserie.md"
     },
     {
       "titel": "Küche",
@@ -1671,5 +1693,6 @@
     }
   ],
   "recherche": [],
-  "medien": []
+  "medien": [],
+  "dokumente": []
 }

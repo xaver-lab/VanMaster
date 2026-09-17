@@ -47,6 +47,77 @@ function zeichnen() {
   aufgabenbaum();
   teileFilterFuellen();
   teileliste();
+  bilderFilterFuellen();
+  bildergalerie();
+}
+
+/* ----------------------------------------------------------- Medien */
+
+const medienBereiche = () => [...new Set(
+  [...DATEN.medien, ...(DATEN.dokumente || [])].map((m) => m.bereich))].sort();
+
+/** Kachelstreifen mit Bildern eines Bereichs — auch im Aufgabenbaum genutzt. */
+function bilderstreifen(bilder) {
+  const gitter = neu("div", "galerie");
+  for (const b of bilder) {
+    const kachel = neu("button", "kachel-bild");
+    const img = neu("img");
+    img.src = b.pfad;
+    img.alt = b.name;
+    img.loading = "lazy";
+    kachel.append(img);
+    kachel.addEventListener("click", () => lupeZeigen(b));
+    gitter.append(kachel);
+  }
+  return gitter;
+}
+
+function dokumentliste(dokumente) {
+  const liste = neu("ul", "dokumente");
+  for (const d of dokumente) {
+    const li = neu("li");
+    const a = neu("a", null, d.datei || d.name);
+    a.href = d.pfad;
+    a.target = "_blank";
+    a.rel = "noopener";
+    li.append(a);
+    liste.append(li);
+  }
+  return liste;
+}
+
+function lupeZeigen(bild) {
+  const lupe = el("lupe");
+  lupe.querySelector("img").src = bild.pfad;
+  lupe.querySelector("p").textContent = bild.name;
+  lupe.hidden = false;
+}
+
+function bilderFilterFuellen() {
+  const auswahl = el("f-bereich");
+  for (const b of medienBereiche()) auswahl.append(new Option(b || "Unsortiert", b));
+}
+
+function bildergalerie() {
+  const ziel = el("bilder-liste");
+  const nur = el("f-bereich").value;
+  ziel.innerHTML = "";
+  let gezeigt = 0;
+
+  for (const bereich of medienBereiche()) {
+    if (nur && bereich !== nur) continue;
+    const bilder = DATEN.medien.filter((m) => m.bereich === bereich);
+    const docs = (DATEN.dokumente || []).filter((m) => m.bereich === bereich);
+    if (!bilder.length && !docs.length) continue;
+    gezeigt += bilder.length + docs.length;
+    ziel.append(neu("h2", null, bereich || "Unsortiert"));
+    if (bilder.length) ziel.append(bilderstreifen(bilder));
+    if (docs.length) ziel.append(dokumentliste(docs));
+  }
+  if (!gezeigt) {
+    ziel.append(neu("p", "leer",
+      "Noch keine Bilder — `python camper.py media` einsortieren."));
+  }
 }
 
 /* ----------------------------------------------------------- Kennzahlen */
@@ -200,6 +271,16 @@ function aufgabenbaum() {
       ul.append(li);
     }
     box.append(ul);
+
+    const bilder = DATEN.medien.filter((m) => m.bereich === name);
+    const docs = (DATEN.dokumente || []).filter((m) => m.bereich === name);
+    if (bilder.length || docs.length) {
+      const anhang = neu("div", "anhang");
+      anhang.append(neu("div", "gruppe", "Bilder & Unterlagen"));
+      if (bilder.length) anhang.append(bilderstreifen(bilder));
+      if (docs.length) anhang.append(dokumentliste(docs));
+      box.append(anhang);
+    }
     ziel.append(box);
   }
   if (!sichtbar) ziel.append(neu("p", "leer", "Keine Aufgabe passt zum Filter."));
@@ -281,6 +362,12 @@ for (const id of ["f-kategorie", "f-status", "teile-suche"]) {
 for (const id of ["aufgaben-suche", "nur-offen"]) {
   el(id).addEventListener("input", aufgabenbaum);
 }
+el("f-bereich").addEventListener("input", bildergalerie);
+
+el("lupe").addEventListener("click", () => { el("lupe").hidden = true; });
+window.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") el("lupe").hidden = true;
+});
 
 window.addEventListener("hashchange", () => {
   const knopf = document.querySelector(`#tabs button[data-tab="${location.hash.slice(1)}"]`);

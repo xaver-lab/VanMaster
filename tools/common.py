@@ -31,7 +31,7 @@ MEDIEN_DIR = VAULT / "Medien"
 PART_STATUS = ["Idee", "Recherche", "Entschieden", "Bestellt", "Geliefert", "Verbaut"]
 PART_PRIO = ["Kritisch", "Hoch", "Mittel", "Nice-to-have"]
 PART_KATEGORIEN = [
-    "Elektrik", "Wasser", "Heizung", "Möbel", "Küche",
+    "Dämmung", "Elektrik", "Wasser", "Heizung", "Möbel", "Küche",
     "Stauraum", "Werkzeug", "Verbrauchsmaterial",
 ]
 
