@@ -1,16 +1,20 @@
 ---
 quelle: Miro-Board "Projekt Camper Van" (https://miro.com/app/board/uXjVIgIRGew=/)
 stand: 2026-09-17
-status: Rohauszug, noch nicht in den Vault übernommen
+status: Rohauszug, Elektrik/Wasser/Heizung bereits in vault/Systeme/*.md übernommen
 ---
 
 # Miro-Export — Rohdaten
 
-Dieses Board hat 22 Frames / ~1200 Elemente. Bisher ausgelesen: Projektübersicht-Doc,
-Einkaufsliste-Tabelle, Frame "Aufgaben Diagramm" (Ideen-Mindmap zur Möbel-Anordnung).
-Noch offen: Planung, Planung Alt, Konstruktion, Wasser, Heizung, Küche, Elektrik,
-Elektrik Alt, Einrichtung Alt, Kühlschrank und Sitzbank, Isolierung, Hängeschränke,
-Fenster und Dachfenster, Info Sammlung, Inspiration.
+Dieses Board hat 22 Frames / ~1200 Elemente. Ausgelesen: Projektübersicht-Doc,
+Einkaufsliste-Tabelle, "Aufgaben Diagramm" (vollständig), "Elektrik",
+"Wasser", "Heizung" (Systemskizzen, bereits in vault/Systeme/ übernommen).
+
+Noch offen: Planung, Planung Alt, Konstruktion, Küche, Elektrik Alt,
+Einrichtung Alt, Kühlschrank und Sitzbank, Isolierung (eigene Einkaufsliste),
+Hängeschränke, Fenster und Dachfenster, Info Sammlung, Inspiration — für
+mehrere davon liegen inzwischen eigene Ordner unter `_input/` (Fotos/Dateien
+des Nutzers), die separat einzuarbeiten sind.
 
 ## Projektübersicht (Doc auf dem Board)
 
@@ -19,7 +23,7 @@ Heizung (Diesel-Standheizung), Elektrik (300 Ah, Solar, 4 Zonen), Wasser (40-60L
 kein Warmwasser/Dusche), Innenausstattung wie geplant. Keine neuen Fakten gegenüber
 dem, was schon in CLAUDE.md/PLAN.md steht.
 
-## Einkaufsliste (Tabelle, ~40 Zeilen)
+## Einkaufsliste (Tabelle, ~40 Zeilen) — bereits in data/parts.csv übernommen
 
 Rohdaten Spalte für Spalte: Titel | Beschreibung | Preis | Status | Priorität | Link | Kategorie
 
@@ -75,35 +79,121 @@ Kategorien im Board: Küche, Wasser, Lager, Holz+Metall, Allgemein, Strom, Ausst
 | Scharniere Gewandlager | mit Zuhalter und Befestigung offen | | | | | Lager |
 | Dachfenster Kleber | 4 Stück? | 7€ | | Hoch | belluna.eu (Carloflex) | Ausstatung |
 
-## Frame "Aufgaben Diagramm" (Mindmap, 63 Elemente)
+## Frame "Elektrik" (Systemskizze, 42 Elemente) — übernommen in vault/Systeme/Elektrik.md
 
-Räumliche Brainstorming-Notizen zur Möbel-/Lageranordnung — offene Fragen, keine
-Entscheidungen. Beispiele (unsortiert, Original-Wortlaut):
+Sicherungskasten-artige Skizze, kein Fließtext — Bauteile als Sticky-Notes,
+Verbindungen als Pfeile. Aufgelöste Struktur:
 
-- Bettsystem: Nebenbett rechts Ablagefläche (95cm, gleich hoch wie Arbeitsfläche);
-  Lager von Bett erreichbar rechts nach unten?; Lattenrost entfernen?
-- Sessellager Hecktüre: Größe berücksichtigen, Radkasten beachten; eine Kiste
-  HxBxL 55x30x110 (in Autotür), Oberkante wie Arbeitsfläche; unten Keile (Höhe 25cm),
-  dahinter evtl. Batterien; zwei Etagen?; oben VL Lade für Besteck/Kleinigkeiten
-  oder über Kühlschrank; Sonnenschirm-Lager oben (95cm - 25cm Keile - 55cm = 15cm)
-- Ausziehkistenlager (Bett Oberkante ca. 80/90cm): Ausschublagergröße festlegen
-  (40x60 Kisten?), Ausschublade planen (Platte mit kleinem Rand für Kisten),
-  Wassertank-Größe berücksichtigen, Kisten + Schienen bestellen
-- Küche: Anschluss Kühlschrank an Bett (Gangbreite? erst Küche planen);
-  Gaskocher/Waschbecken/Wasserhahn festlegen; Arbeitsplatte planen (95cm Höhe
-  → Bestecklade mit 10cm möglich); Gaskocher-Klappe als Windschutz; Wassertank
-  einplanen; Schuhlager? Bestecklade? Regal über Küche vs. gegenüber
-  ("keine Aussicht mehr")
-- Werkzeuglager, Zwischenkasten bei Sitz (Gewürze/Flaschen), Hochschrank bei
-  Bett (später planen), Regal neben Bett (später planen)
+- **Quellen:** PV-Modul → (PV 6mm² Kabel + Stecker) → Sicherung 6A DC → DC-Laderegler.
+  Autobatterie → Sicherung 16A DC → DC-Laderegler. Batterien 300Ah → Sicherung
+  10A DC "pro Stk." → zentraler **Verteiler**.
+- **Verteiler speist (je Zone eigene Sicherung 6A DC, Kabel meist 2x2,5mm²,
+  Hauptleitungen Yf 10mm²):**
+  - Vorne: Lampen 12V, USB 12V
+  - Bett: Lampen 12V, USB 12V
+  - Dach: Dachlüfter, Soundsystem
+  - Küche: USB-Steckdose (3x1,5mm² an einer Stelle), Schalter → Wasserpumpe,
+    Taster → Abwasser-Ventil, Füllanzeige → LED
+  - AC 230V: Wechselrichter → 230V AC Steckdose, Beamer
+  - Standheizung (Diesel) — eigene Sicherung direkt am Verteiler
+- Enthält damit auch die Elektrik-Anbindung von Wasserpumpe/Abwasserventil
+  (System "Wasser") und Standheizung (System "Heizung").
 
-Vollständiger Rohtext (124 Textelemente inkl. Verbindungen) liegt im Board vor,
-hier nur exemplarisch — für Möbel-Layout-Entscheidungen macht der Nutzer die
-räumliche Planung selbst (siehe CLAUDE.md).
+## Frame "Wasser" (Systemskizze, 24 Elemente) — übernommen in vault/Systeme/Wasser.md
 
-## Noch nicht ausgelesen
+Wassertank → (Schalter →) Pumpe → Wasserverteiler (2x absperrbar) →
+Wasserhahn → Waschbecken → Abwassertank (mit Füllanzeige) → Ablassventil
+(mit Taster). Wasserverteiler zweigt zusätzlich zur Dusche ab.
 
-Planung, Planung Alt, Konstruktion, Wasser (Frame), Heizung (Frame), Küche (Frame),
-Elektrik (Frame), Elektrik Alt, Einrichtung Alt, Kühlschrank und Sitzbank,
-Isolierung (Frame, hat eigene Einkaufsliste-Tabelle "Einkaufen liste Isolierung"),
-Hängeschränke, Fenster und Dachfenster, Info Sammlung, Inspiration.
+## Frame "Heizung" (Systemskizze, 20 Elemente) — übernommen in vault/Systeme/Heizung.md
+
+Dieseltank → Dieselfilter → Dieselpumpe → Standheizung (mit Ventilator).
+Lufteinlass → Standheizung → Luftauslass, zusätzlich → Abgasschlauch.
+Elektro-Schalter steuert Dieselpumpe und Standheizung. Auf dem Board selbst
+mit oranger Notiz "Noch nicht richtig!!!!!!" markiert (Diagramm laut Board
+noch nicht final).
+
+## Frame "Aufgaben Diagramm" (Mindmap, 124 Textelemente, vollständig gelesen)
+
+Räumliche Brainstorming-Notizen zur Möbel-/Lageranordnung — offene Fragen,
+keine Entscheidungen. Für Möbel-Layout-Entscheidungen macht der Nutzer die
+räumliche Planung selbst (siehe CLAUDE.md) — hier nur der vollständige
+Original-Wortlaut, grob nach Themen-Ästen sortiert:
+
+**Bettsystem**
+- Nebenbett rechts Ablagefläche (gleich hoch wie Arbeitsfläche, 95cm)
+- Lager von Bett erreichbar rechts nach unten erreichbar?
+- oder nicht und Übersessellager für Sonnenschirm?!
+- Lattenrost zum Entfernen? Dadurch besser als Transporter nutzbar...?
+- Regal neben Bett — erst später planen
+
+**Sessellager Hecktüre**
+- Hecktüre abmessen
+- Lager Sessel platzieren, Radkasten berücksichtigen
+- Sessellager Hecktüre Größe berücksichtigen
+- Unten Keile (Höhe 25cm), dahinter vl. Batterien
+- Sessellager eine Kiste HxBxL 55x30x110 (in Autotür), Oberkante wie Arbeitsfläche
+- Richtung Wand offen. Liegestühle mit Gummi an die Wand
+- Sonst geschlossen
+- Wenn oben Platz, dann was für Sonnenschirme?
+- Hinter Sessellager Rest Platz für Essenskisten? Von vorne erreichbar (mit Rollo?)
+
+**Ausziehkistenlager (Bett Oberkante ca. 80/90cm)**
+- Wie lang?
+- 1x Ausziehladen
+- Tischlager planen bzw. einfach nur die Höhe, Rest einfach bauen
+  (Tisch HxBxL 8,5x68x100)
+- Mit Stoff ausgekleidet zum Rein- und Rausschieben
+- Ausschublagergröße festlegen (40x60 Kisten?)
+- Ausschublade planen, Platte mit kleinem Rand für die Kisten
+- Wassertank überlegen, sonst auch Größe berücksichtigen
+- Kisten bestellen
+- Schienen bestellen
+- Zwei Laden übereinander? Oder nur zwei Kisten übereinander
+
+**Lager rechts (Etagen)**
+- Links / Rechts / Mitte
+- Zwei Etagen?
+- Oben VL Lade für Besteck und Kleinigkeiten, oder über Kühlschrank
+- Oben Gaslager? Liegend gut erreichbar zum Auf- und Zudrehen, 2 Stk.
+- Theoretisch Lade? Für bessere Erreichbarkeit
+- Wenn Keile 25cm + Sessellager 55cm, dann auf 95cm 15cm übrig —
+  theoretisch genau ein Schirm
+
+**Küche / Bett-Übergang**
+- Anschluss Kühlschrank an Bett (Größe/Gangbreite festlegen, erst Küche planen)
+- Küchenanschluss zu Bett
+- Hochschrank bei Bett? Erst später planen
+- Restplatz links abmessen und weitere Lager-Ideen sammeln
+- Was kommt? (Standheizung, Batterien, E-Zeug)
+- Vorne Kiste für Essen
+- Zwischenkasten zu Sitz? Erster Sitz mit Tisch planen (unter Ausbau erst),
+  für Gewürze und Flaschen
+- Werkzeuglager
+
+**Küche (Arbeitsbereich)**
+- Gaskocher festlegen
+- Waschbecken und Wasserhahn festlegen (XAV?)
+- Arbeitsplatte planen
+- Arbeitsfläche Höhe auch 95cm? Dann Bestecklade mit 10cm Höhe möglich
+- Wassertank einplanen
+- Platte für Gaskocher einfach zum Aufklappen (dann Windschutz)
+- Schuhlager?
+- Mülllager
+- Bestecklade
+- Kasten mit Geschirr
+- Rechts neben Schiebetür Regal?
+- Über der Küche? (Keine Aussicht mehr!!)
+- Oder gegenüber über die gesamte Länge
+- Über Kühlschrank oder Mitte Bett
+
+## Noch nicht ausgelesen (Miro)
+
+Planung, Planung Alt, Konstruktion, Küche (Frame), Elektrik Alt,
+Einrichtung Alt, Kühlschrank und Sitzbank, Isolierung (Frame, hat eigene
+Einkaufsliste-Tabelle "Einkaufen liste Isolierung"), Hängeschränke,
+Fenster und Dachfenster, Info Sammlung, Inspiration.
+
+Für einige dieser Themen hat der Nutzer inzwischen eigene Ordner unter
+`_input/` angelegt (Fotos, PDFs, Word-Dokumente) — diese sind der primäre
+Weg für diese Bereiche, nicht mehr die Miro-Frames.

@@ -9,7 +9,23 @@ Batterien, Laderegler, Solar, Verteilung, Verbraucher.
 
 ## Stand
 
-_(noch nichts eingetragen)_
+Skizze aus dem Miro-Board (Frame "Elektrik", übernommen 2026-09-17):
+
+- Quellen: PV-Modul (6mm² Kabel + Stecker) und Autobatterie laufen je über eine
+  Sicherung (6A bzw. 16A DC) zum DC-Laderegler. Die Batteriebank (300 Ah) läuft
+  über eine Sicherung (10A DC pro Batterie) zum zentralen Verteiler.
+- Der Verteiler speist gesicherte Zonen (je 6A DC, 2x2,5mm² Kabel):
+  - Vorne: Lampen 12V, USB 12V
+  - Bett: Lampen 12V, USB 12V
+  - Dach: Dachlüfter, Soundsystem
+  - Küche: USB-Steckdose, Schalter → Wasserpumpe, Taster → Abwasser-Ventil,
+    Füllanzeige → LED
+  - AC 230V: Wechselrichter → 230V-Steckdose, Beamer
+- Die Standheizung (Diesel) hängt an einer eigenen Sicherung direkt am Verteiler.
+- Kabeltypen im Diagramm: 2x2,5mm² (Verbraucher), Yf 10mm² (Hauptleitungen
+  Batterie/Laderegler), 3x1,5mm² (vereinzelt).
+
+Rohauszug (SVG) in `_input/miro_export.md`.
 
 ## Auslegung
 
