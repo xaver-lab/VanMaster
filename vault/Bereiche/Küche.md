@@ -55,7 +55,8 @@ der Nutzer:
   in der Küche nichts mehr frei wird.
 - Vorne links Schuhkasten unten neben dem Wassertank, darüber Müll oder Lade.
 - Müll vielleicht direkt beim Bett statt in der Küche.
-- Ausklapptisch zum Beifahrersitz hin, für den geschlossenen Van.
+- Ausklapptisch zum Beifahrersitz hin, für den geschlossenen Van. Ideenbild
+  dazu (Wandarm-Tisch, zum Fahrerbereich geschwenkt) liegt unter [[Möbel]].
 - Wasserhahn daneben setzen, damit man auch bei geschlossener Platte Wasser
   holen kann.
 - Abwassertank nicht mehr in der Tür (Abblaseventil). Wenn er ausgebaut wird,

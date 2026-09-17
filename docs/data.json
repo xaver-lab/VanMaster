@@ -1,10 +1,10 @@
 {
-  "erzeugt": "2026-09-17T12:47",
+  "erzeugt": "2026-09-17T12:55",
   "projekt": "VanMaster",
   "kennzahlen": {
     "aufgaben_fertig": 1,
-    "aufgaben_gesamt": 25,
-    "teile": 60,
+    "aufgaben_gesamt": 27,
+    "teile": 66,
     "kosten": 3045.53,
     "kosten_bestellt": 443.3,
     "gewicht": 17.4,
@@ -71,7 +71,7 @@
       "beschreibung": "Der Küchenblock an der Schiebetür: Gaskocher, Spüle, Kompressorkühlschrank und\ndarunter Stauraum. Er ist das Möbel mit den meisten Anschlüssen — Frisch- und\nAbwasser, 12 V für den Kühlschrank, Gas für den Kocher — und gleichzeitig das\nStück, das die Gangbreite bestimmt.",
       "stand": "**Kühlschrank.** Drei Belluna-Modelle sind durchgerechnet (80 L, 85 L, 92 L),\nErgebnis in [[Kühlschrank Modell]]. Feststehende Punkte:\n\n- Alle drei liegen bei 45–50 W Spitze, also rund 4,2 A bei 12 V. Die\n  6-A-Sicherung der Küchenzone reicht. Tagesverbrauch etwa 390 Wh, das sind\n  13–15 % der 300 Ah LiFePO4.\n- Die Einbautiefe steuert den Gang: 44–45 cm lassen bei 171 cm Innenbreite\n  etwa 81–82 cm Gang, 54 cm nur noch 72 cm.\n- Türanschlag soll links sitzen, Griff rechts, damit die Tür zur\n  Fahrerseitenwand aufschwingt und den Gang frei lässt.\n\n**Wasser in der Küche.** Frischwasser kommt aus Weithalskanistern DIN 96 im\nKüchenschacht (siehe [[Wasser]]). Der Abwassertank soll nicht mehr in der Tür\nsitzen.\n\n**Klappen.** Für Waschbecken-, Kocher- und Wassertankklappe ist ein\nEasyConnect-Scharnier-Set von Camping Wagner vorgesehen. Die Klappenstärke\nliegt durch das Push-Lock-Schloss bei 14–16 mm (siehe [[Möbel]]).",
       "auslegung": "| | Wert | Quelle |\n|---|---|---|\n| Innenbreite Laderaum | 171 cm | Fahrzeugmaß |\n| Gang bei 44–45 cm Kühlschranktiefe | 81–82 cm | gerechnet |\n| Gang bei 54 cm Kühlschranktiefe | 72 cm | gerechnet |\n| Kühlschrank Spitzenlast | 45–50 W ≈ 4,2 A bei 12 V | Herstellerangabe |\n| Kühlschrank Tagesverbrauch | ~390 Wh ≈ 13–15 % der Bank | gerechnet |\n| Sicherung Küchenzone | 6 A | Elektrikplanung, reicht aus |\n| Klappenstärke | 14–16 mm | Vorgabe Push-Lock-Schloss |",
-      "notizen": "Rohnotizen aus `_input/Küche/infos.txt`, unbewertet — die Anordnung entscheidet\nder Nutzer:\n\n- Neben dem Waschbecken ein Kasten für Geschirr und Kochzeug? Nur falls unten\n  in der Küche nichts mehr frei wird.\n- Vorne links Schuhkasten unten neben dem Wassertank, darüber Müll oder Lade.\n- Müll vielleicht direkt beim Bett statt in der Küche.\n- Ausklapptisch zum Beifahrersitz hin, für den geschlossenen Van.\n- Wasserhahn daneben setzen, damit man auch bei geschlossener Platte Wasser\n  holen kann.\n- Abwassertank nicht mehr in der Tür (Abblaseventil). Wenn er ausgebaut wird,\n  dann gleich zusammen mit dem Frischwasser.\n- Aus der Einkaufsliste: „Wasserhahn ohne Hahn\" — vermutlich Spüle ohne\n  mitgelieferte Armatur, Armatur separat. Noch zu bestätigen.\n\n**Bilder.** Sieben Sammelbilder aus fremden Ausbauten, als Ideenspeicher: ein\nKüchenblock an der Schiebetür mit ausziehbarem Kühlschrankfach und Hängeschrank\ndarüber; ein Müllauszug als schmale Lade neben dem Kühlschrank; ein\nKüchensockel mit indirekter Beleuchtung im Türausschnitt; Wasserkanister\nstehend in einem schmalen Schacht; eine Edelstahlspüle mit hölzernem\nAbdeckbrett; ein Gaskocher hinter einer Klappe mit seitlichem Ausklapptisch;\neine Kocher-Spülen-Kombination mit Klappdeckel und angesetztem Ausklapptisch.\nKeine Maße darauf.",
+      "notizen": "Rohnotizen aus `_input/Küche/infos.txt`, unbewertet — die Anordnung entscheidet\nder Nutzer:\n\n- Neben dem Waschbecken ein Kasten für Geschirr und Kochzeug? Nur falls unten\n  in der Küche nichts mehr frei wird.\n- Vorne links Schuhkasten unten neben dem Wassertank, darüber Müll oder Lade.\n- Müll vielleicht direkt beim Bett statt in der Küche.\n- Ausklapptisch zum Beifahrersitz hin, für den geschlossenen Van. Ideenbild\n  dazu (Wandarm-Tisch, zum Fahrerbereich geschwenkt) liegt unter [[Möbel]].\n- Wasserhahn daneben setzen, damit man auch bei geschlossener Platte Wasser\n  holen kann.\n- Abwassertank nicht mehr in der Tür (Abblaseventil). Wenn er ausgebaut wird,\n  dann gleich zusammen mit dem Frischwasser.\n- Aus der Einkaufsliste: „Wasserhahn ohne Hahn\" — vermutlich Spüle ohne\n  mitgelieferte Armatur, Armatur separat. Noch zu bestätigen.\n\n**Bilder.** Sieben Sammelbilder aus fremden Ausbauten, als Ideenspeicher: ein\nKüchenblock an der Schiebetür mit ausziehbarem Kühlschrankfach und Hängeschrank\ndarüber; ein Müllauszug als schmale Lade neben dem Kühlschrank; ein\nKüchensockel mit indirekter Beleuchtung im Türausschnitt; Wasserkanister\nstehend in einem schmalen Schacht; eine Edelstahlspüle mit hölzernem\nAbdeckbrett; ein Gaskocher hinter einer Klappe mit seitlichem Ausklapptisch;\neine Kocher-Spülen-Kombination mit Klappdeckel und angesetztem Ausklapptisch.\nKeine Maße darauf.",
       "links": [
         {
           "titel": "Belluna 80 L Kompressorkühlschrank",
@@ -110,12 +110,12 @@
     },
     {
       "name": "Möbel",
-      "kurz": "Bett, Küchenblock, Hängeschränke, Stauraum, Befestigung",
+      "kurz": "Bett, Küchenblock, Hängeschränke, Sitzbank, Tisch, Toilette, Stauraum",
       "status": "in-arbeit",
-      "beschreibung": "Bett, Küchenblock, Schränke, Befestigung an der Karosserie.",
-      "stand": "### Hängeschränke\n\nKorpus und Fronten aus EpicPLY-Multiplex. Die Fronten sind Klappen, die nach\noben schwenken, keine seitlich öffnenden Türen — so steht beim Kochen nichts\nauf Kopfhöhe im Weg.\n\n**Beschläge**\n\n- Klappenbeschlag Grass Kinvaro T-57 (Hochschwenk-Automatik, 240 N). Trägt\n  Klappen bis 6,2 kg, öffnet auf 75 oder 90°. Ein Paar je Klappe.\n- Verschließbares Push-Lock-Schloss statt Griff: sitzt bündig, hakt nicht am\n  Kopf und hält die Klappe auf der Fahrt zu.\n- Zusätzlich Möbelmagnete an den Klappen.\n\n**Was das für den Zuschnitt heißt**\n\n- Die Klappen müssen **14–16 mm** stark sein, sonst passt das Push-Lock nicht.\n  Pro Schloss ein Loch mit 26 mm Durchmesser in der Front.\n- Klappengewicht pro Beschlagpaar unter 6,2 kg halten. Bei 15 mm Multiplex\n  (rund 10 kg/m²) heißt das: Klappenfläche höchstens etwa 0,6 m².\n- Über der Klappe muss der Öffnungsweg frei bleiben — der Beschlag schwenkt\n  die Front nach oben vor die Decke.",
+      "beschreibung": "Bett, Küchenblock, Schränke, Sitzbank mit Toilette, Tisch, Befestigung an der Karosserie.",
+      "stand": "### Hängeschränke\n\nKorpus und Fronten aus EpicPLY-Multiplex. Die Fronten sind Klappen, die nach\noben schwenken, keine seitlich öffnenden Türen — so steht beim Kochen nichts\nauf Kopfhöhe im Weg.\n\n**Beschläge**\n\n- Klappenbeschlag Grass Kinvaro T-57 (Hochschwenk-Automatik, 240 N). Trägt\n  Klappen bis 6,2 kg, öffnet auf 75 oder 90°. Ein Paar je Klappe.\n- Verschließbares Push-Lock-Schloss statt Griff: sitzt bündig, hakt nicht am\n  Kopf und hält die Klappe auf der Fahrt zu.\n- Zusätzlich Möbelmagnete an den Klappen.\n\n**Was das für den Zuschnitt heißt**\n\n- Die Klappen müssen **14–16 mm** stark sein, sonst passt das Push-Lock nicht.\n  Pro Schloss ein Loch mit 26 mm Durchmesser in der Front.\n- Klappengewicht pro Beschlagpaar unter 6,2 kg halten. Bei 15 mm Multiplex\n  (rund 10 kg/m²) heißt das: Klappenfläche höchstens etwa 0,6 m².\n- Über der Klappe muss der Öffnungsweg frei bleiben — der Beschlag schwenkt\n  die Front nach oben vor die Decke.\n\n### Sitzbank, Tisch und Toilette\n\n**Toilette.** Eine Kassettentoilette (Porta-Potti-Bauart) sitzt ausziehbar in\neiner Lade neben der Sitzbank — auf einem Rollbrett mit kleinen Lenkrollen,\nsodass sie sich beim Entleeren einfach herausziehen lässt. Ein\nKlopapierhalter mit zwei Rollen sitzt in derselben Lade daneben.\n\n**Tisch.** Zweiteilige Bambus-Tischplatte auf einem einzelnen Metallbein:\neine kleinere Platte liegt über einer größeren, vermutlich zum Vergrößern der\nFläche verschieb- oder klappbar. Separat dazu ein Wandarm-Tisch, der sich zum\nBeifahrersitz hin schwenken lässt und dort als kleine Ablage direkt am\nFahrersitzbereich dient — deckt sich mit der Notiz „Ausklapptisch zum\nBeifahrersitz\" unter [[Küche]].\n\n**Gewürzregal.** Schmales Auszugregal mit Drahtkörben auf einer\nVollauszugschiene, an eine Schrankseite montiert.",
       "auslegung": "",
-      "notizen": "- Wabenmuster im CAD-Seitenteil ist eine Idee zur Gewichtsersparnis, noch nicht\n  gerechnet.\n- Stückzahl der Klappen hängt am Layout, deshalb stehen die Beschlagmengen offen.",
+      "notizen": "- Wabenmuster im CAD-Seitenteil ist eine Idee zur Gewichtsersparnis, noch nicht\n  gerechnet.\n- Stückzahl der Klappen hängt am Layout, deshalb stehen die Beschlagmengen offen.\n\nAus `_input/Kühlschrank und Sitzbank/` (Rohnotizen und Ideenbilder, unbewertet):\n\n- Ideenbild eines fertigen Ausbaus zeigt Hängeschränke, Dachfenster und\n  Kochstelle im Zusammenspiel — als grober Raumeindruck, keine Maße.\n- Toilettenmodell, Rollbrett-Konstruktion und Tischform sind noch offen.",
       "links": [
         {
           "titel": "Klappenbeschlag Grass Kinvaro T-57",
@@ -130,7 +130,7 @@
       ],
       "datei": "vault/Bereiche/Möbel.md",
       "fertig": 0,
-      "gesamt": 4
+      "gesamt": 6
     },
     {
       "name": "Vorbereitung",
@@ -196,7 +196,7 @@
     },
     {
       "name": "Möbel",
-      "teile": 13,
+      "teile": 17,
       "kosten": 353.23,
       "gewicht": 0.0,
       "verbaut": 0
@@ -210,7 +210,7 @@
     },
     {
       "name": "Stauraum",
-      "teile": 6,
+      "teile": 8,
       "kosten": 157.0,
       "gewicht": 0.0,
       "verbaut": 0
@@ -431,7 +431,7 @@
       "prio": "hoch",
       "dauer": "",
       "datei": "vault\\Bereiche\\Küche.md",
-      "zeile": 88
+      "zeile": 89
     },
     {
       "id": "kuehlschrank-entscheiden",
@@ -448,7 +448,7 @@
       "prio": "hoch",
       "dauer": "",
       "datei": "vault\\Bereiche\\Küche.md",
-      "zeile": 89
+      "zeile": 90
     },
     {
       "id": "kueche-einbauen",
@@ -465,7 +465,7 @@
       "prio": "",
       "dauer": "",
       "datei": "vault\\Bereiche\\Küche.md",
-      "zeile": 90
+      "zeile": 91
     },
     {
       "id": "layout",
@@ -480,7 +480,7 @@
       "prio": "kritisch",
       "dauer": "",
       "datei": "vault\\Bereiche\\Möbel.md",
-      "zeile": 57
+      "zeile": 80
     },
     {
       "id": "bettrahmen",
@@ -497,7 +497,7 @@
       "prio": "",
       "dauer": "",
       "datei": "vault\\Bereiche\\Möbel.md",
-      "zeile": 58
+      "zeile": 81
     },
     {
       "id": "kuechenblock",
@@ -514,7 +514,7 @@
       "prio": "",
       "dauer": "",
       "datei": "vault\\Bereiche\\Möbel.md",
-      "zeile": 59
+      "zeile": 82
     },
     {
       "id": "schraenke",
@@ -531,7 +531,41 @@
       "prio": "",
       "dauer": "",
       "datei": "vault\\Bereiche\\Möbel.md",
-      "zeile": 60
+      "zeile": 83
+    },
+    {
+      "id": "sitzbank",
+      "titel": "Sitzbank mit Toilettenlade bauen",
+      "status": "offen",
+      "bereich": "Möbel",
+      "gruppe": "Aufbau",
+      "ebene": 0,
+      "eltern": "",
+      "kinder": [],
+      "braucht": [
+        "layout"
+      ],
+      "prio": "",
+      "dauer": "",
+      "datei": "vault\\Bereiche\\Möbel.md",
+      "zeile": 84
+    },
+    {
+      "id": "tisch",
+      "titel": "Tisch anfertigen",
+      "status": "offen",
+      "bereich": "Möbel",
+      "gruppe": "Aufbau",
+      "ebene": 0,
+      "eltern": "",
+      "kinder": [],
+      "braucht": [
+        "layout"
+      ],
+      "prio": "",
+      "dauer": "",
+      "datei": "vault\\Bereiche\\Möbel.md",
+      "zeile": 85
     },
     {
       "id": "masse-aufnehmen",
@@ -1472,6 +1506,30 @@
       "gewicht_n": 0.0
     },
     {
+      "id": "camping-toilette-kassette",
+      "titel": "Camping-Toilette (Kassette)",
+      "beschreibung": "",
+      "kategorie": "Möbel",
+      "system": "Möbel",
+      "menge": "1",
+      "einheit": "Stk",
+      "preis": "",
+      "status": "Idee",
+      "prioritaet": "Mittel",
+      "link": "",
+      "haendler": "",
+      "fuer_aufgabe": "",
+      "entscheidung": "",
+      "kennwerte": "",
+      "gewicht_kg": "",
+      "notiz": "Auf Rollbrett ausziehbar in einer Lade neben der Sitzbank gelagert, mit Klopapierhalter daneben. Modell noch offen.",
+      "gekauft_am": "",
+      "menge_n": 1.0,
+      "preis_n": 0.0,
+      "gesamt": 0.0,
+      "gewicht_n": 0.0
+    },
+    {
       "id": "dachfenster",
       "titel": "Dachfenster",
       "beschreibung": "",
@@ -1736,6 +1794,78 @@
       "gewicht_n": 0.0
     },
     {
+      "id": "sitzplatte",
+      "titel": "Sitzplatte",
+      "beschreibung": "",
+      "kategorie": "Möbel",
+      "system": "Möbel",
+      "menge": "1",
+      "einheit": "Stk",
+      "preis": "",
+      "status": "Idee",
+      "prioritaet": "Mittel",
+      "link": "",
+      "haendler": "",
+      "fuer_aufgabe": "",
+      "entscheidung": "",
+      "kennwerte": "",
+      "gewicht_kg": "",
+      "notiz": "Sitzfläche der Sitzbank, vermutlich gepolstert. Maße und Bezugsstoff offen.",
+      "gekauft_am": "",
+      "menge_n": 1.0,
+      "preis_n": 0.0,
+      "gesamt": 0.0,
+      "gewicht_n": 0.0
+    },
+    {
+      "id": "tischfuss-einzelbein",
+      "titel": "Tischfuß (Einzelbein)",
+      "beschreibung": "",
+      "kategorie": "Möbel",
+      "system": "Möbel",
+      "menge": "1",
+      "einheit": "Stk",
+      "preis": "",
+      "status": "Idee",
+      "prioritaet": "Mittel",
+      "link": "",
+      "haendler": "",
+      "fuer_aufgabe": "",
+      "entscheidung": "",
+      "kennwerte": "",
+      "gewicht_kg": "",
+      "notiz": "",
+      "gekauft_am": "",
+      "menge_n": 1.0,
+      "preis_n": 0.0,
+      "gesamt": 0.0,
+      "gewicht_n": 0.0
+    },
+    {
+      "id": "tischplatte-zweiteilig-bambus",
+      "titel": "Tischplatte (zweiteilig, Bambus)",
+      "beschreibung": "",
+      "kategorie": "Möbel",
+      "system": "Möbel",
+      "menge": "1",
+      "einheit": "Stk",
+      "preis": "",
+      "status": "Idee",
+      "prioritaet": "Mittel",
+      "link": "",
+      "haendler": "",
+      "fuer_aufgabe": "",
+      "entscheidung": "",
+      "kennwerte": "",
+      "gewicht_kg": "",
+      "notiz": "Zwei Platten übereinander, auf Einzelbein montiert — kleinere Platte klappt/schiebt über die größere. Maße noch offen.",
+      "gekauft_am": "",
+      "menge_n": 1.0,
+      "preis_n": 0.0,
+      "gesamt": 0.0,
+      "gewicht_n": 0.0
+    },
+    {
       "id": "gaskocher",
       "titel": "Gaskocher",
       "beschreibung": "",
@@ -1853,6 +1983,54 @@
       "menge_n": 1.0,
       "preis_n": 89.0,
       "gesamt": 89.0,
+      "gewicht_n": 0.0
+    },
+    {
+      "id": "auszugschiene-gewuerzregal",
+      "titel": "Auszugschiene Gewürzregal",
+      "beschreibung": "",
+      "kategorie": "Stauraum",
+      "system": "Stauraum",
+      "menge": "1",
+      "einheit": "Stk",
+      "preis": "",
+      "status": "Idee",
+      "prioritaet": "Mittel",
+      "link": "",
+      "haendler": "",
+      "fuer_aufgabe": "",
+      "entscheidung": "",
+      "kennwerte": "",
+      "gewicht_kg": "",
+      "notiz": "Schmales Auszugregal mit Drahtkörben, 3 Ebenen.",
+      "gekauft_am": "",
+      "menge_n": 1.0,
+      "preis_n": 0.0,
+      "gesamt": 0.0,
+      "gewicht_n": 0.0
+    },
+    {
+      "id": "auszugschiene-toilette",
+      "titel": "Auszugschiene Toilette",
+      "beschreibung": "",
+      "kategorie": "Stauraum",
+      "system": "Stauraum",
+      "menge": "1",
+      "einheit": "Stk",
+      "preis": "",
+      "status": "Idee",
+      "prioritaet": "Mittel",
+      "link": "",
+      "haendler": "",
+      "fuer_aufgabe": "",
+      "entscheidung": "",
+      "kennwerte": "",
+      "gewicht_kg": "",
+      "notiz": "Für die Toilettenlade neben der Sitzbank.",
+      "gekauft_am": "",
+      "menge_n": 1.0,
+      "preis_n": 0.0,
+      "gesamt": 0.0,
       "gewicht_n": 0.0
     },
     {
@@ -2161,6 +2339,18 @@
       "pfad": "medien/kueche/2026-09-17-wassertank-kanister-im-schacht.png"
     },
     {
+      "name": "2026-09-17-ausklapptisch-zum-beifahrersitz-geschwenkt",
+      "bereich": "Möbel",
+      "datei": "2026-09-17-ausklapptisch-zum-beifahrersitz-geschwenkt.png",
+      "pfad": "medien/moebel/2026-09-17-ausklapptisch-zum-beifahrersitz-geschwenkt.png"
+    },
+    {
+      "name": "2026-09-17-gewuerzregal-schmale-ausziehschiene",
+      "bereich": "Möbel",
+      "datei": "2026-09-17-gewuerzregal-schmale-ausziehschiene.png",
+      "pfad": "medien/moebel/2026-09-17-gewuerzregal-schmale-ausziehschiene.png"
+    },
+    {
       "name": "2026-09-17-haengeschrank-front-offen",
       "bereich": "Möbel",
       "datei": "2026-09-17-haengeschrank-front-offen.png",
@@ -2173,6 +2363,12 @@
       "pfad": "medien/moebel/2026-09-17-haengeschrank-wohnbereich-led.png"
     },
     {
+      "name": "2026-09-17-ideenbild-haengeschraenke-dachfenster-kochstelle",
+      "bereich": "Möbel",
+      "datei": "2026-09-17-ideenbild-haengeschraenke-dachfenster-kochstelle.png",
+      "pfad": "medien/moebel/2026-09-17-ideenbild-haengeschraenke-dachfenster-kochstelle.png"
+    },
+    {
       "name": "2026-09-17-schrankkorpus-cad-lattenruecken",
       "bereich": "Möbel",
       "datei": "2026-09-17-schrankkorpus-cad-lattenruecken.png",
@@ -2183,6 +2379,24 @@
       "bereich": "Möbel",
       "datei": "2026-09-17-schrankkorpus-cad-wabe.png",
       "pfad": "medien/moebel/2026-09-17-schrankkorpus-cad-wabe.png"
+    },
+    {
+      "name": "2026-09-17-tischplatte-zweiteilig-auf-einzelbein",
+      "bereich": "Möbel",
+      "datei": "2026-09-17-tischplatte-zweiteilig-auf-einzelbein.png",
+      "pfad": "medien/moebel/2026-09-17-tischplatte-zweiteilig-auf-einzelbein.png"
+    },
+    {
+      "name": "2026-09-17-toilette-auf-rollbrett",
+      "bereich": "Möbel",
+      "datei": "2026-09-17-toilette-auf-rollbrett.png",
+      "pfad": "medien/moebel/2026-09-17-toilette-auf-rollbrett.png"
+    },
+    {
+      "name": "2026-09-17-toilette-ausziehlade-mit-klopapierhalter",
+      "bereich": "Möbel",
+      "datei": "2026-09-17-toilette-ausziehlade-mit-klopapierhalter.png",
+      "pfad": "medien/moebel/2026-09-17-toilette-ausziehlade-mit-klopapierhalter.png"
     }
   ],
   "dokumente": [

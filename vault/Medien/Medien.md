@@ -26,7 +26,13 @@ erzeugt: true
 
 ## Möbel
 
+![[Medien/Möbel/2026-09-17-ausklapptisch-zum-beifahrersitz-geschwenkt.png]]
+![[Medien/Möbel/2026-09-17-gewuerzregal-schmale-ausziehschiene.png]]
 ![[Medien/Möbel/2026-09-17-haengeschrank-front-offen.png]]
 ![[Medien/Möbel/2026-09-17-haengeschrank-wohnbereich-led.png]]
+![[Medien/Möbel/2026-09-17-ideenbild-haengeschraenke-dachfenster-kochstelle.png]]
 ![[Medien/Möbel/2026-09-17-schrankkorpus-cad-lattenruecken.png]]
 ![[Medien/Möbel/2026-09-17-schrankkorpus-cad-wabe.png]]
+![[Medien/Möbel/2026-09-17-tischplatte-zweiteilig-auf-einzelbein.png]]
+![[Medien/Möbel/2026-09-17-toilette-auf-rollbrett.png]]
+![[Medien/Möbel/2026-09-17-toilette-ausziehlade-mit-klopapierhalter.png]]

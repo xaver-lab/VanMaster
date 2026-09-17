@@ -1,6 +1,6 @@
 ---
 bereich: Möbel
-kurz: Bett, Küchenblock, Hängeschränke, Stauraum, Befestigung
+kurz: Bett, Küchenblock, Hängeschränke, Sitzbank, Tisch, Toilette, Stauraum
 status: in-arbeit
 ---
 
@@ -8,7 +8,7 @@ status: in-arbeit
 
 ## Beschreibung
 
-Bett, Küchenblock, Schränke, Befestigung an der Karosserie.
+Bett, Küchenblock, Schränke, Sitzbank mit Toilette, Tisch, Befestigung an der Karosserie.
 
 ## Stand
 
@@ -35,6 +35,23 @@ auf Kopfhöhe im Weg.
 - Über der Klappe muss der Öffnungsweg frei bleiben — der Beschlag schwenkt
   die Front nach oben vor die Decke.
 
+### Sitzbank, Tisch und Toilette
+
+**Toilette.** Eine Kassettentoilette (Porta-Potti-Bauart) sitzt ausziehbar in
+einer Lade neben der Sitzbank — auf einem Rollbrett mit kleinen Lenkrollen,
+sodass sie sich beim Entleeren einfach herausziehen lässt. Ein
+Klopapierhalter mit zwei Rollen sitzt in derselben Lade daneben.
+
+**Tisch.** Zweiteilige Bambus-Tischplatte auf einem einzelnen Metallbein:
+eine kleinere Platte liegt über einer größeren, vermutlich zum Vergrößern der
+Fläche verschieb- oder klappbar. Separat dazu ein Wandarm-Tisch, der sich zum
+Beifahrersitz hin schwenken lässt und dort als kleine Ablage direkt am
+Fahrersitzbereich dient — deckt sich mit der Notiz „Ausklapptisch zum
+Beifahrersitz" unter [[Küche]].
+
+**Gewürzregal.** Schmales Auszugregal mit Drahtkörben auf einer
+Vollauszugschiene, an eine Schrankseite montiert.
+
 ## Auslegung
 
 _(Zahlen, sobald gerechnet)_
@@ -44,6 +61,12 @@ _(Zahlen, sobald gerechnet)_
 - Wabenmuster im CAD-Seitenteil ist eine Idee zur Gewichtsersparnis, noch nicht
   gerechnet.
 - Stückzahl der Klappen hängt am Layout, deshalb stehen die Beschlagmengen offen.
+
+Aus `_input/Kühlschrank und Sitzbank/` (Rohnotizen und Ideenbilder, unbewertet):
+
+- Ideenbild eines fertigen Ausbaus zeigt Hängeschränke, Dachfenster und
+  Kochstelle im Zusammenspiel — als grober Raumeindruck, keine Maße.
+- Toilettenmodell, Rollbrett-Konstruktion und Tischform sind noch offen.
 
 ## Links
 
@@ -58,3 +81,5 @@ _(Zahlen, sobald gerechnet)_
 - [ ] Bettrahmen bauen ^bettrahmen @braucht:layout
 - [ ] Küchenblock bauen ^kuechenblock @braucht:layout
 - [ ] Stauraum und Schränke ^schraenke @braucht:layout
+- [ ] Sitzbank mit Toilettenlade bauen ^sitzbank @braucht:layout
+- [ ] Tisch anfertigen ^tisch @braucht:layout
