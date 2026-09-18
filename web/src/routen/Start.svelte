@@ -1,37 +1,48 @@
 <script lang="ts">
   import { store } from '../lib/daten.svelte';
+
+  const euro = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
+
+  let k = $derived(store.daten?.kennzahlen);
+  let anteil = $derived(k && k.aufgaben_gesamt ? Math.round((100 * k.aufgaben_fertig) / k.aufgaben_gesamt) : 0);
 </script>
 
-<section>
-  <h1>Start</h1>
-  {#if store.daten}
-    <dl class="zahlen">
-      <div><dt>Bereiche</dt><dd>{store.daten.bereiche.length}</dd></div>
-      <div><dt>Aufgaben</dt><dd>{store.daten.aufgaben.length}</dd></div>
-      <div><dt>Teile</dt><dd>{store.daten.teile.length}</dd></div>
-      <div><dt>Erzeugt</dt><dd>{store.daten.erzeugt}</dd></div>
-    </dl>
-  {/if}
-</section>
-
-<style>
-  .zahlen {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-  .zahlen div {
-    background: var(--flaeche-2);
-    border-radius: 0.5rem;
-    padding: 0.8rem;
-  }
-  dt {
-    font-size: 0.8rem;
-    color: var(--schrift-schwach);
-  }
-  dd {
-    margin: 0;
-    font-size: 1.3rem;
-  }
-</style>
+{#if store.daten && k}
+  <div class="kennzahlen">
+    <div class="kachel">
+      <div>
+        <div class="titel">Aufgaben</div>
+        <div class="wert">{anteil} %</div>
+        <div class="zusatz">{k.aufgaben_fertig} von {k.aufgaben_gesamt} erledigt</div>
+      </div>
+    </div>
+    <div class="kachel">
+      <div>
+        <div class="titel">Bereiche</div>
+        <div class="wert">{store.daten.bereiche.length}</div>
+      </div>
+    </div>
+    <div class="kachel">
+      <div>
+        <div class="titel">Teile</div>
+        <div class="wert">{k.teile}</div>
+        <div class="zusatz">{k.bauteile} Einzelteile</div>
+      </div>
+    </div>
+    <div class="kachel">
+      <div>
+        <div class="titel">Kosten</div>
+        <div class="wert">{euro.format(k.kosten)}</div>
+        <div class="zusatz">{euro.format(k.kosten_bestellt)} bestellt</div>
+      </div>
+    </div>
+    <div class="kachel">
+      <div>
+        <div class="titel">Entscheidungen</div>
+        <div class="wert">{k.offene_entscheidungen}</div>
+        <div class="zusatz">offen</div>
+      </div>
+    </div>
+  </div>
+  <p class="leer">Die vollständige Startseite kommt in Phase 8.</p>
+{/if}

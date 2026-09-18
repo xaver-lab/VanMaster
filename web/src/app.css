@@ -1,41 +1,237 @@
-/* Schlichte Grundlage mit CSS-Variablen für Hell/Dunkel — das Übernehmen
-   des Stils aus docs/css/ macht der Hauptchat (UMBAU.md Phase 5). */
+/* VanMaster — Grundstil, übernommen aus docs/css/basis.css und palette.css.
+   Dunkel ist die Grundlage, html[data-thema="hell"] überschreibt die Farben. */
 
-:root[data-thema='hell'] {
+:root {
+  --bg: #101319;
+  --flaeche: #171c24;
+  --flaeche-hoch: #1f2632;
+  --flaeche-tief: #0c0f14;
+  --linie: #28313f;
+  --linie-hell: #364254;
+  --text: #e8edf5;
+  --gedaempft: #8e9bb0;
+  --leise: #64708350;
+  --akzent: #ffb347;
+  --akzent-tief: #3a2c16;
+  --gut: #4fc98c;
+  --gut-tief: #143526;
+  --wartet: #74a3f7;
+  --wartet-tief: #16233d;
+  --warn: #ff8f7a;
+  --warn-tief: #3a1f1c;
+  --radius: 14px;
+  --radius-klein: 9px;
+  --schiene: 232px;
+  --schatten: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+}
+
+html[data-thema="hell"] {
+  --bg: #f4f6fa;
   --flaeche: #ffffff;
-  --flaeche-2: #f1f2f4;
-  --schrift: #1b1d1f;
-  --schrift-schwach: #6b7076;
-  --rand: #dcdfe3;
-  --farbe-akzent: #2563eb;
-  --farbe-erfolg: #16a34a;
-  --farbe-warnung: #d97706;
-  --farbe-fehler: #dc2626;
+  --flaeche-hoch: #eef1f7;
+  --flaeche-tief: #e6eaf2;
+  --linie: #dde3ed;
+  --linie-hell: #c7d0de;
+  --text: #16202e;
+  --gedaempft: #5f6b7d;
+  --akzent: #b96b00;
+  --akzent-tief: #fdf0dc;
+  --gut: #1f8a5b;
+  --gut-tief: #e0f5ea;
+  --wartet: #2f66c7;
+  --wartet-tief: #e4edfd;
+  --warn: #c0392b;
+  --warn-tief: #fbe8e5;
+  --schatten: 0 1px 2px rgba(20,30,50,.06), 0 8px 24px -14px rgba(20,30,50,.25);
 }
 
-:root[data-thema='dunkel'] {
-  --flaeche: #1b1d1f;
-  --flaeche-2: #26292c;
-  --schrift: #eef0f2;
-  --schrift-schwach: #9aa0a6;
-  --rand: #35393d;
-  --farbe-akzent: #60a5fa;
-  --farbe-erfolg: #4ade80;
-  --farbe-warnung: #fbbf24;
-  --farbe-fehler: #f87171;
-}
+* { box-sizing: border-box; }
 
-* {
-  box-sizing: border-box;
-}
+html, body { height: 100%; }
 
 body {
   margin: 0;
-  font-family: system-ui, sans-serif;
-  background: var(--flaeche);
-  color: var(--schrift);
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  -webkit-text-size-adjust: 100%;
+  overscroll-behavior-y: none;
 }
 
-button {
-  font-family: inherit;
+#app { height: 100%; }
+
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+a { color: var(--wartet); text-decoration-color: color-mix(in srgb, var(--wartet) 40%, transparent); }
+
+::selection { background: color-mix(in srgb, var(--akzent) 35%, transparent); }
+
+/* ------------------------------------------------------------- Gerüst */
+
+.app { display: flex; min-height: 100%; }
+
+.schiene {
+  flex: 0 0 var(--schiene);
+  width: var(--schiene);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem 0.7rem;
+  background: var(--flaeche-tief);
+  border-right: 1px solid var(--linie);
 }
+
+.marke { display: flex; align-items: center; gap: 0.55rem; padding: 0.3rem 0.5rem 0.2rem; }
+.marke .zeichen { font-size: 1.3rem; }
+.marke .wort { font-weight: 650; letter-spacing: 0.01em; }
+
+.hauptnav { display: flex; flex-direction: column; gap: 2px; }
+.hauptnav button {
+  display: flex; align-items: center; gap: 0.7rem;
+  width: 100%; min-height: 42px; padding: 0 0.7rem;
+  background: none; border: none; border-radius: var(--radius-klein);
+  color: var(--gedaempft); text-align: left;
+}
+.hauptnav button:hover { background: var(--flaeche-hoch); color: var(--text); }
+.hauptnav button.aktiv { background: var(--flaeche-hoch); color: var(--text); }
+.hauptnav button.aktiv .icon { color: var(--akzent); }
+.hauptnav .icon { width: 1.1rem; text-align: center; opacity: 0.9; }
+.hauptnav .pille {
+  margin-left: auto; font-size: 0.72rem; padding: 0.05rem 0.42rem;
+  border-radius: 99px; background: var(--flaeche); color: var(--gedaempft);
+  font-variant-numeric: tabular-nums;
+}
+.hauptnav .pille:empty { display: none; }
+
+.schienenfuss { margin-top: auto; display: flex; flex-direction: column; gap: 0.5rem; }
+.flachknopf {
+  display: flex; align-items: center; gap: 0.6rem;
+  min-height: 38px; padding: 0 0.7rem;
+  background: none; border: 1px solid var(--linie); border-radius: var(--radius-klein);
+  color: var(--gedaempft);
+}
+.flachknopf:hover { color: var(--text); border-color: var(--linie-hell); }
+.stand { margin: 0; padding: 0 0.4rem; color: var(--gedaempft); font-size: 0.74rem; }
+
+.rahmen { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; }
+
+.kopf {
+  position: sticky; top: 0; z-index: 6;
+  display: flex; align-items: center; gap: 1rem;
+  padding: 0.9rem 1.4rem;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--linie);
+}
+.kopf-titel { min-width: 0; }
+.kopf h1 { margin: 0; font-size: 1.15rem; font-weight: 650; }
+.kopf p { margin: 0; color: var(--gedaempft); font-size: 0.8rem;
+          white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.kopf-werkzeuge { margin-left: auto; display: flex; align-items: center; gap: 0.6rem; }
+
+.suchknopf {
+  display: flex; align-items: center; gap: 0.5rem;
+  min-height: 36px; padding: 0 0.7rem;
+  background: var(--flaeche); border: 1px solid var(--linie);
+  border-radius: 99px; color: var(--gedaempft);
+}
+.suchknopf:hover { border-color: var(--linie-hell); color: var(--text); }
+.suchknopf kbd {
+  font: inherit; font-size: 0.7rem; color: var(--gedaempft);
+  border: 1px solid var(--linie); border-radius: 5px; padding: 0 0.3rem;
+}
+.verbindung { display: flex; align-items: center; gap: 0.4rem;
+              color: var(--gedaempft); font-size: 0.8rem; }
+.verbindung .punkt { width: 0.5rem; height: 0.5rem; border-radius: 50%;
+                     background: var(--gedaempft); }
+.verbindung.live .punkt { background: var(--gut); }
+.verbindung.getrennt .punkt { background: var(--warn); }
+
+main { padding: 1.2rem 1.4rem 4rem; }
+
+h2 { font-size: 0.78rem; margin: 0; color: var(--gedaempft);
+     text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+
+/* ------------------------------------------------------------ Karten */
+
+.karte {
+  background: var(--flaeche);
+  border: 1px solid var(--linie);
+  border-radius: var(--radius);
+  padding: 0.9rem 1rem 1rem;
+  margin-bottom: 1rem;
+  box-shadow: var(--schatten);
+}
+.karten-kopf { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem; }
+.zaehler { margin-left: auto; color: var(--gedaempft); font-size: 0.78rem;
+           font-variant-numeric: tabular-nums; }
+
+.spalten { display: grid; grid-template-columns: 1fr; gap: 0 1rem; }
+@media (min-width: 1100px) { .spalten { grid-template-columns: 1.15fr 1fr; } }
+
+/* -------------------------------------------------------- Kennzahlen */
+
+.kennzahlen {
+  display: grid; gap: 0.7rem; margin-bottom: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+}
+.kachel {
+  display: flex; align-items: center; gap: 0.8rem;
+  background: var(--flaeche); border: 1px solid var(--linie);
+  border-radius: var(--radius); padding: 0.85rem 0.9rem;
+  text-align: left; box-shadow: var(--schatten);
+  transition: border-color .15s, transform .15s;
+}
+button.kachel:hover { border-color: var(--linie-hell); transform: translateY(-1px); }
+.kachel .wert { font-size: 1.3rem; font-weight: 650; line-height: 1.2;
+                font-variant-numeric: tabular-nums; }
+.kachel .titel { color: var(--gedaempft); font-size: 0.74rem;
+                 text-transform: uppercase; letter-spacing: 0.06em; }
+.kachel .zusatz { color: var(--gedaempft); font-size: 0.78rem; }
+
+/* ------------------------------------------------------- Balkenzeile */
+
+.zeile-balken {
+  display: flex; align-items: center; gap: 0.7rem;
+  width: 100%; padding: 0.4rem 0.4rem; margin: 0 -0.4rem;
+  background: none; border: none; border-radius: var(--radius-klein);
+  text-align: left;
+}
+button.zeile-balken:hover { background: var(--flaeche-hoch); }
+.zeile-balken .name { flex: 0 0 7.5rem; overflow: hidden; text-overflow: ellipsis;
+                      white-space: nowrap; font-size: 0.9rem; }
+.balken { flex: 1; height: 7px; background: var(--flaeche-hoch);
+          border-radius: 99px; overflow: hidden; }
+.balken span { display: block; height: 100%; background: var(--gut);
+               border-radius: 99px; transition: width .5s ease; }
+.balken.geld span { background: var(--akzent); }
+.zeile-balken .zahl { flex: 0 0 auto; color: var(--gedaempft); font-size: 0.78rem;
+                      font-variant-numeric: tabular-nums; min-width: 3.2rem;
+                      text-align: right; }
+
+/* ------------------------------------------------------------ Toasts */
+
+.toasts { position: fixed; left: 50%; bottom: 1.2rem; transform: translateX(-50%);
+          z-index: 50; display: flex; flex-direction: column; gap: 0.4rem;
+          align-items: center; pointer-events: none; }
+.toast {
+  pointer-events: auto; max-width: min(92vw, 520px);
+  display: flex; align-items: center; gap: 0.7rem;
+  background: var(--flaeche-hoch); border: 1px solid var(--linie-hell);
+  border-radius: 99px; padding: 0.5rem 0.6rem 0.5rem 1rem;
+  box-shadow: var(--schatten); font-size: 0.86rem;
+  animation: auf .18s ease;
+}
+.toast.fehler { border-color: var(--warn); background: var(--warn-tief); }
+.toast.konflikt { border-color: var(--akzent); background: var(--akzent-tief); }
+.toast code { font-size: 0.82em; color: var(--akzent); }
+.toast button { background: var(--flaeche); border: 1px solid var(--linie);
+                border-radius: 99px; padding: 0.2rem 0.6rem; font-size: 0.78rem; }
+@keyframes auf { from { opacity: 0; transform: translateY(6px); } }
+
+.leer { color: var(--gedaempft); padding: 1.6rem 0; text-align: center; font-size: 0.9rem; }
+.leer.fehler { color: var(--warn); }
+.leer code { background: var(--flaeche-hoch); padding: 0.1rem 0.35rem; border-radius: 6px; }
