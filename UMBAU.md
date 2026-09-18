@@ -128,8 +128,8 @@ Das alte Dashboard (`docs/`) läuft unverändert weiter, bis Phase 9 es ablöst.
 
 ## Phase 9 — Veröffentlichen und Ablösen
 
-- [ ] [Sonnet] GitHub Action: Python baut `data.json`, Node baut `web/`, Deploy auf Pages; Lesemodus
-- [ ] [Sonnet] Erzeugte Dateien aus Git nehmen (`docs/data.*`, altes Dashboard), `.gitignore` anpassen
+- [x] [Sonnet] GitHub Action: Python baut `data.json`, Node baut `web/`, Deploy auf Pages; Lesemodus
+- [x] [Sonnet] Erzeugte Dateien aus Git nehmen (`docs/data.*`, altes Dashboard), `.gitignore` anpassen
 - [ ] [Haupt] Handy-Ansicht auf Pages einmal ansehen (nur lesen, nichts optimieren)
 - [ ] [Sonnet] Altes Dashboard, `tools/serve.py` und nicht mehr gebrauchte Module entfernen
 - [ ] [Haupt] `CLAUDE.md`, Skill `master-dev`, `README.md`, `PLAN.md` auf den neuen Stand bringen
@@ -183,6 +183,8 @@ Eine Zeile je abgeschlossenem Punkt oder getroffener Entscheidung.
 - 2026-09-18 Phase 6: Rest der Browser-Prüfung mit sichtbarem Browserfenster und echten Eingaben. Umbenennen per Enter, Löschen mit Abbrechen, Escape und Bestätigen landen alle richtig in der Datei, Vault danach bytegleich, kein Code geändert. Die früheren Aussetzer kamen vom versteckten Browserfenster, der Code war nicht schuld.
 - 2026-09-18 Phase 8: Lücken geschlossen. Das Bereich-Detail hat jetzt die Reiter „Entscheidungen“ (nur lesend, mit Leerzustand) und „Zuschnitt“ (`EinzelteilListe bereich?`). Auf der Startseite steht „Kosten je Kategorie“ mit `Kennzahl`-Kacheln, `/api/daten` liefert dafür `kategorien` aus `build.daten()`. Die Summen stimmen mit `/alt/` überein (3.046 €). `bauteile.csv` ist noch leer, deshalb ist der Zuschnitt-Reiter nur im Leerzustand geprüft.
 
+- 2026-09-18 Phase 9: `.github/workflows/pages.yml` baut bei jedem Push auf main (Python 3.13, Node 24) das Web und dazu `python camper.py web daten`. Der neue Befehl schreibt `web/dist/data.json` aus `daten_json()` und kopiert `docs/medien` nach `dist/medien`. Deploy über upload-/deploy-pages v5. `docs/data.*` und `docs/medien/` sind aus Git genommen und in `.gitignore`, weil `sync` sie erzeugt und die Quelle `vault/Medien` in Git bleibt. Lesemodus unter `/VanMaster/` lokal geprüft: alles lädt, einziger Fehler ist die erwartete 404 von `/api/daten` bei der Moduserkennung. 168 Tests grün.
+
 ## Offene Fragen
 
 - Palette: Treffer mit loser Buchstabenfolge („kabel“ findet „Klappenbeschlag … Kinvaro“) stehen in ihrer Gruppe vor echten Worttreffern anderer Typen. Lose Treffer ausblenden, wenn es genug echte gibt?
@@ -197,7 +199,9 @@ Stand 2026-09-18: Phasen 0–5 fertig und abgenommen. Phase 6 und 7 sind gebaut,
 `web check` (0 Fehler, 0 Warnungen) und `web build` laufen. 
 
 Browser-Prüfungen für Phase 6 und 8 sind durch (siehe Protokoll). Die Lücken aus dem Vergleich
-sind geschlossen. Nächster Schritt: Feinschliff mit dem Nutzer (Phase 6–8), danach Phase 9.
+sind geschlossen. Phase 9 läuft: Action und .gitignore sind fertig.
+Offen sind: Pages-Quelle auf „GitHub Actions“ stellen (Nutzer), Handy ansehen, altes Dashboard entfernen, Doku.
+Feinschliff 6–8 erst, wenn der Nutzer Rückmeldung gibt.
 Browser-Prüfungen nur mit sichtbarem Browserfenster (`tabs_select`), sonst kommen Enter/Escape nicht an.
 
 - Neuer Rechner: `pip install --user -r requirements.txt`; Node portabel nach `~/nodejs/`
