@@ -18,6 +18,9 @@ desktop.ini
 .obsidian/workspace*.json
 .pytest_cache/
 
-# web/ (UMBAU.md Phase 5) — Build-Ausgaben, kein Vite-Projekt bislang
+# web/ (UMBAU.md Phase 5) — Vite/Svelte-Projekt, Build-Ausgaben und
+# lokale Werkzeug-Artefakte, keine Wahrheit
 web/node_modules/
 web/dist/
+web/.vite/
+web/*.tsbuildinfo

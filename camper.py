@@ -15,7 +15,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from tools import (  # noqa: E402
-    bauteile, bereiche, build, kern, media, parts, status, tasks,
+    bauteile, bereiche, build, kern, media, parts, status, tasks, web,
 )
 from tools.common import (  # noqa: E402
     BAUTEIL_ART, BAUTEIL_STATUS, MASSQUELLE, PART_KATEGORIEN, SORTIERUNGEN,
@@ -226,6 +226,15 @@ def cmd_ui(args) -> None:
     ui.run()
 
 
+def cmd_web(args) -> None:
+    if args.web_befehl == "install":
+        print(web.install())
+    elif args.web_befehl == "build":
+        print(web.build())
+    elif args.web_befehl == "dev":
+        web.dev()
+
+
 def parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="camper", description=__doc__,
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -408,6 +417,13 @@ def parser() -> argparse.ArgumentParser:
 
     s = sub.add_parser("ui", help="Tkinter-Fenster")
     s.set_defaults(func=cmd_ui)
+
+    s = sub.add_parser("web", help="Oberfläche unter web/ (Vite/Svelte) bauen oder starten")
+    web_sub = s.add_subparsers(dest="web_befehl", required=True)
+    web_sub.add_parser("install", help="Abhängigkeiten installieren (npm install)")
+    web_sub.add_parser("build", help="Produktionsbau nach web/dist (npm run build)")
+    web_sub.add_parser("dev", help="Vite-Dev-Server gegen den laufenden FastAPI-Server (npm run dev)")
+    s.set_defaults(func=cmd_web)
     return p
 
 

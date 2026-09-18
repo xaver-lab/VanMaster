@@ -1,0 +1,11 @@
+/* Grundgerüst — Gestaltung folgt in Phase 5, Punkt 4 (Stil aus docs/css/). */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}

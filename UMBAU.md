@@ -98,7 +98,7 @@ Das alte Dashboard (`docs/`) läuft unverändert weiter, bis Phase 9 es ablöst.
 
 ## Phase 5 — Web-Grundgerüst
 
-- [ ] [Sonnet] `web/`: Vite + Svelte 5 + TypeScript, Build per `camper web build` (ruft `~/nodejs/npm.cmd`), `node_modules` und `dist` in `.gitignore`
+- [x] [Sonnet] `web/`: Vite + Svelte 5 + TypeScript, Build per `camper web build` (ruft `~/nodejs/npm.cmd`), `node_modules` und `dist` in `.gitignore`
 - [ ] [Sonnet] Datenschicht im Browser: ein Store, lädt `/api/daten` (Server) oder `data.json` (statisch), hört auf SSE, Schreibfunktionen mit Hash und Konfliktanzeige, Sperre während laufender Anfrage
 - [ ] [Sonnet] Rahmen: Navigation, Routing per Hash, Hell/Dunkel, Toasts, Tastenkürzel wie heute; Lesemodus blendet alle Bearbeitungselemente aus
 - [ ] [Haupt] Stil aus `docs/css/` übernehmen, Abnahme mit dem Nutzer
@@ -157,10 +157,17 @@ Eine Zeile je abgeschlossenem Punkt oder getroffener Entscheidung.
 - 2026-09-18 Phase 4: `tools/server/start.py` — `camper serve` startet die neue App: `/api/*`, `/alt/` = altes Dashboard samt alten Schreibendpunkten, `/` = `web/dist` mit SPA-Fallback (ohne dist Hinweisseite). Auto-Commit an, `--kein-commit` aus, `--alt` = alter Server. launch.json: `camper-neu` (8765), `camper-serve` = alt (8766). 8 Tests.
 - 2026-09-18 Phase 4: `tools/server/live.py` — Wächter pollt mtime/Größe (1 s, `VANMASTER_LIVE_INTERVALL`, 0 = aus), SSE `GET /api/live`: `event: aenderung`, `data: {dateien:[{datei,version}], quelle: web|extern}`, Heartbeat 15 s. SSE-Test über echten uvicorn-Thread, weil TestClient SSE puffert. 9 Tests.
 - 2026-09-18 Phase 4 abgenommen: 162 Tests grün (~85 s). Echter Server: `task add` von außen kommt als SSE `extern` an; PATCH mit altem Hash → 409 samt `stand`; Bestand danach unverändert. Hinweis: curl-Aufrufe mit Umlauten im Git-Bash scheitern an der Kodierung (400) — kein Serverfehler.
+- 2026-09-18 Phase 5: `web/` von Hand als Vite+Svelte-5+TypeScript-Gerüst angelegt (package.json, vite.config.ts mit `base: './'` und `/api`-Proxy auf 8765, tsconfig strict, App.svelte als Platzhalter); `tools/web.py` + Befehl `camper web install|build|dev` sucht npm unter `~/nodejs/npm.cmd` → `~/nodejs/npm` → PATH. Ungeprüft, siehe Offene Fragen.
 
 ## Offene Fragen
 
-- keine
+- Phase 5 wurde in einer Remote-Sitzung ohne Netz begonnen: `registry.npmjs.org`
+  und `pypi.org` sind dort durch die Egress-Policy gesperrt (403), Python-Pakete
+  (fastapi, pytest, openpyxl, Pillow) fehlen im Container. Weder `pytest` noch
+  `npm install`/`npm run build` liefen. Alles unter `web/` und die Python-Tests
+  von Phase 5 sind deshalb **ungeprüft** und müssen auf dem Rechner des Nutzers
+  einmal durchlaufen: `PYTHONIOENCODING=utf-8 python -m pytest -q`, dann
+  `camper web install && camper web build`.
 
 ## Übergabe an den nächsten Chat
 
