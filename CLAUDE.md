@@ -71,6 +71,17 @@ vor, wird damit gearbeitet.
 - Handy-Ansicht ist zurückgestellt — nur auf ausdrücklichen Anstoß des
   Nutzers daran arbeiten.
 
+## Direkt arbeiten oder delegieren
+
+- Direkt: Feinschliff und alles, wozu der Nutzer Rückmeldung gibt.
+- Delegieren an einen Subagenten: klar beschriebene Aufgaben mit viel
+  Lesearbeit (neue Ansicht nach fertiger Beschreibung, Recherche, Input-Ordner
+  einarbeiten, Browser-Prüfung über alle Ansichten). Er meldet nur Ergebnis
+  und offene Fragen zurück.
+- Fachliches wird im selben Chat mit dem Skill `camper` geklärt, nicht über
+  einen eigenen Agenten. Kein Manager-Agent.
+- Wechselt das Thema, dem Nutzer einen neuen Chat empfehlen.
+
 ## Skills
 
 - `camper` — führt das Projekt, Standardfall.
