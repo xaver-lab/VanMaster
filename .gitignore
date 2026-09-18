@@ -17,3 +17,7 @@ desktop.ini
 .DS_Store
 .obsidian/workspace*.json
 .pytest_cache/
+
+# web/ (UMBAU.md Phase 5) — Build-Ausgaben, kein Vite-Projekt bislang
+web/node_modules/
+web/dist/

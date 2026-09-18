@@ -1,0 +1,956 @@
+{
+  "AbschnittAnfrage": {
+    "properties": {
+      "text": {
+        "title": "Text",
+        "type": "string"
+      },
+      "version": {
+        "title": "Version",
+        "type": "string"
+      }
+    },
+    "required": [
+      "text",
+      "version"
+    ],
+    "title": "AbschnittAnfrage",
+    "type": "object"
+  },
+  "AbschnittAntwort": {
+    "properties": {
+      "name": {
+        "title": "Name",
+        "type": "string"
+      },
+      "text": {
+        "title": "Text",
+        "type": "string"
+      },
+      "zeile_bis": {
+        "title": "Zeile Bis",
+        "type": "integer"
+      },
+      "zeile_von": {
+        "title": "Zeile Von",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "name",
+      "text",
+      "zeile_von",
+      "zeile_bis"
+    ],
+    "title": "AbschnittAntwort",
+    "type": "object"
+  },
+  "AufgabeAnlegenAnfrage": {
+    "properties": {
+      "bereich": {
+        "title": "Bereich",
+        "type": "string"
+      },
+      "beschreibung": {
+        "default": "",
+        "title": "Beschreibung",
+        "type": "string"
+      },
+      "eltern_id": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Eltern Id"
+      },
+      "gruppe": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Gruppe"
+      },
+      "prio": {
+        "default": "",
+        "title": "Prio",
+        "type": "string"
+      },
+      "status": {
+        "default": "offen",
+        "title": "Status",
+        "type": "string"
+      },
+      "titel": {
+        "title": "Titel",
+        "type": "string"
+      },
+      "version": {
+        "title": "Version",
+        "type": "string"
+      }
+    },
+    "required": [
+      "bereich",
+      "titel",
+      "version"
+    ],
+    "title": "AufgabeAnlegenAnfrage",
+    "type": "object"
+  },
+  "AufgabeAntwort": {
+    "properties": {
+      "bereich": {
+        "title": "Bereich",
+        "type": "string"
+      },
+      "beschreibung": {
+        "default": "",
+        "title": "Beschreibung",
+        "type": "string"
+      },
+      "braucht": {
+        "default": [],
+        "items": {
+          "type": "string"
+        },
+        "title": "Braucht",
+        "type": "array"
+      },
+      "datei": {
+        "default": "",
+        "title": "Datei",
+        "type": "string"
+      },
+      "dauer": {
+        "default": "",
+        "title": "Dauer",
+        "type": "string"
+      },
+      "ebene": {
+        "default": 0,
+        "title": "Ebene",
+        "type": "integer"
+      },
+      "eltern": {
+        "default": "",
+        "title": "Eltern",
+        "type": "string"
+      },
+      "gruppe": {
+        "default": "",
+        "title": "Gruppe",
+        "type": "string"
+      },
+      "id": {
+        "title": "Id",
+        "type": "string"
+      },
+      "kinder": {
+        "default": [],
+        "items": {
+          "type": "string"
+        },
+        "title": "Kinder",
+        "type": "array"
+      },
+      "prio": {
+        "default": "",
+        "title": "Prio",
+        "type": "string"
+      },
+      "status": {
+        "title": "Status",
+        "type": "string"
+      },
+      "titel": {
+        "title": "Titel",
+        "type": "string"
+      },
+      "zeile": {
+        "default": 0,
+        "title": "Zeile",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "id",
+      "titel",
+      "status",
+      "bereich"
+    ],
+    "title": "AufgabeAntwort",
+    "type": "object"
+  },
+  "AufgabePatchAnfrage": {
+    "properties": {
+      "beschreibung": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Beschreibung"
+      },
+      "prio": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Prio"
+      },
+      "status": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Status"
+      },
+      "titel": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Titel"
+      },
+      "version": {
+        "title": "Version",
+        "type": "string"
+      }
+    },
+    "required": [
+      "version"
+    ],
+    "title": "AufgabePatchAnfrage",
+    "type": "object"
+  },
+  "BereichAntwort": {
+    "properties": {
+      "abschnitte": {
+        "additionalProperties": {
+          "$ref": "#/$defs/AbschnittAntwort"
+        },
+        "default": {},
+        "title": "Abschnitte",
+        "type": "object"
+      },
+      "aufgaben": {
+        "default": [],
+        "items": {
+          "$ref": "#/$defs/AufgabeAntwort"
+        },
+        "title": "Aufgaben",
+        "type": "array"
+      },
+      "datei": {
+        "title": "Datei",
+        "type": "string"
+      },
+      "kurz": {
+        "title": "Kurz",
+        "type": "string"
+      },
+      "name": {
+        "title": "Name",
+        "type": "string"
+      },
+      "phase": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Phase"
+      },
+      "status": {
+        "title": "Status",
+        "type": "string"
+      }
+    },
+    "required": [
+      "name",
+      "kurz",
+      "status",
+      "phase",
+      "datei"
+    ],
+    "title": "BereichAntwort",
+    "type": "object"
+  },
+  "DatenAntwort": {
+    "description": "Form von ``GET /api/daten`` — vollständiger Bestand.",
+    "properties": {
+      "anleitungen": {
+        "items": {
+          "$ref": "#/$defs/SeiteAntwort"
+        },
+        "title": "Anleitungen",
+        "type": "array"
+      },
+      "aufgaben": {
+        "items": {
+          "$ref": "#/$defs/AufgabeAntwort"
+        },
+        "title": "Aufgaben",
+        "type": "array"
+      },
+      "bearbeitbar": {
+        "additionalProperties": true,
+        "title": "Bearbeitbar",
+        "type": "object"
+      },
+      "bereiche": {
+        "items": {
+          "$ref": "#/$defs/BereichAntwort"
+        },
+        "title": "Bereiche",
+        "type": "array"
+      },
+      "einzelteile": {
+        "items": {
+          "$ref": "#/$defs/EinzelteilAntwort"
+        },
+        "title": "Einzelteile",
+        "type": "array"
+      },
+      "entscheidungen": {
+        "items": {
+          "$ref": "#/$defs/SeiteAntwort"
+        },
+        "title": "Entscheidungen",
+        "type": "array"
+      },
+      "erzeugt": {
+        "title": "Erzeugt",
+        "type": "string"
+      },
+      "kennzahlen": {
+        "$ref": "#/$defs/KennzahlenAntwort"
+      },
+      "medien": {
+        "items": {
+          "$ref": "#/$defs/MediumAntwort"
+        },
+        "title": "Medien",
+        "type": "array"
+      },
+      "querverweise": {
+        "items": {
+          "$ref": "#/$defs/QuerverweisAntwort"
+        },
+        "title": "Querverweise",
+        "type": "array"
+      },
+      "recherche": {
+        "items": {
+          "$ref": "#/$defs/SeiteAntwort"
+        },
+        "title": "Recherche",
+        "type": "array"
+      },
+      "teile": {
+        "items": {
+          "$ref": "#/$defs/TeilAntwort"
+        },
+        "title": "Teile",
+        "type": "array"
+      },
+      "versionen": {
+        "additionalProperties": {
+          "type": "string"
+        },
+        "title": "Versionen",
+        "type": "object"
+      }
+    },
+    "required": [
+      "erzeugt",
+      "bereiche",
+      "aufgaben",
+      "querverweise",
+      "entscheidungen",
+      "anleitungen",
+      "recherche",
+      "teile",
+      "einzelteile",
+      "medien",
+      "versionen",
+      "kennzahlen",
+      "bearbeitbar"
+    ],
+    "title": "DatenAntwort",
+    "type": "object"
+  },
+  "EinzelteilAnlegenAnfrage": {
+    "properties": {
+      "felder": {
+        "additionalProperties": true,
+        "title": "Felder",
+        "type": "object"
+      },
+      "version": {
+        "title": "Version",
+        "type": "string"
+      }
+    },
+    "required": [
+      "felder",
+      "version"
+    ],
+    "title": "EinzelteilAnlegenAnfrage",
+    "type": "object"
+  },
+  "EinzelteilAntwort": {
+    "properties": {
+      "anzahl": {
+        "title": "Anzahl",
+        "type": "string"
+      },
+      "art": {
+        "title": "Art",
+        "type": "string"
+      },
+      "bereich": {
+        "title": "Bereich",
+        "type": "string"
+      },
+      "breite_mm": {
+        "title": "Breite Mm",
+        "type": "string"
+      },
+      "dicke_mm": {
+        "title": "Dicke Mm",
+        "type": "string"
+      },
+      "fuer_aufgabe": {
+        "title": "Fuer Aufgabe",
+        "type": "string"
+      },
+      "id": {
+        "title": "Id",
+        "type": "string"
+      },
+      "laenge_mm": {
+        "title": "Laenge Mm",
+        "type": "string"
+      },
+      "massquelle": {
+        "title": "Massquelle",
+        "type": "string"
+      },
+      "material": {
+        "title": "Material",
+        "type": "string"
+      },
+      "notiz": {
+        "title": "Notiz",
+        "type": "string"
+      },
+      "status": {
+        "title": "Status",
+        "type": "string"
+      },
+      "teil_id": {
+        "title": "Teil Id",
+        "type": "string"
+      },
+      "titel": {
+        "title": "Titel",
+        "type": "string"
+      },
+      "zeile": {
+        "default": 0,
+        "title": "Zeile",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "id",
+      "titel",
+      "bereich",
+      "art",
+      "material",
+      "laenge_mm",
+      "breite_mm",
+      "dicke_mm",
+      "anzahl",
+      "teil_id",
+      "fuer_aufgabe",
+      "massquelle",
+      "status",
+      "notiz"
+    ],
+    "title": "EinzelteilAntwort",
+    "type": "object"
+  },
+  "EinzelteilPatchAnfrage": {
+    "properties": {
+      "feld": {
+        "title": "Feld",
+        "type": "string"
+      },
+      "version": {
+        "title": "Version",
+        "type": "string"
+      },
+      "wert": {
+        "title": "Wert",
+        "type": "string"
+      }
+    },
+    "required": [
+      "feld",
+      "wert",
+      "version"
+    ],
+    "title": "EinzelteilPatchAnfrage",
+    "type": "object"
+  },
+  "FehlerAntwort": {
+    "properties": {
+      "fehler": {
+        "title": "Fehler",
+        "type": "string"
+      }
+    },
+    "required": [
+      "fehler"
+    ],
+    "title": "FehlerAntwort",
+    "type": "object"
+  },
+  "KennzahlenAntwort": {
+    "properties": {
+      "aufgaben_fertig": {
+        "title": "Aufgaben Fertig",
+        "type": "integer"
+      },
+      "aufgaben_gesamt": {
+        "title": "Aufgaben Gesamt",
+        "type": "integer"
+      },
+      "bauteile": {
+        "title": "Bauteile",
+        "type": "integer"
+      },
+      "gewicht": {
+        "title": "Gewicht",
+        "type": "number"
+      },
+      "kosten": {
+        "title": "Kosten",
+        "type": "number"
+      },
+      "kosten_bestellt": {
+        "title": "Kosten Bestellt",
+        "type": "number"
+      },
+      "offene_entscheidungen": {
+        "title": "Offene Entscheidungen",
+        "type": "integer"
+      },
+      "teile": {
+        "title": "Teile",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "aufgaben_fertig",
+      "aufgaben_gesamt",
+      "teile",
+      "kosten",
+      "kosten_bestellt",
+      "gewicht",
+      "offene_entscheidungen",
+      "bauteile"
+    ],
+    "title": "KennzahlenAntwort",
+    "type": "object"
+  },
+  "KonfliktAntwort": {
+    "properties": {
+      "datei": {
+        "title": "Datei",
+        "type": "string"
+      },
+      "fehler": {
+        "title": "Fehler",
+        "type": "string"
+      },
+      "stand": {
+        "default": null,
+        "title": "Stand"
+      },
+      "version_aktuell": {
+        "title": "Version Aktuell",
+        "type": "string"
+      }
+    },
+    "required": [
+      "fehler",
+      "datei",
+      "version_aktuell"
+    ],
+    "title": "KonfliktAntwort",
+    "type": "object"
+  },
+  "KopfAnfrage": {
+    "properties": {
+      "feld": {
+        "title": "Feld",
+        "type": "string"
+      },
+      "version": {
+        "title": "Version",
+        "type": "string"
+      },
+      "wert": {
+        "title": "Wert"
+      }
+    },
+    "required": [
+      "feld",
+      "wert",
+      "version"
+    ],
+    "title": "KopfAnfrage",
+    "type": "object"
+  },
+  "MediumAntwort": {
+    "properties": {
+      "art": {
+        "title": "Art",
+        "type": "string"
+      },
+      "bereich": {
+        "title": "Bereich",
+        "type": "string"
+      },
+      "datei": {
+        "title": "Datei",
+        "type": "string"
+      },
+      "dateiname": {
+        "title": "Dateiname",
+        "type": "string"
+      },
+      "name": {
+        "title": "Name",
+        "type": "string"
+      }
+    },
+    "required": [
+      "name",
+      "dateiname",
+      "bereich",
+      "art",
+      "datei"
+    ],
+    "title": "MediumAntwort",
+    "type": "object"
+  },
+  "QuerverweisAntwort": {
+    "properties": {
+      "anzeigetext": {
+        "title": "Anzeigetext",
+        "type": "string"
+      },
+      "datei": {
+        "title": "Datei",
+        "type": "string"
+      },
+      "zeile": {
+        "title": "Zeile",
+        "type": "integer"
+      },
+      "ziel": {
+        "title": "Ziel",
+        "type": "string"
+      },
+      "ziel_id": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Ziel Id"
+      },
+      "ziel_typ": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Ziel Typ"
+      }
+    },
+    "required": [
+      "ziel",
+      "anzeigetext",
+      "datei",
+      "zeile"
+    ],
+    "title": "QuerverweisAntwort",
+    "type": "object"
+  },
+  "SchreibErfolg": {
+    "properties": {
+      "datei": {
+        "title": "Datei",
+        "type": "string"
+      },
+      "id": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Id"
+      },
+      "ok": {
+        "default": true,
+        "title": "Ok",
+        "type": "boolean"
+      },
+      "version": {
+        "title": "Version",
+        "type": "string"
+      }
+    },
+    "required": [
+      "version",
+      "datei"
+    ],
+    "title": "SchreibErfolg",
+    "type": "object"
+  },
+  "SeiteAntwort": {
+    "properties": {
+      "abschnitte": {
+        "additionalProperties": {
+          "$ref": "#/$defs/AbschnittAntwort"
+        },
+        "default": {},
+        "title": "Abschnitte",
+        "type": "object"
+      },
+      "bereich": {
+        "title": "Bereich",
+        "type": "string"
+      },
+      "datei": {
+        "title": "Datei",
+        "type": "string"
+      },
+      "status": {
+        "title": "Status",
+        "type": "string"
+      },
+      "text": {
+        "default": "",
+        "title": "Text",
+        "type": "string"
+      },
+      "titel": {
+        "title": "Titel",
+        "type": "string"
+      },
+      "typ": {
+        "title": "Typ",
+        "type": "string"
+      }
+    },
+    "required": [
+      "titel",
+      "typ",
+      "status",
+      "bereich",
+      "datei"
+    ],
+    "title": "SeiteAntwort",
+    "type": "object"
+  },
+  "TeilAnlegenAnfrage": {
+    "properties": {
+      "felder": {
+        "additionalProperties": true,
+        "title": "Felder",
+        "type": "object"
+      },
+      "version": {
+        "title": "Version",
+        "type": "string"
+      }
+    },
+    "required": [
+      "felder",
+      "version"
+    ],
+    "title": "TeilAnlegenAnfrage",
+    "type": "object"
+  },
+  "TeilAntwort": {
+    "properties": {
+      "beschreibung": {
+        "title": "Beschreibung",
+        "type": "string"
+      },
+      "einheit": {
+        "title": "Einheit",
+        "type": "string"
+      },
+      "entscheidung": {
+        "title": "Entscheidung",
+        "type": "string"
+      },
+      "fuer_aufgabe": {
+        "title": "Fuer Aufgabe",
+        "type": "string"
+      },
+      "gekauft_am": {
+        "title": "Gekauft Am",
+        "type": "string"
+      },
+      "gewicht_kg": {
+        "title": "Gewicht Kg",
+        "type": "string"
+      },
+      "haendler": {
+        "title": "Haendler",
+        "type": "string"
+      },
+      "id": {
+        "title": "Id",
+        "type": "string"
+      },
+      "kategorie": {
+        "title": "Kategorie",
+        "type": "string"
+      },
+      "kennwerte": {
+        "title": "Kennwerte",
+        "type": "string"
+      },
+      "link": {
+        "title": "Link",
+        "type": "string"
+      },
+      "menge": {
+        "title": "Menge",
+        "type": "string"
+      },
+      "notiz": {
+        "title": "Notiz",
+        "type": "string"
+      },
+      "preis": {
+        "title": "Preis",
+        "type": "string"
+      },
+      "prioritaet": {
+        "title": "Prioritaet",
+        "type": "string"
+      },
+      "status": {
+        "title": "Status",
+        "type": "string"
+      },
+      "titel": {
+        "title": "Titel",
+        "type": "string"
+      },
+      "zeile": {
+        "default": 0,
+        "title": "Zeile",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "id",
+      "titel",
+      "beschreibung",
+      "kategorie",
+      "menge",
+      "einheit",
+      "preis",
+      "status",
+      "prioritaet",
+      "link",
+      "haendler",
+      "fuer_aufgabe",
+      "entscheidung",
+      "kennwerte",
+      "gewicht_kg",
+      "notiz",
+      "gekauft_am"
+    ],
+    "title": "TeilAntwort",
+    "type": "object"
+  },
+  "TeilPatchAnfrage": {
+    "properties": {
+      "feld": {
+        "title": "Feld",
+        "type": "string"
+      },
+      "version": {
+        "title": "Version",
+        "type": "string"
+      },
+      "wert": {
+        "title": "Wert",
+        "type": "string"
+      }
+    },
+    "required": [
+      "feld",
+      "wert",
+      "version"
+    ],
+    "title": "TeilPatchAnfrage",
+    "type": "object"
+  }
+}
