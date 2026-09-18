@@ -13,7 +13,10 @@ const medienBereiche = () => {
 
 let medienArt = "alle";
 
-function galerie(bilder) {
+/** Bildraster. `zuordnen` (optional) liefert je Bild {label, art, oeffnen}
+ * für eine kleine Beschriftung, welchem Teil/welcher Aufgabe es zugeordnet
+ * ist — ein Klick darauf öffnet direkt dessen Detailmodal. */
+function galerie(bilder, zuordnen) {
   const gitter = neu("div", "galerie");
   for (const b of bilder) {
     const kachel = neu("button", "kachel-bild");
@@ -22,6 +25,14 @@ function galerie(bilder) {
     img.alt = b.name;
     img.loading = "lazy";
     kachel.append(img, neu("span", "beschriftung", b.name));
+    const z = zuordnen && zuordnen(b);
+    if (z) {
+      const chip = neu("span", "zuordnung art-" + z.art, z.label);
+      if (z.oeffnen) {
+        chip.addEventListener("click", (e) => { e.stopPropagation(); z.oeffnen(); });
+      }
+      kachel.append(chip);
+    }
     kachel.addEventListener("click", () => lupeOeffnen(bilder, bilder.indexOf(b)));
     gitter.append(kachel);
   }

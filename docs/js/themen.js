@@ -6,6 +6,14 @@
 /* Die Regeln stehen in tools/bereiche.py; data.json kommt bereits sortiert.
  * Hier wird nur umsortiert, wenn der Wechsler etwas anderes sagt. */
 
+/* Feste Icons pro Bereich — Wiedererkennung in Pillenleiste und Themenkopf.
+ * Unbekannte Bereiche (neu im Vault angelegt) bekommen den Platzhalter. */
+const BEREICH_ICON = {
+  "Elektrik": "⚡", "Wasser": "💧", "Möbel": "🪑", "Heizung": "🔥",
+  "Küche": "🍳", "Dämmung": "🧶", "Karosserie": "🚐", "Vorbereitung": "🧰",
+};
+const bereichIcon = (name) => BEREICH_ICON[name] || "📦";
+
 const SORTIERUNGEN = ["baustellen", "phase", "name"];
 const SORT_WORT = { baustellen: "Baustellen zuerst", phase: "Bauabschnitt",
                     name: "A–Z" };
@@ -80,7 +88,7 @@ function themenListe() {
   for (const b of bereicheSortiert()) {
     const knopf = neu("button");
     knopf.dataset.thema = b.name;
-    knopf.append(neu("span", "name", b.name));
+    knopf.append(neu("span", "icon", bereichIcon(b.name)), neu("span", "name", b.name));
     const mini = neu("span", "mini");
     const fuellung = neu("span");
     fuellung.style.width = (b.gesamt ? (100 * b.fertig) / b.gesamt : 0) + "%";
@@ -108,7 +116,9 @@ function themaZeigen(name, reiter) {
 function themaKopf(b) {
   const ziel = leeren(el("thema-kopf"));
   const oben = neu("div", "obenzeile");
-  oben.append(neu("h2", null, b.name), statusMarke(b.status));
+  const titel = neu("h2");
+  titel.append(neu("span", "icon", bereichIcon(b.name)), document.createTextNode(b.name));
+  oben.append(titel, statusMarke(b.status));
   ziel.append(oben);
   if (b.kurz) ziel.append(neu("p", "kurz", b.kurz));
 
@@ -164,7 +174,7 @@ function themaInhalt(b) {
     ueberblick: () => themaUeberblick(b, ziel),
     aufgaben: () => {
       const aufgaben = themaAufgaben(b.name);
-      const box = karte("Aufgaben", `${b.fertig}/${b.gesamt}`);
+      const box = karte("Aufgaben", `${b.fertig}/${b.gesamt}`, "✅");
       if (aufgaben.length) box.append(aufgabenUl(aufgaben, nachId(), false));
       else box.append(neu("p", "leer", "Noch keine Aufgaben unter `## Aufgaben`."));
       ziel.append(box);
@@ -177,21 +187,33 @@ function themaInhalt(b) {
   bau();
 }
 
+/* Icon je Abschnitt — feste Reihenfolge Beschreibung/Stand/Auslegung/Notizen
+ * bleibt inhaltlich wie im Vault, hier nur zur Wiedererkennung im Raster. */
+const UEBERBLICK_ABSCHNITTE = [
+  ["Beschreibung", "beschreibung", "📝"],
+  ["Stand", "stand", "📍"],
+  ["Auslegung", "auslegung", "📐"],
+  ["Notizen", "notizen", "🗒️"],
+];
+
 function themaUeberblick(b, ziel) {
   let etwas = false;
-  for (const [ueber, text] of [["Beschreibung", b.beschreibung], ["Stand", b.stand],
-                               ["Auslegung", b.auslegung], ["Notizen", b.notizen]]) {
+  const gitter = neu("div", "ueberblick-gitter");
+  for (const [ueber, feld, icon] of UEBERBLICK_ABSCHNITTE) {
+    const text = b[feld];
     if (!text) continue;
     etwas = true;
-    const box = karte(ueber);
+    const box = karte(ueber, null, icon);
     const inhalt = neu("div", "fliess");
     inhalt.innerHTML = md(text);
     box.append(inhalt);
-    ziel.append(box);
+    gitter.append(box);
   }
+  if (gitter.children.length) ziel.append(gitter);
+
   if (b.links && b.links.length) {
     etwas = true;
-    const box = karte("Links");
+    const box = karte("Links", null, "🔗");
     const liste = neu("ul", "liste-schlicht");
     for (const l of b.links) {
       const li = neu("li");
@@ -206,8 +228,8 @@ function themaUeberblick(b, ziel) {
   }
   const bilder = themaBilder(b.name);
   if (bilder.length) {
-    const box = karte("Bilder", String(bilder.length));
-    box.append(galerie(bilder.slice(0, 8)));
+    const box = karte("Bilder", String(bilder.length), "🖼️");
+    box.append(galerie(bilder.slice(0, 8), (bild) => themaFotoZuordnung(bild, b.name)));
     ziel.append(box);
   }
   if (!etwas && !bilder.length) {
@@ -216,10 +238,24 @@ function themaUeberblick(b, ziel) {
   }
 }
 
+/** Welchem Teil oder welcher Aufgabe im Bereich ist dieses Foto zugeordnet —
+ * über dieselbe fotos_zu_id()-Zuordnung, die auch die Detailmodale füllt. */
+function themaFotoZuordnung(bild, bereichName) {
+  const teil = themaTeile(bereichName).find(
+    (t) => (t.fotos || []).some((f) => f.pfad === bild.pfad));
+  if (teil) return { label: teil.titel, art: "teil", oeffnen: () => teilModalOeffnen(teil) };
+  const aufgabe = themaAufgaben(bereichName).find(
+    (a) => (a.fotos || []).some((f) => f.pfad === bild.pfad));
+  if (aufgabe) {
+    return { label: aufgabe.titel, art: "aufgabe", oeffnen: () => aufgabeModalOeffnen(aufgabe) };
+  }
+  return null;
+}
+
 function themaTeileBlock(b) {
   const teile = themaTeile(b.name);
   const summe = teile.reduce((s, t) => s + t.gesamt, 0);
-  const box = karte("Teile aus der Stückliste", `${teile.length} · ${euro(summe)}`);
+  const box = karte("Teile aus der Stückliste", `${teile.length} · ${euro(summe)}`, "🧾");
   if (!teile.length) {
     box.append(neu("p", "leer", "Keine Teile auf diesen Bereich gebucht."));
     return box;
@@ -233,8 +269,8 @@ function themaTeileBlock(b) {
 function themaMedienBlock(b) {
   const bilder = themaBilder(b.name);
   const docs = themaDokumente(b.name);
-  const box = karte("Bilder und Unterlagen", String(bilder.length + docs.length));
-  if (bilder.length) box.append(galerie(bilder));
+  const box = karte("Bilder und Unterlagen", String(bilder.length + docs.length), "🖼️");
+  if (bilder.length) box.append(galerie(bilder, (bild) => themaFotoZuordnung(bild, b.name)));
   if (docs.length) box.append(dokumentListe(docs));
   if (!bilder.length && !docs.length) {
     box.append(neu("p", "leer",
@@ -245,7 +281,7 @@ function themaMedienBlock(b) {
 
 function entscheidungsBlock(name) {
   const ent = themaEntscheidungen(name);
-  const box = karte("Entscheidungen", String(ent.length));
+  const box = karte("Entscheidungen", String(ent.length), "⚖️");
   if (!ent.length) {
     box.append(neu("p", "leer", "Keine Entscheidung zu diesem Thema festgehalten."));
     return box;
@@ -267,14 +303,14 @@ function entscheidungsBlock(name) {
 function modellBlock(name) {
   const modelle = (DATEN.modelle || []).filter((m) => m.bereich === name);
   if (!modelle.length) return neu("div");
-  const box = karte("3D-Modell", String(modelle.length));
+  const box = karte("3D-Modell", String(modelle.length), "🧊");
   box.append(dokumentListe(modelle));
   return box;
 }
 
 function einzelteilBlock(name) {
   const rows = themaEinzelteile(name);
-  const box = karte("Einzelteile", String(rows.length));
+  const box = karte("Einzelteile", String(rows.length), "📏");
   if (!rows.length) {
     box.append(neu("p", "leer",
       `Noch keine. Anlegen mit \`camper bauteile add --titel … --bereich ${name}\`.`));

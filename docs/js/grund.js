@@ -280,9 +280,10 @@ function aufgabenUl(liste, karte, mitThema) {
   return ul;
 }
 
-function karte(ueberschrift, zaehler) {
+function karte(ueberschrift, zaehler, icon) {
   const box = neu("section", "karte");
   const kopf = neu("div", "karten-kopf");
+  if (icon) kopf.append(neu("span", "icon", icon));
   kopf.append(neu("h2", null, ueberschrift));
   if (zaehler) kopf.append(neu("span", "zaehler", zaehler));
   box.append(kopf);
