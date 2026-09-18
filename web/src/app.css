@@ -1,0 +1,41 @@
+/* Schlichte Grundlage mit CSS-Variablen für Hell/Dunkel — das Übernehmen
+   des Stils aus docs/css/ macht der Hauptchat (UMBAU.md Phase 5). */
+
+:root[data-thema='hell'] {
+  --flaeche: #ffffff;
+  --flaeche-2: #f1f2f4;
+  --schrift: #1b1d1f;
+  --schrift-schwach: #6b7076;
+  --rand: #dcdfe3;
+  --farbe-akzent: #2563eb;
+  --farbe-erfolg: #16a34a;
+  --farbe-warnung: #d97706;
+  --farbe-fehler: #dc2626;
+}
+
+:root[data-thema='dunkel'] {
+  --flaeche: #1b1d1f;
+  --flaeche-2: #26292c;
+  --schrift: #eef0f2;
+  --schrift-schwach: #9aa0a6;
+  --rand: #35393d;
+  --farbe-akzent: #60a5fa;
+  --farbe-erfolg: #4ade80;
+  --farbe-warnung: #fbbf24;
+  --farbe-fehler: #f87171;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: var(--flaeche);
+  color: var(--schrift);
+}
+
+button {
+  font-family: inherit;
+}
