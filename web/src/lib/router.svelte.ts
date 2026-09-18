@@ -2,7 +2,9 @@
 // Parameter sind erlaubt und werden einzeln weitergereicht.
 
 export const ANSICHTEN = ['start', 'bereiche', 'aufgaben', 'teile', 'zuschnitt', 'medien'] as const;
-export type Ansicht = (typeof ANSICHTEN)[number];
+// Erreichbar per Adresse, aber nicht in der Navigation und ohne Zifferntaste.
+export const NEBENANSICHTEN = ['muster'] as const;
+export type Ansicht = (typeof ANSICHTEN)[number] | (typeof NEBENANSICHTEN)[number];
 
 export interface Route {
   ansicht: Ansicht;
@@ -10,7 +12,7 @@ export interface Route {
 }
 
 function istAnsicht(wert: string): wert is Ansicht {
-  return (ANSICHTEN as readonly string[]).includes(wert);
+  return ([...ANSICHTEN, ...NEBENANSICHTEN] as readonly string[]).includes(wert);
 }
 
 function ausHash(): Route {
@@ -46,4 +48,5 @@ export const TITEL: Record<Ansicht, string> = {
   teile: 'Teile',
   zuschnitt: 'Zuschnitt',
   medien: 'Medien',
+  muster: 'Muster',
 };
