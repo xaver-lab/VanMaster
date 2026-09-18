@@ -1,4 +1,50 @@
-/* Grundgerüst — Gestaltung folgt in Phase 5, Punkt 4 (Stil aus docs/css/). */
+/* Grundgerüst — Gestaltung folgt in Phase 5, Punkt 4 (Stil aus docs/css/).
+ * Variablennamen bewusst wie in docs/css/basis.css, damit der spätere
+ * Feinschliff nur noch Werte anpassen muss. */
+
+:root {
+  --bg: #101319;
+  --flaeche: #171c24;
+  --flaeche-hoch: #1f2632;
+  --flaeche-tief: #0c0f14;
+  --linie: #28313f;
+  --linie-hell: #364254;
+  --text: #e8edf5;
+  --gedaempft: #8e9bb0;
+  --leise: #64708350;
+  --akzent: #ffb347;
+  --akzent-tief: #3a2c16;
+  --gut: #4fc98c;
+  --gut-tief: #143526;
+  --wartet: #74a3f7;
+  --wartet-tief: #16233d;
+  --warn: #ff8f7a;
+  --warn-tief: #3a1f1c;
+  --radius: 14px;
+  --radius-klein: 9px;
+  --schiene: 232px;
+  --schatten: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px -12px rgba(0, 0, 0, 0.6);
+}
+
+:root[data-thema='hell'] {
+  --bg: #f4f6fa;
+  --flaeche: #ffffff;
+  --flaeche-hoch: #eef1f7;
+  --flaeche-tief: #e6eaf2;
+  --linie: #dde3ed;
+  --linie-hell: #c7d0de;
+  --text: #16202e;
+  --gedaempft: #5f6b7d;
+  --akzent: #b96b00;
+  --akzent-tief: #fdf0dc;
+  --gut: #1f8a5b;
+  --gut-tief: #e0f5ea;
+  --wartet: #2f66c7;
+  --wartet-tief: #e4edfd;
+  --warn: #c0392b;
+  --warn-tief: #fbe8e5;
+  --schatten: 0 1px 2px rgba(20, 30, 50, 0.06), 0 8px 24px -14px rgba(20, 30, 50, 0.25);
+}
 
 *,
 *::before,
@@ -6,6 +52,34 @@
   box-sizing: border-box;
 }
 
+html,
+body {
+  height: 100%;
+}
+
 body {
   margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.55 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  -webkit-text-size-adjust: 100%;
+  overscroll-behavior-y: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+button {
+  cursor: pointer;
+}
+a {
+  color: var(--wartet);
+}
+
+#app {
+  min-height: 100%;
 }
