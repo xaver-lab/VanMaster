@@ -78,8 +78,8 @@ Das alte Dashboard (`docs/`) läuft unverändert weiter, bis Phase 9 es ablöst.
 - [x] [Sonnet] Schreiben Abschnitte: Bereichsabschnitt ersetzen, nur erlaubte Abschnitte laut Matrix. Test wie oben
 - [x] [Sonnet] Schreiben CSV: Teile- und Einzelteilfelder ändern, anlegen, löschen. Test: Spaltenreihenfolge und unberührte Zeilen bleiben gleich
 - [x] [Sonnet] Versionsschutz: Hash je Datei; Schreiben mit veraltetem Hash wird abgelehnt
-- [ ] [Sonnet] Prüfung: `kern.pruefen()` meldet Formatfehler mit Datei und Zeile
-- [ ] [Haupt] Abnahme: Tests grün, Stichprobe an einer echten Datei
+- [x] [Sonnet] Prüfung: `kern.pruefen()` meldet Formatfehler mit Datei und Zeile
+- [x] [Haupt] Abnahme: Tests grün, Stichprobe an einer echten Datei
 
 ## Phase 3 — Befehle auf den Kern
 
@@ -146,6 +146,8 @@ Eine Zeile je abgeschlossenem Punkt oder getroffener Entscheidung.
 - 2026-09-18 Phase 2: `kern/abschnitte.py` — Abschnitt und Kopffeld setzen mit Matrix-Prüfung (`quelle=web|claude`), fehlender Abschnitt an richtiger Stelle. 9 Tests.
 - 2026-09-18 Phase 2: `kern/tabellen.py` — `teil_*`/`einzelteil_*` Feld setzen, anlegen, löschen; prüft Listen, Zahlen (Punkt), Datum, Matrix; nur die betroffene Zeile ändert sich. 21 Tests.
 - 2026-09-18 Phase 2: `kern/aufgaben.py` — anlegen (ID aus Titel, eindeutig; in Gruppe oder als Unterpunkt), Status, Titel, Beschreibung, Prio, löschen mit Unterpunkten; Marken bleiben an ihrer Stelle. 26 Tests.
+- 2026-09-18 Phase 2: `kern/pruefen.py` — `kern.pruefen()` meldet Befunde mit Datei/Zeile (Kopf, Abschnitte, Aufgaben, Abhängigkeitskreise, Querverweise, CSV). Entscheidungsseiten ohne festen Aufbau; Bezüge `fuer_aufgabe`/`entscheidung` und `gekauft_am` nur Warnung. Echter Bestand: 0 Befunde. 25 Tests.
+- 2026-09-18 Phase 2 abgenommen: `tools.kern` exportiert `laden`, `aufgaben`, `abschnitte`, `tabellen`, `datei`, `pruefen`, Ausnahmen `Konflikt`/`Unerlaubt`/`Ungueltig`. 94 Tests grün. Stichprobe an echter Elektrik.md: anlegen, Status, Beschreibung, Konflikt, löschen → Datei danach bytegleich. Status-Schlüssel im Kern ohne Umlaut: `offen|laeuft|erledigt|verworfen|blockiert`.
 
 ## Offene Fragen
 
