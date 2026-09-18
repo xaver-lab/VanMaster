@@ -10,8 +10,9 @@
   import EinzelteilZeile from './EinzelteilZeile.svelte';
   import EinzelteilDetail from './EinzelteilDetail.svelte';
   import { Auswahl, Dialog, Feld, Karte, Kennzahl, Knopf, Leerzustand } from '../ui';
+  import { dezimal } from '../zahlformat';
   import { IconPlus, IconSuche, IconZuschnitt } from '../ui/icons';
-  import { flaeche, laufmeter } from './mass';
+  import { flaeche, laufmeter, zahl } from './mass';
 
   const ART_OPTIONEN = ['Platte', 'Leiste', 'Kantholz', 'Blech', 'Rohr', 'Kabel', 'Beschlag', 'Sonstiges'];
 
@@ -66,6 +67,7 @@
   });
 
   const summeFlaeche = $derived(gefiltert.reduce((s, e) => s + flaeche(e), 0));
+  const summeStueck = $derived(gefiltert.reduce((s, e) => s + zahl(e.anzahl, 1), 0));
   const summeLaufmeter = $derived(gefiltert.reduce((s, e) => s + laufmeter(e), 0));
 
   function oeffnen(id: string): void {
@@ -134,9 +136,9 @@
 </script>
 
 <div class="kennzahlen">
-  <Kennzahl titel="Einzelteile" wert={gefiltert.length} icon={IconZuschnitt} />
-  {#if summeFlaeche}<Kennzahl titel="Fläche" wert="{summeFlaeche.toFixed(2)} m²" />{/if}
-  {#if summeLaufmeter}<Kennzahl titel="Laufmeter" wert="{summeLaufmeter.toFixed(2)} lfm" />{/if}
+  <Kennzahl titel="Einzelteile" wert={summeStueck} zusatz="{gefiltert.length} Zeilen" icon={IconZuschnitt} />
+  {#if summeFlaeche}<Kennzahl titel="Fläche" wert="{dezimal(summeFlaeche, 2)} m²" />{/if}
+  {#if summeLaufmeter}<Kennzahl titel="Laufmeter" wert="{dezimal(summeLaufmeter, 2)} lfm" />{/if}
 </div>
 
 <div class="leiste">

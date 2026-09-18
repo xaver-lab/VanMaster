@@ -9,8 +9,9 @@
   import { router } from '../router.svelte';
   import Schreibbar from '../Schreibbar.svelte';
   import { Auswahl, bestaetigen, Chip, Dialog, Etikett, Feld, Knopf, Rubrik, Textfeld } from '../ui';
+  import { dezimal } from '../zahlformat';
   import { IconLoeschen } from '../ui/icons';
-  import { euro, gesamtpreis, zahl, TEIL_PRIO, TEIL_STATUS } from './format';
+  import { preisText, zahl, TEIL_PRIO, TEIL_STATUS } from './format';
 
   let {
     t,
@@ -91,7 +92,7 @@
         ['Beschreibung', t.beschreibung],
         ['Einheit', t.einheit],
         ['Kennwerte', t.kennwerte],
-        ['Gewicht', zahl(t.gewicht_kg) ? `${zahl(t.gewicht_kg).toFixed(1)} kg` : ''],
+        ['Gewicht', zahl(t.gewicht_kg) ? `${dezimal(zahl(t.gewicht_kg))} kg` : ''],
         ['Entscheidung', t.entscheidung],
       ] as [string, string][]
     ).filter(([, wert]) => !!wert),
@@ -115,7 +116,7 @@
     {:else}
       <Etikett>{t.status || '—'}</Etikett>
     {/if}
-    <span class="preis">{euro.format(gesamtpreis(t))}</span>
+    <span class="preis">{preisText(t)}</span>
     {#if t.kategorie}<Etikett>{t.kategorie}</Etikett>{/if}
     {#if aufgabe}<Chip onclick={beiAufgabeKlick}>{aufgabe.titel}</Chip>{/if}
   </div>

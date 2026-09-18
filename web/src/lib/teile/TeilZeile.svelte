@@ -5,7 +5,7 @@
   import { store } from '../daten.svelte';
   import Schreibbar from '../Schreibbar.svelte';
   import { Auswahl, Etikett } from '../ui';
-  import { euro, gesamtpreis, zahl, TEIL_STATUS, TEIL_STATUS_TON } from './format';
+  import { preisText, zahl, TEIL_STATUS, TEIL_STATUS_TON } from './format';
 
   let {
     t,
@@ -32,7 +32,7 @@
       {#if zahl(t.menge) > 1}<span class="zusatz">{t.menge} {t.einheit}</span>{/if}
     </span>
   </button>
-  <span class="preis">{euro.format(gesamtpreis(t))}</span>
+  <span class="preis">{preisText(t)}</span>
   {#if store.darfSchreiben && statusBearbeitbar}
     <Schreibbar>
       {#snippet children()}

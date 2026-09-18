@@ -13,6 +13,7 @@
   import TeilKarte from './TeilKarte.svelte';
   import TeilDetail from './TeilDetail.svelte';
   import { Auswahl, Dialog, Feld, Karte, Kennzahl, Knopf, Leerzustand, Tabs } from '../ui';
+  import { dezimal } from '../zahlformat';
   import { IconEuro, IconGewicht, IconPlus, IconSuche } from '../ui/icons';
   import { euro, gesamtpreis, zahl, TEIL_PRIO, TEIL_STATUS } from './format';
   import IconListe from '@lucide/svelte/icons/list';
@@ -152,7 +153,7 @@
 <div class="kennzahlen">
   <Kennzahl titel="Teile" wert={gefiltert.length} zusatz={gefiltert.length !== alleTeile.length ? `von ${alleTeile.length}` : undefined} />
   <Kennzahl titel="Kosten" wert={euro.format(summe)} icon={IconEuro} />
-  {#if gewicht}<Kennzahl titel="Gewicht" wert="{gewicht.toFixed(1)} kg" icon={IconGewicht} />{/if}
+  {#if gewicht}<Kennzahl titel="Gewicht" wert="{dezimal(gewicht)} kg" icon={IconGewicht} />{/if}
   {#if ohnePreis}<Kennzahl titel="Ohne Preis" wert={ohnePreis} ton="warn" />{/if}
 </div>
 

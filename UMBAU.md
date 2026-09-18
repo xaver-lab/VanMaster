@@ -175,19 +175,21 @@ Eine Zeile je abgeschlossenem Punkt oder getroffener Entscheidung.
 - 2026-09-18 Phase 7: Zuschnitt (`web/src/lib/zuschnitt/`: EinzelteilListe, -Zeile, -Detail, -Feld, mass.ts, status.ts) - Filter Bereich/Material, Gruppierung nach Bereich, Kennzahlen Anzahl/Flaeche/Laufmeter, alle Felder ausser `id` bearbeitbar, `teil_id` als Auswahl ueber die Teile. Eigenes Vokabular auch hier (`BAUTEIL_STATUS`, `BAUTEIL_ART`, `MASSQUELLE` in `tools/common.py`) - **in den Komponenten fest verdrahtet, weil die API diese Listen nicht ausliefert. Aendert sich das Vokabular, muss es dort nachgezogen werden** (besser waere: die Listen ueber `/api/daten` mitliefern).
 - 2026-09-18 Beide Phase-7-Ansichten sind **ungeprueft** (kein Build, siehe Uebergabe). Der Commit „Zwischenstand Zuschnitt-Ansicht“ enthaelt entgegen seiner Nachricht bereits den fertigen Stand.
 - 2026-09-18 Phase-7-Zweig lokal auf `main` übernommen. `web check`: 1 Fehler (`filterStatus` in TeileListe zu eng typisiert) und 8 Warnungen, alle behoben — jetzt 0/0, `web build` läuft. Nebenbei: `AufgabenListe` im Bereichs-Reiter steht jetzt in `{#key name}`, sonst blieb beim Wechsel zwischen Bereichen der alte Bereich im Anlegen-Formular stehen. `Kennzahl` rendert `a`/`button`/`div` einzeln statt `svelte:element`. Browser-Prüfung steht noch aus.
+- 2026-09-18 Browser-Prüfung Phase 6/7 (Subagent, im versteckten Browser-Fenster): Anlegen, Status, Beschreibung, Live-Aktualisierung per SSE, 409 bei alter Version, Bereichsreiter, Teile- und Zuschnitt-Bearbeitung landen korrekt in Vault/CSV. **Nicht bestätigt:** Löschen über den Bestätigungsdialog und Umbenennen per Enter. Das Fenster hatte keinen Fokus und feuert kein `close` am `<dialog>`, deshalb im echten Browser nachprüfen. Danach behoben: Zahlen deutsch formatiert (`lib/zahlformat.ts`), Teile ohne Preis zeigen „—“ statt „0 €“, Zuschnitt zählt Stück statt Zeilen, und Leisten gehen nicht mehr in die Fläche ein.
 
 ## Offene Fragen
 
+- Konfliktschutz prüft die Dateiversion, nicht den Textinhalt: Ändert jemand dieselbe Beschreibung, während sie im Web offen ist, lädt die Seite die neue Version nach und überschreibt beim Speichern still. Entwurf gegen den Ausgangstext vergleichen?
+- Zuschnitt: Materialfilter engt sich bei gesetztem Bereich nicht ein; keine Gruppierungswahl (feste Überschriften je Bereich).
 - Zuschnitt: Vokabulare (`BAUTEIL_ART`, `BAUTEIL_STATUS`, `MASSQUELLE`) über `/api/daten` mitliefern statt fest verdrahten?
 
 ## Übergabe an den nächsten Chat
 
 Stand 2026-09-18: Phasen 0–5 fertig und abgenommen. Phase 6 und 7 sind gebaut,
-`web check` (0 Fehler, 0 Warnungen) und `web build` laufen. **Noch nie im Browser.**
+`web check` (0 Fehler, 0 Warnungen) und `web build` laufen. 
 
-Nächster Schritt: Browser-Prüfung aus Phase 6 (Anlegen/Ändern/Löschen landet in der
-Datei, paralleles Ändern aktualisiert die Oberfläche, Konflikt wird angezeigt), danach
-Phase 7 ansehen (`#/teile`, `#/zuschnitt`) und Feinschliff mit dem Nutzer.
+Browser-Prüfung ist gelaufen (siehe Protokoll). Nächster Schritt: Löschen per Bestätigungsdialog
+und Umbenennen per Enter im echten Browser nachprüfen, dann Feinschliff mit dem Nutzer.
 
 - Neuer Rechner: `pip install --user -r requirements.txt`; Node portabel nach `~/nodejs/`
   (Version 24, nicht im PATH) oder systemweit im PATH — `camper web` findet beides.

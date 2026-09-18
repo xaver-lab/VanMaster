@@ -10,6 +10,7 @@
   import Abschnitt from './Abschnitt.svelte';
   import { fortschritt } from './sortierung';
   import { Etikett, FortschrittBalken, Karte, Kennzahl, Leerzustand, Tabs } from '../ui';
+  import { dezimal } from '../zahlformat';
 
   let { name }: { name: string } = $props();
 
@@ -94,7 +95,7 @@
       <Kennzahl titel="Aufgaben" wert="{f.fertig}/{f.gesamt}" />
       {#if teile.length}
         <Kennzahl titel="Teilekosten" wert={euro.format(kosten)} />
-        <Kennzahl titel="Gewicht" wert="{gewicht.toFixed(1)} kg" />
+        <Kennzahl titel="Gewicht" wert="{dezimal(gewicht)} kg" />
       {/if}
       {#if medien.length}
         <Kennzahl titel="Medien" wert={medien.length} />

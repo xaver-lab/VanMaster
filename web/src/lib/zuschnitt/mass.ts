@@ -18,6 +18,7 @@ export function massText(e: EinzelteilAntwort): string {
 const LAUFMETER_ARTEN = new Set(['Leiste', 'Kantholz', 'Rohr', 'Kabel']);
 
 export function flaeche(e: EinzelteilAntwort): number {
+  if (LAUFMETER_ARTEN.has(e.art)) return 0;
   const l = zahl(e.laenge_mm);
   const b = zahl(e.breite_mm);
   if (!l || !b) return 0;

@@ -23,6 +23,11 @@ export function zahl(wert: string | undefined | null): number {
 
 export const euro = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
 
+/** Gesamtpreis als Euro-Text; ohne Preis ein Strich statt „0 €“. */
+export function preisText(t: { preis: string; menge: string }): string {
+  return zahl(t.preis) ? euro.format(gesamtpreis(t)) : '—';
+}
+
 export function gesamtpreis(t: { preis: string; menge: string }): number {
   const menge = zahl(t.menge) || 1;
   return zahl(t.preis) * menge;

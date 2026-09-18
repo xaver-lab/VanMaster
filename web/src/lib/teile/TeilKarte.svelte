@@ -5,8 +5,9 @@
   import { store } from '../daten.svelte';
   import Schreibbar from '../Schreibbar.svelte';
   import { Auswahl, Etikett, Karte } from '../ui';
+  import { dezimal } from '../zahlformat';
   import { IconExtern } from '../ui/icons';
-  import { euro, gesamtpreis, zahl, TEIL_STATUS, TEIL_STATUS_TON } from './format';
+  import { preisText, zahl, TEIL_STATUS, TEIL_STATUS_TON } from './format';
 
   let {
     t,
@@ -29,14 +30,14 @@
   <button type="button" class="klickflaeche" onclick={() => onOeffnen(t.id)} aria-label="{t.titel} öffnen">
     <div class="kopf">
       <span class="titel">{t.titel}</span>
-      <span class="preis">{euro.format(gesamtpreis(t))}</span>
+      <span class="preis">{preisText(t)}</span>
     </div>
     {#if t.beschreibung}<p class="beschreibung">{t.beschreibung}</p>{/if}
     <div class="meta">
       {#if t.kategorie}<Etikett>{t.kategorie}</Etikett>{/if}
       {#if zahl(t.menge) !== 1}<span>{t.menge} {t.einheit}</span>{/if}
       {#if t.kennwerte}<span>{t.kennwerte}</span>{/if}
-      {#if zahl(t.gewicht_kg)}<span>{zahl(t.gewicht_kg).toFixed(1)} kg</span>{/if}
+      {#if zahl(t.gewicht_kg)}<span>{dezimal(zahl(t.gewicht_kg))} kg</span>{/if}
       {#if t.haendler}<span>{t.haendler}</span>{/if}
     </div>
   </button>
