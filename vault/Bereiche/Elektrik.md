@@ -37,11 +37,7 @@ _(Zahlen, sobald gerechnet)_
 
 ## Notizen
 
-Aus `_input/Ideas/Notizen.txt` (Rohnotiz, unbewertet):
-
-- ESP32-C6-DEV-KIT-N8 als möglicher Baustein für eine eigene Steuerung/
-  Sensorik — https://www.waveshare.com/wiki/ESP32-C6-DEV-KIT-N8 . Unklar, ob
-  das in die Camper-Elektrik gehört oder ins separate Smart-Home-Nebenprojekt.
+_(keine)_
 
 ## Links
 
@@ -52,7 +48,6 @@ _(noch keine)_
 ### Auslegung
 
 - [/] Strombilanz rechnen (Verbraucher, Tagesbedarf) ^strombilanz #kritisch
-  > Test
 - [/] Batteriebank und Laderegler festlegen ^batteriebank-entscheiden #kritisch @braucht:strombilanz
 
 ### Einbau
