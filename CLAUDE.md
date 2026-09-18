@@ -64,7 +64,7 @@ vor, wird damit gearbeitet.
   riesig, `data.js` ist eine einzige Zeile.
 - Dashboard-Arbeit: nur die Dateien der betroffenen Ansicht unter `docs/js/`
   und `docs/css/`, erst suchen, dann Ausschnitte lesen. Details im Skill
-  `camper-dev`.
+  `master-dev`.
 - Breite Suchen und Browser-Prüfungen über mehrere Ansichten an Subagenten,
   die nur einen kurzen Befund zurückgeben.
 - Keine Screenshots bei Zwischenschritten, höchstens einer am Ende.
@@ -78,15 +78,15 @@ vor, wird damit gearbeitet.
   Lesearbeit (neue Ansicht nach fertiger Beschreibung, Recherche, Input-Ordner
   einarbeiten, Browser-Prüfung über alle Ansichten). Er meldet nur Ergebnis
   und offene Fragen zurück.
-- Fachliches wird im selben Chat mit dem Skill `camper` geklärt, nicht über
+- Fachliches wird im selben Chat mit dem Skill `master` geklärt, nicht über
   einen eigenen Agenten. Kein Manager-Agent.
 - Wechselt das Thema, dem Nutzer einen neuen Chat empfehlen.
 
 ## Skills
 
-- `camper` — führt das Projekt, Standardfall.
-- `camper-dev` — baut und repariert die Pipeline.
-- `camper-research` — bringt Wissen herein, schreibt es in den Vault.
+- `master` — führt das Projekt, Standardfall.
+- `master-dev` — baut und repariert die Pipeline.
+- `master-research` — bringt Wissen herein, schreibt es in den Vault.
 
 ## Smart Home
 

@@ -1,9 +1,9 @@
 ---
-name: camper-research
+name: master-research
 description: Bringt technisches Wissen in das VanMaster-Projekt - Bauteile auslegen und vergleichen, Datenblätter auswerten, Strom-, Wasser- und Gewichtsfragen rechnen, Kaufentscheidungen vorbereiten und im Vault festschreiben. Nutze diesen Skill, wenn etwas unklar ist oder etwas gekauft werden soll, das mehr als eine Bestellung wert ist.
 ---
 
-# camper-research — Wissen hereinbringen
+# master-research — Wissen hereinbringen
 
 Auftrag: Technische Fragen belastbar beantworten, Ausbauideen mit Substanz
 liefern — ausgelegt auf **Renault Master 2013, Vollzeitnutzung, 300 Ah,

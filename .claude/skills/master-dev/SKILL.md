@@ -1,9 +1,9 @@
 ---
-name: camper-dev
+name: master-dev
 description: Baut und repariert die VanMaster-Pipeline - camper.py, die Module unter tools/, die Datenformate und das Dashboard unter docs/. Nutze diesen Skill, wenn am Werkzeug selbst etwas fehlt, klemmt oder dazukommen soll: neuer Befehl, neue Auswertung, neue Dashboard-Ansicht, Datenformat ändern, Fehler in der Ausgabe.
 ---
 
-# camper-dev — das Werkzeug bauen
+# master-dev — das Werkzeug bauen
 
 Auftrag: Die Pipeline soll den Ausbau tragen. Befehle mit antwortfertiger
 Ausgabe. Ein Dashboard, das am Laptop gut funktioniert (Handy kommt später, siehe unten). Datenformate, die von Hand bearbeitbar bleiben.

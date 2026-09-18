@@ -176,7 +176,7 @@ Schreibzugriff am Laptop, falls Obsidian irgendwann nicht reicht.
 Als Auftrag und Arbeitsweise formuliert, nicht als Verbotsliste.
 Jeder darf tun, was der Sache dient — die Rolle beschreibt den Schwerpunkt.
 
-### `camper-dev` — baut das Werkzeug
+### `master-dev` — baut das Werkzeug
 
 **Auftrag:** Die Pipeline soll den Ausbau tragen. Befehle mit antwortfertiger
 Ausgabe. Ein Dashboard, das am Van auf dem Handy so gut funktioniert wie am
@@ -191,7 +191,7 @@ trifft aber keine inhaltlichen Entscheidungen im Alleingang.
 
 **Rufen, wenn:** am System etwas fehlt oder klemmt.
 
-### `camper` — führt das Projekt
+### `master` — führt das Projekt
 
 **Auftrag:** In zwei Sätzen soll klar sein, wo das Projekt steht und was als
 Nächstes sinnvoll ist. Hält Aufgaben, Teile, Entscheidungen und Kosten aktuell,
@@ -218,7 +218,7 @@ Recherche, Wechsel vorschlagen statt halbherzig selbst machen.
 
 **Rufen, wenn:** am Projekt gearbeitet wird. Der Standardfall.
 
-### `camper-research` — bringt Wissen herein
+### `master-research` — bringt Wissen herein
 
 **Auftrag:** Technische Fragen belastbar beantworten, Ausbauideen mit Substanz
 liefern — ausgelegt auf Renault Master 2013, Vollzeitnutzung, 300 Ah,
@@ -301,7 +301,7 @@ mit der Ausbau-Pipeline:
 |---|---|---|
 | Ordner | `vault/`, `data/`, `tools/` | eigener Zweig, z. B. `smarthome/` mit eigenem `vault/`, `data/` |
 | CLI | `camper.py` mit den bestehenden Befehlen | eigener Namespace, z. B. `camper smarthome ...`, statt in die bestehenden Befehle hineinzuwachsen |
-| Skill | `camper`, `camper-dev`, `camper-research` | eigener vierter Skill, z. B. `camper-smarthome` |
+| Skill | `master`, `master-dev`, `master-research` | eigener vierter Skill, z. B. `master-smarthome` |
 | Dashboard | Tabs für Bereiche/Aufgaben/Stückliste | eigener zusätzlicher Tab, eigenes generiertes JSON — mischt sich nicht mit `data.json` des Ausbaus |
 | Aufgaben | `vault/Bereiche/*.md` | eigene Datei, klar als Nebenprojekt gekennzeichnet, nicht in die Ausbau-Fortschrittszahlen eingerechnet |
 

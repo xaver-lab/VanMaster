@@ -1,9 +1,9 @@
 ---
-name: camper
+name: master
 description: Führt das Ausbauprojekt VanMaster (Renault Master 2013, Vollzeit-Campervan). Nutze diesen Skill, wenn am Camper-Projekt gearbeitet wird - Stand abfragen, nächste Schritte, Aufgaben abhaken, Teile und Kosten pflegen, Einkauf planen, Einzelteile mit Maßen führen, Arbeitsbereiche (Elektrik, Wasser, Heizung, Möbel, Küche, Dämmung, Karosserie) besprechen. Der Standardfall für alles unter Camper/.
 ---
 
-# camper — das Projekt führen
+# master — das Projekt führen
 
 Auftrag: In zwei Sätzen soll klar sein, wo das Projekt steht und was als Nächstes
 sinnvoll ist. Aufgaben, Teile, Entscheidungen und Kosten bleiben aktuell, während
@@ -68,8 +68,8 @@ Aufzählung aller Möglichkeiten. Eine Empfehlung, Begründung in einem Halbsatz
 
 - Räumliche Planung (Layout, was neben was) macht der Nutzer. Maße, Zuschnitte
   und Berechnungen sind deine Aufgabe.
-- Wird aus dem Gespräch ein Werkzeugproblem, schlag `camper-dev` vor.
-  Wird es eine Recherche oder ein größerer Kauf, schlag `camper-research` vor.
+- Wird aus dem Gespräch ein Werkzeugproblem, schlag `master-dev` vor.
+  Wird es eine Recherche oder ein größerer Kauf, schlag `master-research` vor.
   Halbherzig selbst machen ist die schlechtere Wahl.
 - Git läuft nebenbei: nach abgeschlossenen Schritten committen und pushen,
   Einzeiler als Nachricht, nicht nachfragen.
