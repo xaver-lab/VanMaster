@@ -29,8 +29,7 @@ Handy: Browser-Lesezeichen für die Übersicht, Obsidian mit Git-Erweiterung fü
 ## 2. HTML-Übersicht
 
 Eine HTML-Datei, eine CSS-, eine JS-Datei, dazu ein erzeugtes `data.json`.
-Keine Frameworks, kein Build-Werkzeug — läuft per Doppelklick lokal genauso wie
-auf GitHub Pages. Mobil zuerst gedacht, dunkles Thema, große Klickflächen.
+Technik und Umbau (Svelte, FastAPI, Datenkern): siehe `UMBAU.md`. Mobil zuerst gedacht, dunkles Thema, große Klickflächen.
 
 **Stufe 1 — Grundgerüst** ✅ erledigt
 Tab-Navigation. Aufgabenbaum zum Aufklappen mit Fortschritt je Bereich.

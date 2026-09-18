@@ -61,9 +61,9 @@ Das alte Dashboard (`docs/`) läuft unverändert weiter, bis Phase 9 es ablöst.
 
 ## Phase 0 — Vorbereitung
 
-- [ ] [Haupt] In `PLAN.md` die Regel „Keine Frameworks, kein Build-Werkzeug, Doppelklick“ durch einen Verweis auf diese Datei ersetzen
-- [ ] [Sonnet] `fastapi`, `uvicorn`, `pytest` per `pip install --user` installieren; Node-Version prüfen; Ergebnis melden
-- [ ] [Haupt] `pytest`-Gerüst: `tests/` mit `conftest.py`, das Vault und `data/` nach `tmp_path` kopiert
+- [x] [Haupt] In `PLAN.md` die Regel „Keine Frameworks, kein Build-Werkzeug, Doppelklick“ durch einen Verweis auf diese Datei ersetzen
+- [x] [Sonnet] `fastapi`, `uvicorn`, `pytest` per `pip install --user` installieren; Node-Version prüfen; Ergebnis melden
+- [x] [Haupt] `pytest`-Gerüst: `tests/` mit `conftest.py`, das Vault und `data/` nach `tmp_path` kopiert
 
 ## Phase 1 — Formatbeschreibung
 
@@ -137,6 +137,8 @@ Das alte Dashboard (`docs/`) läuft unverändert weiter, bis Phase 9 es ablöst.
 Eine Zeile je abgeschlossenem Punkt oder getroffener Entscheidung.
 
 - 2026-09-18 Stack festgelegt (siehe oben), Plan angelegt.
+- 2026-09-18 Phase 0: PLAN.md verweist auf UMBAU.md; fastapi 0.141.1, uvicorn 0.53.0, pytest 9.1.1 installiert (Skripte nicht im PATH → `python -m`); Node v24.14.0, npm 11.9.0.
+- 2026-09-18 Phase 0: `tests/conftest.py` — Fixture `repo` kopiert vault/ und data/ nach tmp_path und biegt alle Pfadkonstanten der `tools`-Module um (auch künftige Unterpakete wie `tools/kern/`). Aufruf: `python -m pytest -q`.
 
 ## Offene Fragen
 
