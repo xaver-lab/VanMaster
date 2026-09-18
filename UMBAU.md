@@ -122,7 +122,8 @@ Das alte Dashboard (`docs/`) läuft unverändert weiter, bis Phase 9 es ablöst.
 - [x] [Sonnet] Startseite mit Kennzahlen und Entscheidungen
 - [x] [Sonnet] Medien-Galerie und Lupe
 - [x] [Sonnet] Befehlspalette (Strg+K) über alle Inhalte
-- [ ] [Sonnet] Browser-Prüfung aller Ansichten gegen das alte Dashboard: fehlt etwas?
+- [x] [Sonnet] Browser-Prüfung aller Ansichten gegen das alte Dashboard: fehlt etwas?
+- [ ] [Sonnet] Lücken aus dem Vergleich schließen: Bereichsreiter „Entscheidungen“ und „Zuschnitt“, Startseite „Kosten je Kategorie“
 - [ ] [Haupt] Feinschliff nach Rückmeldung
 
 ## Phase 9 — Veröffentlichen und Ablösen
@@ -178,6 +179,7 @@ Eine Zeile je abgeschlossenem Punkt oder getroffener Entscheidung.
 - 2026-09-18 Browser-Prüfung Phase 6/7 (Subagent, im versteckten Browser-Fenster): Anlegen, Status, Beschreibung, Live-Aktualisierung per SSE, 409 bei alter Version, Bereichsreiter, Teile- und Zuschnitt-Bearbeitung landen korrekt in Vault/CSV. **Nicht bestätigt:** Löschen über den Bestätigungsdialog und Umbenennen per Enter. Das Fenster hatte keinen Fokus und feuert kein `close` am `<dialog>`, deshalb im echten Browser nachprüfen. Danach behoben: Zahlen deutsch formatiert (`lib/zahlformat.ts`), Teile ohne Preis zeigen „—“ statt „0 €“, Zuschnitt zählt Stück statt Zeilen, und Leisten gehen nicht mehr in die Fläche ein.
 - 2026-09-18 Offene Punkte aus der Browser-Prüfung erledigt: `/api/daten` liefert `vokabular` (Teile-Status/-Prio/-Kategorien, Einzelteil-Art/-Status, Maßquelle aus `common.py`). Das Web liest es über `lib/vokabular.svelte.ts` und hat keine eigenen Listen mehr. Zuschnitt: Materialfilter folgt dem Bereich, Gruppierung wählbar (Bereich/Material/Art). Überschreibschutz für Bereichsabschnitte und Aufgabenbeschreibungen (`lib/ueberschreiben.ts`): Ändert sich der Ausgangstext während der Bearbeitung, erscheint ein Hinweis, und vor dem Speichern wird nachgefragt. Hell-Thema: `--farbe-text-3` auf #6f685b (vorher 2,8–3,5:1, jetzt 4,2–5,3:1).
 - 2026-09-18 Phase 8: Medien-Galerie (`lib/medien/`: MedienAnsicht, Galerie, Lupe, url.ts) mit Filter nach Bereich und Art, Suche und Lupe (←/→, Esc, Zähler). Der Bereichsreiter „Medien“ nutzt dieselbe Galerie. Bilder kommen aus den Web-Kopien `docs/medien/` über die neue Server-Route `/medien` (in `start.py`, nicht mehr über `/alt`; Vite leitet `/medien` im Dev weiter). Befehlspalette (`lib/palette/`): Strg+K, Suche über Bereiche, Aufgaben, Teile, Einzelteile, Seiten und Medien, dazu Ansichten und Hell/Dunkel. Startseite nimmt die Teile-Stufen aus dem `vokabular`. Im Browser geprüft (Port 8767): Bilder laden, Lupe blättert, Palette findet.
+- 2026-09-18 Phase 8: Vergleich neu gegen alt (Subagent, nur lesend). Es fehlen im Bereich-Detail die Reiter „Entscheidungen“ und „Zuschnitt“ (im alten auch leer sichtbar) und auf der Startseite „Kosten je Kategorie“. Themen-Liste, Aufgaben, Teile, Zuschnitt, Medien und Palette sind gleichwertig, keine Konsolenfehler. Neuer Punkt zum Schließen der Lücken.
 
 ## Offene Fragen
 
