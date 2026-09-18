@@ -89,7 +89,7 @@ Das alte Dashboard (`docs/`) läuft unverändert weiter, bis Phase 9 es ablöst.
 
 ## Phase 4 — FastAPI-Server
 
-- [ ] [Sonnet] `tools/server/`: FastAPI-App mit Pydantic-Modellen; `GET /api/daten`, CRUD für Aufgaben, Abschnitte, Teile, Einzelteile; jede Schreibanfrage trägt den Dateihash, Konflikt → 409 mit aktuellem Stand
+- [x] [Sonnet] `tools/server/`: FastAPI-App mit Pydantic-Modellen; `GET /api/daten`, CRUD für Aufgaben, Abschnitte, Teile, Einzelteile; jede Schreibanfrage trägt den Dateihash, Konflikt → 409 mit aktuellem Stand
 - [ ] [Sonnet] Live-Aktualisierung: Dateien per mtime überwachen (Standardbibliothek), Änderungen als Server-Sent Events an den Browser
 - [ ] [Sonnet] Auto-Commit: Web-Änderungen sammeln, nach einigen Minuten ohne Eingabe ein Commit mit einer Zeile; kein Push
 - [ ] [Sonnet] `camper serve` startet die neue App (liefert `web/dist` aus); alte Oberfläche weiter unter `/alt/` erreichbar; `.claude/launch.json` ergänzen
@@ -151,6 +151,7 @@ Eine Zeile je abgeschlossenem Punkt oder getroffener Entscheidung.
 - 2026-09-18 Phase 3: tasks/parts/bauteile/bereiche/status/serve lesen und schreiben über den Kern, doppelte Parser entfernt. 20 Befehlsausgaben + data.json vorher/nachher gleich (einzige Abweichung: Pfade mit `/`). Altes `/api/teil` setzt jetzt die Web-Matrix durch; Fehler dort noch als 500 (sauber ab Phase 4).
 - 2026-09-18 Phase 3: neue Befehle `task add|rename|delete`, `bereich set <Bereich> <Abschnitt> --text` / `--kopf feld=wert`, `check` (Exit 1 bei Fehlern). CLAUDE.md und Skill `master` verweisen darauf. 113 Tests.
 - 2026-09-18 Phase 3 abgenommen: add/rename/start/delete an Heizung vorgeführt, Bestand danach unverändert; Statusausgabe zeigt „läuft“.
+- 2026-09-18 Phase 4: `tools/server/` (app.py, modelle.py, daten.py). `/api/daten` = erzeugt, bereiche, aufgaben, querverweise, entscheidungen, anleitungen, recherche, teile, einzelteile, medien, versionen, kennzahlen, bearbeitbar; `daten_json()` liefert dasselbe für den statischen Build. REST-Routen für Aufgaben, Abschnitte/Kopf, Teile, Einzelteile; 409 mit `stand`, 403/422/404. Einhängepunkt `app.state.nach_schreiben`. Teil-Felder außerhalb der Matrix → 422 (Kern meldet `Ungueltig`). 21 Tests.
 
 ## Offene Fragen
 
