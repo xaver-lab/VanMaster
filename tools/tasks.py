@@ -167,7 +167,8 @@ def set_status(task_id: str, status: str) -> str:
     if status not in BOX_ZEICHEN:
         fail(f"Status muss einer von {', '.join(BOX_ZEICHEN)} sein.")
     kern_aufgaben.status_setzen(a["id"], status, None)
-    return f"{a['titel']}: {a['status']} → {status}"
+    lesbar = {"laeuft": "läuft"}
+    return f"{a['titel']}: {lesbar.get(a['status'], a['status'])} → {lesbar.get(status, status)}"
 
 
 def add(bereich: str, titel: str, *, gruppe: str = "", unter: str = "",
