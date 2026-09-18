@@ -2,18 +2,6 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "dashboard",
-      "runtimeExecutable": "python",
-      "runtimeArgs": [
-        "-m",
-        "http.server",
-        "8777",
-        "--directory",
-        "docs"
-      ],
-      "port": 8777
-    },
-    {
       "name": "camper-neu",
       "runtimeExecutable": "python",
       "runtimeArgs": [
@@ -22,19 +10,6 @@
         "--kein-browser"
       ],
       "port": 8765
-    },
-    {
-      "name": "camper-serve",
-      "runtimeExecutable": "python",
-      "runtimeArgs": [
-        "camper.py",
-        "serve",
-        "--alt",
-        "--kein-browser",
-        "--port",
-        "8766"
-      ],
-      "port": 8766
     },
     {
       "name": "camper-pruef",

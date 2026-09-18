@@ -131,7 +131,7 @@ Das alte Dashboard (`docs/`) läuft unverändert weiter, bis Phase 9 es ablöst.
 - [x] [Sonnet] GitHub Action: Python baut `data.json`, Node baut `web/`, Deploy auf Pages; Lesemodus
 - [x] [Sonnet] Erzeugte Dateien aus Git nehmen (`docs/data.*`, altes Dashboard), `.gitignore` anpassen
 - [x] [Haupt] Handy-Ansicht auf Pages einmal ansehen (nur lesen, nichts optimieren)
-- [ ] [Sonnet] Altes Dashboard, `tools/serve.py` und nicht mehr gebrauchte Module entfernen
+- [x] [Sonnet] Altes Dashboard, `tools/serve.py` und nicht mehr gebrauchte Module entfernen
 - [ ] [Haupt] `CLAUDE.md`, Skill `master-dev`, `README.md`, `PLAN.md` auf den neuen Stand bringen
 
 ## Protokoll
@@ -186,6 +186,8 @@ Eine Zeile je abgeschlossenem Punkt oder getroffener Entscheidung.
 - 2026-09-18 Phase 9: `.github/workflows/pages.yml` baut bei jedem Push auf main (Python 3.13, Node 24) das Web und dazu `python camper.py web daten`. Der neue Befehl schreibt `web/dist/data.json` aus `daten_json()` und kopiert `docs/medien` nach `dist/medien`. Deploy über upload-/deploy-pages v5. `docs/data.*` und `docs/medien/` sind aus Git genommen und in `.gitignore`, weil `sync` sie erzeugt und die Quelle `vault/Medien` in Git bleibt. Lesemodus unter `/VanMaster/` lokal geprüft: alles lädt, einziger Fehler ist die erwartete 404 von `/api/daten` bei der Moduserkennung. 168 Tests grün.
 
 - 2026-09-18 Phase 9: Pages vom Nutzer auf „GitHub Actions“ gestellt, Workflow läuft durch (1 min 13 s), online unter https://xaver-lab.github.io/VanMaster/. Handy-Ansicht (375 px) angesehen: Bereich Elektrik mit Kennzahlen und Reitern lädt, keine Bearbeitungsknöpfe, kein seitliches Scrollen, keine kaputten Bilder, einziger Fehler ist die erwartete 404 von `/api/daten`. Hinweis: Pages einschalten per `gh api` blockiert die Auto-Modus-Prüfung, das macht der Nutzer selbst.
+
+- 2026-09-18 Phase 9: Altes Dashboard entfernt. `docs/` ist ganz weg, ebenso `tools/serve.py`, die Route `/alt/`, `--alt` und die launch.json-Einträge `camper-serve`/`dashboard`. Die Web-Kopien der Bilder liegen jetzt in `data/generated/medien/` (`common.MEDIEN_WEB_DIR`, in .gitignore). `data.js`/`data.json` schreibt `sync` nicht mehr, es meldet stattdessen „Bilder aktualisiert“. 165 Tests grün. Doku-Fundstellen für den nächsten Punkt: CLAUDE.md:27,68-71, README.md:14,16,53, PLAN.md:31,86, SKILL master-dev (viele Stellen).
 
 ## Offene Fragen
 

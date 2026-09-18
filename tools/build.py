@@ -1,14 +1,14 @@
-"""Dashboard-Daten erzeugen — docs/data.json ist reine Ausgabe."""
+"""Gesamtdaten zusammenstellen — für `/api/daten` und `camper build`/`sync`.
+Schreibt keine Datei mehr (früher docs/data.json); aktualisiert nebenbei nur
+die Web-Kopien der Bilder (media.web_export())."""
 from __future__ import annotations
 
-import json
 from datetime import datetime
 
 from . import bauteile, bereiche, media, parts, status, tasks
 from .common import (
-    ANLEITUNGEN_DIR, DASHBOARD_JSON, DOCS, ENTSCHEIDUNGEN_DIR,
-    PART_KATEGORIEN, RECHERCHE_DIR, SORTIERUNGEN, STANDARD_SORTIERUNG, VAULT,
-    read_text, split_frontmatter, write_json,
+    ANLEITUNGEN_DIR, ENTSCHEIDUNGEN_DIR, PART_KATEGORIEN, RECHERCHE_DIR,
+    SORTIERUNGEN, STANDARD_SORTIERUNG, VAULT, read_text, split_frontmatter,
 )
 
 
@@ -140,20 +140,11 @@ def daten(sortierung: str = STANDARD_SORTIERUNG) -> dict:
 
 
 def build(sortierung: str = STANDARD_SORTIERUNG) -> str:
-    return schreiben(daten(sortierung))
-
-
-def schreiben(d: dict) -> str:
-    """Erzeugte Daten ablegen — getrennt von daten(), damit der Server die
-    frisch gebauten Daten direkt weiterreichen kann, ohne zweimal zu bauen."""
-    write_json(DASHBOARD_JSON, d)
-    # Zweite Ausgabe als JS, damit das Dashboard auch per Doppelklick
-    # (file://) läuft — dort blockiert der Browser fetch().
-    js = ("window.VANMASTER_DATEN = "
-          + json.dumps(d, ensure_ascii=False, separators=(",", ":")) + ";\n")
-    (DOCS / "data.js").write_text(js, encoding="utf-8", newline="\n")
+    """Berechnet die Gesamtdaten neu (validiert dabei Vault/CSV) und
+    aktualisiert die Web-Kopien der Bilder. Schreibt keine Datei."""
+    d = daten(sortierung)
     k = d["kennzahlen"]
-    return (f"docs/data.json geschrieben — {len(d['bereiche'])} Bereiche, "
-            f"{k['aufgaben_gesamt']} Aufgaben, {k['teile']} Teile, "
-            f"{k['bauteile']} Einzelteile, {len(d['medien'])} Bilder, "
-            f"{len(d['dokumente'])} Dokumente, {len(d['modelle'])} Modelle")
+    return (f"Bilder aktualisiert: {len(d['medien'])} — {len(d['bereiche'])} "
+            f"Bereiche, {k['aufgaben_gesamt']} Aufgaben, {k['teile']} Teile, "
+            f"{k['bauteile']} Einzelteile, {len(d['dokumente'])} Dokumente, "
+            f"{len(d['modelle'])} Modelle")

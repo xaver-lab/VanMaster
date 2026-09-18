@@ -17,7 +17,7 @@ import shutil
 import subprocess
 from pathlib import Path
 
-from .common import DOCS, ROOT, STANDARD_SORTIERUNG, fail, write_json
+from .common import MEDIEN_WEB_DIR, ROOT, STANDARD_SORTIERUNG, fail, write_json
 
 WEB_DIR = ROOT / "web"
 
@@ -108,8 +108,8 @@ def daten_export(sortierung: str = STANDARD_SORTIERUNG) -> str:
     """web/dist/data.json + medien/ für den Lesemodus (GitHub Pages, UMBAU.md
     Phase 9). Dieselbe Struktur wie ``GET /api/daten``
     (``tools/server/daten.py:daten_json``); als Nebeneffekt davon aktualisiert
-    ``media.web_export()`` auch ``docs/medien`` — von dort wird hierher
-    kopiert. Läuft erst nach ``web build`` (braucht ``web/dist``)."""
+    ``media.web_export()`` auch ``data/generated/medien`` — von dort wird
+    hierher kopiert. Läuft erst nach ``web build`` (braucht ``web/dist``)."""
     dist = WEB_DIR / "dist"
     if not (dist / "index.html").is_file():
         fail("web/dist fehlt — erst `camper web build` laufen lassen.")
@@ -125,7 +125,7 @@ def daten_export(sortierung: str = STANDARD_SORTIERUNG) -> str:
     medien_ziel = dist / "medien"
     if medien_ziel.exists():
         shutil.rmtree(medien_ziel)
-    quelle = DOCS / "medien"
+    quelle = MEDIEN_WEB_DIR
     n = 0
     if quelle.exists():
         shutil.copytree(quelle, medien_ziel)

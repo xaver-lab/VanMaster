@@ -63,7 +63,7 @@ def test_daten_export_ohne_dist_bricht_ab(repo, capsys):
 
 def test_daten_export_schreibt_data_json_und_kopiert_medien(repo):
     """Schreibt web/dist/data.json (gleiche Struktur wie GET /api/daten) und
-    kopiert die Web-Bildkopien aus docs/medien (Nebeneffekt von
+    kopiert die Web-Bildkopien aus data/generated/medien (Nebeneffekt von
     media.web_export() innerhalb von daten_json()) nach web/dist/medien."""
     import json as _json
 

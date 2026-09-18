@@ -7,7 +7,7 @@ import tkinter as tk
 from contextlib import redirect_stdout, redirect_stderr
 from tkinter import scrolledtext, ttk
 
-from .common import DOCS, ROOT
+from .common import ROOT
 
 KNOEPFE = [
     ("Lage", ["status"]),
@@ -75,7 +75,9 @@ def run() -> None:
 
     def dashboard() -> None:
         import webbrowser
-        webbrowser.open((DOCS / "index.html").as_uri())
+        # Setzt eine laufende `camper serve` voraus — es gibt keine
+        # statische Dashboard-Datei mehr.
+        webbrowser.open("http://localhost:8765/")
 
     alle = KNOEPFE + [("Dashboard", None)]
     for i, (beschriftung, argv) in enumerate(alle):

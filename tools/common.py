@@ -12,14 +12,16 @@ ROOT = Path(__file__).resolve().parent.parent
 VAULT = ROOT / "vault"
 DATA = ROOT / "data"
 GENERATED = DATA / "generated"
-DOCS = ROOT / "docs"
 INPUT = ROOT / "_input"
 
 PARTS_CSV = DATA / "parts.csv"
 PARTS_XLSX = GENERATED / "Stueckliste.xlsx"
 BAUTEILE_CSV = DATA / "bauteile.csv"
 BAUTEILE_XLSX = GENERATED / "Bauteile.xlsx"
-DASHBOARD_JSON = DOCS / "data.json"
+# Web-Kopien der Bilder (verkleinert, ASCII-Namen) — erzeugt von
+# tools/media.py:web_export(), ausgeliefert über die Route /medien
+# (tools/server/start.py) bzw. kopiert von `camper web daten`.
+MEDIEN_WEB_DIR = GENERATED / "medien"
 
 BEREICHE_DIR = VAULT / "Bereiche"
 PARTS_MD_DIR = VAULT / "Stückliste"

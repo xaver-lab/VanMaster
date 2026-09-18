@@ -40,7 +40,6 @@ def repo(tmp_path, monkeypatch) -> Path:
     shutil.copytree(ROOT / "data", tmp_path / "data",
                     ignore=shutil.ignore_patterns("generated"))
     (tmp_path / "data" / "generated").mkdir()
-    (tmp_path / "docs").mkdir()
     (tmp_path / "_input").mkdir()
 
     echt = common.ROOT

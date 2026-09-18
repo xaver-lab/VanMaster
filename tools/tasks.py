@@ -20,8 +20,8 @@ Die Grammatik selbst wohnt in ``tools/kern/format.py``; das Lesen in
 die bestehenden Aufrufer erwarten, plus die Auswertungen (Fortschritt,
 nächste Aufgaben, Kurzbericht) und die schreibenden Befehle, die über
 ``tools.kern.aufgaben`` laufen (Quelle ``claude`` — dieses Modul wird nur
-von der Kommandozeile aus benutzt, das Dashboard schreibt über
-``tools/serve.py`` direkt gegen den Kern).
+von der Kommandozeile aus benutzt, das Web schreibt über
+``tools/server/app.py`` direkt gegen den Kern).
 """
 from __future__ import annotations
 

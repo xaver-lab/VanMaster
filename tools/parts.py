@@ -3,7 +3,7 @@
 Lesen läuft über ``tools.kern.lesen.teile_lesen`` (Grammatik/Spalten aus
 ``tools/kern/format.py``); Feld ändern und Anlegen über
 ``tools.kern.tabellen`` (Quelle ``claude`` — dieses Modul wird von der
-Kommandozeile aus benutzt, das Dashboard schreibt über ``tools/serve.py``
+Kommandozeile aus benutzt, das Web schreibt über ``tools/server/app.py``
 direkt gegen den Kern mit Quelle ``web``). Der Massenschreibweg für den
 Excel-Import bleibt hier (der Kern hat keine Massen-Import-Funktion),
 schreibt aber über ``tools.kern.datei`` — mit Versionsschutz und atomar.

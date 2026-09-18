@@ -5,7 +5,7 @@ import shutil
 from datetime import date
 from pathlib import Path
 
-from .common import DOCS, INPUT, MEDIEN_DIR, MODELLE_DIR, slug, write_text
+from .common import INPUT, MEDIEN_DIR, MEDIEN_WEB_DIR, MODELLE_DIR, slug, write_text
 
 BILDER = (".jpg", ".jpeg", ".png", ".webp")
 DOKUMENTE = (".pdf", ".docx", ".doc", ".odt", ".xlsx")
@@ -16,7 +16,7 @@ MODELLE_WEB = (".glb", ".gltf", ".stl")
 MAX_KANTE = 1600
 # Das Dashboard liegt auf dem Handy — die Web-Kopie darf kleiner sein.
 WEB_KANTE = 1000
-WEB_DIR = DOCS / "medien"
+WEB_DIR = MEDIEN_WEB_DIR
 
 
 def wurzel(endung: str) -> Path:
@@ -107,7 +107,9 @@ def index_text() -> str:
 
 
 def web_export() -> dict:
-    """Kopien neben dem Dashboard — ausgeliefert wird nur `docs/`.
+    """Erzeugte Web-Kopien unter ``data/generated/medien/`` — ausgeliefert über
+    die Route ``/medien`` (tools/server/start.py) bzw. kopiert von
+    `camper web daten` nach `web/dist/medien`.
 
     Bilder werden dabei ein zweites Mal verkleinert, Dokumente bleiben wie sie
     sind. Was im Vault verschwunden ist, fliegt hier mit raus.

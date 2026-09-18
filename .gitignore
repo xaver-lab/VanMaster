@@ -24,9 +24,7 @@ web/node_modules/
 web/dist/
 .claude/worktrees/
 
-# docs/data.json, docs/data.js, docs/medien/ — erzeugt (tools/build.py,
-# tools/media.py:web_export). Die GitHub Action baut sie selbst (UMBAU.md
+# data/generated/medien/ — Web-Kopien der Bilder, erzeugt von
+# tools/media.py:web_export(). Die GitHub Action baut sie selbst (UMBAU.md
 # Phase 9); Quelle bleibt vault/Medien.
-docs/data.json
-docs/data.js
-docs/medien/
+data/generated/medien/

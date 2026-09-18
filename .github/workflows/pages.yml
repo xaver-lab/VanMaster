@@ -1,8 +1,7 @@
 name: Pages
 
 # Baut das neue Web-Dashboard (web/) mit den aktuellen Vault-Daten und liefert
-# es rein lesend über GitHub Pages aus (UMBAU.md Phase 9). Das alte Dashboard
-# unter docs/ bleibt vorerst unberührt im Repo, hier nicht gebaut.
+# es rein lesend über GitHub Pages aus (UMBAU.md Phase 9).
 
 on:
   push:
