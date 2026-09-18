@@ -12,7 +12,7 @@ erzeugt: true
 | Audiosystem | 1 Stk | 0,00 € | 0,00 € | Idee | Nice-to-have |  |  |
 | Autositz Beifahrer + Drehsitz | 1 Stk | 0,00 € | 0,00 € | Idee | Mittel |  |  |
 | Camping-Toilette (Kassette) | 1 Stk | 0,00 € | 0,00 € | Idee | Mittel |  |  |
-| [Dachfenster](https://belluna.eu/shop/super-fan-dachfenster-mit-luefter-fernbedienung-insektenschutz-und-verdunkelung-400x400-mm-generation-3-1/) | 1 Stk | 299,00 € | 299,00 € | Idee | Hoch | Belluna |  |
+| [Dachfenster](https://belluna.eu/shop/super-fan-dachfenster-mit-luefter-fernbedienung-insektenschutz-und-verdunkelung-400x400-mm-generation-3-1/) | 1 Stk | 299,00 € | 299,00 € | Entschieden | Hoch | Belluna |  |
 | Dachfenster-Zwischenstück | 1 Stk | 0,00 € | 0,00 € | Idee | Hoch |  |  |
 | Drehsitz Fahrer | 1 Stk | 0,00 € | 0,00 € | Idee | Nice-to-have |  |  |
 | Eisenwinkel | 1 Stk | 0,00 € | 0,00 € | Geliefert | Hoch |  |  |

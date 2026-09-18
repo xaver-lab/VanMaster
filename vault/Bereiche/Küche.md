@@ -67,6 +67,24 @@ der Nutzer:
 - Aus `_input/Konstruktion/Maße.txt`: Kanister und Gaskocher stehen als
   Stichworte mit Fragezeichen da, ohne Maß — Aufmaß für beide steht noch aus.
 
+Aus `_input/miro_export.md`, Frame „Aufgaben Diagramm", Ast „Küche
+(Arbeitsbereich)" (Rohnotiz, Original-Wortlaut, unbewertet):
+
+- Gaskocher festlegen
+- Waschbecken und Wasserhahn festlegen (XAV?)
+- Arbeitsplatte planen
+- Arbeitsfläche Höhe auch 95cm? Dann Bestecklade mit 10cm Höhe möglich
+- Wassertank einplanen
+- Platte für Gaskocher einfach zum Aufklappen (dann Windschutz)
+- Schuhlager?
+- Mülllager
+- Bestecklade
+- Kasten mit Geschirr
+- Rechts neben Schiebetür Regal?
+- Über der Küche? (Keine Aussicht mehr!!)
+- Oder gegenüber über die gesamte Länge
+- Über Kühlschrank oder Mitte Bett
+
 **Bilder.** Sieben Sammelbilder aus fremden Ausbauten, als Ideenspeicher: ein
 Küchenblock an der Schiebetür mit ausziehbarem Kühlschrankfach und Hängeschrank
 darüber; ein Müllauszug als schmale Lade neben dem Kühlschrank; ein

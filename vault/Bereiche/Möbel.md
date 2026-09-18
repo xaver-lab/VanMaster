@@ -56,7 +56,9 @@ Vollauszugschiene, an eine Schrankseite montiert.
 **Maße aus der Konstruktion.** Aus den handschriftlichen Aufmaßen
 (`_input/Konstruktion/Maße.txt`): Ausziehlade 162 × 82 cm, Kisten 80 × 40 cm
 — letzteres deckt sich mit dem Euro-Stapelbehälter-Format aus dem Ideenbild
-in den Notizen unten.
+in den Notizen unten. Die bereits recherchierte Eurobox (`parts.csv`,
+`lagerkisten-eurobox-60x40x32`) ist mit 60 × 40 cm aber schmaler als hier
+notiert — beim Entscheiden gegenprüfen, welches Maß gilt.
 
 ## Auslegung
 
@@ -102,6 +104,60 @@ Aus `_input/Ideas/Notizen.txt` (Rohnotiz, unbewertet):
 - Frage, ob sich die Matratze aufstellen lässt, um darunter ranzukommen.
 - CAD-Referenz für die Inneneinrichtung eines Renault Master Low Loader:
   https://grabcad.com/library/campervan-interior-renault-master-low-loader-1
+
+Aus `_input/miro_export.md`, Frame „Aufgaben Diagramm" (Rohnotiz,
+Original-Wortlaut, unbewertet — die Anordnung entscheidet der Nutzer):
+
+**Bettsystem**
+- Nebenbett rechts Ablagefläche (gleich hoch wie Arbeitsfläche, 95cm)
+- Lager von Bett erreichbar rechts nach unten erreichbar?
+- oder nicht und Übersessellager für Sonnenschirm?!
+- Lattenrost zum Entfernen? Dadurch besser als Transporter nutzbar...?
+- Regal neben Bett — erst später planen
+
+**Sessellager Hecktüre**
+- Hecktüre abmessen
+- Lager Sessel platzieren, Radkasten berücksichtigen
+- Sessellager Hecktüre Größe berücksichtigen
+- Unten Keile (Höhe 25cm), dahinter vl. Batterien
+- Sessellager eine Kiste HxBxL 55x30x110 (in Autotür), Oberkante wie Arbeitsfläche
+- Richtung Wand offen. Liegestühle mit Gummi an die Wand
+- Sonst geschlossen
+- Wenn oben Platz, dann was für Sonnenschirme?
+- Hinter Sessellager Rest Platz für Essenskisten? Von vorne erreichbar (mit Rollo?)
+
+**Ausziehkistenlager (Bett Oberkante ca. 80/90cm)**
+- Wie lang?
+- 1x Ausziehladen
+- Tischlager planen bzw. einfach nur die Höhe, Rest einfach bauen
+  (Tisch HxBxL 8,5x68x100)
+- Mit Stoff ausgekleidet zum Rein- und Rausschieben
+- Ausschublagergröße festlegen (40x60 Kisten?)
+- Ausschublade planen, Platte mit kleinem Rand für die Kisten
+- Wassertank überlegen, sonst auch Größe berücksichtigen
+- Kisten bestellen
+- Schienen bestellen
+- Zwei Laden übereinander? Oder nur zwei Kisten übereinander
+
+**Lager rechts (Etagen)**
+- Links / Rechts / Mitte
+- Zwei Etagen?
+- Oben VL Lade für Besteck und Kleinigkeiten, oder über Kühlschrank
+- Oben Gaslager? Liegend gut erreichbar zum Auf- und Zudrehen, 2 Stk.
+- Theoretisch Lade? Für bessere Erreichbarkeit
+- Wenn Keile 25cm + Sessellager 55cm, dann auf 95cm 15cm übrig —
+  theoretisch genau ein Schirm
+
+**Küche / Bett-Übergang**
+- Anschluss Kühlschrank an Bett (Größe/Gangbreite festlegen, erst Küche planen)
+- Küchenanschluss zu Bett
+- Hochschrank bei Bett? Erst später planen
+- Restplatz links abmessen und weitere Lager-Ideen sammeln
+- Was kommt? (Standheizung, Batterien, E-Zeug)
+- Vorne Kiste für Essen
+- Zwischenkasten zu Sitz? Erster Sitz mit Tisch planen (unter Ausbau erst),
+  für Gewürze und Flaschen
+- Werkzeuglager
 
 ## Links
 

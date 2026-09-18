@@ -1,11 +1,11 @@
 {
-  "erzeugt": "2026-09-18T08:36",
+  "erzeugt": "2026-09-18T08:39",
   "projekt": "VanMaster",
   "sortierung": "baustellen",
   "kennzahlen": {
     "aufgaben_fertig": 1,
     "aufgaben_gesamt": 34,
-    "teile": 70,
+    "teile": 67,
     "kosten": 3045.53,
     "kosten_bestellt": 443.3,
     "gewicht": 17.4,
@@ -19,9 +19,9 @@
       "status": "in-arbeit",
       "phase": 6,
       "beschreibung": "Bett, Küchenblock, Schränke, Sitzbank mit Toilette, Tisch, Befestigung an der Karosserie.",
-      "stand": "### Hängeschränke\n\nKorpus und Fronten aus EpicPLY-Multiplex. Die Fronten sind Klappen, die nach\noben schwenken, keine seitlich öffnenden Türen — so steht beim Kochen nichts\nauf Kopfhöhe im Weg.\n\n**Beschläge**\n\n- Klappenbeschlag Grass Kinvaro T-57 (Hochschwenk-Automatik, 240 N). Trägt\n  Klappen bis 6,2 kg, öffnet auf 75 oder 90°. Ein Paar je Klappe.\n- Verschließbares Push-Lock-Schloss statt Griff: sitzt bündig, hakt nicht am\n  Kopf und hält die Klappe auf der Fahrt zu.\n- Zusätzlich Möbelmagnete an den Klappen.\n\n**Was das für den Zuschnitt heißt**\n\n- Die Klappen müssen **14–16 mm** stark sein, sonst passt das Push-Lock nicht.\n  Pro Schloss ein Loch mit 26 mm Durchmesser in der Front.\n- Klappengewicht pro Beschlagpaar unter 6,2 kg halten. Bei 15 mm Multiplex\n  (rund 10 kg/m²) heißt das: Klappenfläche höchstens etwa 0,6 m².\n- Über der Klappe muss der Öffnungsweg frei bleiben — der Beschlag schwenkt\n  die Front nach oben vor die Decke.\n\n### Sitzbank, Tisch und Toilette\n\n**Toilette.** Eine Kassettentoilette (Porta-Potti-Bauart) sitzt ausziehbar in\neiner Lade neben der Sitzbank — auf einem Rollbrett mit kleinen Lenkrollen,\nsodass sie sich beim Entleeren einfach herausziehen lässt. Ein\nKlopapierhalter mit zwei Rollen sitzt in derselben Lade daneben.\n\n**Tisch.** Zweiteilige Bambus-Tischplatte auf einem einzelnen Metallbein:\neine kleinere Platte liegt über einer größeren, vermutlich zum Vergrößern der\nFläche verschieb- oder klappbar. Separat dazu ein Wandarm-Tisch, der sich zum\nBeifahrersitz hin schwenken lässt und dort als kleine Ablage direkt am\nFahrersitzbereich dient — deckt sich mit der Notiz „Ausklapptisch zum\nBeifahrersitz\" unter [[Küche]].\n\n**Gewürzregal.** Schmales Auszugregal mit Drahtkörben auf einer\nVollauszugschiene, an eine Schrankseite montiert.\n\n**Maße aus der Konstruktion.** Aus den handschriftlichen Aufmaßen\n(`_input/Konstruktion/Maße.txt`): Ausziehlade 162 × 82 cm, Kisten 80 × 40 cm\n— letzteres deckt sich mit dem Euro-Stapelbehälter-Format aus dem Ideenbild\nin den Notizen unten.",
+      "stand": "### Hängeschränke\n\nKorpus und Fronten aus EpicPLY-Multiplex. Die Fronten sind Klappen, die nach\noben schwenken, keine seitlich öffnenden Türen — so steht beim Kochen nichts\nauf Kopfhöhe im Weg.\n\n**Beschläge**\n\n- Klappenbeschlag Grass Kinvaro T-57 (Hochschwenk-Automatik, 240 N). Trägt\n  Klappen bis 6,2 kg, öffnet auf 75 oder 90°. Ein Paar je Klappe.\n- Verschließbares Push-Lock-Schloss statt Griff: sitzt bündig, hakt nicht am\n  Kopf und hält die Klappe auf der Fahrt zu.\n- Zusätzlich Möbelmagnete an den Klappen.\n\n**Was das für den Zuschnitt heißt**\n\n- Die Klappen müssen **14–16 mm** stark sein, sonst passt das Push-Lock nicht.\n  Pro Schloss ein Loch mit 26 mm Durchmesser in der Front.\n- Klappengewicht pro Beschlagpaar unter 6,2 kg halten. Bei 15 mm Multiplex\n  (rund 10 kg/m²) heißt das: Klappenfläche höchstens etwa 0,6 m².\n- Über der Klappe muss der Öffnungsweg frei bleiben — der Beschlag schwenkt\n  die Front nach oben vor die Decke.\n\n### Sitzbank, Tisch und Toilette\n\n**Toilette.** Eine Kassettentoilette (Porta-Potti-Bauart) sitzt ausziehbar in\neiner Lade neben der Sitzbank — auf einem Rollbrett mit kleinen Lenkrollen,\nsodass sie sich beim Entleeren einfach herausziehen lässt. Ein\nKlopapierhalter mit zwei Rollen sitzt in derselben Lade daneben.\n\n**Tisch.** Zweiteilige Bambus-Tischplatte auf einem einzelnen Metallbein:\neine kleinere Platte liegt über einer größeren, vermutlich zum Vergrößern der\nFläche verschieb- oder klappbar. Separat dazu ein Wandarm-Tisch, der sich zum\nBeifahrersitz hin schwenken lässt und dort als kleine Ablage direkt am\nFahrersitzbereich dient — deckt sich mit der Notiz „Ausklapptisch zum\nBeifahrersitz\" unter [[Küche]].\n\n**Gewürzregal.** Schmales Auszugregal mit Drahtkörben auf einer\nVollauszugschiene, an eine Schrankseite montiert.\n\n**Maße aus der Konstruktion.** Aus den handschriftlichen Aufmaßen\n(`_input/Konstruktion/Maße.txt`): Ausziehlade 162 × 82 cm, Kisten 80 × 40 cm\n— letzteres deckt sich mit dem Euro-Stapelbehälter-Format aus dem Ideenbild\nin den Notizen unten. Die bereits recherchierte Eurobox (`parts.csv`,\n`lagerkisten-eurobox-60x40x32`) ist mit 60 × 40 cm aber schmaler als hier\nnotiert — beim Entscheiden gegenprüfen, welches Maß gilt.",
       "auslegung": "",
-      "notizen": "- Wabenmuster im CAD-Seitenteil ist eine Idee zur Gewichtsersparnis, noch nicht\n  gerechnet.\n- Stückzahl der Klappen hängt am Layout, deshalb stehen die Beschlagmengen offen.\n\nAus `_input/Kühlschrank und Sitzbank/` (Rohnotizen und Ideenbilder, unbewertet):\n\n- Ideenbild eines fertigen Ausbaus zeigt Hängeschränke, Dachfenster und\n  Kochstelle im Zusammenspiel — als grober Raumeindruck, keine Maße.\n- Toilettenmodell, Rollbrett-Konstruktion und Tischform sind noch offen.\n\nAus `_input/Konstruktion/` (Rohnotizen und Ideenbilder, unbewertet — die\nAnordnung entscheidet der Nutzer, Fahrzeug-Innenmaße dazu stehen unter\n[[Karosserie]]):\n\n- Zwei Grundriss-Varianten von Hand skizziert (2D, oben und Seitenansicht):\n  Drehsitze vorne, Bett hinten, Küchenblock mit Kühlschrank und Spüle,\n  Ausziehlade, Regal. Keine Maße auf der Skizze.\n- Eine 3D-Skizze (axonometrisch) zeigt dieselbe Anordnung räumlich, mit\n  „Kühlschrank\", „Sessel 1/2\", „Liegefläche\" und „Kiste\" beschriftet.\n- Ein 3D-Render eines Schrankmoduls mit rot markierten Fächern — offenbar aus\n  einem CAD- oder Konfigurator-Tool, Zweck der Markierung nicht klar.\n- Ein 3D-Render von vier Euro-Stapelbehältern auf einer Holzplatte —\n  Ideenbild für Stauraum in Schubladen- oder Regalform.\n- Zwei Fotos mit handschriftlich eingetragenen Maßen an vorhandenen\n  Gegenständen: eine zusammengerollte Matte/Zelttasche (Länge ca. 109 cm,\n  Ø ca. 30 cm) und ein Camping-Falttisch (Platte ca. 68 × 100 cm,\n  Beinhöhe zusammengeklappt 8,5 cm, Plattendicke 2,5–3 cm). Unklar, ob als\n  Vorbild für einen zu bauenden Tisch oder als Maß für vorhandenes\n  Campingzubehör gedacht.\n\nAus `_input/Ideas/Notizen.txt` (Rohnotiz, unbewertet):\n\n- Lagerplatz für ein Fernglas über der Fahrerkabine.\n- Faltbare Schwerlast-Winkelhalter mit Arretierung — als Beschlag-Idee, wofür\n  genau ist offen.\n- Frage, ob sich die Matratze aufstellen lässt, um darunter ranzukommen.\n- CAD-Referenz für die Inneneinrichtung eines Renault Master Low Loader:\n  https://grabcad.com/library/campervan-interior-renault-master-low-loader-1",
+      "notizen": "- Wabenmuster im CAD-Seitenteil ist eine Idee zur Gewichtsersparnis, noch nicht\n  gerechnet.\n- Stückzahl der Klappen hängt am Layout, deshalb stehen die Beschlagmengen offen.\n\nAus `_input/Kühlschrank und Sitzbank/` (Rohnotizen und Ideenbilder, unbewertet):\n\n- Ideenbild eines fertigen Ausbaus zeigt Hängeschränke, Dachfenster und\n  Kochstelle im Zusammenspiel — als grober Raumeindruck, keine Maße.\n- Toilettenmodell, Rollbrett-Konstruktion und Tischform sind noch offen.\n\nAus `_input/Konstruktion/` (Rohnotizen und Ideenbilder, unbewertet — die\nAnordnung entscheidet der Nutzer, Fahrzeug-Innenmaße dazu stehen unter\n[[Karosserie]]):\n\n- Zwei Grundriss-Varianten von Hand skizziert (2D, oben und Seitenansicht):\n  Drehsitze vorne, Bett hinten, Küchenblock mit Kühlschrank und Spüle,\n  Ausziehlade, Regal. Keine Maße auf der Skizze.\n- Eine 3D-Skizze (axonometrisch) zeigt dieselbe Anordnung räumlich, mit\n  „Kühlschrank\", „Sessel 1/2\", „Liegefläche\" und „Kiste\" beschriftet.\n- Ein 3D-Render eines Schrankmoduls mit rot markierten Fächern — offenbar aus\n  einem CAD- oder Konfigurator-Tool, Zweck der Markierung nicht klar.\n- Ein 3D-Render von vier Euro-Stapelbehältern auf einer Holzplatte —\n  Ideenbild für Stauraum in Schubladen- oder Regalform.\n- Zwei Fotos mit handschriftlich eingetragenen Maßen an vorhandenen\n  Gegenständen: eine zusammengerollte Matte/Zelttasche (Länge ca. 109 cm,\n  Ø ca. 30 cm) und ein Camping-Falttisch (Platte ca. 68 × 100 cm,\n  Beinhöhe zusammengeklappt 8,5 cm, Plattendicke 2,5–3 cm). Unklar, ob als\n  Vorbild für einen zu bauenden Tisch oder als Maß für vorhandenes\n  Campingzubehör gedacht.\n\nAus `_input/Ideas/Notizen.txt` (Rohnotiz, unbewertet):\n\n- Lagerplatz für ein Fernglas über der Fahrerkabine.\n- Faltbare Schwerlast-Winkelhalter mit Arretierung — als Beschlag-Idee, wofür\n  genau ist offen.\n- Frage, ob sich die Matratze aufstellen lässt, um darunter ranzukommen.\n- CAD-Referenz für die Inneneinrichtung eines Renault Master Low Loader:\n  https://grabcad.com/library/campervan-interior-renault-master-low-loader-1\n\nAus `_input/miro_export.md`, Frame „Aufgaben Diagramm\" (Rohnotiz,\nOriginal-Wortlaut, unbewertet — die Anordnung entscheidet der Nutzer):\n\n**Bettsystem**\n- Nebenbett rechts Ablagefläche (gleich hoch wie Arbeitsfläche, 95cm)\n- Lager von Bett erreichbar rechts nach unten erreichbar?\n- oder nicht und Übersessellager für Sonnenschirm?!\n- Lattenrost zum Entfernen? Dadurch besser als Transporter nutzbar...?\n- Regal neben Bett — erst später planen\n\n**Sessellager Hecktüre**\n- Hecktüre abmessen\n- Lager Sessel platzieren, Radkasten berücksichtigen\n- Sessellager Hecktüre Größe berücksichtigen\n- Unten Keile (Höhe 25cm), dahinter vl. Batterien\n- Sessellager eine Kiste HxBxL 55x30x110 (in Autotür), Oberkante wie Arbeitsfläche\n- Richtung Wand offen. Liegestühle mit Gummi an die Wand\n- Sonst geschlossen\n- Wenn oben Platz, dann was für Sonnenschirme?\n- Hinter Sessellager Rest Platz für Essenskisten? Von vorne erreichbar (mit Rollo?)\n\n**Ausziehkistenlager (Bett Oberkante ca. 80/90cm)**\n- Wie lang?\n- 1x Ausziehladen\n- Tischlager planen bzw. einfach nur die Höhe, Rest einfach bauen\n  (Tisch HxBxL 8,5x68x100)\n- Mit Stoff ausgekleidet zum Rein- und Rausschieben\n- Ausschublagergröße festlegen (40x60 Kisten?)\n- Ausschublade planen, Platte mit kleinem Rand für die Kisten\n- Wassertank überlegen, sonst auch Größe berücksichtigen\n- Kisten bestellen\n- Schienen bestellen\n- Zwei Laden übereinander? Oder nur zwei Kisten übereinander\n\n**Lager rechts (Etagen)**\n- Links / Rechts / Mitte\n- Zwei Etagen?\n- Oben VL Lade für Besteck und Kleinigkeiten, oder über Kühlschrank\n- Oben Gaslager? Liegend gut erreichbar zum Auf- und Zudrehen, 2 Stk.\n- Theoretisch Lade? Für bessere Erreichbarkeit\n- Wenn Keile 25cm + Sessellager 55cm, dann auf 95cm 15cm übrig —\n  theoretisch genau ein Schirm\n\n**Küche / Bett-Übergang**\n- Anschluss Kühlschrank an Bett (Größe/Gangbreite festlegen, erst Küche planen)\n- Küchenanschluss zu Bett\n- Hochschrank bei Bett? Erst später planen\n- Restplatz links abmessen und weitere Lager-Ideen sammeln\n- Was kommt? (Standheizung, Batterien, E-Zeug)\n- Vorne Kiste für Essen\n- Zwischenkasten zu Sitz? Erster Sitz mit Tisch planen (unter Ausbau erst),\n  für Gewürze und Flaschen\n- Werkzeuglager",
       "links": [
         {
           "titel": "Klappenbeschlag Grass Kinvaro T-57",
@@ -74,7 +74,7 @@
       "beschreibung": "Der Küchenblock an der Schiebetür: Gaskocher, Spüle, Kompressorkühlschrank und\ndarunter Stauraum. Er ist das Möbel mit den meisten Anschlüssen — Frisch- und\nAbwasser, 12 V für den Kühlschrank, Gas für den Kocher — und gleichzeitig das\nStück, das die Gangbreite bestimmt.",
       "stand": "**Kühlschrank.** Drei Belluna-Modelle sind durchgerechnet (80 L, 85 L, 92 L),\nErgebnis in [[Kühlschrank Modell]]. Feststehende Punkte:\n\n- Alle drei liegen bei 45–50 W Spitze, also rund 4,2 A bei 12 V. Die\n  6-A-Sicherung der Küchenzone reicht. Tagesverbrauch etwa 390 Wh, das sind\n  13–15 % der 300 Ah LiFePO4.\n- Die Einbautiefe steuert den Gang: 44–45 cm lassen bei 171 cm Innenbreite\n  etwa 81–82 cm Gang, 54 cm nur noch 72 cm.\n- Türanschlag soll links sitzen, Griff rechts, damit die Tür zur\n  Fahrerseitenwand aufschwingt und den Gang frei lässt.\n\n**Wasser in der Küche.** Frischwasser kommt aus Weithalskanistern DIN 96 im\nKüchenschacht (siehe [[Wasser]]). Der Abwassertank soll nicht mehr in der Tür\nsitzen.\n\n**Klappen.** Für Waschbecken-, Kocher- und Wassertankklappe ist ein\nEasyConnect-Scharnier-Set von Camping Wagner vorgesehen. Die Klappenstärke\nliegt durch das Push-Lock-Schloss bei 14–16 mm (siehe [[Möbel]]).",
       "auslegung": "| | Wert | Quelle |\n|---|---|---|\n| Innenbreite Laderaum | 171 cm | Fahrzeugmaß |\n| Gang bei 44–45 cm Kühlschranktiefe | 81–82 cm | gerechnet |\n| Gang bei 54 cm Kühlschranktiefe | 72 cm | gerechnet |\n| Kühlschrank Spitzenlast | 45–50 W ≈ 4,2 A bei 12 V | Herstellerangabe |\n| Kühlschrank Tagesverbrauch | ~390 Wh ≈ 13–15 % der Bank | gerechnet |\n| Sicherung Küchenzone | 6 A | Elektrikplanung, reicht aus |\n| Klappenstärke | 14–16 mm | Vorgabe Push-Lock-Schloss |",
-      "notizen": "Rohnotizen aus `_input/Küche/infos.txt`, unbewertet — die Anordnung entscheidet\nder Nutzer:\n\n- Neben dem Waschbecken ein Kasten für Geschirr und Kochzeug? Nur falls unten\n  in der Küche nichts mehr frei wird.\n- Vorne links Schuhkasten unten neben dem Wassertank, darüber Müll oder Lade.\n- Müll vielleicht direkt beim Bett statt in der Küche.\n- Ausklapptisch zum Beifahrersitz hin, für den geschlossenen Van. Ideenbild\n  dazu (Wandarm-Tisch, zum Fahrerbereich geschwenkt) liegt unter [[Möbel]].\n- Wasserhahn daneben setzen, damit man auch bei geschlossener Platte Wasser\n  holen kann.\n- Abwassertank nicht mehr in der Tür (Abblaseventil). Wenn er ausgebaut wird,\n  dann gleich zusammen mit dem Frischwasser.\n- Aus der Einkaufsliste: „Wasserhahn ohne Hahn\" — vermutlich Spüle ohne\n  mitgelieferte Armatur, Armatur separat. Noch zu bestätigen.\n- Aus `_input/Konstruktion/Maße.txt`: Kanister und Gaskocher stehen als\n  Stichworte mit Fragezeichen da, ohne Maß — Aufmaß für beide steht noch aus.\n\n**Bilder.** Sieben Sammelbilder aus fremden Ausbauten, als Ideenspeicher: ein\nKüchenblock an der Schiebetür mit ausziehbarem Kühlschrankfach und Hängeschrank\ndarüber; ein Müllauszug als schmale Lade neben dem Kühlschrank; ein\nKüchensockel mit indirekter Beleuchtung im Türausschnitt; Wasserkanister\nstehend in einem schmalen Schacht; eine Edelstahlspüle mit hölzernem\nAbdeckbrett; ein Gaskocher hinter einer Klappe mit seitlichem Ausklapptisch;\neine Kocher-Spülen-Kombination mit Klappdeckel und angesetztem Ausklapptisch.\nKeine Maße darauf.",
+      "notizen": "Rohnotizen aus `_input/Küche/infos.txt`, unbewertet — die Anordnung entscheidet\nder Nutzer:\n\n- Neben dem Waschbecken ein Kasten für Geschirr und Kochzeug? Nur falls unten\n  in der Küche nichts mehr frei wird.\n- Vorne links Schuhkasten unten neben dem Wassertank, darüber Müll oder Lade.\n- Müll vielleicht direkt beim Bett statt in der Küche.\n- Ausklapptisch zum Beifahrersitz hin, für den geschlossenen Van. Ideenbild\n  dazu (Wandarm-Tisch, zum Fahrerbereich geschwenkt) liegt unter [[Möbel]].\n- Wasserhahn daneben setzen, damit man auch bei geschlossener Platte Wasser\n  holen kann.\n- Abwassertank nicht mehr in der Tür (Abblaseventil). Wenn er ausgebaut wird,\n  dann gleich zusammen mit dem Frischwasser.\n- Aus der Einkaufsliste: „Wasserhahn ohne Hahn\" — vermutlich Spüle ohne\n  mitgelieferte Armatur, Armatur separat. Noch zu bestätigen.\n- Aus `_input/Konstruktion/Maße.txt`: Kanister und Gaskocher stehen als\n  Stichworte mit Fragezeichen da, ohne Maß — Aufmaß für beide steht noch aus.\n\nAus `_input/miro_export.md`, Frame „Aufgaben Diagramm\", Ast „Küche\n(Arbeitsbereich)\" (Rohnotiz, Original-Wortlaut, unbewertet):\n\n- Gaskocher festlegen\n- Waschbecken und Wasserhahn festlegen (XAV?)\n- Arbeitsplatte planen\n- Arbeitsfläche Höhe auch 95cm? Dann Bestecklade mit 10cm Höhe möglich\n- Wassertank einplanen\n- Platte für Gaskocher einfach zum Aufklappen (dann Windschutz)\n- Schuhlager?\n- Mülllager\n- Bestecklade\n- Kasten mit Geschirr\n- Rechts neben Schiebetür Regal?\n- Über der Küche? (Keine Aussicht mehr!!)\n- Oder gegenüber über die gesamte Länge\n- Über Kühlschrank oder Mitte Bett\n\n**Bilder.** Sieben Sammelbilder aus fremden Ausbauten, als Ideenspeicher: ein\nKüchenblock an der Schiebetür mit ausziehbarem Kühlschrankfach und Hängeschrank\ndarüber; ein Müllauszug als schmale Lade neben dem Kühlschrank; ein\nKüchensockel mit indirekter Beleuchtung im Türausschnitt; Wasserkanister\nstehend in einem schmalen Schacht; eine Edelstahlspüle mit hölzernem\nAbdeckbrett; ein Gaskocher hinter einer Klappe mit seitlichem Ausklapptisch;\neine Kocher-Spülen-Kombination mit Klappdeckel und angesetztem Ausklapptisch.\nKeine Maße darauf.",
       "links": [
         {
           "titel": "Belluna 80 L Kompressorkühlschrank",
@@ -237,7 +237,7 @@
     },
     {
       "name": "Verbrauchsmaterial",
-      "teile": 8,
+      "teile": 5,
       "kosten": 28.0,
       "gewicht": 0.0,
       "verbaut": 0
@@ -568,7 +568,7 @@
       "prio": "hoch",
       "dauer": "",
       "datei": "vault\\Bereiche\\Küche.md",
-      "zeile": 92
+      "zeile": 110
     },
     {
       "id": "kuehlschrank-entscheiden",
@@ -585,7 +585,7 @@
       "prio": "hoch",
       "dauer": "",
       "datei": "vault\\Bereiche\\Küche.md",
-      "zeile": 93
+      "zeile": 111
     },
     {
       "id": "kueche-einbauen",
@@ -602,7 +602,7 @@
       "prio": "",
       "dauer": "",
       "datei": "vault\\Bereiche\\Küche.md",
-      "zeile": 94
+      "zeile": 112
     },
     {
       "id": "layout",
@@ -617,7 +617,7 @@
       "prio": "kritisch",
       "dauer": "",
       "datei": "vault\\Bereiche\\Möbel.md",
-      "zeile": 115
+      "zeile": 171
     },
     {
       "id": "bettrahmen",
@@ -634,7 +634,7 @@
       "prio": "",
       "dauer": "",
       "datei": "vault\\Bereiche\\Möbel.md",
-      "zeile": 116
+      "zeile": 172
     },
     {
       "id": "kuechenblock",
@@ -651,7 +651,7 @@
       "prio": "",
       "dauer": "",
       "datei": "vault\\Bereiche\\Möbel.md",
-      "zeile": 117
+      "zeile": 173
     },
     {
       "id": "schraenke",
@@ -668,7 +668,7 @@
       "prio": "",
       "dauer": "",
       "datei": "vault\\Bereiche\\Möbel.md",
-      "zeile": 118
+      "zeile": 174
     },
     {
       "id": "sitzbank",
@@ -685,7 +685,7 @@
       "prio": "",
       "dauer": "",
       "datei": "vault\\Bereiche\\Möbel.md",
-      "zeile": 119
+      "zeile": 175
     },
     {
       "id": "tisch",
@@ -702,7 +702,7 @@
       "prio": "",
       "dauer": "",
       "datei": "vault\\Bereiche\\Möbel.md",
-      "zeile": 120
+      "zeile": 176
     },
     {
       "id": "masse-aufnehmen",
@@ -1675,7 +1675,7 @@
       "menge": "1",
       "einheit": "Stk",
       "preis": "299",
-      "status": "Idee",
+      "status": "Entschieden",
       "prioritaet": "Hoch",
       "link": "https://belluna.eu/shop/super-fan-dachfenster-mit-luefter-fernbedienung-insektenschutz-und-verdunkelung-400x400-mm-generation-3-1/",
       "haendler": "Belluna",
@@ -1803,7 +1803,7 @@
       "entscheidung": "",
       "kennwerte": "Klappen 14–16 mm (Vorgabe Push-Lock-Schloss)",
       "gewicht_kg": "",
-      "notiz": "Stärken und Plattenmenge offen — hängt am Layout. Türstärke durch das Schloss auf 14–16 mm festgelegt.",
+      "notiz": "Stärken und Plattenmenge offen — hängt am Layout. Türstärke durch das Schloss auf 14–16 mm festgelegt. Auch für Fensterrahmen: Stärke Blechausschnitt +2mm.",
       "gekauft_am": "",
       "menge_n": 1.0,
       "preis_n": 0.0,
@@ -2315,30 +2315,6 @@
       "gewicht_n": 0.0
     },
     {
-      "id": "dachfenster-super-fan-400x400",
-      "titel": "Dachfenster Super Fan 400x400",
-      "beschreibung": "Dachfenster mit Lüfter, Fernbedienung, Insektenschutz und Verdunkelung, 400x400 mm, Generation 3",
-      "kategorie": "Verbrauchsmaterial",
-      "system": "Karosserie",
-      "menge": "1",
-      "einheit": "Stk",
-      "preis": "",
-      "status": "Entschieden",
-      "prioritaet": "Hoch",
-      "link": "https://belluna.eu/shop/super-fan-dachfenster-mit-luefter-fernbedienung-insektenschutz-und-verdunkelung-400x400-mm-generation-3-1/",
-      "haendler": "",
-      "fuer_aufgabe": "",
-      "entscheidung": "",
-      "kennwerte": "",
-      "gewicht_kg": "",
-      "notiz": "",
-      "gekauft_am": "",
-      "menge_n": 1.0,
-      "preis_n": 0.0,
-      "gesamt": 0.0,
-      "gewicht_n": 0.0
-    },
-    {
       "id": "dachfenster-kleber-carloflex",
       "titel": "Dachfenster-Kleber (Carloflex)",
       "beschreibung": "",
@@ -2360,30 +2336,6 @@
       "menge_n": 4.0,
       "preis_n": 7.0,
       "gesamt": 28.0,
-      "gewicht_n": 0.0
-    },
-    {
-      "id": "holz-fuer-fensterrahmen",
-      "titel": "Holz für Fensterrahmen",
-      "beschreibung": "Rahmenholz für Fensterausschnitte, +2mm über Blechstärke",
-      "kategorie": "Verbrauchsmaterial",
-      "system": "Karosserie",
-      "menge": "1",
-      "einheit": "Stk",
-      "preis": "",
-      "status": "Idee",
-      "prioritaet": "Hoch",
-      "link": "",
-      "haendler": "",
-      "fuer_aufgabe": "",
-      "entscheidung": "",
-      "kennwerte": "",
-      "gewicht_kg": "",
-      "notiz": "",
-      "gekauft_am": "",
-      "menge_n": 1.0,
-      "preis_n": 0.0,
-      "gesamt": 0.0,
       "gewicht_n": 0.0
     },
     {
@@ -2451,31 +2403,7 @@
       "entscheidung": "",
       "kennwerte": "",
       "gewicht_kg": "",
-      "notiz": "Im Rohmaterial nur als Frage notiert ('Hammerite?!') — Produkt offen.",
-      "gekauft_am": "",
-      "menge_n": 1.0,
-      "preis_n": 0.0,
-      "gesamt": 0.0,
-      "gewicht_n": 0.0
-    },
-    {
-      "id": "rostschutz-fensterausschnitt",
-      "titel": "Rostschutz Fensterausschnitt",
-      "beschreibung": "Rostschutz für die geschnittene Blechkante am Fensterausschnitt",
-      "kategorie": "Verbrauchsmaterial",
-      "system": "Karosserie",
-      "menge": "1",
-      "einheit": "Stk",
-      "preis": "",
-      "status": "Idee",
-      "prioritaet": "Mittel",
-      "link": "",
-      "haendler": "",
-      "fuer_aufgabe": "",
-      "entscheidung": "",
-      "kennwerte": "",
-      "gewicht_kg": "",
-      "notiz": "",
+      "notiz": "Im Rohmaterial nur als Frage notiert ('Hammerite?!') — Produkt offen. Auch für die geschnittene Blechkante am Fensterausschnitt.",
       "gekauft_am": "",
       "menge_n": 1.0,
       "preis_n": 0.0,
