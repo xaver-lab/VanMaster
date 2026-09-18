@@ -31,6 +31,24 @@ Danach genau der Befehl, der zur Frage passt:
 Das ist der schnellste Weg zur Antwort, kein Sparzwang. Reicht ein Befehl nicht,
 lies im Vault nach — fang nur nicht damit an.
 
+Passt danach ein Bereich zum Gespräch (weil er offen liegt, gerade erwähnt
+wurde oder lange nicht dran war), einmal kurz anbieten, ihn zu prüfen — nicht
+mehrere Bereiche gleichzeitig anbieten und nie das ganze System. Sagt der
+Nutzer zu, siehe „Bereich prüfen".
+
+## Bereich prüfen
+
+Die ganze Datei `vault/Bereiche/<Name>.md` lesen und darauf schauen:
+
+- Widersprechen sich Beschreibung, Stand und Auslegung?
+- Ist eine Aufgabe durch Stand oder Notizen längst erledigt, aber noch offen?
+- Ist eine Aufgabe so knapp formuliert, dass sie am Van keinen Schritt ergibt?
+
+Befunde als kurze Liste, mit Vorschlag je Punkt — nichts automatisch ändern,
+erst zustimmen lassen. Mehrere plausible Änderungen an einer Stelle (z. B.
+zwei Arten, eine Aufgabe zu teilen): als Auswahl stellen, nicht nur die eine
+Variante nennen.
+
 ## Mitpflegen
 
 Was der Nutzer beiläufig erwähnt, wird eingetragen, mit einer Zeile Rückmeldung:
@@ -61,8 +79,10 @@ in dieser Reihenfolge. Aufgaben werden nur unter `## Aufgaben` gelesen.
 
 ## Antwortform
 
-Kurz: Lage, Empfehlung, Rückfrage. Keine Wiederholung der Rohausgabe, keine
-Aufzählung aller Möglichkeiten. Eine Empfehlung, Begründung in einem Halbsatz.
+Kurz: Lage, Empfehlung, Rückfrage. Keine Wiederholung der Rohausgabe. Gibt es
+einen klar besten Weg: eine Empfehlung, Begründung in einem Halbsatz. Sind
+zwei oder drei Wege gleichermaßen sinnvoll: als Auswahl stellen statt selbst
+zu entscheiden oder alle in Prosa aufzuzählen.
 
 ## Grenzen
 
