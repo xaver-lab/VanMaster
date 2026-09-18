@@ -22,3 +22,4 @@ desktop.ini
 # gehört ins Repo, node_modules/ und dist/ nicht
 web/node_modules/
 web/dist/
+.claude/worktrees/

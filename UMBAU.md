@@ -105,7 +105,7 @@ Das alte Dashboard (`docs/`) läuft unverändert weiter, bis Phase 9 es ablöst.
 
 ## Phase 6 — Aufgaben und Bereichstexte (ab hier nutzbar)
 
-- [ ] [Sonnet] Aufgabenliste mit Filter, Gruppierung, Suche; Statuswechsler; Anlegen, Umbenennen, Löschen (mit Rückfrage); Detailfenster mit Beschreibung
+- [x] [Sonnet] Aufgabenliste mit Filter, Gruppierung, Suche; Statuswechsler; Anlegen, Umbenennen, Löschen (mit Rückfrage); Detailfenster mit Beschreibung
 - [ ] [Sonnet] Bereichsansicht: Kopf, Reiter, bearbeitbare Abschnitte (Textfeld mit Markdown-Vorschau), nur-lesende Abschnitte sichtbar markiert
 - [ ] [Sonnet] Browser-Prüfung: Anlegen/Ändern/Löschen landet in der Datei; Claude ändert parallel eine Datei → Oberfläche aktualisiert sich; Konflikt wird angezeigt
 - [ ] [Haupt] Feinschliff nach Rückmeldung des Nutzers
@@ -161,6 +161,8 @@ Eine Zeile je abgeschlossenem Punkt oder getroffener Entscheidung.
 - 2026-09-18 Phase 5: Store `web/src/lib/daten.svelte.ts` (Modus server/statisch, SSE mit Neuverbinden, Schreibfunktionen mit Hash, 409 → Stand übernehmen + Konflikt-Toast; Sperre weist parallele Schreibaufrufe ab statt Warteschlange). Rahmen: Kopfleiste, Hash-Routing, Hell/Dunkel, Toasts, Tastenkürzel, `Schreibbar.svelte` blendet im Lesemodus aus; Platzhalter-Ansichten in `web/src/routen/`. Kürzel für Palette und Lupe folgen mit den Ansichten. Server- und statischer Fall geprüft.
 - 2026-09-18 Phase 5: Stil aus `docs/css/basis.css`/`palette.css` in `web/src/app.css` (gleiche Farbvariablen, dunkel als Grundlage), Seitenschiene links wie früher (`Schiene.svelte`), Kopf mit Suchknopf und live-Anzeige, Kacheln auf Start. Reihenfolge 1 Start, 2 Bereiche, 3 Aufgaben … wie im alten Dashboard, `#/themen` → Bereiche. launch.json kurzzeitig auf `py -3.13`, wieder zurück auf `python`.
 - 2026-09-18 Phase 5 abgenommen: Oberfläche startet sauber (Nutzer).
+- 2026-09-18 Nutzer: Stil wirkt „AI-Standard“ → Opus-Subagent entwirft parallel im Worktree ein neues Designsystem (`web/src/lib/ui/`, `web/DESIGN.md`, Musterseite `#/muster`); Abnahme durch den Nutzer vor dem Übernehmen.
+- 2026-09-18 Phase 6: Aufgabenliste (`web/src/lib/aufgaben/`: AufgabenListe `bereich?`, `anlegenErlaubt?`; AufgabeZeile, AufgabeDetail `#/aufgaben/<id>`), Filter/Gruppierung/Suche, Statuswechsler, Anlegen/Umbenennen/Löschen mit Rückfrage, Beschreibung mit Vorschau. `lib/markdown.ts` + `Markdown.svelte` lösen `[[…]]` auf; externe Links nur http(s)/ohne Schema. An Heizung durchgespielt, Vault danach bytegleich. Stil vorerst schlicht, folgt dem neuen Designsystem.
 
 ## Offene Fragen
 

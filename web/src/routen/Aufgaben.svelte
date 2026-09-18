@@ -1,3 +1,5 @@
-<script lang="ts"></script>
+<script lang="ts">
+  import AufgabenListe from '../lib/aufgaben/AufgabenListe.svelte';
+</script>
 
-<p class="leer">Kommt in Phase 6.</p>
+<AufgabenListe />
