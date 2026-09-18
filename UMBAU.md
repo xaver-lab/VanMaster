@@ -178,9 +178,22 @@ Eine Zeile je abgeschlossenem Punkt oder getroffener Entscheidung.
 
 ## Übergabe an den nächsten Chat
 
-Stand 2026-09-18: Phasen 0–5 fertig und abgenommen. Phase 6: Aufgabenliste und
-Bereichsansicht gebaut, Designsystem übernommen. Weiter mit **Phase 6: Umstellen auf
-die Bausteine**, danach Browser-Prüfung und Feinschliff.
+Stand 2026-09-18: Phasen 0–5 fertig und abgenommen. Phase 6 und 7 sind **gebaut, aber
+nicht abgenommen** — in der Cloud-Sitzung, in der sie entstanden sind, war der Zugriff
+auf die npm-Registry gesperrt (403 `host_not_allowed`, Cache leer), `node_modules` fehlte.
+Deshalb lief weder `camper web check` noch `web build`, und keine Ansicht war je im Browser.
+
+**Erster Schritt im neuen Chat, vor allem anderen:**
+
+```
+python camper.py web check && python camper.py web build
+```
+
+Läuft das durch, die mit `[~]` markierten Punkte auf `[x]` setzen und mit der
+Browser-Prüfung aus Phase 6 weitermachen. Gibt es Fehler, zuerst die abstellen —
+der Code ist von Hand gegen Props, Importe und Store-Signaturen geprüft, aber kein
+Compiler hat ihn je gesehen. Erwartbar sind Tippfehler in Prop-Namen und
+Svelte-5-Syntax, nicht falsche Logik.
 
 - Neuer Rechner: `pip install --user -r requirements.txt`; Node portabel nach `~/nodejs/`
   (Version 24, nicht im PATH) oder systemweit im PATH — `camper web` findet beides.
