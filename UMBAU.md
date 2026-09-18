@@ -90,11 +90,11 @@ Das alte Dashboard (`docs/`) läuft unverändert weiter, bis Phase 9 es ablöst.
 ## Phase 4 — FastAPI-Server
 
 - [x] [Sonnet] `tools/server/`: FastAPI-App mit Pydantic-Modellen; `GET /api/daten`, CRUD für Aufgaben, Abschnitte, Teile, Einzelteile; jede Schreibanfrage trägt den Dateihash, Konflikt → 409 mit aktuellem Stand
-- [ ] [Sonnet] Live-Aktualisierung: Dateien per mtime überwachen (Standardbibliothek), Änderungen als Server-Sent Events an den Browser
+- [x] [Sonnet] Live-Aktualisierung: Dateien per mtime überwachen (Standardbibliothek), Änderungen als Server-Sent Events an den Browser
 - [x] [Sonnet] Auto-Commit: Web-Änderungen sammeln, nach einigen Minuten ohne Eingabe ein Commit mit einer Zeile; kein Push
 - [x] [Sonnet] `camper serve` startet die neue App (liefert `web/dist` aus); alte Oberfläche weiter unter `/alt/` erreichbar; `.claude/launch.json` ergänzen
 - [x] [Sonnet] JSON-Schema aus den Pydantic-Modellen exportieren → TypeScript-Typen für `web/`
-- [ ] [Haupt] Abnahme: API-Tests grün, Konfliktfall einmal von Hand durchgespielt
+- [x] [Haupt] Abnahme: API-Tests grün, Konfliktfall einmal von Hand durchgespielt
 
 ## Phase 5 — Web-Grundgerüst
 
@@ -155,6 +155,8 @@ Eine Zeile je abgeschlossenem Punkt oder getroffener Entscheidung.
 - 2026-09-18 Phase 4: `tools/server/commit.py` — `anmelden(app, ruhe_sekunden=180)` sammelt Web-Änderungen, committet nach Ruhe nur diese Dateien, eine Zeile „Web: … geändert“, ohne Co-Authored-By, kein Push; `jetzt_committen()` beim Beenden. 7 Tests.
 - 2026-09-18 Phase 4: `python -m tools.server.schema` erzeugt `web/src/lib/api-typen.ts` (+ `api-schema.json`) aus den 21 Pydantic-Modellen, ohne npm; tsc --strict fehlerfrei. npx braucht Node im PATH der Sitzung (`PATH=~/nodejs:$PATH`). 4 Tests.
 - 2026-09-18 Phase 4: `tools/server/start.py` — `camper serve` startet die neue App: `/api/*`, `/alt/` = altes Dashboard samt alten Schreibendpunkten, `/` = `web/dist` mit SPA-Fallback (ohne dist Hinweisseite). Auto-Commit an, `--kein-commit` aus, `--alt` = alter Server. launch.json: `camper-neu` (8765), `camper-serve` = alt (8766). 8 Tests.
+- 2026-09-18 Phase 4: `tools/server/live.py` — Wächter pollt mtime/Größe (1 s, `VANMASTER_LIVE_INTERVALL`, 0 = aus), SSE `GET /api/live`: `event: aenderung`, `data: {dateien:[{datei,version}], quelle: web|extern}`, Heartbeat 15 s. SSE-Test über echten uvicorn-Thread, weil TestClient SSE puffert. 9 Tests.
+- 2026-09-18 Phase 4 abgenommen: 162 Tests grün (~85 s). Echter Server: `task add` von außen kommt als SSE `extern` an; PATCH mit altem Hash → 409 samt `stand`; Bestand danach unverändert. Hinweis: curl-Aufrufe mit Umlauten im Git-Bash scheitern an der Kodierung (400) — kein Serverfehler.
 
 ## Offene Fragen
 

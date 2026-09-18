@@ -5,16 +5,19 @@ Tests mehrere unabhängige Apps auf verschiedenen ``repo``-Kopien anlegen
 können. Jede Schreibroute läuft über ``tools.kern`` (Quelle immer
 ``"web"`` — die Matrix wird dort durchgesetzt, FORMAT.md §8/§10) und meldet
 sich danach bei den ``nach_schreiben``-Hooks (Einhängepunkt für Live-
-Aktualisierung/Auto-Commit, kommen in späteren Phasen dazu).
+Aktualisierung/Auto-Commit). Live-Aktualisierung (Poll-Wächter + SSE) lebt
+in ``live.py``; hier nur die Route und die Anmeldung an den Hook.
 
-Noch nicht enthalten: SSE, Auto-Commit, Auslieferung von ``web/dist``.
+Noch nicht enthalten: Auto-Commit, Auslieferung von ``web/dist``.
 """
 from __future__ import annotations
 
+import os
+from contextlib import asynccontextmanager
 from typing import Any, Callable
 
-from fastapi import APIRouter, FastAPI, Query
-from fastapi.responses import JSONResponse
+from fastapi import APIRouter, FastAPI, Query, Request
+from fastapi.responses import JSONResponse, StreamingResponse
 
 from .. import common
 from ..kern import (
@@ -24,6 +27,7 @@ from ..kern import (
     einzelteile_lesen, tabellen as kern_tabellen, teile_lesen,
 )
 from .daten import daten_json
+from .live import Waechter, sse_stream
 from .modelle import (
     AbschnittAnfrage, AufgabeAnlegenAnfrage, AufgabeAntwort,
     AufgabePatchAnfrage, DatenAntwort, EinzelteilAnlegenAnfrage,
@@ -103,14 +107,35 @@ def _bereichsdatei_rel(name: str) -> str:
     return kern_datei.rel(common.BEREICHE_DIR / f"{name}.md")
 
 
-def app_erstellen() -> FastAPI:
-    """Baut eine neue App. Wer Live-Aktualisierung oder Auto-Commit
-    anschließen will, hängt sich in ``app.state.nach_schreiben`` ein:
-    eine Liste von Funktionen ``callback(datei_relativ: str) -> None``,
-    die nach jedem erfolgreichen Schreiben (auch bei löschen/anlegen)
-    aufgerufen werden."""
-    app = FastAPI(title="VanMaster")
+def app_erstellen(poll_intervall: float | None = None) -> FastAPI:
+    """Baut eine neue App. Wer zusätzlich zur Live-Aktualisierung (SSE,
+    unten) noch Auto-Commit anschließen will, hängt sich ebenfalls in
+    ``app.state.nach_schreiben`` ein: eine Liste von Funktionen
+    ``callback(datei_relativ: str) -> None``, die nach jedem erfolgreichen
+    Schreiben (auch bei löschen/anlegen) aufgerufen werden.
+
+    ``poll_intervall`` steuert den Wächter (Sekunden zwischen zwei Polls),
+    sonst Umgebungsvariable ``VANMASTER_LIVE_INTERVALL``, sonst 1.0.
+    ``poll_intervall<=0`` (oder die Umgebungsvariable auf ``0``) schaltet
+    den Wächter ganz ab — für Tests, die keinen Hintergrund-Thread wollen.
+    """
+    if poll_intervall is None:
+        poll_intervall = float(os.environ.get("VANMASTER_LIVE_INTERVALL", "1.0"))
+    wache = Waechter(poll_intervall) if poll_intervall > 0 else None
+
+    @asynccontextmanager
+    async def lebenszyklus(app: FastAPI):
+        if wache is not None:
+            wache.start()
+        yield
+        if wache is not None:
+            wache.stop()
+
+    app = FastAPI(title="VanMaster", lifespan=lebenszyklus)
     app.state.nach_schreiben: list[Callable[[str], None]] = []
+    app.state.wache = wache
+    if wache is not None:
+        app.state.nach_schreiben.append(wache.melden)
 
     def _melde(datei_rel: str) -> None:
         for hook in app.state.nach_schreiben:
@@ -123,6 +148,18 @@ def app_erstellen() -> FastAPI:
     @router.get("/daten", response_model=DatenAntwort)
     def get_daten():
         return daten_json()
+
+    # ------------------------------------------------------------------ Live
+
+    @router.get("/live")
+    async def live(request: Request):
+        if wache is None:
+            return _fehler(503, "Live-Aktualisierung ist deaktiviert.")
+        return StreamingResponse(
+            sse_stream(wache, request.is_disconnected),
+            media_type="text/event-stream",
+            headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"},
+        )
 
     # -------------------------------------------------------------- Aufgaben
 
