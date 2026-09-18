@@ -13,8 +13,6 @@ Batterien, Laderegler, Solar, Verteilung, Verbraucher.
 
 ## Stand
 
-Skizze aus dem Miro-Board (Frame "Elektrik", übernommen 2026-09-17):
-
 - Quellen: PV-Modul (6mm² Kabel + Stecker) und Autobatterie laufen je über eine
   Sicherung (6A bzw. 16A DC) zum DC-Laderegler. Die Batteriebank (300 Ah) läuft
   über eine Sicherung (10A DC pro Batterie) zum zentralen Verteiler.

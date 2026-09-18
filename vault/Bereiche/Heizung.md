@@ -13,8 +13,6 @@ Heizgerät, Abgasführung, Luftverteilung.
 
 ## Stand
 
-Skizze aus dem Miro-Board (Frame "Heizung", übernommen 2026-09-17):
-
 Dieseltank → Dieselfilter → Dieselpumpe → Standheizung (mit Ventilator).
 Lufteinlass → Standheizung → Luftauslass, zusätzlich → Abgasschlauch.
 Ein Elektro-Schalter steuert Dieselpumpe und Standheizung.

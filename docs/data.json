@@ -1,5 +1,5 @@
 {
-  "erzeugt": "2026-09-18T11:53",
+  "erzeugt": "2026-09-18T11:54",
   "projekt": "VanMaster",
   "sortierung": "baustellen",
   "kennzahlen": {
@@ -44,7 +44,7 @@
       "status": "in-arbeit",
       "phase": 4,
       "beschreibung": "Batterien, Laderegler, Solar, Verteilung, Verbraucher.",
-      "stand": "Skizze aus dem Miro-Board (Frame \"Elektrik\", übernommen 2026-09-17):\n\n- Quellen: PV-Modul (6mm² Kabel + Stecker) und Autobatterie laufen je über eine\n  Sicherung (6A bzw. 16A DC) zum DC-Laderegler. Die Batteriebank (300 Ah) läuft\n  über eine Sicherung (10A DC pro Batterie) zum zentralen Verteiler.\n- Der Verteiler speist gesicherte Zonen (je 6A DC, 2x2,5mm² Kabel):\n  - Vorne: Lampen 12V, USB 12V\n  - Bett: Lampen 12V, USB 12V\n  - Dach: Dachlüfter, Soundsystem\n  - Küche: USB-Steckdose, Schalter → Wasserpumpe, Taster → Abwasser-Ventil,\n    Füllanzeige → LED\n  - AC 230V: Wechselrichter → 230V-Steckdose, Beamer\n- Die Standheizung (Diesel) hängt an einer eigenen Sicherung direkt am Verteiler.\n- Kabeltypen im Diagramm: 2x2,5mm² (Verbraucher), Yf 10mm² (Hauptleitungen\n  Batterie/Laderegler), 3x1,5mm² (vereinzelt).\n\nRohauszug (SVG) in `_input/miro_export.md`.",
+      "stand": "- Quellen: PV-Modul (6mm² Kabel + Stecker) und Autobatterie laufen je über eine\n  Sicherung (6A bzw. 16A DC) zum DC-Laderegler. Die Batteriebank (300 Ah) läuft\n  über eine Sicherung (10A DC pro Batterie) zum zentralen Verteiler.\n- Der Verteiler speist gesicherte Zonen (je 6A DC, 2x2,5mm² Kabel):\n  - Vorne: Lampen 12V, USB 12V\n  - Bett: Lampen 12V, USB 12V\n  - Dach: Dachlüfter, Soundsystem\n  - Küche: USB-Steckdose, Schalter → Wasserpumpe, Taster → Abwasser-Ventil,\n    Füllanzeige → LED\n  - AC 230V: Wechselrichter → 230V-Steckdose, Beamer\n- Die Standheizung (Diesel) hängt an einer eigenen Sicherung direkt am Verteiler.\n- Kabeltypen im Diagramm: 2x2,5mm² (Verbraucher), Yf 10mm² (Hauptleitungen\n  Batterie/Laderegler), 3x1,5mm² (vereinzelt).\n\nRohauszug (SVG) in `_input/miro_export.md`.",
       "auslegung": "",
       "notizen": "",
       "links": [],
@@ -142,7 +142,7 @@
       "status": "geplant",
       "phase": 5,
       "beschreibung": "Heizgerät, Abgasführung, Luftverteilung.",
-      "stand": "Skizze aus dem Miro-Board (Frame \"Heizung\", übernommen 2026-09-17):\n\nDieseltank → Dieselfilter → Dieselpumpe → Standheizung (mit Ventilator).\nLufteinlass → Standheizung → Luftauslass, zusätzlich → Abgasschlauch.\nEin Elektro-Schalter steuert Dieselpumpe und Standheizung.\n\nAuf dem Board selbst mit einer orangen Notiz \"Noch nicht richtig!!!!!!\"\nmarkiert — laut Nutzer noch nicht final, nicht als Entscheidung werten.\n\nRohauszug (SVG) in `_input/miro_export.md`.",
+      "stand": "Dieseltank → Dieselfilter → Dieselpumpe → Standheizung (mit Ventilator).\nLufteinlass → Standheizung → Luftauslass, zusätzlich → Abgasschlauch.\nEin Elektro-Schalter steuert Dieselpumpe und Standheizung.\n\nAuf dem Board selbst mit einer orangen Notiz \"Noch nicht richtig!!!!!!\"\nmarkiert — laut Nutzer noch nicht final, nicht als Entscheidung werten.\n\nRohauszug (SVG) in `_input/miro_export.md`.",
       "auslegung": "",
       "notizen": "- Die Miro-Skizze ist vom Nutzer als „noch nicht richtig\" markiert.",
       "links": [],
@@ -156,7 +156,7 @@
       "status": "geplant",
       "phase": 5,
       "beschreibung": "Frisch- und Grauwasser, Pumpe, Leitungen, Spüle. Kein Warmwasser, keine Dusche.",
-      "stand": "Skizze aus dem Miro-Board (Frame \"Wasser\", übernommen 2026-09-17):\n\nWassertank → (Schalter →) Pumpe → Wasserverteiler (2x absperrbar) →\nWasserhahn / Dusche → Waschbecken → Abwassertank (mit Füllanzeige) →\nAblassventil (mit Taster).\n\nDeckt sich mit der Projektübersicht (kein Warmwasser).",
+      "stand": "Wassertank → (Schalter →) Pumpe → Wasserverteiler (2x absperrbar) →\nWasserhahn / Dusche → Waschbecken → Abwassertank (mit Füllanzeige) →\nAblassventil (mit Taster).\n\nDeckt sich mit der Projektübersicht (kein Warmwasser).",
       "auslegung": "",
       "notizen": "- Im Diagramm taucht ein „Dusche\"-Abzweig auf — evtl. nur zum Abspülen oder als\n  Außendusche, nicht als Innendusche. Noch zu klären.\n- Rohauszug (SVG) in `_input/miro_export.md`.\n\nAus `_input/Küche/infos.txt` (Rohnotizen, unbewertet):\n\n- Wasserhahn neben der Arbeitsplatte, damit man auch bei geschlossener Platte\n  Wasser holen kann.\n- Abwassertank nicht mehr in der Tür (Abblaseventil). Er soll selten ausgebaut\n  werden; wenn doch, dann gleich zusammen mit dem Frischwasser.\n- Frischwasser als Weithalskanister DIN 96 im Küchenschacht, Größe noch offen.\n  Zubehör dazu: Pumpe, Schlauch, Schalter. Für Abwasser: Ventil, Taster,\n  Füllanzeige.",
       "links": [
@@ -329,7 +329,7 @@
       "dauer": "",
       "beschreibung": "",
       "datei": "vault\\Bereiche\\Elektrik.md",
-      "zeile": 50,
+      "zeile": 48,
       "fotos": []
     },
     {
@@ -348,7 +348,7 @@
       "dauer": "",
       "beschreibung": "",
       "datei": "vault\\Bereiche\\Elektrik.md",
-      "zeile": 51,
+      "zeile": 49,
       "fotos": []
     },
     {
@@ -367,7 +367,7 @@
       "dauer": "",
       "beschreibung": "",
       "datei": "vault\\Bereiche\\Elektrik.md",
-      "zeile": 55,
+      "zeile": 53,
       "fotos": []
     },
     {
@@ -384,7 +384,7 @@
       "dauer": "",
       "beschreibung": "",
       "datei": "vault\\Bereiche\\Elektrik.md",
-      "zeile": 56,
+      "zeile": 54,
       "fotos": []
     },
     {
@@ -403,7 +403,7 @@
       "dauer": "",
       "beschreibung": "",
       "datei": "vault\\Bereiche\\Elektrik.md",
-      "zeile": 57,
+      "zeile": 55,
       "fotos": []
     },
     {
@@ -420,7 +420,7 @@
       "dauer": "",
       "beschreibung": "",
       "datei": "vault\\Bereiche\\Heizung.md",
-      "zeile": 43,
+      "zeile": 41,
       "fotos": []
     },
     {
@@ -439,7 +439,7 @@
       "dauer": "",
       "beschreibung": "",
       "datei": "vault\\Bereiche\\Heizung.md",
-      "zeile": 44,
+      "zeile": 42,
       "fotos": []
     },
     {
@@ -458,7 +458,7 @@
       "dauer": "",
       "beschreibung": "",
       "datei": "vault\\Bereiche\\Heizung.md",
-      "zeile": 45,
+      "zeile": 43,
       "fotos": []
     },
     {
@@ -905,7 +905,7 @@
       "dauer": "",
       "beschreibung": "",
       "datei": "vault\\Bereiche\\Wasser.md",
-      "zeile": 52,
+      "zeile": 50,
       "fotos": []
     },
     {
@@ -924,7 +924,7 @@
       "dauer": "",
       "beschreibung": "",
       "datei": "vault\\Bereiche\\Wasser.md",
-      "zeile": 53,
+      "zeile": 51,
       "fotos": []
     },
     {
@@ -943,7 +943,7 @@
       "dauer": "",
       "beschreibung": "",
       "datei": "vault\\Bereiche\\Wasser.md",
-      "zeile": 54,
+      "zeile": 52,
       "fotos": [
         {
           "name": "2026-09-17-kocher-spuele-kombi-mit-ausklapptisch",

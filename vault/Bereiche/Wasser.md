@@ -13,8 +13,6 @@ Frisch- und Grauwasser, Pumpe, Leitungen, Spüle. Kein Warmwasser, keine Dusche.
 
 ## Stand
 
-Skizze aus dem Miro-Board (Frame "Wasser", übernommen 2026-09-17):
-
 Wassertank → (Schalter →) Pumpe → Wasserverteiler (2x absperrbar) →
 Wasserhahn / Dusche → Waschbecken → Abwassertank (mit Füllanzeige) →
 Ablassventil (mit Taster).
