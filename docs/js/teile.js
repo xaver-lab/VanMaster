@@ -109,7 +109,7 @@ function teileListe() {
     (!kat || t.kategorie === kat) &&
     (!teileFilterStatus || t.status === teileFilterStatus) &&
     (!suche || kleinschrift([t.titel, t.beschreibung, t.kennwerte, t.haendler,
-                             t.notiz, t.system].join(" ")).includes(suche)));
+                             t.notiz].join(" ")).includes(suche)));
 
   const summe = teile.reduce((s, t) => s + t.gesamt, 0);
   const kg = teile.reduce((s, t) => s + t.gewicht_n, 0);
@@ -151,7 +151,7 @@ function teilModalOeffnen(t) {
   if (t.beschreibung) box.append(neu("p", "tm-beschreibung", t.beschreibung));
 
   const felder = [
-    ["Kategorie", t.kategorie], ["System", t.system],
+    ["Kategorie", t.kategorie],
     ["Menge", t.menge_n ? `${t.menge_n} ${t.einheit}` : ""],
     ["Preis", t.preis_n ? euro(t.preis_n) + " / Stk" : ""],
     ["Priorität", t.prioritaet], ["Kennwerte", t.kennwerte],

@@ -73,8 +73,7 @@ function sortierWechsler() {
   wahl.value = sortierungAktiv();
 }
 
-const themaTeile = (name) => DATEN.teile.filter(
-  (t) => t.system === name || t.kategorie === name);
+const themaTeile = (name) => DATEN.teile.filter((t) => t.kategorie === name);
 const themaEinzelteile = (name) => (DATEN.bauteile || []).filter((r) => r.bereich === name);
 const themaBilder = (name) => DATEN.medien.filter((m) => m.bereich === name);
 const themaDokumente = (name) => (DATEN.dokumente || []).filter((m) => m.bereich === name);

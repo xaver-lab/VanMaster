@@ -109,8 +109,7 @@ def bereich(name: str) -> str:
 
     alle = tasks.load()
     baufgaben = [a for a in alle if a["bereich"].lower() == name_l]
-    teile = [t for t in parts.load()
-             if name_l in (t["system"].lower(), t["kategorie"].lower())]
+    teile = [t for t in parts.load() if t["kategorie"].lower() == name_l]
     einzel = [r for r in bauteile.load() if r["bereich"].lower() == name_l]
     dateien = [(d, art) for d, ber, art in media.ablage()
                if ber.lower() == name_l]

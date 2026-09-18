@@ -14,6 +14,9 @@ erzeugt: true
 | Armaflex 19 mm (Wände) | 15 m² | 0,00 € | 0,00 € | Entschieden | Hoch |  | [[flaechen-daemmen]] |
 | Armaflex 6 mm (Boden) | 5 m² | 0,00 € | 0,00 € | Entschieden | Hoch |  | [[boden-aufbauen]] |
 | Armaflex 6 mm VL (Rolle) | 1 Rolle | 0,00 € | 0,00 € | Recherche | Mittel |  |  |
+| Bremsenreiniger | 1 Stk | 0,00 € | 0,00 € | Entschieden | Mittel |  |  |
 | Holzlatten (Bodenunterkonstruktion) | 1 Stk | 0,00 € | 0,00 € | Idee | Hoch |  | [[boden-aufbauen]] |
+| Polymax Kleber (Holzlatten) | 1 Stk | 0,00 € | 0,00 € | Entschieden | Hoch |  | [[boden-aufbauen]] |
+| Rostschutz (Hammerite) | 1 Stk | 0,00 € | 0,00 € | Idee | Hoch |  |  |
 
 **Summe Dämmung:** 0,00 € · 0.0 kg

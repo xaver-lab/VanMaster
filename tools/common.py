@@ -33,7 +33,7 @@ MODELLE_DIR = VAULT / "Modelle"
 PART_STATUS = ["Idee", "Recherche", "Entschieden", "Bestellt", "Geliefert", "Verbaut"]
 PART_PRIO = ["Kritisch", "Hoch", "Mittel", "Nice-to-have"]
 PART_KATEGORIEN = [
-    "Dämmung", "Elektrik", "Wasser", "Heizung", "Möbel", "Küche",
+    "Karosserie", "Dämmung", "Elektrik", "Wasser", "Heizung", "Möbel", "Küche",
     "Stauraum", "Werkzeug", "Verbrauchsmaterial",
 ]
 

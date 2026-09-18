@@ -11,7 +11,7 @@ from .common import (
 )
 
 FIELDS = [
-    "id", "titel", "beschreibung", "kategorie", "system",
+    "id", "titel", "beschreibung", "kategorie",
     "menge", "einheit", "preis", "status", "prioritaet",
     "link", "haendler", "fuer_aufgabe", "entscheidung",
     "kennwerte", "gewicht_kg", "notiz", "gekauft_am",
@@ -245,7 +245,7 @@ KAT_FARBEN = {
 
 SPALTENBREITEN = {"id": 22, "titel": 34, "beschreibung": 40, "link": 30,
                   "notiz": 30, "kennwerte": 22, "fuer_aufgabe": 22,
-                  "entscheidung": 20, "system": 14}
+                  "entscheidung": 20}
 
 
 def to_excel(path: Path | None = None) -> str:
