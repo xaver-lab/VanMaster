@@ -76,7 +76,7 @@ Das alte Dashboard (`docs/`) läuft unverändert weiter, bis Phase 9 es ablöst.
 - [x] [Sonnet] Lesen: Bereiche, Abschnitte, Aufgabenbaum, Querverweise, Entscheidungen, Teile, Einzelteile, Medien → typisierte Datenklassen. Test: alle echten Dateien lesen ohne Fehler, Ergebnis gleich wie heutiges `tools/tasks.py`/`parts.py`
 - [ ] [Sonnet] Schreiben Aufgaben: anlegen (ID erzeugen, eindeutig), Status, Titel, Beschreibung, Priorität, löschen (mit Unterpunkten). Test: Rundlauf lesen→schreiben ist bytegleich; Änderung berührt nur die betroffenen Zeilen
 - [x] [Sonnet] Schreiben Abschnitte: Bereichsabschnitt ersetzen, nur erlaubte Abschnitte laut Matrix. Test wie oben
-- [ ] [Sonnet] Schreiben CSV: Teile- und Einzelteilfelder ändern, anlegen, löschen. Test: Spaltenreihenfolge und unberührte Zeilen bleiben gleich
+- [x] [Sonnet] Schreiben CSV: Teile- und Einzelteilfelder ändern, anlegen, löschen. Test: Spaltenreihenfolge und unberührte Zeilen bleiben gleich
 - [x] [Sonnet] Versionsschutz: Hash je Datei; Schreiben mit veraltetem Hash wird abgelehnt
 - [ ] [Sonnet] Prüfung: `kern.pruefen()` meldet Formatfehler mit Datei und Zeile
 - [ ] [Haupt] Abnahme: Tests grün, Stichprobe an einer echten Datei
@@ -144,6 +144,7 @@ Eine Zeile je abgeschlossenem Punkt oder getroffener Entscheidung.
 - 2026-09-18 Phase 2: Kern liest alles (`tools/kern/lesen.py`, `modelle.py`, `format.py`); Grammatik und CSV-Spalten wohnen jetzt in `kern/format.py`, alte Module importieren von dort. Jede Einheit kennt Datei (repo-relativ, `/`) und Zeilenbereich. 9 Tests.
 - 2026-09-18 Phase 2: Versionsschutz vom Hauptchat vorgezogen — `kern/datei.py` (Hash je Datei, `Konflikt` bei veraltetem Hash, atomares bytegleiches Schreiben); alle Schreibfunktionen laufen darüber.
 - 2026-09-18 Phase 2: `kern/abschnitte.py` — Abschnitt und Kopffeld setzen mit Matrix-Prüfung (`quelle=web|claude`), fehlender Abschnitt an richtiger Stelle. 9 Tests.
+- 2026-09-18 Phase 2: `kern/tabellen.py` — `teil_*`/`einzelteil_*` Feld setzen, anlegen, löschen; prüft Listen, Zahlen (Punkt), Datum, Matrix; nur die betroffene Zeile ändert sich. 21 Tests.
 
 ## Offene Fragen
 
