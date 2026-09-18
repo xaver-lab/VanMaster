@@ -157,6 +157,7 @@ Eine Zeile je abgeschlossenem Punkt oder getroffener Entscheidung.
 - 2026-09-18 Phase 4: `tools/server/start.py` — `camper serve` startet die neue App: `/api/*`, `/alt/` = altes Dashboard samt alten Schreibendpunkten, `/` = `web/dist` mit SPA-Fallback (ohne dist Hinweisseite). Auto-Commit an, `--kein-commit` aus, `--alt` = alter Server. launch.json: `camper-neu` (8765), `camper-serve` = alt (8766). 8 Tests.
 - 2026-09-18 Phase 4: `tools/server/live.py` — Wächter pollt mtime/Größe (1 s, `VANMASTER_LIVE_INTERVALL`, 0 = aus), SSE `GET /api/live`: `event: aenderung`, `data: {dateien:[{datei,version}], quelle: web|extern}`, Heartbeat 15 s. SSE-Test über echten uvicorn-Thread, weil TestClient SSE puffert. 9 Tests.
 - 2026-09-18 Phase 4 abgenommen: 162 Tests grün (~85 s). Echter Server: `task add` von außen kommt als SSE `extern` an; PATCH mit altem Hash → 409 samt `stand`; Bestand danach unverändert. Hinweis: curl-Aufrufe mit Umlauten im Git-Bash scheitern an der Kodierung (400) — kein Serverfehler.
+- 2026-09-18 Phase 5: `web/` = Vite 8.3 + Svelte 5.57 + TypeScript 5.9 (TS 7 noch nicht von svelte-check unterstützt), `base: './'`, Dev-Proxy `/api` → 8765. `camper web build|dev|check` (`tools/web.py`): npm aus `~/nodejs/npm.cmd`, sonst PATH; installiert bei fehlendem node_modules per `npm ci`. Server liefert `/` samt Assets. 3 Tests.
 
 ## Offene Fragen
 
