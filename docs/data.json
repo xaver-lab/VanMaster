@@ -1,10 +1,10 @@
 {
-  "erzeugt": "2026-09-18T11:54",
+  "erzeugt": "2026-09-18T11:57",
   "projekt": "VanMaster",
   "sortierung": "baustellen",
   "kennzahlen": {
     "aufgaben_fertig": 6,
-    "aufgaben_gesamt": 37,
+    "aufgaben_gesamt": 38,
     "teile": 67,
     "kosten": 3045.53,
     "kosten_bestellt": 443.3,
@@ -50,7 +50,7 @@
       "links": [],
       "datei": "vault/Bereiche/Elektrik.md",
       "fertig": 0,
-      "gesamt": 5
+      "gesamt": 6
     },
     {
       "name": "Möbel",
@@ -404,6 +404,25 @@
       "beschreibung": "",
       "datei": "vault\\Bereiche\\Elektrik.md",
       "zeile": 55,
+      "fotos": []
+    },
+    {
+      "id": "verbraucher-verkabeln",
+      "titel": "Verbraucher verkabeln (Zonen: Vorne, Bett, Dach, Küche, AC 230V)",
+      "status": "offen",
+      "bereich": "Elektrik",
+      "gruppe": "Einbau",
+      "ebene": 0,
+      "eltern": "",
+      "kinder": [],
+      "braucht": [
+        "verteilung"
+      ],
+      "prio": "",
+      "dauer": "",
+      "beschreibung": "",
+      "datei": "vault\\Bereiche\\Elektrik.md",
+      "zeile": 56,
       "fotos": []
     },
     {

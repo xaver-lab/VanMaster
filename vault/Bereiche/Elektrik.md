@@ -53,3 +53,4 @@ _(noch keine)_
 - [ ] Batteriehalterung bauen ^batteriehalterung @braucht:batteriebank-entscheiden
 - [/] Solarmodule montieren ^solar-montieren #hoch
 - [ ] Verteilung und Sicherungen setzen ^verteilung @braucht:batteriehalterung
+- [ ] Verbraucher verkabeln (Zonen: Vorne, Bett, Dach, Küche, AC 230V) ^verbraucher-verkabeln @braucht:verteilung
