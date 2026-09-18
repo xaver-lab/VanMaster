@@ -7,6 +7,7 @@
   import { store } from '../daten.svelte';
   import Schreibbar from '../Schreibbar.svelte';
   import { bestaetigen, Dialog, Etikett, Knopf, Rubrik } from '../ui';
+  import { vokabular } from '../vokabular.svelte';
   import { IconLoeschen } from '../ui/icons';
   import EinzelteilFeld from './EinzelteilFeld.svelte';
   import { bauteilStatusTon } from './status';
@@ -79,7 +80,7 @@
         label="Art"
         wert={e.art}
         art="auswahl"
-        optionen={['Platte', 'Leiste', 'Kantholz', 'Blech', 'Rohr', 'Kabel', 'Beschlag', 'Sonstiges']}
+        optionen={vokabular.einzelteilArt}
         leer="—"
         bearbeitbar={bearbeitbar('art')}
         onSpeichern={speichern('art')}
@@ -114,13 +115,13 @@
         label="Maßquelle"
         wert={e.massquelle}
         art="auswahl"
-        optionen={['geschaetzt', 'gemessen', 'cad']}
+        optionen={vokabular.massquelle}
         leer="—"
         bearbeitbar={bearbeitbar('massquelle')}
         onSpeichern={speichern('massquelle')}
       />
       <EinzelteilFeld label="Für Aufgabe" wert={e.fuer_aufgabe} bearbeitbar={bearbeitbar('fuer_aufgabe')} onSpeichern={speichern('fuer_aufgabe')} />
-      <EinzelteilFeld label="Status" wert={e.status} art="auswahl" optionen={['Idee', 'Geplant', 'Zugeschnitten', 'Verbaut']} leer="—" bearbeitbar={bearbeitbar('status')} onSpeichern={speichern('status')} />
+      <EinzelteilFeld label="Status" wert={e.status} art="auswahl" optionen={vokabular.einzelteilStatus} leer="—" bearbeitbar={bearbeitbar('status')} onSpeichern={speichern('status')} />
     </div>
   </div>
 

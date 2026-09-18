@@ -13,9 +13,10 @@
   import TeilKarte from './TeilKarte.svelte';
   import TeilDetail from './TeilDetail.svelte';
   import { Auswahl, Dialog, Feld, Karte, Kennzahl, Knopf, Leerzustand, Tabs } from '../ui';
+  import { vokabular } from '../vokabular.svelte';
   import { dezimal } from '../zahlformat';
   import { IconEuro, IconGewicht, IconPlus, IconSuche } from '../ui/icons';
-  import { euro, gesamtpreis, zahl, TEIL_PRIO, TEIL_STATUS } from './format';
+  import { euro, gesamtpreis, zahl } from './format';
   import IconListe from '@lucide/svelte/icons/list';
   import IconRaster from '@lucide/svelte/icons/layout-grid';
 
@@ -70,7 +71,7 @@
   const kategorien = $derived([...new Set(alleTeile.map((t) => t.kategorie).filter(Boolean))].sort());
 
   const statusVorhanden = $derived([...new Set(alleTeile.map((t) => t.status).filter(Boolean))]);
-  const statusReihenfolge = $derived(TEIL_STATUS.filter((s) => statusVorhanden.includes(s)));
+  const statusReihenfolge = $derived(vokabular.teilStatus.filter((s) => statusVorhanden.includes(s)));
   const statusTabs = $derived([
     { id: '', label: 'alle', zahl: alleTeile.length },
     ...statusReihenfolge.map((s) => ({ id: s, label: s, zahl: alleTeile.filter((t) => t.status === s).length })),

@@ -75,6 +75,19 @@ _TEIL_WEB_FELDER = {
 }
 
 
+def _vokabular() -> dict[str, list[str]]:
+    """Erlaubte Werte der Auswahlfelder aus ``common`` — die Oberfläche
+    verdrahtet sie nicht selbst."""
+    return {
+        "teil_status": common.PART_STATUS,
+        "teil_prio": common.PART_PRIO,
+        "teil_kategorien": common.PART_KATEGORIEN,
+        "einzelteil_art": common.BAUTEIL_ART,
+        "einzelteil_status": common.BAUTEIL_STATUS,
+        "massquelle": common.MASSQUELLE,
+    }
+
+
 def _versionen(bestand) -> dict[str, str]:
     versionen: dict[str, str] = {}
     for b in bestand.bereiche:
@@ -112,4 +125,5 @@ def daten_json(sortierung: str = STANDARD_SORTIERUNG) -> dict:
         "versionen": _versionen(bestand),
         "kennzahlen": kennzahlen,
         "bearbeitbar": _bearbeitbar(),
+        "vokabular": _vokabular(),
     }

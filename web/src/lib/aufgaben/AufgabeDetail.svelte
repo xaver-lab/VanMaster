@@ -22,6 +22,7 @@
     Textfeld,
     type Status,
   } from '../ui';
+  import { neuereFassungUeberschreiben } from '../ueberschreiben';
   import { IconHaken, IconLoeschen, IconStift } from '../ui/icons';
 
   const ALLE_STATUS: Status[] = ['offen', 'laeuft', 'blockiert', 'erledigt', 'verworfen'];
@@ -48,6 +49,8 @@
   let titelEntwurf = $state(untrack(() => a.titel));
   let beschreibungBearbeiten = $state(false);
   let beschreibungEntwurf = $state(untrack(() => a.beschreibung ?? ''));
+  let beschreibungBasis = $state('');
+  const beschreibungFremd = $derived(beschreibungBearbeiten && (a.beschreibung ?? '') !== beschreibungBasis);
 
   // Entwürfe zurücksetzen, wenn eine andere/aktualisierte Aufgabe kommt,
   // solange gerade nicht bearbeitet wird (kein Datenverlust durch SSE-Reload).
@@ -92,7 +95,14 @@
     }
   }
 
+  function beschreibungStarten(): void {
+    beschreibungEntwurf = a.beschreibung ?? '';
+    beschreibungBasis = beschreibungEntwurf;
+    beschreibungBearbeiten = true;
+  }
+
   async function beschreibungSpeichern(): Promise<void> {
+    if (beschreibungFremd && !(await neuereFassungUeberschreiben())) return;
     const ok = await store.aufgabePatch(a.id, a.datei ?? '', { beschreibung: beschreibungEntwurf });
     if (ok) beschreibungBearbeiten = false;
   }
@@ -224,6 +234,7 @@
       <div class="tm-notiz-leiste">
         <Knopf groesse="s" onclick={beschreibungSpeichern} disabled={store.beschaeftigt}>Speichern</Knopf>
         <Knopf variante="leise" groesse="s" onclick={beschreibungAbbrechen}>Abbrechen</Knopf>
+        {#if beschreibungFremd}<Etikett ton="warn">inzwischen anderswo geändert</Etikett>{/if}
         <span class="zusatz">Strg+Enter speichert</span>
       </div>
     {:else if a.beschreibung}
@@ -231,7 +242,7 @@
       <Schreibbar>
         {#snippet children()}
           <div class="tm-notiz-leiste">
-            <Knopf variante="leise" groesse="s" icon={IconStift} onclick={() => (beschreibungBearbeiten = true)}>
+            <Knopf variante="leise" groesse="s" icon={IconStift} onclick={beschreibungStarten}>
               Bearbeiten
             </Knopf>
           </div>
@@ -242,7 +253,7 @@
       <Schreibbar>
         {#snippet children()}
           <div class="tm-notiz-leiste">
-            <Knopf variante="leise" groesse="s" icon={IconStift} onclick={() => (beschreibungBearbeiten = true)}>
+            <Knopf variante="leise" groesse="s" icon={IconStift} onclick={beschreibungStarten}>
               Beschreibung hinzufügen
             </Knopf>
           </div>

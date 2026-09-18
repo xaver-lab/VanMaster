@@ -144,6 +144,7 @@ class DatenAntwort(_Basis):
     versionen: dict[str, str]
     kennzahlen: KennzahlenAntwort
     bearbeitbar: dict[str, Any]
+    vokabular: dict[str, list[str]]
 
 
 # -------------------------------------------------------------- Erfolg/Fehler

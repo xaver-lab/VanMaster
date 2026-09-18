@@ -13,6 +13,7 @@
   import Schreibbar from '../Schreibbar.svelte';
   import { bestaetigen, Etikett, Knopf, Leerzustand, Tabs, Textfeld } from '../ui';
   import { IconStift } from '../ui/icons';
+  import { neuereFassungUeberschreiben } from '../ueberschreiben';
 
   let {
     bereich,
@@ -35,9 +36,14 @@
   });
 
   const geaendert = $derived(entwurf !== text);
+  // Text beim Start der Bearbeitung — weicht `text` davon ab, hat ihn
+  // jemand anderes geändert.
+  let basis = $state('');
+  const fremdGeaendert = $derived(bearbeiten && text !== basis);
 
   function starten(): void {
     entwurf = text;
+    basis = text;
     ansicht = 'text';
     bearbeiten = true;
   }
@@ -56,6 +62,7 @@
 
   async function speichern(): Promise<void> {
     if (store.beschaeftigt || !geaendert) return;
+    if (fremdGeaendert && !(await neuereFassungUeberschreiben())) return;
     const ok = await store.abschnittSetzen(bereich, name, entwurf);
     if (ok) bearbeiten = false;
   }
@@ -110,6 +117,7 @@
       <div class="editor-leiste">
         <Knopf groesse="s" onclick={speichern} disabled={store.beschaeftigt || !geaendert}>Speichern</Knopf>
         <Knopf variante="leise" groesse="s" onclick={abbrechen}>Abbrechen</Knopf>
+        {#if fremdGeaendert}<Etikett ton="warn">inzwischen anderswo geändert</Etikett>{/if}
         <span class="hinweis">Strg+Enter speichert · Esc bricht ab</span>
       </div>
     </div>

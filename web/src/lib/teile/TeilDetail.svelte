@@ -9,9 +9,10 @@
   import { router } from '../router.svelte';
   import Schreibbar from '../Schreibbar.svelte';
   import { Auswahl, bestaetigen, Chip, Dialog, Etikett, Feld, Knopf, Rubrik, Textfeld } from '../ui';
+  import { vokabular } from '../vokabular.svelte';
   import { dezimal } from '../zahlformat';
   import { IconLoeschen } from '../ui/icons';
-  import { preisText, zahl, TEIL_PRIO, TEIL_STATUS } from './format';
+  import { preisText, zahl } from './format';
 
   let {
     t,
@@ -107,7 +108,7 @@
           <Auswahl
             class="status-wahl"
             wert={t.status}
-            optionen={TEIL_STATUS}
+            optionen={vokabular.teilStatus}
             onchange={statusSetzen}
             aria-label="Status ändern"
           />
@@ -135,7 +136,7 @@
     {#if bearbeitbar('prioritaet')}
       <Schreibbar>
         {#snippet children()}
-          <Auswahl label="Priorität" wert={t.prioritaet} optionen={TEIL_PRIO} leer="— keine —" onchange={prioritaetSetzen} klein />
+          <Auswahl label="Priorität" wert={t.prioritaet} optionen={vokabular.teilPrio} leer="— keine —" onchange={prioritaetSetzen} klein />
         {/snippet}
       </Schreibbar>
     {:else if t.prioritaet}

@@ -392,6 +392,16 @@
         },
         "title": "Versionen",
         "type": "object"
+      },
+      "vokabular": {
+        "additionalProperties": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "title": "Vokabular",
+        "type": "object"
       }
     },
     "required": [
@@ -407,7 +417,8 @@
       "medien",
       "versionen",
       "kennzahlen",
-      "bearbeitbar"
+      "bearbeitbar",
+      "vokabular"
     ],
     "title": "DatenAntwort",
     "type": "object"

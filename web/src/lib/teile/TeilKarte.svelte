@@ -5,9 +5,10 @@
   import { store } from '../daten.svelte';
   import Schreibbar from '../Schreibbar.svelte';
   import { Auswahl, Etikett, Karte } from '../ui';
+  import { vokabular } from '../vokabular.svelte';
   import { dezimal } from '../zahlformat';
   import { IconExtern } from '../ui/icons';
-  import { preisText, zahl, TEIL_STATUS, TEIL_STATUS_TON } from './format';
+  import { preisText, zahl, TEIL_STATUS_TON } from './format';
 
   let {
     t,
@@ -54,7 +55,7 @@
             class="status-wahl"
             klein
             wert={t.status}
-            optionen={TEIL_STATUS}
+            optionen={vokabular.teilStatus}
             onchange={statusSetzen}
             aria-label="Status ändern"
           />

@@ -1,11 +1,6 @@
 // Kleine Helfer für die Teileansicht: Zahlen aus den CSV-Strings lesen,
-// Euro formatieren, Status/Priorität-Vokabular (PART_STATUS/PART_PRIO aus
-// tools/common.py — eigenes Vokabular, nicht das Status-Enum aus lib/ui,
-// das für Aufgaben gilt).
-
-export const TEIL_STATUS: string[] = ['Idee', 'Recherche', 'Entschieden', 'Bestellt', 'Geliefert', 'Verbaut'];
-
-export const TEIL_PRIO: string[] = ['Kritisch', 'Hoch', 'Mittel', 'Nice-to-have'];
+// Euro formatieren, Ton je Teile-Status. Die Wertelisten selbst kommen aus
+// lib/vokabular.svelte.ts (eigenes Vokabular, nicht das Aufgaben-Enum).
 
 export const TEIL_STATUS_TON: Record<string, 'neutral' | 'signal' | 'info' | 'gut'> = {
   Idee: 'neutral',

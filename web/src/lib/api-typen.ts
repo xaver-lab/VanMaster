@@ -73,6 +73,7 @@ export interface DatenAntwort {
   versionen: Record<string, string>;
   kennzahlen: KennzahlenAntwort;
   bearbeitbar: Record<string, any>;
+  vokabular: Record<string, string[]>;
 }
 
 export interface EinzelteilAnlegenAnfrage {

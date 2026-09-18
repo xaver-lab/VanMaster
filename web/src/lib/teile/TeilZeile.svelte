@@ -5,7 +5,8 @@
   import { store } from '../daten.svelte';
   import Schreibbar from '../Schreibbar.svelte';
   import { Auswahl, Etikett } from '../ui';
-  import { preisText, zahl, TEIL_STATUS, TEIL_STATUS_TON } from './format';
+  import { vokabular } from '../vokabular.svelte';
+  import { preisText, zahl, TEIL_STATUS_TON } from './format';
 
   let {
     t,
@@ -40,7 +41,7 @@
           class="status-wahl"
           klein
           wert={t.status}
-          optionen={TEIL_STATUS}
+          optionen={vokabular.teilStatus}
           onchange={statusSetzen}
           aria-label="Status ändern"
         />

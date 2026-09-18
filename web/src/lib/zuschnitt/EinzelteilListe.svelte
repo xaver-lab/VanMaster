@@ -10,14 +10,36 @@
   import EinzelteilZeile from './EinzelteilZeile.svelte';
   import EinzelteilDetail from './EinzelteilDetail.svelte';
   import { Auswahl, Dialog, Feld, Karte, Kennzahl, Knopf, Leerzustand } from '../ui';
+  import { vokabular } from '../vokabular.svelte';
   import { dezimal } from '../zahlformat';
   import { IconPlus, IconSuche, IconZuschnitt } from '../ui/icons';
   import { flaeche, laufmeter, zahl } from './mass';
 
-  const ART_OPTIONEN = ['Platte', 'Leiste', 'Kantholz', 'Blech', 'Rohr', 'Kabel', 'Beschlag', 'Sonstiges'];
 
   let bereichFilter = $state('');
   let materialFilter = $state('');
+  type Gruppierung = 'bereich' | 'material' | 'art';
+  const GRUPPIER_OPTIONEN = [
+    { wert: 'bereich', label: 'nach Bereich' },
+    { wert: 'material', label: 'nach Material' },
+    { wert: 'art', label: 'nach Art' },
+  ];
+  let gruppierung = $state<Gruppierung>(gemerkteGruppierung());
+  function gemerkteGruppierung(): Gruppierung {
+    try {
+      const g = localStorage.getItem('zuschnittGruppierung');
+      return g === 'material' || g === 'art' ? g : 'bereich';
+    } catch {
+      return 'bereich';
+    }
+  }
+  $effect(() => {
+    try {
+      localStorage.setItem('zuschnittGruppierung', gruppierung);
+    } catch {
+      /* nur Komfort */
+    }
+  });
   let suche = $state('');
   let offenId = $state<string | null>(null);
   let formOffen = $state(false);
@@ -29,9 +51,16 @@
   const bereiche = $derived(store.daten?.bereiche.map((b) => b.name) ?? []);
   const anlegenErlaubt = $derived(!!store.daten?.bearbeitbar?.einzelteil_anlegen);
 
+  // Materialliste folgt dem Bereichsfilter; ein nicht mehr passendes
+  // Material fällt aus dem Filter.
   const materialien = $derived.by(() => {
-    const menge = new Set(alleEinzelteile.map((e) => e.material).filter((m): m is string => !!m));
+    const imBereich = alleEinzelteile.filter((e) => !bereichFilter || e.bereich === bereichFilter);
+    const menge = new Set(imBereich.map((e) => e.material).filter((m): m is string => !!m));
     return [...menge].sort((a, b) => a.localeCompare(b, 'de'));
+  });
+
+  $effect(() => {
+    if (materialFilter && !materialien.includes(materialFilter)) materialFilter = '';
   });
 
   const suchtext = $derived(suche.trim().toLowerCase());
@@ -54,14 +83,19 @@
   }
   const gruppen = $derived.by((): Gruppe[] => {
     const eimer = new Map<string, EinzelteilAntwort[]>();
+    const schluessel = (e: EinzelteilAntwort): string =>
+      gruppierung === 'material' ? e.material || 'Ohne Material'
+      : gruppierung === 'art' ? e.art || 'Ohne Art'
+      : e.bereich || 'Ohne Bereich';
     for (const e of gefiltert) {
-      const name = e.bereich || 'Ohne Bereich';
+      const name = schluessel(e);
       if (!eimer.has(name)) eimer.set(name, []);
       eimer.get(name)!.push(e);
     }
-    const reihenfolge = bereiche;
+    const reihenfolge = gruppierung === 'bereich' ? bereiche : gruppierung === 'art' ? vokabular.einzelteilArt : [];
     const namen = [...eimer.keys()].sort(
-      (a, b) => (reihenfolge.indexOf(a) + 1 || 99) - (reihenfolge.indexOf(b) + 1 || 99),
+      (a, b) =>
+        (reihenfolge.indexOf(a) + 1 || 999) - (reihenfolge.indexOf(b) + 1 || 999) || a.localeCompare(b, 'de'),
     );
     return namen.map((name) => ({ name, eintraege: eimer.get(name)! }));
   });
@@ -166,6 +200,7 @@
     aria-label="Material filtern"
     klein
   />
+  <Auswahl bind:wert={gruppierung} optionen={GRUPPIER_OPTIONEN} aria-label="Gruppierung" klein />
   {#if anlegenErlaubt}
     <Schreibbar>
       {#snippet children()}
@@ -179,7 +214,7 @@
   <Feld label="Titel" bind:wert={neuTitel} placeholder="z. B. Bettrahmen Seite links" />
   <div class="zwei">
     <Auswahl label="Bereich" bind:wert={neuBereich} optionen={bereiche} />
-    <Auswahl label="Art" bind:wert={neuArt} optionen={ART_OPTIONEN} leer="—" />
+    <Auswahl label="Art" bind:wert={neuArt} optionen={vokabular.einzelteilArt} leer="—" />
   </div>
   <Feld label="Material" bind:wert={neuMaterial} optional placeholder="z. B. Siebdruckplatte 15 mm" />
   <div class="drei">

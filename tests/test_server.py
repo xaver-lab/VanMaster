@@ -38,9 +38,10 @@ def test_daten_vollstaendig(client, repo):
     for schluessel in (
         "erzeugt", "bereiche", "aufgaben", "querverweise", "entscheidungen",
         "anleitungen", "recherche", "teile", "einzelteile", "medien",
-        "versionen", "kennzahlen", "bearbeitbar",
+        "versionen", "kennzahlen", "bearbeitbar", "vokabular",
     ):
         assert schluessel in d
+    assert d["vokabular"]["einzelteil_art"][0] == "Platte"
     assert len(d["bereiche"]) == len(bereiche_lesen())
     assert len(d["aufgaben"]) == len(aufgaben_lesen())
     assert len(d["teile"]) == len(teile_lesen())

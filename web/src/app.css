@@ -65,7 +65,7 @@
   --farbe-raster: rgb(60 50 30 / 0.055);
   --farbe-text: #1c1a16;
   --farbe-text-2: #5a5448;
-  --farbe-text-3: #8c8577;
+  --farbe-text-3: #6f685b;   /* ≥ 4,5:1 auf Fläche und Fläche-hoch */
   --farbe-signal: #b13c0a;
   --farbe-signal-hell: #ea580c;
   --farbe-signal-grund: #fbe4d5;
