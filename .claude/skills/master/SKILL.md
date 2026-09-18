@@ -77,6 +77,13 @@ Wissen zu einem Thema steht in `vault/Bereiche/<Name>.md` — Beschreibung,
 Stand, Auslegung, Notizen, Links und Aufgaben in einer Datei, feste Abschnitte
 in dieser Reihenfolge. Aufgaben werden nur unter `## Aufgaben` gelesen.
 
+Aufgaben und Bereichstexte immer über den Kern pflegen, nie von Hand in der
+Datei ändern: `task add <Bereich> "<Titel>"` (neu, `--gruppe`/`--unter`/`--prio`),
+`task rename <id> "<Titel>"`, `task delete <id>` (löscht mit Unterpunkten,
+Git sichert); `bereich set <Bereich> <Abschnitt> --text "…"` für Beschreibung/
+Stand/Auslegung/Notizen/Links, `bereich set <Bereich> --kopf feld=wert` für
+Kopffelder wie `phase`. `camper check` prüft den Bestand gegen `FORMAT.md`.
+
 ## Antwortform
 
 Kurz: Lage, Empfehlung, Rückfrage. Keine Wiederholung der Rohausgabe. Gibt es

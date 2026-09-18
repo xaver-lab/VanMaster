@@ -27,6 +27,7 @@ from __future__ import annotations
 
 from .common import STANDARD_SORTIERUNG, bar, fail
 from .kern import aufgaben as kern_aufgaben
+from .kern import datei as kern_datei
 from .kern.format import BOX_ZEICHEN, ERLEDIGT, PRIOS
 from .kern.lesen import aufgaben_lesen
 
@@ -167,6 +168,45 @@ def set_status(task_id: str, status: str) -> str:
         fail(f"Status muss einer von {', '.join(BOX_ZEICHEN)} sein.")
     kern_aufgaben.status_setzen(a["id"], status, None)
     return f"{a['titel']}: {a['status']} → {status}"
+
+
+def add(bereich: str, titel: str, *, gruppe: str = "", unter: str = "",
+        prio: str = "") -> str:
+    """Legt eine neue Aufgabe an — ans Ende von Abschnitt/Gruppe/Elternaufgabe."""
+    try:
+        kennung, _ = kern_aufgaben.anlegen(
+            bereich, titel, None, prio=prio,
+            gruppe=gruppe or None, eltern_id=unter or None)
+    except (ValueError, kern_datei.Konflikt) as fehler:
+        fail(str(fehler))
+    return f"Angelegt: {titel} [{kennung}]"
+
+
+def delete(task_id: str) -> str:
+    """Löscht eine Aufgabe mit allen Unterpunkten."""
+    aufgaben = load()
+    a = find(task_id, aufgaben)
+    if a is None:
+        fail(f"Keine Aufgabe zu '{task_id}' gefunden.")
+    kinder = len(a["kinder"])
+    try:
+        kern_aufgaben.loeschen(a["id"], None)
+    except (ValueError, kern_datei.Konflikt) as fehler:
+        fail(str(fehler))
+    wort = "Unterpunkt" if kinder == 1 else "Unterpunkte"
+    return f"Gelöscht: {a['titel']} ({kinder} {wort})"
+
+
+def rename(task_id: str, titel: str) -> str:
+    aufgaben = load()
+    a = find(task_id, aufgaben)
+    if a is None:
+        fail(f"Keine Aufgabe zu '{task_id}' gefunden.")
+    try:
+        kern_aufgaben.titel_setzen(a["id"], titel, None)
+    except (ValueError, kern_datei.Konflikt) as fehler:
+        fail(str(fehler))
+    return f"{a['titel']} → {titel}"
 
 
 def set_description(task_id: str, text: str) -> str:

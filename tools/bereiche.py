@@ -28,7 +28,9 @@ Bereich hinten — die Dateien müssen nicht alle gleichzeitig umgestellt werden
 """
 from __future__ import annotations
 
-from .common import SORTIERUNGEN, STANDARD_SORTIERUNG
+from .common import SORTIERUNGEN, STANDARD_SORTIERUNG, fail
+from .kern import abschnitte as kern_abschnitte
+from .kern import datei as kern_datei
 from .kern.format import LINK
 from .kern.lesen import bereiche_lesen
 
@@ -120,6 +122,32 @@ def find(name: str, alle: list[dict] | None = None) -> dict | None:
             return b
     treffer = [b for b in alle if gesucht in b["name"].lower()]
     return treffer[0] if len(treffer) == 1 else None
+
+
+# ------------------------------------------------------------------ Schreiben
+
+def set_section(bereich: str, abschnitt: str, text: str) -> str:
+    """Ersetzt einen Bereichsabschnitt (Quelle ``claude`` — darf auch
+    ``Auslegung``)."""
+    if bereich not in namen():
+        fail(f"Bereich '{bereich}' nicht gefunden.")
+    try:
+        kern_abschnitte.abschnitt_setzen(bereich, abschnitt, text, None,
+                                         quelle="claude")
+    except (kern_abschnitte.Unerlaubt, kern_datei.Konflikt) as fehler:
+        fail(str(fehler))
+    return f"{bereich}: Abschnitt '{abschnitt}' aktualisiert"
+
+
+def set_head(bereich: str, feld: str, wert: str) -> str:
+    """Ändert ein Kopf-Feld der Bereichsdatei (Quelle ``claude``)."""
+    if bereich not in namen():
+        fail(f"Bereich '{bereich}' nicht gefunden.")
+    try:
+        kern_abschnitte.kopf_setzen(bereich, feld, wert, None, quelle="claude")
+    except (kern_abschnitte.Unerlaubt, kern_datei.Konflikt) as fehler:
+        fail(str(fehler))
+    return f"{bereich}: {feld} = {wert}"
 
 
 def overview_text(sortierung: str = STANDARD_SORTIERUNG) -> str:

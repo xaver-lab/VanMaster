@@ -39,6 +39,10 @@ Wo Themen in Reihe stehen, gilt `--sortierung baustellen|phase|name`
 Jeder Befehl gibt kompakten, antwortfertigen Text aus; `--json` liefert Rohdaten.
 `python camper.py serve` startet das Dashboard mit Schreibzugriff — dort
 abgehakte Aufgaben landen direkt im Vault, Statuswechsel in `parts.csv`.
+Aufgaben anlegen/umbenennen/löschen: `task add <Bereich> "<Titel>"`,
+`task rename <id> "<Titel>"`, `task delete <id>`. Bereichstexte und Kopffelder:
+`bereich set <Bereich> <Abschnitt> --text "…"` bzw.
+`bereich set <Bereich> --kopf feld=wert`. Formatprüfung: `camper check`.
 
 ## Python-Umgebung
 

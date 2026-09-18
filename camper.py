@@ -15,12 +15,13 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from tools import (  # noqa: E402
-    bauteile, bereiche, build, media, parts, status, tasks,
+    bauteile, bereiche, build, kern, media, parts, status, tasks,
 )
 from tools.common import (  # noqa: E402
     BAUTEIL_ART, BAUTEIL_STATUS, MASSQUELLE, PART_KATEGORIEN, SORTIERUNGEN,
     STANDARD_SORTIERUNG, fail,
 )
+from tools.kern.format import PRIOS
 
 
 def sortierung(args) -> str:
@@ -71,9 +72,17 @@ def cmd_tasks(args) -> None:
 
 
 def cmd_task(args) -> None:
-    ziel = {"done": "erledigt", "start": "laeuft",
-            "open": "offen", "drop": "verworfen", "block": "blockiert"}[args.was]
-    print(tasks.set_status(args.id, ziel))
+    if args.was in ("done", "start", "open", "drop", "block"):
+        ziel = {"done": "erledigt", "start": "laeuft", "open": "offen",
+                "drop": "verworfen", "block": "blockiert"}[args.was]
+        print(tasks.set_status(args.id, ziel))
+    elif args.was == "add":
+        print(tasks.add(args.bereich, args.titel, gruppe=args.gruppe or "",
+                        unter=args.unter or "", prio=args.prio or ""))
+    elif args.was == "delete":
+        print(tasks.delete(args.id))
+    elif args.was == "rename":
+        print(tasks.rename(args.id, args.titel))
 
 
 def cmd_brief(args) -> None:
@@ -116,6 +125,42 @@ def cmd_bereich(args) -> None:
         zeige("", b or {}, True)
         return
     print(status.bereich(args.name))
+
+
+def cmd_bereich_set(args) -> None:
+    if args.kopf:
+        for eintrag in args.kopf:
+            if "=" not in eintrag:
+                fail("Aufruf: bereich set <Bereich> --kopf feld=wert")
+            feld, wert = eintrag.split("=", 1)
+            print(bereiche.set_head(args.bereich, feld.strip(), wert.strip()))
+        return
+    if not args.abschnitt:
+        fail("Aufruf: bereich set <Bereich> <Abschnitt> [--text \"…\"] "
+             "(oder von stdin) — oder bereich set <Bereich> --kopf feld=wert")
+    text = args.text if args.text is not None else sys.stdin.read()
+    print(bereiche.set_section(args.bereich, args.abschnitt, text))
+
+
+def cmd_check(args) -> None:
+    from dataclasses import asdict
+
+    befunde = kern.pruefen()
+    if args.json:
+        zeige("", [asdict(b) for b in befunde], True)
+    else:
+        if not befunde:
+            print("Keine Abweichungen gefunden.")
+        else:
+            zeilen = [f"{b.datei}:{b.zeile}  {b.art}  {b.meldung}"
+                     for b in befunde]
+            anzahl_fehler = sum(1 for b in befunde if b.art == "fehler")
+            anzahl_warnungen = len(befunde) - anzahl_fehler
+            zeilen.append("")
+            zeilen.append(f"{anzahl_fehler} Fehler, {anzahl_warnungen} Warnungen")
+            print("\n".join(zeilen))
+    if any(b.art == "fehler" for b in befunde):
+        sys.exit(1)
 
 
 def cmd_bereiche(args) -> None:
@@ -211,10 +256,34 @@ def parser() -> argparse.ArgumentParser:
                         "der Bereichsdatei) oder name")
     s.set_defaults(func=cmd_tasks)
 
-    s = sub.add_parser("task", help="Aufgabe abhaken oder umstellen")
-    s.add_argument("was", choices=["done", "start", "open", "drop", "block"])
-    s.add_argument("id")
-    s.set_defaults(func=cmd_task)
+    s = sub.add_parser("task", help="Aufgabe anlegen, umstellen, umbenennen, löschen")
+    task_sub = s.add_subparsers(dest="was", required=True)
+
+    for name, hilfe in (("done", "als erledigt markieren"),
+                        ("start", "als laufend markieren"),
+                        ("open", "als offen markieren"),
+                        ("drop", "als verworfen markieren"),
+                        ("block", "als blockiert markieren")):
+        sp = task_sub.add_parser(name, help=hilfe)
+        sp.add_argument("id")
+        sp.set_defaults(func=cmd_task)
+
+    sp = task_sub.add_parser("add", help="neue Aufgabe anlegen")
+    sp.add_argument("bereich")
+    sp.add_argument("titel")
+    sp.add_argument("--gruppe", help="Gruppe (### Überschrift) im Aufgabenabschnitt")
+    sp.add_argument("--unter", help="ID der Eltern-Aufgabe, legt einen Unterpunkt an")
+    sp.add_argument("--prio", choices=list(PRIOS))
+    sp.set_defaults(func=cmd_task)
+
+    sp = task_sub.add_parser("delete", help="Aufgabe löschen (mit Unterpunkten)")
+    sp.add_argument("id")
+    sp.set_defaults(func=cmd_task)
+
+    sp = task_sub.add_parser("rename", help="Titel ändern")
+    sp.add_argument("id")
+    sp.add_argument("titel")
+    sp.set_defaults(func=cmd_task)
 
     s = sub.add_parser("brief", help="alles zu einer Aufgabe")
     s.add_argument("id")
@@ -247,6 +316,17 @@ def parser() -> argparse.ArgumentParser:
     s.add_argument("name")
     s.add_argument("--json", action="store_true")
     s.set_defaults(func=cmd_bereich)
+
+    s = sub.add_parser("bereich-set", prog="camper bereich set",
+                       help="Abschnitt oder Kopf-Feld eines Bereichs setzen "
+                            "(aufgerufen als 'camper bereich set …')")
+    s.add_argument("bereich")
+    s.add_argument("abschnitt", nargs="?",
+                   help="z. B. Beschreibung, Stand, Auslegung, Notizen, Links")
+    s.add_argument("--text", help="neuer Inhalt; ohne Angabe wird von stdin gelesen")
+    s.add_argument("--kopf", action="append", default=[],
+                   metavar="feld=wert", help="Kopf-Feld setzen, z. B. phase=3")
+    s.set_defaults(func=cmd_bereich_set)
 
     s = sub.add_parser("bereiche", help="alle Arbeitsbereiche")
     s.add_argument("--json", action="store_true")
@@ -281,6 +361,10 @@ def parser() -> argparse.ArgumentParser:
     s.add_argument("--apply", action="store_true", help="Import wirklich schreiben")
     s.add_argument("--json", action="store_true")
     s.set_defaults(func=cmd_bauteile)
+
+    s = sub.add_parser("check", help="Formatprüfung (FORMAT.md), Exit-Code 1 bei Fehlern")
+    s.add_argument("--json", action="store_true")
+    s.set_defaults(func=cmd_check)
 
     s = sub.add_parser("find", help="Volltextsuche, liefert Pfade")
     s.add_argument("text")
@@ -325,6 +409,12 @@ def main(argv: list[str] | None = None) -> None:
             strom.reconfigure(encoding="utf-8", errors="replace")
         except (AttributeError, ValueError):
             pass
+    argv = list(sys.argv[1:] if argv is None else argv)
+    # "bereich set …" ist intern ein eigener Unterbefehl (argparse kann eine
+    # feste Kennung wie 'set' nicht neben einem freien Bereichsnamen an
+    # derselben Stelle unterscheiden).
+    if len(argv) >= 2 and argv[0] == "bereich" and argv[1] == "set":
+        argv = ["bereich-set"] + argv[2:]
     args = parser().parse_args(argv)
     args.func(args)
 
