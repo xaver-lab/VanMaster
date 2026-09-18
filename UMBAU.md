@@ -31,7 +31,7 @@ Nur lesend (pflegt Claude): Auslegung, Entscheidungen, Recherche, Anleitungen,
 Löschen entfernt wirklich aus der Datei (Git sichert), zusätzlich bleibt der
 Status „verworfen“.
 
-Das alte Dashboard (`docs/`) läuft unverändert weiter, bis Phase 9 es ablöst.
+Das alte Dashboard (`docs/`) ist seit Phase 9 entfernt.
 
 ## Arbeitsweise
 
@@ -132,7 +132,7 @@ Das alte Dashboard (`docs/`) läuft unverändert weiter, bis Phase 9 es ablöst.
 - [x] [Sonnet] Erzeugte Dateien aus Git nehmen (`docs/data.*`, altes Dashboard), `.gitignore` anpassen
 - [x] [Haupt] Handy-Ansicht auf Pages einmal ansehen (nur lesen, nichts optimieren)
 - [x] [Sonnet] Altes Dashboard, `tools/serve.py` und nicht mehr gebrauchte Module entfernen
-- [ ] [Haupt] `CLAUDE.md`, Skill `master-dev`, `README.md`, `PLAN.md` auf den neuen Stand bringen
+- [x] [Haupt] `CLAUDE.md`, Skill `master-dev`, `README.md`, `PLAN.md` auf den neuen Stand bringen
 
 ## Protokoll
 
@@ -189,6 +189,8 @@ Eine Zeile je abgeschlossenem Punkt oder getroffener Entscheidung.
 
 - 2026-09-18 Phase 9: Altes Dashboard entfernt. `docs/` ist ganz weg, ebenso `tools/serve.py`, die Route `/alt/`, `--alt` und die launch.json-Einträge `camper-serve`/`dashboard`. Die Web-Kopien der Bilder liegen jetzt in `data/generated/medien/` (`common.MEDIEN_WEB_DIR`, in .gitignore). `data.js`/`data.json` schreibt `sync` nicht mehr, es meldet stattdessen „Bilder aktualisiert“. 165 Tests grün. Doku-Fundstellen für den nächsten Punkt: CLAUDE.md:27,68-71, README.md:14,16,53, PLAN.md:31,86, SKILL master-dev (viele Stellen).
 
+- 2026-09-18 Phase 9: Doku auf den neuen Stand gebracht (CLAUDE.md, README.md, PLAN.md, Skill master-dev). Offen: `.claude/settings.json` sperrt noch die alten Pfade `docs/data.*`. Die Umstellung auf `web/dist/**` und `api-schema.json` hat die Auto-Modus-Prüfung blockiert, das macht der Nutzer. Phase 9 fertig, offen bleibt nur der Feinschliff 6–8 nach Rückmeldung.
+
 ## Offene Fragen
 
 - Palette: Treffer mit loser Buchstabenfolge („kabel“ findet „Klappenbeschlag … Kinvaro“) stehen in ihrer Gruppe vor echten Worttreffern anderer Typen. Lose Treffer ausblenden, wenn es genug echte gibt?
@@ -203,9 +205,8 @@ Stand 2026-09-18: Phasen 0–5 fertig und abgenommen. Phase 6 und 7 sind gebaut,
 `web check` (0 Fehler, 0 Warnungen) und `web build` laufen. 
 
 Browser-Prüfungen für Phase 6 und 8 sind durch (siehe Protokoll). Die Lücken aus dem Vergleich
-sind geschlossen. Phase 9 läuft: Action und .gitignore sind fertig.
-Offen sind: Pages-Quelle auf „GitHub Actions“ stellen (Nutzer), Handy ansehen, altes Dashboard entfernen, Doku.
-Feinschliff 6–8 erst, wenn der Nutzer Rückmeldung gibt.
+sind geschlossen. Phase 9 ist fertig, die Seite ist online unter https://xaver-lab.github.io/VanMaster/.
+Offen ist nur noch der Feinschliff 6–8 nach Rückmeldung des Nutzers, siehe auch „Offene Fragen“.
 Browser-Prüfungen nur mit sichtbarem Browserfenster (`tabs_select`), sonst kommen Enter/Escape nicht an.
 
 - Neuer Rechner: `pip install --user -r requirements.txt`; Node portabel nach `~/nodejs/`
@@ -222,10 +223,9 @@ Browser-Prüfungen nur mit sichtbarem Browserfenster (`tabs_select`), sonst komm
 - Neue Ansichten: zuerst `web/DESIGN.md` lesen, nur Bausteine aus `lib/ui/` und Tokens
   (`--farbe-*`, `--a-*`, `--r-*`) benutzen, Stil scoped in der Komponente, `app.css` nur für Globales.
 - Typen für `web/`: `python -m tools.server.schema` → `web/src/lib/api-typen.ts`.
-- Server zum Prüfen: Preview `camper-neu` (Port 8765) aus `.claude/launch.json`;
-  altes Dashboard unter `/alt/`, alter Server als `camper-serve` (8766). Selbst gestartete
-  Server immer mit `--kein-commit`.
-- Der neue Server liefert noch keine Bilder aus `vault/Medien` aus (für Phase 8 Medien nötig).
+- Server zum Prüfen: Preview `camper-neu` (Port 8765) oder `camper-pruef` (8767, `--kein-commit`)
+  aus `.claude/launch.json`. Selbst gestartete Server immer mit `--kein-commit`.
+- Bilder: Web-Kopien in `data/generated/medien/`, Server-Route `/medien`; Pages bekommt sie über `camper web daten`.
 - SSE `GET /api/live`: `event: aenderung`, `data: {dateien:[{datei,version}], quelle}`.
   `quelle: "web"` = eigene Änderung, kein Konflikt anzeigen.
 - Status-Schlüssel ohne Umlaut: `offen|laeuft|erledigt|verworfen|blockiert`.

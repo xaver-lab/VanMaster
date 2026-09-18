@@ -11,9 +11,10 @@ Aufbauplan und Begründungen: [PLAN.md](PLAN.md).
 |---|---|
 | `data/parts.csv` | Stückliste — die Wahrheit |
 | `vault/` | Obsidian-Vault: Aufgaben, Systeme, Entscheidungen, Anleitungen |
-| `docs/` | Dashboard (GitHub Pages oder Doppelklick auf `index.html`) |
+| `web/` | Dashboard: Svelte 5 + Vite + TypeScript, Aufbau in `web/DESIGN.md` |
+| `tools/server/` | Server für das Dashboard (FastAPI) mit Schreib-API und Live-Aktualisierung |
 | `tools/`, `camper.py` | die Werkzeuge |
-| `data/generated/`, `vault/Stückliste/`, `docs/data.*` | erzeugt, nicht von Hand ändern |
+| `data/generated/`, `vault/Stückliste/`, `web/dist/` | erzeugt, nicht von Hand ändern |
 
 ## Befehle
 
@@ -31,6 +32,8 @@ python camper.py find "Heizung"      # Volltextsuche
 python camper.py media               # Bilder aus _input einsortieren
 python camper.py sync                # alles neu erzeugen
 python camper.py serve               # Dashboard mit Schreibzugriff
+python camper.py web build           # Dashboard neu bauen (nach Änderungen in web/)
+python camper.py check               # Format von Vault und CSVs prüfen
 python camper.py ui                  # Fenster mit Knöpfen
 ```
 
@@ -42,6 +45,9 @@ Python 3.13, keine Adminrechte nötig:
 pip install --user -r requirements.txt
 ```
 
+Node 24 nur zum Bauen des Dashboards: portabel unter `~/nodejs/` oder im PATH,
+`camper web` findet beides.
+
 Dashboard starten:
 
 ```bash
@@ -49,10 +55,14 @@ python camper.py serve          # http://localhost:8765, öffnet den Browser
 python camper.py serve --offen  # dazu vom Handy im WLAN erreichbar
 ```
 
-Mit `serve` schreiben die Kästchen und die Statusknöpfe direkt in Vault und
-`parts.csv`. Ohne Server — Doppelklick auf `docs/index.html` oder GitHub
-Pages — ist das Dashboard reine Anzeige und zeigt statt der Änderung den
-passenden `camper`-Befehl zum Kopieren.
+Mit `serve` schreibt das Dashboard Aufgaben, Bereichstexte, Teile und
+Einzelteile direkt in Vault und CSVs. Ändert Claude parallel eine Datei, zieht
+die Oberfläche sofort nach, und veraltete Stände werden abgelehnt statt
+überschrieben. Web-Änderungen landen nach einigen Minuten Ruhe gesammelt in
+einem Commit (`--kein-commit` schaltet das ab).
+
+Fürs Handy baut eine GitHub Action bei jedem Push auf `main` eine reine
+Leseansicht: https://xaver-lab.github.io/VanMaster/
 
 ## Stückliste bearbeiten
 

@@ -24,7 +24,7 @@ Die Regeln des übergeordneten Schreibprojekts (`Privat/CLAUDE.md`) gelten hier
 - `parts.csv` ist, was gekauft wird. `bauteile.csv` ist, was daraus gebaut
   wird — Bretter, Leisten, Zuschnitte mit Maßen in mm. Ein Holzbrett gehört
   nicht in die Stückliste.
-- Alles unter `data/generated/`, `vault/Stückliste/` und `docs/data.json` wird
+- Alles unter `data/generated/`, `vault/Stückliste/` und `web/dist/` wird
   erzeugt. Nie von Hand ändern — Änderungen gehen beim nächsten `sync` verloren.
 - Die CSVs nicht direkt editieren: `camper parts excel` → in Excel arbeiten →
   `camper parts import` (zeigt erst einen Vergleich). Für die Einzelteile
@@ -37,8 +37,11 @@ Die Regeln des übergeordneten Schreibprojekts (`Privat/CLAUDE.md`) gelten hier
 Wo Themen in Reihe stehen, gilt `--sortierung baustellen|phase|name`
 (Voreinstellung `baustellen`) — dieselbe Reihenfolge wie im Dashboard.
 Jeder Befehl gibt kompakten, antwortfertigen Text aus; `--json` liefert Rohdaten.
-`python camper.py serve` startet das Dashboard mit Schreibzugriff — dort
-abgehakte Aufgaben landen direkt im Vault, Statuswechsel in `parts.csv`.
+`python camper.py serve` startet das Dashboard (`web/`, FastAPI in
+`tools/server/`) mit Schreibzugriff. Aufgaben, Bereichstexte, Teile und Einzelteile
+landen direkt in Vault und CSVs, Web-Änderungen werden gesammelt committet.
+Nach Änderungen in `web/src` neu bauen: `python camper.py web build`.
+Fürs Handy: GitHub Pages, nur lesend, baut sich bei jedem Push selbst.
 Aufgaben anlegen/umbenennen/löschen: `task add <Bereich> "<Titel>"`,
 `task rename <id> "<Titel>"`, `task delete <id>`. Bereichstexte und Kopffelder:
 `bereich set <Bereich> <Abschnitt> --text "…"` bzw.
@@ -65,11 +68,11 @@ vor, wird damit gearbeitet.
 
 ## Sparsam mit dem Kontext
 
-- `docs/data.json` und `docs/data.js` nie lesen oder durchsuchen — erzeugt,
-  riesig, `data.js` ist eine einzige Zeile.
-- Dashboard-Arbeit: nur die Dateien der betroffenen Ansicht unter `docs/js/`
-  und `docs/css/`, erst suchen, dann Ausschnitte lesen. Details im Skill
-  `master-dev`.
+- `web/dist/` und `web/src/lib/api-schema.json` nie lesen oder durchsuchen —
+  erzeugt und groß. Daten lieber über `python camper.py <befehl> --json`.
+- Dashboard-Arbeit: nur die Dateien der betroffenen Ansicht unter
+  `web/src/lib/<ansicht>/` bzw. `web/src/routen/`, erst suchen, dann
+  Ausschnitte lesen. Details im Skill `master-dev`.
 - Breite Suchen und Browser-Prüfungen über mehrere Ansichten an Subagenten,
   die nur einen kurzen Befund zurückgeben.
 - Keine Screenshots bei Zwischenschritten, höchstens einer am Ende.

@@ -2,8 +2,8 @@
 
 Renault Master 2013, Selbstausbau zum Vollzeit-Campervan.
 Projektname: **VanMaster**.
-Stand: 2026-09-18 · Grundgerüst, Skills und Datenpipeline stehen, Dashboard
-Stufe 2 läuft. Details siehe `.claude/skills/master-dev`.
+Stand: 2026-09-18 · Grundgerüst, Skills und Datenpipeline stehen, Umbau des
+Dashboards (`UMBAU.md`) bis auf den Feinschliff fertig. Details siehe `.claude/skills/master-dev`.
 
 ---
 
@@ -13,7 +13,7 @@ Eine einzige Datenbasis, vier Zugänge darauf:
 
 | Zugang | Wofür | Richtung |
 |---|---|---|
-| **HTML-Übersicht** (Handy + Laptop) | schneller Blick: was ist offen, was kostet es, wie schaut's aus | lesen, mit `camper serve` auch schreiben |
+| **Dashboard** (Laptop, Handy über Pages) | schneller Blick und Arbeiten: Aufgaben, Bereichstexte, Teile, Zuschnitt | am Laptop mit `camper serve` lesen + schreiben, Handy nur lesen |
 | **Obsidian** (Laptop + Handy) | abhaken, Notizen tippen, Anleitungen lesen, Zusammenhänge verfolgen | lesen + schreiben |
 | **Claude Code** (Laptop) | einbauen, umstrukturieren, recherchieren, rechnen | lesen + schreiben |
 | **Excel** (Laptop, bei Bedarf) | Stückliste in Ruhe durchgehen, Preise vergleichen | Ausleihe, kommt zurück |
@@ -21,35 +21,37 @@ Eine einzige Datenbasis, vier Zugänge darauf:
 Kein Sync-Konflikt, weil es nur eine Wahrheit gibt: Textdateien im Git-Repo.
 Alles Maschinenlesbare wird daraus **erzeugt**, nie von Hand gepflegt.
 
-**Hosting:** öffentliches GitHub-Repo, Dashboard über GitHub Pages.
+**Hosting:** öffentliches GitHub-Repo, Dashboard über GitHub Pages
+(https://xaver-lab.github.io/VanMaster/, baut sich per GitHub Action bei jedem Push).
 Handy: Browser-Lesezeichen für die Übersicht, Obsidian mit Git-Erweiterung für die Inhalte.
 
 ---
 
-## 2. HTML-Übersicht
+## 2. Dashboard
 
-Eine HTML-Datei, eine CSS-, eine JS-Datei, dazu ein erzeugtes `data.json`.
-Technik und Umbau (Svelte, FastAPI, Datenkern): siehe `UMBAU.md`. Mobil zuerst gedacht, dunkles Thema, große Klickflächen.
+Svelte 5 + Vite in `web/`, FastAPI-Server in `tools/server/`, Datenkern in
+`tools/kern/`. Technik und Umbau: siehe `UMBAU.md`, Gestaltung: `web/DESIGN.md`.
 
 **Stufe 1 — Grundgerüst** ✅ erledigt
 Tab-Navigation. Aufgabenbaum zum Aufklappen mit Fortschritt je Bereich.
 Stücklisten-Tabelle mit Filter nach Kategorie und Status. Kostensumme oben.
 
-**Stufe 2 — Inhalte** läuft
+**Stufe 2 — Inhalte** ✅ erledigt
 Bildergalerie mit Bereichszuordnung ✅, Kacheln nach Status/Thema mit
-Detailmodal (Beschreibung, Fotos) ✅. Offen: Entscheidungsseiten, Anleitungen
-direkt im Dashboard lesbar (Markdown gerendert), durchgängige Verlinkung.
+Detailmodal (Beschreibung, Fotos) ✅, Entscheidungen je Bereich, Markdown
+gerendert, Anleitungen und Recherche in den Bereichsreitern, `[[…]]`-Verlinkung ✅.
 
 **Stufe 3 — Auswertungen** offen
 Strombilanz: Tagesverbrauch gegen Batteriekapazität und Solarertrag.
 Gewichtsbilanz gegen zulässige Zuladung. Kostenverlauf. Blocker-Übersicht.
 
-**Stufe 4 — Komfort** offen
-Volltextsuche über alles. Ansichten per Link teilbar.
+**Stufe 4 — Komfort** teilweise
+Volltextsuche über alles (Strg+K) ✅. Ansichten per Link teilbar ✅.
 Offline-fähig am Handy — einmal geladen, funktioniert ohne Empfang am Van.
 
-Schreibzugriff (früher "Stufe 5, optional") ist über `camper serve` schon da:
-Kästchen und Statuswechsel gehen direkt in Vault und `parts.csv`.
+Schreibzugriff (früher "Stufe 5, optional") ist über `camper serve` da:
+Aufgaben, Bereichstexte, Teile und Einzelteile gehen direkt in Vault und CSVs,
+mit Schutz vor Überschreiben und Live-Aktualisierung.
 
 ---
 
@@ -83,7 +85,7 @@ mit der Ausbau-Pipeline:
 | Ordner | `vault/`, `data/`, `tools/` | eigener Zweig, z. B. `smarthome/` mit eigenem `vault/`, `data/` |
 | CLI | `camper.py` mit den bestehenden Befehlen | eigener Namespace, z. B. `camper smarthome ...`, statt in die bestehenden Befehle hineinzuwachsen |
 | Skill | `master`, `master-dev`, `master-research` | eigener vierter Skill, z. B. `master-smarthome` |
-| Dashboard | Tabs für Bereiche/Aufgaben/Stückliste | eigener zusätzlicher Tab, eigenes generiertes JSON — mischt sich nicht mit `data.json` des Ausbaus |
+| Dashboard | Tabs für Bereiche/Aufgaben/Stückliste | eigener zusätzlicher Tab, eigene Daten — mischt sich nicht mit denen des Ausbaus |
 | Aufgaben | `vault/Bereiche/*.md` | eigene Datei, klar als Nebenprojekt gekennzeichnet, nicht in die Ausbau-Fortschrittszahlen eingerechnet |
 
 Grund für die Trennung: Smart Home ist Hobby-Nebenprojekt, soll parallel
