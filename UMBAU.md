@@ -166,6 +166,8 @@ Eine Zeile je abgeschlossenem Punkt oder getroffener Entscheidung.
 
 Stand 2026-09-18: Phasen 0–4 fertig und abgenommen. Weiter mit **Phase 5**.
 
+- Neuer Rechner: `pip install --user -r requirements.txt`; Node portabel nach `~/nodejs/`
+  (Version 24, nicht im PATH).
 - Tests: `PYTHONIOENCODING=utf-8 python -m pytest -q` (162 Tests, ~85 s).
   Einzelne Datei reicht zum Abnehmen, am Phasenende einmal alles.
 - Node für npm/npx: `PATH=~/nodejs:$PATH` in der Sitzung setzen, sonst

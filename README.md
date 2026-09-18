@@ -39,7 +39,7 @@ python camper.py ui                  # Fenster mit Knöpfen
 Python 3.13, keine Adminrechte nötig:
 
 ```bash
-pip install --user openpyxl Pillow
+pip install --user -r requirements.txt
 ```
 
 Dashboard starten:

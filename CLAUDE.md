@@ -46,8 +46,9 @@ Aufgaben anlegen/umbenennen/löschen: `task add <Bereich> "<Titel>"`,
 
 ## Python-Umgebung
 
-Python 3.13, User-Scope (keine Adminrechte). Abhängigkeiten: `openpyxl`, `Pillow`.
-Installation nur mit `pip install --user`.
+Python 3.13, User-Scope (keine Adminrechte). Abhängigkeiten in `requirements.txt`
+(`openpyxl`, `Pillow`, `fastapi`, `uvicorn`, `httpx`, `pytest`).
+Installation nur mit `pip install --user -r requirements.txt`.
 
 ## Git läuft nebenbei
 
