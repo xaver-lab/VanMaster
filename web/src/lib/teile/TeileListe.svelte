@@ -36,7 +36,7 @@
   }
 
   let ansicht = $state<Ansicht>(gemerkt('teileAnsicht', 'liste'));
-  let filterStatus = $state(gemerkt('teileFilterStatus', ''));
+  let filterStatus = $state(gemerkt<string>('teileFilterStatus', ''));
   let filterKategorie = $state('');
   let suche = $state('');
   let formOffen = $state(false);

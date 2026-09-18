@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { untrack } from 'svelte';
   // Ein Abschnitt einer Bereichsdatei — bearbeitbar mit Text/Vorschau-
   // Umschalter, oder nur lesend sichtbar markiert ("pflegt Claude").
   //
@@ -26,7 +27,7 @@
   } = $props();
 
   let bearbeiten = $state(false);
-  let entwurf = $state(text);
+  let entwurf = $state(untrack(() => text));
   let ansicht = $state<'text' | 'vorschau'>('text');
 
   $effect(() => {

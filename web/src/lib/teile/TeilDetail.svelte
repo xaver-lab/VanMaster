@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { untrack } from 'svelte';
   // Detailfenster eines Teils, als Dialog. Bearbeitbare Felder kommen aus
   // der Matrix store.daten.bearbeitbar.teil_felder (FORMAT.md §8) — nicht aus
   // einer fest eingebauten Liste. Nicht bearbeitbare Felder stehen sichtbar
@@ -37,7 +38,7 @@
 
   // Entwurf für die Notiz, damit ein SSE-Neuladen während der Eingabe nichts
   // überschreibt (wie in AufgabeDetail); gespeichert wird beim Verlassen.
-  let notizEntwurf = $state(t.notiz);
+  let notizEntwurf = $state(untrack(() => t.notiz));
   let notizFokus = $state(false);
   $effect(() => {
     if (!notizFokus) notizEntwurf = t.notiz;

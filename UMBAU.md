@@ -107,14 +107,14 @@ Das alte Dashboard (`docs/`) läuft unverändert weiter, bis Phase 9 es ablöst.
 
 - [x] [Sonnet] Aufgabenliste mit Filter, Gruppierung, Suche; Statuswechsler; Anlegen, Umbenennen, Löschen (mit Rückfrage); Detailfenster mit Beschreibung
 - [x] [Sonnet] Bereichsansicht: Kopf, Reiter, bearbeitbare Abschnitte (Textfeld mit Markdown-Vorschau), nur-lesende Abschnitte sichtbar markiert
-- [~] [Sonnet] Aufgabenliste (`web/src/lib/aufgaben/`) und Bereichsansicht (`web/src/lib/bereiche/`) auf die Bausteine aus `web/src/lib/ui/` und die Tokens aus `web/DESIGN.md` umstellen (Knopf, Chip, Statusmarke, Kontrollkaestchen, Dialog/`bestaetigen()`, Tabs, Rubrik, Leerzustand, Fortschritt); eigene Kopien dieser Elemente und alte Variablennamen entfernen; Verhalten bleibt gleich
+- [x] [Sonnet] Aufgabenliste (`web/src/lib/aufgaben/`) und Bereichsansicht (`web/src/lib/bereiche/`) auf die Bausteine aus `web/src/lib/ui/` und die Tokens aus `web/DESIGN.md` umstellen (Knopf, Chip, Statusmarke, Kontrollkaestchen, Dialog/`bestaetigen()`, Tabs, Rubrik, Leerzustand, Fortschritt); eigene Kopien dieser Elemente und alte Variablennamen entfernen; Verhalten bleibt gleich
 - [ ] [Sonnet] Browser-Prüfung: Anlegen/Ändern/Löschen landet in der Datei; Claude ändert parallel eine Datei → Oberfläche aktualisiert sich; Konflikt wird angezeigt
 - [ ] [Haupt] Feinschliff nach Rückmeldung des Nutzers
 
 ## Phase 7 — Teile und Einzelteile
 
-- [~] [Sonnet] Teileansicht (Liste/Raster, Filter, Kosten), Statuswechsler, Felder bearbeiten, Detailfenster
-- [~] [Sonnet] Zuschnitt/Einzelteile mit Bearbeitung
+- [x] [Sonnet] Teileansicht (Liste/Raster, Filter, Kosten), Statuswechsler, Felder bearbeiten, Detailfenster
+- [x] [Sonnet] Zuschnitt/Einzelteile mit Bearbeitung
 - [ ] [Haupt] Feinschliff nach Rückmeldung
 
 ## Phase 8 — Start, Medien, Suche
@@ -174,31 +174,20 @@ Eine Zeile je abgeschlossenem Punkt oder getroffener Entscheidung.
 - 2026-09-18 Phase 7: Teileansicht (`web/src/lib/teile/`: TeileListe, TeilZeile, TeilKarte, TeilDetail, format.ts) - Kennzahlen-Kopf, Status-Tabs, Kategoriefilter, Suche, Liste/Raster, Anlegen/Loeschen, Detail-`Dialog`. **Teile haben ein eigenes Status-Vokabular** (`tools/common.py: PART_STATUS` = Idee, Recherche, Entschieden, Bestellt, Geliefert, Verbaut) - nicht das Aufgaben-Enum aus `lib/ui`; daher `Etikett` mit Tonzuordnung in `teile/format.ts` statt `Statusmarke`. Bearbeitbarkeit je Feld zur Laufzeit aus `bearbeitbar.teil_felder`.
 - 2026-09-18 Phase 7: Zuschnitt (`web/src/lib/zuschnitt/`: EinzelteilListe, -Zeile, -Detail, -Feld, mass.ts, status.ts) - Filter Bereich/Material, Gruppierung nach Bereich, Kennzahlen Anzahl/Flaeche/Laufmeter, alle Felder ausser `id` bearbeitbar, `teil_id` als Auswahl ueber die Teile. Eigenes Vokabular auch hier (`BAUTEIL_STATUS`, `BAUTEIL_ART`, `MASSQUELLE` in `tools/common.py`) - **in den Komponenten fest verdrahtet, weil die API diese Listen nicht ausliefert. Aendert sich das Vokabular, muss es dort nachgezogen werden** (besser waere: die Listen ueber `/api/daten` mitliefern).
 - 2026-09-18 Beide Phase-7-Ansichten sind **ungeprueft** (kein Build, siehe Uebergabe). Der Commit „Zwischenstand Zuschnitt-Ansicht“ enthaelt entgegen seiner Nachricht bereits den fertigen Stand.
+- 2026-09-18 Phase-7-Zweig lokal auf `main` übernommen. `web check`: 1 Fehler (`filterStatus` in TeileListe zu eng typisiert) und 8 Warnungen, alle behoben — jetzt 0/0, `web build` läuft. Nebenbei: `AufgabenListe` im Bereichs-Reiter steht jetzt in `{#key name}`, sonst blieb beim Wechsel zwischen Bereichen der alte Bereich im Anlegen-Formular stehen. `Kennzahl` rendert `a`/`button`/`div` einzeln statt `svelte:element`. Browser-Prüfung steht noch aus.
 
 ## Offene Fragen
 
-- Phase 6, Umstellen auf die Bausteine: lokal einmal `python camper.py web check`
-  und `web build` laufen lassen. Läuft es durch, Punkt auf `[x]` setzen; sonst Fehler hier notieren.
+- Zuschnitt: Vokabulare (`BAUTEIL_ART`, `BAUTEIL_STATUS`, `MASSQUELLE`) über `/api/daten` mitliefern statt fest verdrahten?
 
 ## Übergabe an den nächsten Chat
 
-Stand 2026-09-18: Phasen 0–5 fertig und abgenommen. Phase 6 und 7 sind **gebaut, aber
-nicht abgenommen** — in der Cloud-Sitzung, in der sie entstanden sind, war der Zugriff
-auf die npm-Registry gesperrt (403 `host_not_allowed`, Cache leer), `node_modules` fehlte.
-Deshalb lief weder `camper web check` noch `web build`, und keine Ansicht war je im Browser.
+Stand 2026-09-18: Phasen 0–5 fertig und abgenommen. Phase 6 und 7 sind gebaut,
+`web check` (0 Fehler, 0 Warnungen) und `web build` laufen. **Noch nie im Browser.**
 
-**Erster Schritt im neuen Chat, vor allem anderen:**
-
-```
-python camper.py web check && python camper.py web build
-```
-
-Läuft das durch, die mit `[~]` markierten Punkte auf `[x]` setzen und mit der
-Browser-Prüfung aus Phase 6 weitermachen - danach Phase 7 im Browser ansehen
-(`#/teile`, `#/zuschnitt`) und den Feinschliff mit dem Nutzer. Gibt es Fehler, zuerst die abstellen —
-der Code ist von Hand gegen Props, Importe und Store-Signaturen geprüft, aber kein
-Compiler hat ihn je gesehen. Erwartbar sind Tippfehler in Prop-Namen und
-Svelte-5-Syntax, nicht falsche Logik.
+Nächster Schritt: Browser-Prüfung aus Phase 6 (Anlegen/Ändern/Löschen landet in der
+Datei, paralleles Ändern aktualisiert die Oberfläche, Konflikt wird angezeigt), danach
+Phase 7 ansehen (`#/teile`, `#/zuschnitt`) und Feinschliff mit dem Nutzer.
 
 - Neuer Rechner: `pip install --user -r requirements.txt`; Node portabel nach `~/nodejs/`
   (Version 24, nicht im PATH) oder systemweit im PATH — `camper web` findet beides.
@@ -206,8 +195,7 @@ Svelte-5-Syntax, nicht falsche Logik.
 - Tests: `PYTHONIOENCODING=utf-8 python -m pytest -q` (~165 Tests, ~85 s).
   Einzelne Datei reicht zum Abnehmen, am Phasenende einmal alles.
 - Web: `python camper.py web build|check|dev`. Nach Änderungen an `web/src` neu bauen,
-  der Server liefert `web/dist` aus. `check` hat 11 bekannte Warnungen (a11y) in
-  `aufgaben/*` und `bereiche/Abschnitt.svelte` — beim Umstellen mit erledigen.
+  der Server liefert `web/dist` aus. `check` muss ohne Warnungen durchlaufen.
 - Aufbau `web/src/`: `lib/daten.svelte.ts` (Store, Schreibfunktionen, SSE), `lib/router.svelte.ts`,
   `lib/Schreibbar.svelte` (Lesemodus), `lib/ui/` (Bausteine, siehe `web/DESIGN.md`),
   `lib/markdown.ts` + `Markdown.svelte` (`[[…]]`), `lib/aufgaben/` (AufgabenListe `bereich?`,

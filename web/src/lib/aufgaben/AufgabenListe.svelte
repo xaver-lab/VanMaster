@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { untrack } from 'svelte';
   // Wiederverwendbare Aufgabenliste: Filter (Tabs), Gruppierung, Suche,
   // Anlegen, Detailfenster. Die Ansicht Aufgaben.svelte bettet sie ohne
   // Bereichs-Einschränkung ein; die Bereichsansicht (anderer Agent) mit
@@ -62,7 +63,7 @@
   }
 
   let filter = $state<Filter>(gemerkt('aufgabenFilter', 'offen'));
-  let gruppierung = $state<Gruppierung>(gemerkt('aufgabenGruppierung', bereich ? 'status' : 'bereich'));
+  let gruppierung = $state<Gruppierung>(gemerkt('aufgabenGruppierung', untrack(() => (bereich ? 'status' : 'bereich'))));
   let suche = $state('');
   let formOffen = $state(false);
   let offenId = $state<string | null>(null);
@@ -70,7 +71,7 @@
   // Top-Ansicht (kein `bereich`-Prop = die eigenständige Aufgaben-Route):
   // geöffnete Aufgabe mit dem Hash synchron halten, damit sie verlinkbar
   // bleibt (#/aufgaben/<id>).
-  const istTopRoute = !bereich;
+  const istTopRoute = $derived(!bereich);
   $effect(() => {
     if (!istTopRoute) return;
     if (router.route.ansicht !== 'aufgaben') return;
@@ -202,7 +203,7 @@
   // ------------------------------------------------------------- Anlegen
 
   let neuTitel = $state('');
-  let neuBereich = $state(bereich ?? '');
+  let neuBereich = $state(untrack(() => bereich ?? ''));
   let neuPrio = $state('');
   let neuEltern = $state('');
 

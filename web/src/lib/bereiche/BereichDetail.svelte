@@ -112,7 +112,7 @@
         {/each}
       </Karte>
     {:else if aktiv === 'aufgaben'}
-      <AufgabenListe bereich={name} />
+      {#key name}<AufgabenListe bereich={name} />{/key}
     {:else if aktiv === 'teile'}
       <Karte polster="keins">
         <ul class="liste">

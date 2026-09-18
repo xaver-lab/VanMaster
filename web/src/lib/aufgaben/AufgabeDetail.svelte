@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { untrack } from 'svelte';
   // Detailfenster einer Aufgabe, als Dialog. Route macht sie verlinkbar
   // (#/aufgaben/<id>) — AufgabenListe hält Route und offene Aufgabe
   // synchron, wenn sie die Top-Ansicht ist.
@@ -44,9 +45,9 @@
   });
 
   let titelBearbeiten = $state(false);
-  let titelEntwurf = $state(a.titel);
+  let titelEntwurf = $state(untrack(() => a.titel));
   let beschreibungBearbeiten = $state(false);
-  let beschreibungEntwurf = $state(a.beschreibung ?? '');
+  let beschreibungEntwurf = $state(untrack(() => a.beschreibung ?? ''));
 
   // Entwürfe zurücksetzen, wenn eine andere/aktualisierte Aufgabe kommt,
   // solange gerade nicht bearbeitet wird (kein Datenverlust durch SSE-Reload).

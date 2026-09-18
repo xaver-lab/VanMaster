@@ -15,24 +15,24 @@
 
   let { titel, wert, zusatz, icon: Icon, ton = 'neutral', href, onclick }: Props = $props();
 
-  const klickbar = $derived(!!href || !!onclick);
 </script>
 
-<svelte:element
-  this={href ? 'a' : onclick ? 'button' : 'div'}
-  {href}
-  type={!href && onclick ? 'button' : undefined}
-  class="ui-kennzahl {ton}"
-  class:klickbar
-  {onclick}
->
+{#snippet inhalt()}
   <div class="kopf">
     {#if Icon}<Icon size={13} strokeWidth={2} aria-hidden="true" />{/if}
     <span class="titel">{titel}</span>
   </div>
   <div class="wert">{wert}</div>
   {#if zusatz}<div class="zusatz">{zusatz}</div>{/if}
-</svelte:element>
+{/snippet}
+
+{#if href}
+  <a {href} class="ui-kennzahl {ton} klickbar" {onclick}>{@render inhalt()}</a>
+{:else if onclick}
+  <button type="button" class="ui-kennzahl {ton} klickbar" {onclick}>{@render inhalt()}</button>
+{:else}
+  <div class="ui-kennzahl {ton}">{@render inhalt()}</div>
+{/if}
 
 <style>
   .ui-kennzahl {
