@@ -1,3 +1,11 @@
-<script lang="ts"></script>
+<script lang="ts">
+  import Leerzustand from '../lib/ui/Leerzustand.svelte';
+  import { IconZuschnitt } from '../lib/ui/icons';
+</script>
 
-<p class="leer">Kommt in Phase 7.</p>
+<Leerzustand
+  icon={IconZuschnitt}
+  marke="Phase 7"
+  titel="Zuschnitte folgen"
+  text="Bretter, Leisten und Platten mit Maßen in mm — was aus den gekauften Teilen gebaut wird."
+/>
