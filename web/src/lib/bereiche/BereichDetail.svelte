@@ -9,7 +9,7 @@
   import Markdown from '../Markdown.svelte';
   import Abschnitt from './Abschnitt.svelte';
   import { fortschritt } from './sortierung';
-  import { Etikett, FortschrittBalken, Karte, Leerzustand, Tabs } from '../ui';
+  import { Etikett, FortschrittBalken, Karte, Kennzahl, Leerzustand, Tabs } from '../ui';
 
   let { name }: { name: string } = $props();
 
@@ -91,25 +91,13 @@
       <FortschrittBalken wert={f.fertig / f.gesamt} />
     {/if}
     <div class="kennzahlen">
-      <div class="kachel">
-        <div class="titel">Aufgaben</div>
-        <div class="wert">{f.fertig}/{f.gesamt}</div>
-      </div>
+      <Kennzahl titel="Aufgaben" wert="{f.fertig}/{f.gesamt}" />
       {#if teile.length}
-        <div class="kachel">
-          <div class="titel">Teilekosten</div>
-          <div class="wert">{euro.format(kosten)}</div>
-        </div>
-        <div class="kachel">
-          <div class="titel">Gewicht</div>
-          <div class="wert">{gewicht.toFixed(1)} kg</div>
-        </div>
+        <Kennzahl titel="Teilekosten" wert={euro.format(kosten)} />
+        <Kennzahl titel="Gewicht" wert="{gewicht.toFixed(1)} kg" />
       {/if}
       {#if medien.length}
-        <div class="kachel">
-          <div class="titel">Medien</div>
-          <div class="wert">{medien.length}</div>
-        </div>
+        <Kennzahl titel="Medien" wert={medien.length} />
       {/if}
     </div>
   </div>
@@ -200,19 +188,6 @@
     gap: var(--a-5);
     margin-top: var(--a-1);
   }
-  .kachel .titel {
-    color: var(--farbe-text-2);
-    font-size: var(--text-xs);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    font-stretch: var(--schmal);
-  }
-  .kachel .wert {
-    font-family: var(--schrift-mono);
-    font-size: var(--text-l);
-    font-weight: 650;
-  }
-
   .reiter-inhalt {
     margin-top: var(--a-4);
     display: flex;

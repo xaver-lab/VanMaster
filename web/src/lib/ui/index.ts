@@ -9,6 +9,7 @@ export { default as Etikett } from './Etikett.svelte';
 export { default as Statusmarke } from './Statusmarke.svelte';
 export { default as Kontrollkaestchen } from './Kontrollkaestchen.svelte';
 export { default as Karte } from './Karte.svelte';
+export { default as Kennzahl } from './Kennzahl.svelte';
 export { default as Rubrik } from './Rubrik.svelte';
 export { default as Dialog } from './Dialog.svelte';
 export { default as Leerzustand } from './Leerzustand.svelte';

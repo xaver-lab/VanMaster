@@ -14,6 +14,7 @@
     IconKnopf,
     Karte,
     Kbd,
+    Kennzahl,
     Knopf,
     Kontrollkaestchen,
     Leerzustand,
@@ -25,6 +26,7 @@
   } from '../lib/ui';
   import {
     IconEuro,
+    IconGewicht,
     IconLoeschen,
     IconPlus,
     IconStift,
@@ -238,6 +240,17 @@
       </section>
 
       <section>
+        <Rubrik titel="Kennzahlen" />
+        <div class="kennzahlen">
+          <Kennzahl titel="Aufgaben" wert="3/13" />
+          <Kennzahl titel="Teilekosten" wert="3 046 €" icon={IconEuro} />
+          <Kennzahl titel="Gewicht" wert="128,4 kg" icon={IconGewicht} ton="signal" zusatz="Zuladung 780 kg" />
+          <Kennzahl titel="Medien" wert={9} ton="gut" href="#/muster" />
+          <Kennzahl titel="Kritisch" wert={2} ton="warn" onclick={() => toasts.info('Kennzahl geklickt')} />
+        </div>
+      </section>
+
+      <section>
         <Rubrik titel="Dialog, Toasts, Leerzustand" />
         <div class="reihe">
           <Knopf onclick={() => (dialogOffen = true)}>Dialog öffnen</Knopf>
@@ -315,6 +328,7 @@
   .balken-spalte { flex: 1; min-width: 180px; display: flex; flex-direction: column; gap: var(--a-3); }
   .tab-inhalt { padding-top: var(--a-3); }
   .karten { display: grid; grid-template-columns: 1fr 1fr; gap: var(--a-3); }
+  .kennzahlen { display: flex; flex-wrap: wrap; gap: var(--a-5); }
 
   @media (max-width: 1100px) {
     .spalten-muster { grid-template-columns: 1fr; }

@@ -169,6 +169,8 @@ Eine Zeile je abgeschlossenem Punkt oder getroffener Entscheidung.
 
 - 2026-09-18 Phase 6: Aufgaben- und Bereichsansicht auf die Bausteine aus `lib/ui/` umgestellt (Knopf, IconKnopf, Chip, Etikett, Statusmarke, Kontrollkaestchen, Feld/Auswahl/Textfeld, Dialog + `bestaetigen()`, Tabs, Rubrik, Karte, Leerzustand, FortschrittBalken); Statuswechsler jetzt `Auswahl`, Aufgaben-Detail echter `Dialog`, Zeilenklick echter `<button>` (a11y). Keine alten Aliasnamen, keine eigenen Nachbauten mehr (grep leer), Importe und Props gegen `lib/ui/` geprüft. **Offen: `camper web check|build` — in der Cloud-Sitzung ist der npm-Registry-Zugriff gesperrt, `node_modules` fehlt. Punkt bleibt mit `[~]` markiert, bis der Build lokal einmal durchläuft.**
 
+- 2026-09-18 Phase 6: Baustein `ui/Kennzahl.svelte` (`titel`, `wert`, `zusatz`, `icon`, `ton` neutral|signal|gut|info|warn, `href`/`onclick`) — in `index.ts`, `DESIGN.md` und auf `#/muster`; der Bereichs-Kopf benutzt ihn statt eigener Kacheln. Offen bleibt auch hier die Build-Prüfung. Hinweis: `routen/Start.svelte` hat noch ein handgestricktes `.grosszahl`/`.zahl`-Muster in den Karten Budget/Teile — Kandidat für die Kennzahl, in Phase 8.
+
 ## Offene Fragen
 
 - Phase 6, Umstellen auf die Bausteine: lokal einmal `python camper.py web check`

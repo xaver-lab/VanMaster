@@ -39,6 +39,7 @@ Element erzwingt dort ein Thema.
 - **Statusmarke** `status` offen|laeuft|erledigt|verworfen|blockiert · `kompakt` · `onclick` (wird Knopf). Texte/Typen in `ui/status.ts`
 - **Kontrollkaestchen** `bind:checked` · `label`/children · `gemischt` · `durchstreichen` · `onchange(checked)`
 - **Karte** `titel` · `zusatz` · `icon` · `aktionen` (Snippet) · `polster` normal|eng|keins · `ton` flaeche|vertieft|signal · `href`
+- **Kennzahl** `titel` · `wert` · `zusatz` · `icon` · `ton` neutral|signal|gut|info|warn · `href`/`onclick` — Kachel für Kennzahlen (Kopfzeilen, Übersichten)
 - **Rubrik** `titel` · `zahl` · `aktionen` — Abschnittsüberschrift als Maßlinie, gliedert Seiten ohne Kästen
 - **Dialog** `bind:offen` · `titel` · `beschreibung` · `breite` s|m|l · `festhalten` · `fuss` (Snippet). Esc, Fokusfalle, Fokus zurück; `data-fokus` legt den Startfokus fest
 - **bestaetigen({ titel, text, ja, nein, gefaehrlich })** → `Promise<boolean>`; bei `gefaehrlich` steht der Fokus auf „Abbrechen“
