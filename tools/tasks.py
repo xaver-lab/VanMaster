@@ -14,104 +14,36 @@ Beschreibung ("wie wird das gemacht") — mehrere Zeilen werden aneinandergereih
 
 Gelesen wird nur der Abschnitt "## Aufgaben" einer Bereichsdatei — eine
 Checkbox in den Notizen ist ein Merker, keine Aufgabe.
+
+Die Grammatik selbst wohnt in ``tools/kern/format.py``; das Lesen in
+``tools/kern/lesen.py``. Dieses Modul liefert nur die flache Dict-Sicht, die
+die bestehenden Aufrufer erwarten, plus die Auswertungen (Fortschritt,
+nächste Aufgaben, Kurzbericht) und die schreibenden Befehle, die über
+``tools.kern.aufgaben`` laufen (Quelle ``claude`` — dieses Modul wird nur
+von der Kommandozeile aus benutzt, das Dashboard schreibt über
+``tools/serve.py`` direkt gegen den Kern).
 """
 from __future__ import annotations
 
-from pathlib import Path
+from .common import STANDARD_SORTIERUNG, bar, fail
+from .kern import aufgaben as kern_aufgaben
+from .kern.format import BOX_ZEICHEN, ERLEDIGT, PRIOS
+from .kern.lesen import aufgaben_lesen
 
-from .common import (
-    BEREICHE_DIR, STANDARD_SORTIERUNG, bar, fail, read_text, slug,
-    split_frontmatter,
-)
-from .kern.format import (
-    ANKER, BESCHREIBUNG, BOX, BOX_ZEICHEN, ERLEDIGT, MARKE, PRIO, PRIOS,
-    ZEILE, ebene,
-)
+
+def _als_dict(a) -> dict:
+    return {
+        "id": a.id, "titel": a.titel, "status": a.status, "bereich": a.bereich,
+        "gruppe": a.gruppe, "ebene": a.ebene, "eltern": a.eltern,
+        "kinder": list(a.kinder), "braucht": list(a.braucht), "prio": a.prio,
+        "dauer": a.dauer, "beschreibung": a.beschreibung,
+        "datei": a.datei, "zeile": a.zeile,
+    }
 
 
 def load() -> list[dict]:
     """Alle Aufgaben aller Bereichsdateien, flach mit Eltern-/Kind-Bezügen."""
-    aufgaben: list[dict] = []
-    if not BEREICHE_DIR.exists():
-        return aufgaben
-    for datei in sorted(BEREICHE_DIR.glob("*.md")):
-        meta, _ = split_frontmatter(read_text(datei))
-        bereich = meta.get("bereich") or datei.stem
-        gruppe = ""
-        drin = False
-        stapel: dict[int, str] = {}
-        letzte_aufgabe: dict | None = None
-        for nr, zeile in enumerate(read_text(datei).splitlines(), start=1):
-            if zeile.startswith("## ") and not zeile.startswith("### "):
-                drin = zeile[3:].strip().lower() == "aufgaben"
-                gruppe = ""
-                letzte_aufgabe = None
-                continue
-            if not drin:
-                continue
-            if zeile.startswith("#"):
-                gruppe = zeile.lstrip("#").strip()
-                letzte_aufgabe = None
-                continue
-            treffer = ZEILE.match(zeile)
-            if not treffer:
-                beschr = BESCHREIBUNG.match(zeile)
-                if beschr and letzte_aufgabe is not None:
-                    zusatz = beschr.group("text").rstrip()
-                    letzte_aufgabe["beschreibung"] = (
-                        f"{letzte_aufgabe['beschreibung']}\n{zusatz}"
-                        if letzte_aufgabe["beschreibung"] else zusatz)
-                continue
-            tiefe = ebene(treffer.group("einzug"))
-            rest = treffer.group("rest").strip()
-
-            anker = ANKER.search(rest)
-            kennung = anker.group(1) if anker else ""
-            if anker:
-                rest = ANKER.sub(" ", rest).strip()
-
-            prio_t = PRIO.search(rest)
-            prio = prio_t.group(1).lower() if prio_t else ""
-            rest = PRIO.sub(" ", rest)
-
-            braucht, dauer = [], ""
-            for art, wert in MARKE.findall(rest):
-                if art == "braucht":
-                    braucht.extend(w for w in wert.split(",") if w)
-                else:
-                    dauer = wert
-            titel = MARKE.sub("", rest).strip()
-
-            if not kennung:
-                kennung = slug(f"{bereich}-{titel}")[:60]
-            neue_aufgabe = {
-                "id": kennung,
-                "titel": titel,
-                "status": BOX[treffer.group("box")],
-                "bereich": bereich,
-                "gruppe": gruppe,
-                "ebene": tiefe,
-                "eltern": stapel.get(tiefe - 1, ""),
-                "kinder": [],
-                "braucht": braucht,
-                "prio": prio,
-                "dauer": dauer,
-                "beschreibung": "",
-                "datei": str(datei.relative_to(BEREICHE_DIR.parent.parent)),
-                "zeile": nr,
-            }
-            aufgaben.append(neue_aufgabe)
-            letzte_aufgabe = neue_aufgabe
-            stapel[tiefe] = kennung
-            for t in list(stapel):
-                if t > tiefe:
-                    del stapel[t]
-
-    nach_id = {a["id"]: a for a in aufgaben}
-    for a in aufgaben:
-        if a["eltern"] in nach_id:
-            nach_id[a["eltern"]]["kinder"].append(a["id"])
-    return aufgaben
+    return [_als_dict(a) for a in aufgaben_lesen()]
 
 
 def blaetter(aufgaben: list[dict]) -> list[dict]:
@@ -233,15 +165,7 @@ def set_status(task_id: str, status: str) -> str:
         fail(f"Keine Aufgabe zu '{task_id}' gefunden.")
     if status not in BOX_ZEICHEN:
         fail(f"Status muss einer von {', '.join(BOX_ZEICHEN)} sein.")
-    datei = Path(BEREICHE_DIR.parent.parent / a["datei"])
-    zeilen = read_text(datei).splitlines()
-    i = a["zeile"] - 1
-    treffer = ZEILE.match(zeilen[i])
-    if not treffer:
-        fail(f"Zeile {a['zeile']} in {a['datei']} passt nicht mehr — bitte 'sync'.")
-    zeilen[i] = (f"{treffer.group('einzug')}- [{BOX_ZEICHEN[status]}] "
-                 f"{treffer.group('rest').strip()}")
-    datei.write_text("\n".join(zeilen) + "\n", encoding="utf-8", newline="\n")
+    kern_aufgaben.status_setzen(a["id"], status, None)
     return f"{a['titel']}: {a['status']} → {status}"
 
 
@@ -252,22 +176,8 @@ def set_description(task_id: str, text: str) -> str:
     a = find(task_id, aufgaben)
     if a is None:
         fail(f"Keine Aufgabe zu '{task_id}' gefunden.")
-    datei = Path(BEREICHE_DIR.parent.parent / a["datei"])
-    zeilen = read_text(datei).splitlines()
-    i = a["zeile"] - 1
-    treffer = ZEILE.match(zeilen[i])
-    if not treffer:
-        fail(f"Zeile {a['zeile']} in {a['datei']} passt nicht mehr — bitte 'sync'.")
-    einzug = treffer.group("einzug").replace("\t", "  ") + "  "
-
-    ende = i + 1
-    while ende < len(zeilen) and BESCHREIBUNG.match(zeilen[ende]):
-        ende += 1
-
-    text = text.strip("\n")
-    neue = [f"{einzug}> {z}" for z in text.splitlines()] if text.strip() else []
-    zeilen[i + 1:ende] = neue
-    datei.write_text("\n".join(zeilen) + "\n", encoding="utf-8", newline="\n")
+    kern_aufgaben.beschreibung_setzen(a["id"], text, None)
+    neue = text.strip()
     return f"{a['titel']}: Beschreibung {'gespeichert' if neue else 'gelöscht'}"
 
 

@@ -6,19 +6,26 @@ und Material. Über `teil_id` kann ein Einzelteil auf den Stücklisten-Artikel
 zeigen, aus dem es entsteht; leer ist ausdrücklich erlaubt.
 
 data/bauteile.csv ist die Wahrheit, Excel ist eine Ausleihe — wie bei parts.py.
+Lesen über ``tools.kern.lesen.einzelteile_lesen``, Feld ändern und Anlegen
+über ``tools.kern.tabellen`` (Quelle ``claude``); der Excel-Import bleibt ein
+Massenschreiben hier, aber über ``tools.kern.datei``.
 """
 from __future__ import annotations
 
 import csv
+import io
 from pathlib import Path
 
 from .common import (
     BAUTEILE_CSV, BAUTEILE_XLSX, BAUTEIL_ART, BAUTEIL_STATUS, MASSQUELLE,
-    fail, slug, table,
+    fail, table,
 )
+from .kern import datei as kern_datei
+from .kern import tabellen as kern_tabellen
 from .kern.format import (
     EINZELTEIL_BERECHNET as COMPUTED, EINZELTEIL_FELDER as FIELDS,
 )
+from .kern.lesen import einzelteile_lesen
 
 # FIELDS: Spaltenreihenfolge von data/bauteile.csv. COMPUTED: nur in der
 # Excel-Ausleihe, beim Import ignoriert. Beide aus tools/kern/format.py.
@@ -27,25 +34,21 @@ ZAHLFELDER = ("laenge_mm", "breite_mm", "dicke_mm", "anzahl")
 
 
 def load() -> list[dict]:
-    if not BAUTEILE_CSV.exists():
-        return []
-    with BAUTEILE_CSV.open(encoding="utf-8", newline="") as fh:
-        rows = [dict(r) for r in csv.DictReader(fh)]
-    for row in rows:
-        for field in FIELDS:
-            if not row.get(field):
-                row[field] = ""
-    return rows
+    return [{f: getattr(r, f) for f in FIELDS} for r in einzelteile_lesen()]
 
 
 def save(rows: list[dict]) -> None:
+    """Schreibt die ganze Datei neu — für den Excel-Import. Über
+    ``kern.datei``, damit Hash-Versionsschutz und atomares Schreiben auch
+    hier gelten."""
     BAUTEILE_CSV.parent.mkdir(parents=True, exist_ok=True)
     rows = sorted(rows, key=lambda r: (r.get("bereich", ""), r.get("titel", "")))
-    with BAUTEILE_CSV.open("w", encoding="utf-8", newline="") as fh:
-        writer = csv.DictWriter(fh, fieldnames=FIELDS, lineterminator="\n")
-        writer.writeheader()
-        for row in rows:
-            writer.writerow({f: row.get(f, "") for f in FIELDS})
+    puffer = io.StringIO()
+    writer = csv.DictWriter(puffer, fieldnames=FIELDS, lineterminator="\n")
+    writer.writeheader()
+    for row in rows:
+        writer.writerow({f: row.get(f, "") for f in FIELDS})
+    kern_datei.schreiben(BAUTEILE_CSV, puffer.getvalue(), None)
 
 
 def num(value, default: float = 0.0) -> float:
@@ -83,6 +86,7 @@ def mass_text(row: dict) -> str:
 
 
 def new_id(titel: str, rows: list[dict]) -> str:
+    from .common import slug
     base = slug(titel) or "bauteil"
     existing = {r.get("id", "") for r in rows}
     if base not in existing:
@@ -162,8 +166,7 @@ def overview_text() -> str:
 def set_field(bauteil_id: str, field: str, value: str) -> str:
     if field not in FIELDS or field == "id":
         fail(f"Unbekanntes Feld '{field}'. Erlaubt: {', '.join(FIELDS[1:])}")
-    rows = load()
-    row = find(bauteil_id, rows)
+    row = find(bauteil_id)
     if row is None:
         fail(f"Kein Einzelteil mit der Kennung '{bauteil_id}'.")
     if field == "status" and value not in BAUTEIL_STATUS:
@@ -173,24 +176,24 @@ def set_field(bauteil_id: str, field: str, value: str) -> str:
     if field == "massquelle" and value not in MASSQUELLE:
         fail(f"Maßquelle muss eine von {', '.join(MASSQUELLE)} sein.")
     alt = row[field]
-    row[field] = value
-    save(rows)
+    try:
+        kern_tabellen.einzelteil_feld_setzen(row["id"], field, value, None,
+                                             quelle="claude")
+    except kern_tabellen.Ungueltig as fehler:
+        fail(str(fehler))
     return f"{row['titel']}: {field} {alt or '—'} → {value}"
 
 
 def add(titel: str, bereich: str, **extra) -> str:
-    rows = load()
-    row = {f: "" for f in FIELDS}
-    row.update({
-        "id": new_id(titel, rows), "titel": titel, "bereich": bereich,
-        "art": "Sonstiges", "anzahl": "1", "status": "Idee",
-        "massquelle": "geschaetzt",
-    })
-    row.update({k: str(v) for k, v in extra.items() if v})
-    rows.append(row)
-    save(rows)
-    mass = mass_text(row)
-    return (f"Aufgenommen: {row['titel']} ({row['id']}, {bereich})"
+    felder = {"titel": titel, "bereich": bereich}
+    felder.update({k: str(v) for k, v in extra.items() if v})
+    try:
+        neue_id, _ = kern_tabellen.einzelteil_anlegen(felder, None, quelle="claude")
+    except kern_tabellen.Ungueltig as fehler:
+        fail(str(fehler))
+    row = find(neue_id)
+    mass = mass_text(row) if row else ""
+    return (f"Aufgenommen: {titel} ({neue_id}, {bereich})"
             + (f" · {mass}" if mass else " · ohne Maß"))
 
 

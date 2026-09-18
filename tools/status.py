@@ -4,19 +4,14 @@ from __future__ import annotations
 from . import bauteile, bereiche, media, parts, tasks
 from .common import (
     ENTSCHEIDUNGEN_DIR, PART_STATUS, RECHERCHE_DIR, STANDARD_SORTIERUNG, VAULT,
-    bar, euro, read_text, split_frontmatter,
+    bar, euro, read_text,
 )
+from .kern.lesen import seiten_lesen
 
 
 def offene_entscheidungen() -> list[str]:
-    if not ENTSCHEIDUNGEN_DIR.exists():
-        return []
-    offen = []
-    for datei in sorted(ENTSCHEIDUNGEN_DIR.glob("*.md")):
-        meta, _ = split_frontmatter(read_text(datei))
-        if str(meta.get("status", "offen")).lower() != "entschieden":
-            offen.append(datei.stem)
-    return offen
+    return [s.titel for s in seiten_lesen(ENTSCHEIDUNGEN_DIR, "entscheidung")
+            if (s.status or "offen").lower() != "entschieden"]
 
 
 def brief(sortierung: str = STANDARD_SORTIERUNG) -> str:
@@ -80,19 +75,12 @@ def full(sortierung: str = STANDARD_SORTIERUNG) -> str:
 
 def entscheidungen_zu(name: str) -> list[dict]:
     """Entscheidungsseiten, deren Bereich passt — offene zuerst."""
-    if not ENTSCHEIDUNGEN_DIR.exists():
-        return []
     name_l = name.lower()
-    gefunden = []
-    for datei in sorted(ENTSCHEIDUNGEN_DIR.glob("*.md")):
-        meta, _ = split_frontmatter(read_text(datei))
-        if str(meta.get("bereich", "")).lower() != name_l:
-            continue
-        gefunden.append({
-            "titel": datei.stem,
-            "status": str(meta.get("status", "offen")),
-            "datei": str(datei.relative_to(VAULT.parent)).replace("\\", "/"),
-        })
+    gefunden = [
+        {"titel": s.titel, "status": s.status or "offen", "datei": s.datei}
+        for s in seiten_lesen(ENTSCHEIDUNGEN_DIR, "entscheidung")
+        if s.bereich.lower() == name_l
+    ]
     gefunden.sort(key=lambda e: e["status"] == "entschieden")
     return gefunden
 

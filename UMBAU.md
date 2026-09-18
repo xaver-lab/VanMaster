@@ -83,7 +83,7 @@ Das alte Dashboard (`docs/`) läuft unverändert weiter, bis Phase 9 es ablöst.
 
 ## Phase 3 — Befehle auf den Kern
 
-- [ ] [Sonnet] Bestehende Befehle (`task`, `parts`, `bauteile`, `status`, `sync` …) auf den Kern umstellen, Ausgabe bleibt gleich. Vorher/Nachher-Ausgaben vergleichen
+- [x] [Sonnet] Bestehende Befehle (`task`, `parts`, `bauteile`, `status`, `sync` …) auf den Kern umstellen, Ausgabe bleibt gleich. Vorher/Nachher-Ausgaben vergleichen
 - [ ] [Sonnet] Neue Befehle: `task add`, `task delete`, `task rename`, `bereich set <Bereich> <Abschnitt>`, `camper check`
 - [ ] [Haupt] Abnahme mit dem Nutzer: zwei, drei Befehle im Chat ausprobieren
 
@@ -148,6 +148,7 @@ Eine Zeile je abgeschlossenem Punkt oder getroffener Entscheidung.
 - 2026-09-18 Phase 2: `kern/aufgaben.py` — anlegen (ID aus Titel, eindeutig; in Gruppe oder als Unterpunkt), Status, Titel, Beschreibung, Prio, löschen mit Unterpunkten; Marken bleiben an ihrer Stelle. 26 Tests.
 - 2026-09-18 Phase 2: `kern/pruefen.py` — `kern.pruefen()` meldet Befunde mit Datei/Zeile (Kopf, Abschnitte, Aufgaben, Abhängigkeitskreise, Querverweise, CSV). Entscheidungsseiten ohne festen Aufbau; Bezüge `fuer_aufgabe`/`entscheidung` und `gekauft_am` nur Warnung. Echter Bestand: 0 Befunde. 25 Tests.
 - 2026-09-18 Phase 2 abgenommen: `tools.kern` exportiert `laden`, `aufgaben`, `abschnitte`, `tabellen`, `datei`, `pruefen`, Ausnahmen `Konflikt`/`Unerlaubt`/`Ungueltig`. 94 Tests grün. Stichprobe an echter Elektrik.md: anlegen, Status, Beschreibung, Konflikt, löschen → Datei danach bytegleich. Status-Schlüssel im Kern ohne Umlaut: `offen|laeuft|erledigt|verworfen|blockiert`.
+- 2026-09-18 Phase 3: tasks/parts/bauteile/bereiche/status/serve lesen und schreiben über den Kern, doppelte Parser entfernt. 20 Befehlsausgaben + data.json vorher/nachher gleich (einzige Abweichung: Pfade mit `/`). Altes `/api/teil` setzt jetzt die Web-Matrix durch; Fehler dort noch als 500 (sauber ab Phase 4).
 
 ## Offene Fragen
 

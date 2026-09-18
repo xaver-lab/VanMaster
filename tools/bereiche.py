@@ -28,17 +28,9 @@ Bereich hinten — die Dateien müssen nicht alle gleichzeitig umgestellt werden
 """
 from __future__ import annotations
 
-from .common import (
-    BEREICHE_DIR, SORTIERUNGEN, STANDARD_SORTIERUNG, abschnitte, read_text,
-    split_frontmatter,
-)
-from .kern.format import LEER, LINK, phase
-
-
-def _sauber(text: str) -> str:
-    """Platzhalter wie _(noch nichts eingetragen)_ zählen als leer."""
-    text = text.strip()
-    return "" if LEER.match(text) else text
+from .common import SORTIERUNGEN, STANDARD_SORTIERUNG
+from .kern.format import LINK
+from .kern.lesen import bereiche_lesen
 
 
 def links(text: str) -> list[dict]:
@@ -56,25 +48,12 @@ def links(text: str) -> list[dict]:
 
 def load() -> list[dict]:
     """Alle Bereichsdateien, in Abschnitte zerlegt."""
-    bereiche = []
-    if not BEREICHE_DIR.exists():
-        return bereiche
-    for datei in sorted(BEREICHE_DIR.glob("*.md")):
-        meta, body = split_frontmatter(read_text(datei))
-        teile = abschnitte(body)
-        bereiche.append({
-            "name": meta.get("bereich") or datei.stem,
-            "kurz": meta.get("kurz", ""),
-            "status": meta.get("status", "geplant"),
-            "phase": phase(meta.get("phase")),
-            "beschreibung": _sauber(teile.get("Beschreibung", "")),
-            "stand": _sauber(teile.get("Stand", "")),
-            "auslegung": _sauber(teile.get("Auslegung", "")),
-            "notizen": _sauber(teile.get("Notizen", "")),
-            "links": links(teile.get("Links", "")),
-            "datei": str(datei.relative_to(BEREICHE_DIR.parent.parent)).replace("\\", "/"),
-        })
-    return bereiche
+    return [{
+        "name": b.name, "kurz": b.kurz, "status": b.status, "phase": b.phase,
+        "beschreibung": b.beschreibung, "stand": b.stand,
+        "auslegung": b.auslegung, "notizen": b.notizen,
+        "links": links(b.links_text), "datei": b.datei,
+    } for b in bereiche_lesen()]
 
 # ------------------------------------------------------------- Sortierung
 #

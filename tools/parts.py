@@ -1,15 +1,28 @@
-"""Stückliste: CSV ist die Wahrheit, Excel und Markdown sind Ausleihen."""
+"""Stückliste: CSV ist die Wahrheit, Excel und Markdown sind Ausleihen.
+
+Lesen läuft über ``tools.kern.lesen.teile_lesen`` (Grammatik/Spalten aus
+``tools/kern/format.py``); Feld ändern und Anlegen über
+``tools.kern.tabellen`` (Quelle ``claude`` — dieses Modul wird von der
+Kommandozeile aus benutzt, das Dashboard schreibt über ``tools/serve.py``
+direkt gegen den Kern mit Quelle ``web``). Der Massenschreibweg für den
+Excel-Import bleibt hier (der Kern hat keine Massen-Import-Funktion),
+schreibt aber über ``tools.kern.datei`` — mit Versionsschutz und atomar.
+"""
 from __future__ import annotations
 
 import csv
+import io
 from pathlib import Path
 
 from .common import (
     PARTS_CSV, PARTS_MD_DIR, PARTS_XLSX,
     PART_KATEGORIEN, PART_PRIO, PART_STATUS,
-    bar, euro, fail, slug, table, write_text,
+    bar, euro, fail, table, write_text,
 )
+from .kern import datei as kern_datei
+from .kern import tabellen as kern_tabellen
 from .kern.format import TEIL_BERECHNET as COMPUTED, TEIL_FELDER as FIELDS
+from .kern.lesen import teile_lesen
 
 # FIELDS: Spaltenreihenfolge von data/parts.csv. COMPUTED: Zusatzspalte nur
 # in der Excel-Ausleihe, wird beim Import ignoriert. Beide aus
@@ -17,25 +30,33 @@ from .kern.format import TEIL_BERECHNET as COMPUTED, TEIL_FELDER as FIELDS
 
 
 def load() -> list[dict]:
-    if not PARTS_CSV.exists():
-        return []
-    with PARTS_CSV.open(encoding="utf-8", newline="") as fh:
-        rows = [dict(r) for r in csv.DictReader(fh)]
-    for row in rows:
-        for field in FIELDS:
-            if not row.get(field):
-                row[field] = ""
-    return rows
+    return [{f: getattr(t, f) for f in FIELDS} for t in teile_lesen()]
+
+
+def new_id(titel: str, rows: list[dict]) -> str:
+    from .common import slug
+    base = slug(titel) or "teil"
+    existing = {r.get("id", "") for r in rows}
+    if base not in existing:
+        return base
+    i = 2
+    while f"{base}-{i}" in existing:
+        i += 1
+    return f"{base}-{i}"
 
 
 def save(rows: list[dict]) -> None:
+    """Schreibt die ganze Datei neu — für den Excel-Import (Massenschreiben,
+    dafür hat der Kern keine eigene Funktion). Über ``kern.datei``, damit
+    Hash-Versionsschutz und atomares Schreiben auch hier gelten."""
     PARTS_CSV.parent.mkdir(parents=True, exist_ok=True)
     rows = sorted(rows, key=lambda r: (kat_index(r), r.get("titel", "")))
-    with PARTS_CSV.open("w", encoding="utf-8", newline="") as fh:
-        writer = csv.DictWriter(fh, fieldnames=FIELDS, lineterminator="\n")
-        writer.writeheader()
-        for row in rows:
-            writer.writerow({f: row.get(f, "") for f in FIELDS})
+    puffer = io.StringIO()
+    writer = csv.DictWriter(puffer, fieldnames=FIELDS, lineterminator="\n")
+    writer.writeheader()
+    for row in rows:
+        writer.writerow({f: row.get(f, "") for f in FIELDS})
+    kern_datei.schreiben(PARTS_CSV, puffer.getvalue(), None)
 
 
 def kat_index(row: dict) -> int:
@@ -64,17 +85,6 @@ def summe(rows: list[dict]) -> float:
 
 def gewicht_summe(rows: list[dict]) -> float:
     return sum(gewicht(r) for r in rows)
-
-
-def new_id(titel: str, rows: list[dict]) -> str:
-    base = slug(titel) or "teil"
-    existing = {r.get("id", "") for r in rows}
-    if base not in existing:
-        return base
-    i = 2
-    while f"{base}-{i}" in existing:
-        i += 1
-    return f"{base}-{i}"
 
 
 def find(part_id: str, rows: list[dict] | None = None) -> dict | None:
@@ -139,8 +149,7 @@ def overview_text() -> str:
 def set_field(part_id: str, field: str, value: str) -> str:
     if field not in FIELDS or field == "id":
         fail(f"Unbekanntes Feld '{field}'. Erlaubt: {', '.join(FIELDS[1:])}")
-    rows = load()
-    row = find(part_id, rows)
+    row = find(part_id)
     if row is None:
         fail(f"Kein Teil mit der Kennung '{part_id}'.")
     if field == "status" and value not in PART_STATUS:
@@ -148,22 +157,21 @@ def set_field(part_id: str, field: str, value: str) -> str:
     if field == "prioritaet" and value not in PART_PRIO:
         fail(f"Priorität muss eine von {', '.join(PART_PRIO)} sein.")
     alt = row[field]
-    row[field] = value
-    save(rows)
+    try:
+        kern_tabellen.teil_feld_setzen(row["id"], field, value, None, quelle="claude")
+    except kern_tabellen.Ungueltig as fehler:
+        fail(str(fehler))
     return f"{row['titel']}: {field} {alt or '—'} → {value}"
 
 
 def add(titel: str, kategorie: str, **extra) -> str:
-    rows = load()
-    row = {f: "" for f in FIELDS}
-    row.update({
-        "id": new_id(titel, rows), "titel": titel, "kategorie": kategorie,
-        "menge": "1", "einheit": "Stk", "status": "Idee", "prioritaet": "Mittel",
-    })
-    row.update({k: str(v) for k, v in extra.items() if v})
-    rows.append(row)
-    save(rows)
-    return f"Aufgenommen: {row['titel']} ({row['id']}, {kategorie})"
+    felder = {"titel": titel, "kategorie": kategorie}
+    felder.update({k: str(v) for k, v in extra.items() if v})
+    try:
+        neue_id, _ = kern_tabellen.teil_anlegen(felder, None, quelle="claude")
+    except kern_tabellen.Ungueltig as fehler:
+        fail(str(fehler))
+    return f"Aufgenommen: {titel} ({neue_id}, {kategorie})"
 
 
 # ------------------------------------------------------------ Einkaufszettel

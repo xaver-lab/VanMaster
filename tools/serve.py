@@ -18,6 +18,7 @@ from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 
 from . import build, parts, tasks
 from .common import DASHBOARD_JSON, DOCS, STANDARD_SORTIERUNG
+from .kern import tabellen as kern_tabellen
 
 # Reihenfolge der Bereiche, mit der dieser Server data.json baut.
 SORTIERUNG = STANDARD_SORTIERUNG
@@ -84,8 +85,16 @@ class Handler(SimpleHTTPRequestHandler):
                     else:
                         text = tasks.set_status(nutzlast["id"], nutzlast["status"])
                 elif pfad == "/api/teil":
-                    text = parts.set_field(nutzlast["id"], nutzlast["feld"],
-                                           nutzlast["wert"])
+                    row = parts.find(nutzlast["id"])
+                    if row is None:
+                        raise ValueError(
+                            f"Kein Teil mit der Kennung '{nutzlast['id']}'.")
+                    alt = row.get(nutzlast["feld"], "")
+                    kern_tabellen.teil_feld_setzen(
+                        row["id"], nutzlast["feld"], nutzlast["wert"],
+                        None, quelle="web")
+                    text = (f"{row['titel']}: {nutzlast['feld']} {alt or '—'} "
+                            f"→ {nutzlast['wert']}")
                 elif pfad == "/api/sync":
                     text = "neu gebaut"
                 else:
