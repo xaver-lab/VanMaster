@@ -58,6 +58,19 @@ Wo Möbel und Geräte sitzen, entwirft der Nutzer selbst. Maße, Materialstärke
 Zuschnitte und Berechnungen sind dagegen unsere Aufgabe. Liegt ein Layout-Plan
 vor, wird damit gearbeitet.
 
+## Sparsam mit dem Kontext
+
+- `docs/data.json` und `docs/data.js` nie lesen oder durchsuchen — erzeugt,
+  riesig, `data.js` ist eine einzige Zeile.
+- Dashboard-Arbeit: nur die Dateien der betroffenen Ansicht unter `docs/js/`
+  und `docs/css/`, erst suchen, dann Ausschnitte lesen. Details im Skill
+  `camper-dev`.
+- Breite Suchen und Browser-Prüfungen über mehrere Ansichten an Subagenten,
+  die nur einen kurzen Befund zurückgeben.
+- Keine Screenshots bei Zwischenschritten, höchstens einer am Ende.
+- Handy-Ansicht ist zurückgestellt — nur auf ausdrücklichen Anstoß des
+  Nutzers daran arbeiten.
+
 ## Skills
 
 - `camper` — führt das Projekt, Standardfall.

@@ -1,0 +1,58 @@
+/* --------------------------------------------------------- Aufgaben */
+
+ul.aufgaben { list-style: none; margin: 0; padding: 0; }
+ul.aufgaben > li {
+  display: flex; align-items: flex-start; gap: 0.6rem;
+  padding: 0.45rem 0.4rem; margin: 0 -0.4rem;
+  border-radius: var(--radius-klein);
+}
+ul.aufgaben > li:hover { background: var(--flaeche-hoch); }
+ul.aufgaben > li.ebene-1 { padding-left: 1.5rem; }
+ul.aufgaben > li.ebene-2 { padding-left: 2.6rem; }
+ul.aufgaben > li.kopfknoten { font-weight: 600; }
+
+.kasten {
+  flex: 0 0 auto; width: 22px; height: 22px; margin-top: 1px;
+  display: grid; place-items: center;
+  background: none; border: 1.5px solid var(--linie-hell);
+  border-radius: 7px; color: transparent; font-size: 0.8rem; line-height: 1;
+  transition: background .12s, border-color .12s, color .12s;
+}
+.kasten:hover { border-color: var(--akzent); }
+li.laeuft .kasten { border-color: var(--akzent); color: var(--akzent); }
+li.erledigt .kasten { background: var(--gut); border-color: var(--gut); color: var(--flaeche-tief); }
+li.verworfen .kasten { color: var(--gedaempft); border-style: dashed; }
+.kasten.bittewarten { opacity: 0.4; }
+
+.aufgabe-text { flex: 1 1 auto; min-width: 0; }
+.aufgabe-text .titel { display: block; }
+li.erledigt .titel { color: var(--gedaempft); text-decoration: line-through; }
+li.verworfen .titel { color: var(--gedaempft); opacity: 0.65; }
+.aufgabe-meta { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.2rem; }
+
+.marke {
+  font-size: 0.7rem; padding: 0.05rem 0.45rem; border-radius: 99px;
+  border: 1px solid var(--linie); color: var(--gedaempft); white-space: nowrap;
+}
+.marke.kritisch { color: var(--warn); border-color: transparent; background: var(--warn-tief); }
+.marke.hoch     { color: var(--akzent); border-color: transparent; background: var(--akzent-tief); }
+.marke.blocker  { color: var(--wartet); border-color: transparent; background: var(--wartet-tief);
+                  white-space: normal; }
+.marke.thema    { color: var(--gedaempft); }
+
+.gruppe { color: var(--gedaempft); font-size: 0.74rem; letter-spacing: 0.07em;
+          text-transform: uppercase; margin: 0.9rem 0 0.2rem; padding-left: 0.1rem; }
+ul.aufgaben > li.gruppe { background: none; }
+
+/* Sammelblock im Aufgaben-Tab */
+.sammelblock { margin-bottom: 0.7rem; }
+.sammelblock > summary {
+  list-style: none; display: flex; align-items: center; gap: 0.7rem;
+  padding: 0.55rem 0.2rem; cursor: pointer;
+}
+.sammelblock > summary::-webkit-details-marker { display: none; }
+.sammelblock > summary::before { content: "▸"; color: var(--gedaempft); font-size: 0.8rem;
+                                 transition: transform .15s; }
+.sammelblock[open] > summary::before { transform: rotate(90deg); }
+.sammelblock > summary .name { font-weight: 600; flex: 0 0 auto; }
+.sammelblock > summary .balken { max-width: 220px; }

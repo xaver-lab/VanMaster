@@ -86,7 +86,7 @@ def load() -> list[dict]:
 #
 # Die einzige Stelle, an der die Reihenfolge der Bereiche festgelegt wird.
 # Das Dashboard übernimmt sie aus docs/data.json und sortiert nur für den
-# Wechsler selbst um (docs/app.js, bereicheSortiert) — dieselben Regeln.
+# Wechsler selbst um (docs/js/themen.js, bereicheSortiert) — dieselben Regeln.
 
 # Baustellen zuerst: woran gearbeitet wird, vor dem, was noch ansteht.
 STATUS_RANG = {"in-arbeit": 0, "geplant": 1, "fertig": 2}

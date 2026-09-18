@@ -1,0 +1,54 @@
+/* ----------------------------------------------------------- Palette */
+
+.palette { position: fixed; inset: 0; z-index: 40; background: rgba(6,8,12,.6);
+           display: flex; justify-content: center; padding: 10vh 1rem 1rem; }
+.palette[hidden] { display: none; }
+.palette-kasten {
+  width: min(640px, 100%); max-height: 70vh; display: flex; flex-direction: column;
+  background: var(--flaeche); border: 1px solid var(--linie-hell);
+  border-radius: var(--radius); overflow: hidden;
+  box-shadow: 0 24px 60px -20px rgba(0,0,0,.7);
+}
+.palette-kasten input {
+  border: none; border-bottom: 1px solid var(--linie); background: none;
+  padding: 0.95rem 1.1rem; font-size: 1rem; outline: none;
+}
+.palette-treffer { overflow-y: auto; padding: 0.35rem; }
+.palette-treffer button {
+  display: flex; align-items: center; gap: 0.7rem; width: 100%; min-width: 0;
+  padding: 0.55rem 0.7rem; background: none; border: none;
+  border-radius: var(--radius-klein); text-align: left;
+}
+.palette-treffer button.aktiv { background: var(--flaeche-hoch); }
+.palette-treffer .art { flex: 0 0 5.2rem; color: var(--gedaempft); font-size: 0.72rem;
+                        text-transform: uppercase; letter-spacing: 0.05em; }
+.palette-treffer .txt { flex: 1 1 auto; min-width: 0; overflow: hidden;
+                        text-overflow: ellipsis; white-space: nowrap; }
+@media (max-width: 480px) { .palette-treffer .art { display: none; } }
+.palette-treffer .neben { color: var(--gedaempft); font-size: 0.78rem; }
+.palette-fuss { border-top: 1px solid var(--linie); padding: 0.5rem 0.9rem;
+                color: var(--gedaempft); font-size: 0.74rem; }
+.palette-fuss kbd, .palette-treffer kbd {
+  border: 1px solid var(--linie); border-radius: 4px; padding: 0 0.28rem;
+  font: inherit; font-size: 0.72rem; }
+
+/* ------------------------------------------------------------ Toasts */
+
+.toasts { position: fixed; left: 50%; bottom: 1.2rem; transform: translateX(-50%);
+          z-index: 50; display: flex; flex-direction: column; gap: 0.4rem;
+          align-items: center; pointer-events: none; }
+.toast {
+  pointer-events: auto; max-width: min(92vw, 520px);
+  display: flex; align-items: center; gap: 0.7rem;
+  background: var(--flaeche-hoch); border: 1px solid var(--linie-hell);
+  border-radius: 99px; padding: 0.5rem 0.6rem 0.5rem 1rem;
+  box-shadow: var(--schatten); font-size: 0.86rem;
+  animation: auf .18s ease;
+}
+.toast code { font-size: 0.82em; color: var(--akzent); }
+.toast button { background: var(--flaeche); border: 1px solid var(--linie);
+                border-radius: 99px; padding: 0.2rem 0.6rem; font-size: 0.78rem; }
+@keyframes auf { from { opacity: 0; transform: translateY(6px); } }
+
+.leer { color: var(--gedaempft); padding: 1.6rem 0; text-align: center; font-size: 0.9rem; }
+.leer code { background: var(--flaeche-hoch); padding: 0.1rem 0.35rem; border-radius: 6px; }

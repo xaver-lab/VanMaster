@@ -1,0 +1,32 @@
+/* ----------------------------------------------------------- Leiste */
+
+.leiste {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.leiste input[type="search"], .wahl {
+  min-height: 38px; padding: 0 0.75rem;
+  background: var(--flaeche); color: var(--text);
+  border: 1px solid var(--linie); border-radius: var(--radius-klein);
+}
+.leiste input[type="search"] { flex: 1 1 15rem; min-width: 0; }
+.leiste input[type="search"]:focus, .wahl:focus {
+  outline: none; border-color: var(--akzent);
+}
+.chips { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.chip {
+  min-height: 32px; padding: 0 0.7rem;
+  background: var(--flaeche); border: 1px solid var(--linie);
+  border-radius: 99px; color: var(--gedaempft); font-size: 0.85rem;
+  display: inline-flex; align-items: center; gap: 0.35rem;
+}
+.chip:hover { border-color: var(--linie-hell); color: var(--text); }
+.chip.aktiv { background: var(--akzent); border-color: var(--akzent); color: #1a1205; font-weight: 600; }
+html[data-thema="hell"] .chip.aktiv { color: #fff; }
+.chip .zahl { font-size: 0.75rem; opacity: 0.75; font-variant-numeric: tabular-nums; }
+
+.summenband {
+  display: flex; flex-wrap: wrap; gap: 0.9rem; align-items: baseline;
+  color: var(--gedaempft); font-size: 0.85rem; margin-bottom: 0.8rem;
+}
+.summenband b { color: var(--text); font-size: 1rem; font-variant-numeric: tabular-nums; }

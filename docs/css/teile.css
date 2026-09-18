@@ -1,0 +1,66 @@
+/* ------------------------------------------------------------ Teile */
+
+.teilgitter { display: grid; gap: 0.6rem;
+              grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
+.teil {
+  background: var(--flaeche); border: 1px solid var(--linie);
+  border-radius: var(--radius); padding: 0.75rem 0.85rem;
+  box-shadow: var(--schatten);
+}
+.teil .kopf { display: flex; justify-content: space-between; gap: 0.7rem; align-items: baseline; }
+.teil .name { font-weight: 600; }
+.teil .preis { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.teil .beschreibung { color: var(--gedaempft); font-size: 0.85rem; margin: 0.25rem 0 0; }
+.teil .zeile2 { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.5rem;
+                color: var(--gedaempft); font-size: 0.78rem; align-items: center; }
+
+.status { font-size: 0.7rem; padding: 0.05rem 0.5rem; border-radius: 99px;
+          border: 1px solid var(--linie); white-space: nowrap; }
+.status.Verbaut, .status.fertig, .status.entschieden, .status.Zugeschnitten,
+.status.Verklebt { color: var(--gut); border-color: transparent; background: var(--gut-tief); }
+.status.Bestellt, .status.Geliefert, .status.Geplant {
+  color: var(--wartet); border-color: transparent; background: var(--wartet-tief); }
+.status.Entschieden, .status.in-arbeit, .status.offen {
+  color: var(--akzent); border-color: transparent; background: var(--akzent-tief); }
+.status.geplant, .status.Idee, .status.Recherche, .status.Offen { color: var(--gedaempft); }
+
+/* Statuswechsler direkt an der Karte */
+.wechsler { position: relative; margin-left: auto; }
+.wechsler > button {
+  background: none; border: 1px solid var(--linie); border-radius: 99px;
+  color: var(--gedaempft); font-size: 0.72rem; min-height: 26px; padding: 0 0.55rem;
+}
+.wechsler > button:hover { border-color: var(--akzent); color: var(--text); }
+.menue {
+  position: absolute; right: 0; top: calc(100% + 4px); z-index: 12;
+  min-width: 10rem; padding: 0.3rem;
+  background: var(--flaeche-hoch); border: 1px solid var(--linie-hell);
+  border-radius: var(--radius-klein); box-shadow: var(--schatten);
+  display: flex; flex-direction: column; gap: 1px;
+}
+.menue button {
+  text-align: left; background: none; border: none; border-radius: 6px;
+  padding: 0.4rem 0.55rem; font-size: 0.85rem; color: var(--text);
+}
+.menue button:hover { background: var(--flaeche); }
+.menue button.aktiv { color: var(--akzent); }
+
+/* -------------------------------------------------------- Tabellen */
+
+.tabellenrand { overflow-x: auto; border-radius: var(--radius);
+                border: 1px solid var(--linie); background: var(--flaeche); }
+table.tabelle { width: 100%; min-width: 520px; border-collapse: collapse; font-size: 0.86rem; }
+table.tabelle th {
+  position: sticky; top: 0; z-index: 1;
+  text-align: left; font-weight: 600; color: var(--gedaempft);
+  font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em;
+  padding: 0.6rem 0.7rem; background: var(--flaeche-hoch);
+  border-bottom: 1px solid var(--linie); white-space: nowrap; cursor: pointer;
+}
+table.tabelle th .pfeil { opacity: 0.5; font-size: 0.7em; }
+table.tabelle td { padding: 0.5rem 0.7rem; border-top: 1px solid var(--linie);
+                   vertical-align: top; }
+table.tabelle tbody tr:hover { background: var(--flaeche-hoch); }
+table.tabelle td.zahl, table.tabelle td.mass {
+  font-variant-numeric: tabular-nums; white-space: nowrap; }
+table.tabelle .zusatz { color: var(--gedaempft); font-size: 0.78rem; }
