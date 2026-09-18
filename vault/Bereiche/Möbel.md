@@ -53,6 +53,11 @@ Beifahrersitz" unter [[Küche]].
 **Gewürzregal.** Schmales Auszugregal mit Drahtkörben auf einer
 Vollauszugschiene, an eine Schrankseite montiert.
 
+**Maße aus der Konstruktion.** Aus den handschriftlichen Aufmaßen
+(`_input/Konstruktion/Maße.txt`): Ausziehlade 162 × 82 cm, Kisten 80 × 40 cm
+— letzteres deckt sich mit dem Euro-Stapelbehälter-Format aus dem Ideenbild
+in den Notizen unten.
+
 ## Auslegung
 
 _(Zahlen, sobald gerechnet)_

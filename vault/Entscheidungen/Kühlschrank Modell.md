@@ -46,6 +46,9 @@ eigene Analyse `2026-09-17-kuehlschrank-analyse-3-modelle.pdf` unter
 
 - Eigener Favorit war das 92 L — größtes reines Kühlvolumen.
 - Die Analyse rät davon ab, weil der Gang auf 72 cm schrumpft.
+- Eigene Nachmessung (`_input/Konstruktion/Maße.txt`): 84 × 51 × 54 cm
+  (H×B×T) — deckt sich mit der 92-L-Zeile oben. Die Produktseite selbst
+  nennt im Link „82×51×54 cm"; die eigene Zahl stützt eher die 84.
 
 ## Wahl
 

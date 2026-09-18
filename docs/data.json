@@ -1,5 +1,5 @@
 {
-  "erzeugt": "2026-09-18T08:33",
+  "erzeugt": "2026-09-18T08:35",
   "projekt": "VanMaster",
   "sortierung": "baustellen",
   "kennzahlen": {
@@ -19,7 +19,7 @@
       "status": "in-arbeit",
       "phase": 6,
       "beschreibung": "Bett, Küchenblock, Schränke, Sitzbank mit Toilette, Tisch, Befestigung an der Karosserie.",
-      "stand": "### Hängeschränke\n\nKorpus und Fronten aus EpicPLY-Multiplex. Die Fronten sind Klappen, die nach\noben schwenken, keine seitlich öffnenden Türen — so steht beim Kochen nichts\nauf Kopfhöhe im Weg.\n\n**Beschläge**\n\n- Klappenbeschlag Grass Kinvaro T-57 (Hochschwenk-Automatik, 240 N). Trägt\n  Klappen bis 6,2 kg, öffnet auf 75 oder 90°. Ein Paar je Klappe.\n- Verschließbares Push-Lock-Schloss statt Griff: sitzt bündig, hakt nicht am\n  Kopf und hält die Klappe auf der Fahrt zu.\n- Zusätzlich Möbelmagnete an den Klappen.\n\n**Was das für den Zuschnitt heißt**\n\n- Die Klappen müssen **14–16 mm** stark sein, sonst passt das Push-Lock nicht.\n  Pro Schloss ein Loch mit 26 mm Durchmesser in der Front.\n- Klappengewicht pro Beschlagpaar unter 6,2 kg halten. Bei 15 mm Multiplex\n  (rund 10 kg/m²) heißt das: Klappenfläche höchstens etwa 0,6 m².\n- Über der Klappe muss der Öffnungsweg frei bleiben — der Beschlag schwenkt\n  die Front nach oben vor die Decke.\n\n### Sitzbank, Tisch und Toilette\n\n**Toilette.** Eine Kassettentoilette (Porta-Potti-Bauart) sitzt ausziehbar in\neiner Lade neben der Sitzbank — auf einem Rollbrett mit kleinen Lenkrollen,\nsodass sie sich beim Entleeren einfach herausziehen lässt. Ein\nKlopapierhalter mit zwei Rollen sitzt in derselben Lade daneben.\n\n**Tisch.** Zweiteilige Bambus-Tischplatte auf einem einzelnen Metallbein:\neine kleinere Platte liegt über einer größeren, vermutlich zum Vergrößern der\nFläche verschieb- oder klappbar. Separat dazu ein Wandarm-Tisch, der sich zum\nBeifahrersitz hin schwenken lässt und dort als kleine Ablage direkt am\nFahrersitzbereich dient — deckt sich mit der Notiz „Ausklapptisch zum\nBeifahrersitz\" unter [[Küche]].\n\n**Gewürzregal.** Schmales Auszugregal mit Drahtkörben auf einer\nVollauszugschiene, an eine Schrankseite montiert.",
+      "stand": "### Hängeschränke\n\nKorpus und Fronten aus EpicPLY-Multiplex. Die Fronten sind Klappen, die nach\noben schwenken, keine seitlich öffnenden Türen — so steht beim Kochen nichts\nauf Kopfhöhe im Weg.\n\n**Beschläge**\n\n- Klappenbeschlag Grass Kinvaro T-57 (Hochschwenk-Automatik, 240 N). Trägt\n  Klappen bis 6,2 kg, öffnet auf 75 oder 90°. Ein Paar je Klappe.\n- Verschließbares Push-Lock-Schloss statt Griff: sitzt bündig, hakt nicht am\n  Kopf und hält die Klappe auf der Fahrt zu.\n- Zusätzlich Möbelmagnete an den Klappen.\n\n**Was das für den Zuschnitt heißt**\n\n- Die Klappen müssen **14–16 mm** stark sein, sonst passt das Push-Lock nicht.\n  Pro Schloss ein Loch mit 26 mm Durchmesser in der Front.\n- Klappengewicht pro Beschlagpaar unter 6,2 kg halten. Bei 15 mm Multiplex\n  (rund 10 kg/m²) heißt das: Klappenfläche höchstens etwa 0,6 m².\n- Über der Klappe muss der Öffnungsweg frei bleiben — der Beschlag schwenkt\n  die Front nach oben vor die Decke.\n\n### Sitzbank, Tisch und Toilette\n\n**Toilette.** Eine Kassettentoilette (Porta-Potti-Bauart) sitzt ausziehbar in\neiner Lade neben der Sitzbank — auf einem Rollbrett mit kleinen Lenkrollen,\nsodass sie sich beim Entleeren einfach herausziehen lässt. Ein\nKlopapierhalter mit zwei Rollen sitzt in derselben Lade daneben.\n\n**Tisch.** Zweiteilige Bambus-Tischplatte auf einem einzelnen Metallbein:\neine kleinere Platte liegt über einer größeren, vermutlich zum Vergrößern der\nFläche verschieb- oder klappbar. Separat dazu ein Wandarm-Tisch, der sich zum\nBeifahrersitz hin schwenken lässt und dort als kleine Ablage direkt am\nFahrersitzbereich dient — deckt sich mit der Notiz „Ausklapptisch zum\nBeifahrersitz\" unter [[Küche]].\n\n**Gewürzregal.** Schmales Auszugregal mit Drahtkörben auf einer\nVollauszugschiene, an eine Schrankseite montiert.\n\n**Maße aus der Konstruktion.** Aus den handschriftlichen Aufmaßen\n(`_input/Konstruktion/Maße.txt`): Ausziehlade 162 × 82 cm, Kisten 80 × 40 cm\n— letzteres deckt sich mit dem Euro-Stapelbehälter-Format aus dem Ideenbild\nin den Notizen unten.",
       "auslegung": "",
       "notizen": "- Wabenmuster im CAD-Seitenteil ist eine Idee zur Gewichtsersparnis, noch nicht\n  gerechnet.\n- Stückzahl der Klappen hängt am Layout, deshalb stehen die Beschlagmengen offen.\n\nAus `_input/Kühlschrank und Sitzbank/` (Rohnotizen und Ideenbilder, unbewertet):\n\n- Ideenbild eines fertigen Ausbaus zeigt Hängeschränke, Dachfenster und\n  Kochstelle im Zusammenspiel — als grober Raumeindruck, keine Maße.\n- Toilettenmodell, Rollbrett-Konstruktion und Tischform sind noch offen.\n\nAus `_input/Konstruktion/` (Rohnotizen und Ideenbilder, unbewertet — die\nAnordnung entscheidet der Nutzer, Fahrzeug-Innenmaße dazu stehen unter\n[[Karosserie]]):\n\n- Zwei Grundriss-Varianten von Hand skizziert (2D, oben und Seitenansicht):\n  Drehsitze vorne, Bett hinten, Küchenblock mit Kühlschrank und Spüle,\n  Ausziehlade, Regal. Keine Maße auf der Skizze.\n- Eine 3D-Skizze (axonometrisch) zeigt dieselbe Anordnung räumlich, mit\n  „Kühlschrank\", „Sessel 1/2\", „Liegefläche\" und „Kiste\" beschriftet.\n- Ein 3D-Render eines Schrankmoduls mit rot markierten Fächern — offenbar aus\n  einem CAD- oder Konfigurator-Tool, Zweck der Markierung nicht klar.\n- Ein 3D-Render von vier Euro-Stapelbehältern auf einer Holzplatte —\n  Ideenbild für Stauraum in Schubladen- oder Regalform.\n- Zwei Fotos mit handschriftlich eingetragenen Maßen an vorhandenen\n  Gegenständen: eine zusammengerollte Matte/Zelttasche (Länge ca. 109 cm,\n  Ø ca. 30 cm) und ein Camping-Falttisch (Platte ca. 68 × 100 cm,\n  Beinhöhe zusammengeklappt 8,5 cm, Plattendicke 2,5–3 cm). Unklar, ob als\n  Vorbild für einen zu bauenden Tisch oder als Maß für vorhandenes\n  Campingzubehör gedacht.",
       "links": [
@@ -74,7 +74,7 @@
       "beschreibung": "Der Küchenblock an der Schiebetür: Gaskocher, Spüle, Kompressorkühlschrank und\ndarunter Stauraum. Er ist das Möbel mit den meisten Anschlüssen — Frisch- und\nAbwasser, 12 V für den Kühlschrank, Gas für den Kocher — und gleichzeitig das\nStück, das die Gangbreite bestimmt.",
       "stand": "**Kühlschrank.** Drei Belluna-Modelle sind durchgerechnet (80 L, 85 L, 92 L),\nErgebnis in [[Kühlschrank Modell]]. Feststehende Punkte:\n\n- Alle drei liegen bei 45–50 W Spitze, also rund 4,2 A bei 12 V. Die\n  6-A-Sicherung der Küchenzone reicht. Tagesverbrauch etwa 390 Wh, das sind\n  13–15 % der 300 Ah LiFePO4.\n- Die Einbautiefe steuert den Gang: 44–45 cm lassen bei 171 cm Innenbreite\n  etwa 81–82 cm Gang, 54 cm nur noch 72 cm.\n- Türanschlag soll links sitzen, Griff rechts, damit die Tür zur\n  Fahrerseitenwand aufschwingt und den Gang frei lässt.\n\n**Wasser in der Küche.** Frischwasser kommt aus Weithalskanistern DIN 96 im\nKüchenschacht (siehe [[Wasser]]). Der Abwassertank soll nicht mehr in der Tür\nsitzen.\n\n**Klappen.** Für Waschbecken-, Kocher- und Wassertankklappe ist ein\nEasyConnect-Scharnier-Set von Camping Wagner vorgesehen. Die Klappenstärke\nliegt durch das Push-Lock-Schloss bei 14–16 mm (siehe [[Möbel]]).",
       "auslegung": "| | Wert | Quelle |\n|---|---|---|\n| Innenbreite Laderaum | 171 cm | Fahrzeugmaß |\n| Gang bei 44–45 cm Kühlschranktiefe | 81–82 cm | gerechnet |\n| Gang bei 54 cm Kühlschranktiefe | 72 cm | gerechnet |\n| Kühlschrank Spitzenlast | 45–50 W ≈ 4,2 A bei 12 V | Herstellerangabe |\n| Kühlschrank Tagesverbrauch | ~390 Wh ≈ 13–15 % der Bank | gerechnet |\n| Sicherung Küchenzone | 6 A | Elektrikplanung, reicht aus |\n| Klappenstärke | 14–16 mm | Vorgabe Push-Lock-Schloss |",
-      "notizen": "Rohnotizen aus `_input/Küche/infos.txt`, unbewertet — die Anordnung entscheidet\nder Nutzer:\n\n- Neben dem Waschbecken ein Kasten für Geschirr und Kochzeug? Nur falls unten\n  in der Küche nichts mehr frei wird.\n- Vorne links Schuhkasten unten neben dem Wassertank, darüber Müll oder Lade.\n- Müll vielleicht direkt beim Bett statt in der Küche.\n- Ausklapptisch zum Beifahrersitz hin, für den geschlossenen Van. Ideenbild\n  dazu (Wandarm-Tisch, zum Fahrerbereich geschwenkt) liegt unter [[Möbel]].\n- Wasserhahn daneben setzen, damit man auch bei geschlossener Platte Wasser\n  holen kann.\n- Abwassertank nicht mehr in der Tür (Abblaseventil). Wenn er ausgebaut wird,\n  dann gleich zusammen mit dem Frischwasser.\n- Aus der Einkaufsliste: „Wasserhahn ohne Hahn\" — vermutlich Spüle ohne\n  mitgelieferte Armatur, Armatur separat. Noch zu bestätigen.\n\n**Bilder.** Sieben Sammelbilder aus fremden Ausbauten, als Ideenspeicher: ein\nKüchenblock an der Schiebetür mit ausziehbarem Kühlschrankfach und Hängeschrank\ndarüber; ein Müllauszug als schmale Lade neben dem Kühlschrank; ein\nKüchensockel mit indirekter Beleuchtung im Türausschnitt; Wasserkanister\nstehend in einem schmalen Schacht; eine Edelstahlspüle mit hölzernem\nAbdeckbrett; ein Gaskocher hinter einer Klappe mit seitlichem Ausklapptisch;\neine Kocher-Spülen-Kombination mit Klappdeckel und angesetztem Ausklapptisch.\nKeine Maße darauf.",
+      "notizen": "Rohnotizen aus `_input/Küche/infos.txt`, unbewertet — die Anordnung entscheidet\nder Nutzer:\n\n- Neben dem Waschbecken ein Kasten für Geschirr und Kochzeug? Nur falls unten\n  in der Küche nichts mehr frei wird.\n- Vorne links Schuhkasten unten neben dem Wassertank, darüber Müll oder Lade.\n- Müll vielleicht direkt beim Bett statt in der Küche.\n- Ausklapptisch zum Beifahrersitz hin, für den geschlossenen Van. Ideenbild\n  dazu (Wandarm-Tisch, zum Fahrerbereich geschwenkt) liegt unter [[Möbel]].\n- Wasserhahn daneben setzen, damit man auch bei geschlossener Platte Wasser\n  holen kann.\n- Abwassertank nicht mehr in der Tür (Abblaseventil). Wenn er ausgebaut wird,\n  dann gleich zusammen mit dem Frischwasser.\n- Aus der Einkaufsliste: „Wasserhahn ohne Hahn\" — vermutlich Spüle ohne\n  mitgelieferte Armatur, Armatur separat. Noch zu bestätigen.\n- Aus `_input/Konstruktion/Maße.txt`: Kanister und Gaskocher stehen als\n  Stichworte mit Fragezeichen da, ohne Maß — Aufmaß für beide steht noch aus.\n\n**Bilder.** Sieben Sammelbilder aus fremden Ausbauten, als Ideenspeicher: ein\nKüchenblock an der Schiebetür mit ausziehbarem Kühlschrankfach und Hängeschrank\ndarüber; ein Müllauszug als schmale Lade neben dem Kühlschrank; ein\nKüchensockel mit indirekter Beleuchtung im Türausschnitt; Wasserkanister\nstehend in einem schmalen Schacht; eine Edelstahlspüle mit hölzernem\nAbdeckbrett; ein Gaskocher hinter einer Klappe mit seitlichem Ausklapptisch;\neine Kocher-Spülen-Kombination mit Klappdeckel und angesetztem Ausklapptisch.\nKeine Maße darauf.",
       "links": [
         {
           "titel": "Belluna 80 L Kompressorkühlschrank",
@@ -568,7 +568,7 @@
       "prio": "hoch",
       "dauer": "",
       "datei": "vault\\Bereiche\\Küche.md",
-      "zeile": 90
+      "zeile": 92
     },
     {
       "id": "kuehlschrank-entscheiden",
@@ -585,7 +585,7 @@
       "prio": "hoch",
       "dauer": "",
       "datei": "vault\\Bereiche\\Küche.md",
-      "zeile": 91
+      "zeile": 93
     },
     {
       "id": "kueche-einbauen",
@@ -602,7 +602,7 @@
       "prio": "",
       "dauer": "",
       "datei": "vault\\Bereiche\\Küche.md",
-      "zeile": 92
+      "zeile": 94
     },
     {
       "id": "layout",
@@ -617,7 +617,7 @@
       "prio": "kritisch",
       "dauer": "",
       "datei": "vault\\Bereiche\\Möbel.md",
-      "zeile": 101
+      "zeile": 106
     },
     {
       "id": "bettrahmen",
@@ -634,7 +634,7 @@
       "prio": "",
       "dauer": "",
       "datei": "vault\\Bereiche\\Möbel.md",
-      "zeile": 102
+      "zeile": 107
     },
     {
       "id": "kuechenblock",
@@ -651,7 +651,7 @@
       "prio": "",
       "dauer": "",
       "datei": "vault\\Bereiche\\Möbel.md",
-      "zeile": 103
+      "zeile": 108
     },
     {
       "id": "schraenke",
@@ -668,7 +668,7 @@
       "prio": "",
       "dauer": "",
       "datei": "vault\\Bereiche\\Möbel.md",
-      "zeile": 104
+      "zeile": 109
     },
     {
       "id": "sitzbank",
@@ -685,7 +685,7 @@
       "prio": "",
       "dauer": "",
       "datei": "vault\\Bereiche\\Möbel.md",
-      "zeile": 105
+      "zeile": 110
     },
     {
       "id": "tisch",
@@ -702,7 +702,7 @@
       "prio": "",
       "dauer": "",
       "datei": "vault\\Bereiche\\Möbel.md",
-      "zeile": 106
+      "zeile": 111
     },
     {
       "id": "masse-aufnehmen",
@@ -2504,7 +2504,7 @@
         "status": "offen",
         "bereich": "Küche"
       },
-      "text": "# Kühlschrank Modell\n\nDrei Kompressorkühlschränke von Belluna stehen zur Wahl. Grundlage ist die\neigene Analyse `2026-09-17-kuehlschrank-analyse-3-modelle.pdf` unter\n[[Küche]] in `vault/Medien/`.\n\n## Frage\n\n80 L, 85 L oder 92 L — was kommt in den Küchenblock?\n\n## Vergleich\n\n| | 80 L | 85 L | 92 L |\n|---|---|---|---|\n| Maß H×B×T | 810×475×450 | 780×480×440 | 840×510×540 |\n| Gangway bei 171 cm | 81 cm | 82 cm | 72 cm |\n| Volumen | 65 Kühl + 15 Gefrier | 60 Kühl + 25 Gefrier | 78 Kühl + 14 Gefrier |\n| Türanschlag | links oder rechts, beim Bestellen wählbar | wechselbar, Standard unklar | Standard rechts, Umbau nötig |\n| Leistung | 45 W | 45 W | 50 W |\n| Verbrauch | ~390 Wh/Tag | ~360–430 Wh/Tag | ~360–480 Wh/Tag |\n| Lautstärke | 35 dB | 41 dB | k. A. |\n| Gewicht | 17,4 kg | ~27 kg | 27 kg |\n| Abtauen | automatisch | manuell | manuell |\n| Gefrierfach | herausnehmbar | herausnehmbar | fest |\n| Garantie | 36 Monate | 36 Monate | 24 Monate |\n| Preis | 425 € | 425 € | 519–539 € |\n| Lieferbar | ab Ende März 2026 | sofort | sofort |\n\n## Was daran feststeht\n\n- **Strom ist bei keinem Modell das Problem.** 45–50 W Spitze sind rund 4,2 A\n  bei 12 V, die 6-A-Sicherung der Küchenzone reicht. Der Tagesverbrauch von\n  etwa 390 Wh entspricht 13–15 % der 300 Ah LiFePO4 (~2880 Wh).\n- **Die Tiefe entscheidet über den Gang.** Zwischen 85 L und 92 L liegen\n  10 cm Gangbreite.\n- **Ziel beim Türanschlag:** Scharnier links, Griff rechts, Tür schwingt 90°\n  zur Fahrerseitenwand, Gang bleibt frei. Nur beim 80 L lässt sich das direkt\n  bestellen; bei den anderen ist ein Umbau nötig (YouTube-Anleitung liegt vor).\n\n## Notizen vom Nutzer\n\n- Eigener Favorit war das 92 L — größtes reines Kühlvolumen.\n- Die Analyse rät davon ab, weil der Gang auf 72 cm schrumpft.\n\n## Wahl\n\n_(offen — entscheidet der Nutzer)_\n\n## Verknüpft\n\n- Bereich: [[Küche]]\n- Teil: `kompressorkuehlschrank`\n- Aufgabe: `kuehlschrank-entscheiden`",
+      "text": "# Kühlschrank Modell\n\nDrei Kompressorkühlschränke von Belluna stehen zur Wahl. Grundlage ist die\neigene Analyse `2026-09-17-kuehlschrank-analyse-3-modelle.pdf` unter\n[[Küche]] in `vault/Medien/`.\n\n## Frage\n\n80 L, 85 L oder 92 L — was kommt in den Küchenblock?\n\n## Vergleich\n\n| | 80 L | 85 L | 92 L |\n|---|---|---|---|\n| Maß H×B×T | 810×475×450 | 780×480×440 | 840×510×540 |\n| Gangway bei 171 cm | 81 cm | 82 cm | 72 cm |\n| Volumen | 65 Kühl + 15 Gefrier | 60 Kühl + 25 Gefrier | 78 Kühl + 14 Gefrier |\n| Türanschlag | links oder rechts, beim Bestellen wählbar | wechselbar, Standard unklar | Standard rechts, Umbau nötig |\n| Leistung | 45 W | 45 W | 50 W |\n| Verbrauch | ~390 Wh/Tag | ~360–430 Wh/Tag | ~360–480 Wh/Tag |\n| Lautstärke | 35 dB | 41 dB | k. A. |\n| Gewicht | 17,4 kg | ~27 kg | 27 kg |\n| Abtauen | automatisch | manuell | manuell |\n| Gefrierfach | herausnehmbar | herausnehmbar | fest |\n| Garantie | 36 Monate | 36 Monate | 24 Monate |\n| Preis | 425 € | 425 € | 519–539 € |\n| Lieferbar | ab Ende März 2026 | sofort | sofort |\n\n## Was daran feststeht\n\n- **Strom ist bei keinem Modell das Problem.** 45–50 W Spitze sind rund 4,2 A\n  bei 12 V, die 6-A-Sicherung der Küchenzone reicht. Der Tagesverbrauch von\n  etwa 390 Wh entspricht 13–15 % der 300 Ah LiFePO4 (~2880 Wh).\n- **Die Tiefe entscheidet über den Gang.** Zwischen 85 L und 92 L liegen\n  10 cm Gangbreite.\n- **Ziel beim Türanschlag:** Scharnier links, Griff rechts, Tür schwingt 90°\n  zur Fahrerseitenwand, Gang bleibt frei. Nur beim 80 L lässt sich das direkt\n  bestellen; bei den anderen ist ein Umbau nötig (YouTube-Anleitung liegt vor).\n\n## Notizen vom Nutzer\n\n- Eigener Favorit war das 92 L — größtes reines Kühlvolumen.\n- Die Analyse rät davon ab, weil der Gang auf 72 cm schrumpft.\n- Eigene Nachmessung (`_input/Konstruktion/Maße.txt`): 84 × 51 × 54 cm\n  (H×B×T) — deckt sich mit der 92-L-Zeile oben. Die Produktseite selbst\n  nennt im Link „82×51×54 cm\"; die eigene Zahl stützt eher die 84.\n\n## Wahl\n\n_(offen — entscheidet der Nutzer)_\n\n## Verknüpft\n\n- Bereich: [[Küche]]\n- Teil: `kompressorkuehlschrank`\n- Aufgabe: `kuehlschrank-entscheiden`",
       "datei": "vault/Entscheidungen/Kühlschrank Modell.md"
     }
   ],

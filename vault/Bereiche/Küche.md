@@ -64,6 +64,8 @@ der Nutzer:
   dann gleich zusammen mit dem Frischwasser.
 - Aus der Einkaufsliste: „Wasserhahn ohne Hahn" — vermutlich Spüle ohne
   mitgelieferte Armatur, Armatur separat. Noch zu bestätigen.
+- Aus `_input/Konstruktion/Maße.txt`: Kanister und Gaskocher stehen als
+  Stichworte mit Fragezeichen da, ohne Maß — Aufmaß für beide steht noch aus.
 
 **Bilder.** Sieben Sammelbilder aus fremden Ausbauten, als Ideenspeicher: ein
 Küchenblock an der Schiebetür mit ausziehbarem Kühlschrankfach und Hängeschrank
