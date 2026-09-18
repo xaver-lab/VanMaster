@@ -8,7 +8,9 @@
   import Statusmarke from '../lib/ui/Statusmarke.svelte';
   import FortschrittBalken from '../lib/ui/FortschrittBalken.svelte';
   import Leerzustand from '../lib/ui/Leerzustand.svelte';
+  import Kennzahl from '../lib/ui/Kennzahl.svelte';
   import { IconEuro, IconPfeil, IconTeile, IconWegweiser, IconWerkzeug } from '../lib/ui/icons';
+  import { dezimal } from '../lib/zahlformat';
 
   const euro = new Intl.NumberFormat('de-DE', { maximumFractionDigits: 0 });
   const kg = new Intl.NumberFormat('de-DE', { maximumFractionDigits: 1 });
@@ -81,6 +83,11 @@
   let ohnePreis = $derived(d ? d.teile.filter((t) => !t.preis.trim()).length : 0);
 
   let offeneEntscheidungen = $derived(d ? d.entscheidungen.filter((e) => e.status !== 'entschieden' && e.status !== 'erledigt') : []);
+
+  // Kosten je Kategorie: gleiche Grundlage wie tools/build.py:daten()
+  // ("kategorien" — Summe über alle Teile der Kategorie, ohne Statusfilter),
+  // gleiche Reihenfolge wie docs/js/start.js (absteigend nach Kosten).
+  let kategorien = $derived(d ? [...d.kategorien].sort((a, b) => b.kosten - a.kosten) : []);
 
   function bereichStatus(s: string): { text: string; ton: 'signal' | 'neutral' | 'gut' } {
     if (s === 'in-arbeit') return { text: 'in Arbeit', ton: 'signal' };
@@ -285,6 +292,17 @@
       {/if}
     </Karte>
   </div>
+
+  {#if kategorien.length}
+    <section class="kategorien">
+      <Rubrik titel="Kosten je Kategorie" zahl={String(kategorien.length).padStart(2, '0')} />
+      <div class="kategorien-raster">
+        {#each kategorien as kat}
+          <Kennzahl titel={kat.name} wert="{dezimal(kat.kosten, 0)} €" zusatz="{kat.teile} Teile" href="#/teile" />
+        {/each}
+      </div>
+    </section>
+  {/if}
 
 {/if}
 
@@ -516,6 +534,18 @@
   .stufen li { display: flex; align-items: center; gap: var(--a-2); font-size: var(--text-s); }
   .stufen i { width: 10px; height: 10px; border-radius: 2px; }
   .stufen b { margin-left: auto; font-weight: 600; }
+
+  .kategorien { margin-bottom: var(--a-7); }
+  .kategorien-raster {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: var(--a-5);
+    background: var(--farbe-flaeche);
+    border: 1px solid var(--farbe-linie);
+    border-radius: var(--r-l);
+    box-shadow: var(--schatten-1);
+    padding: var(--a-5);
+  }
 
   .entscheidungen { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--a-2); }
   .entscheidungen a {

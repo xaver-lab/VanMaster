@@ -1,17 +1,19 @@
 <script lang="ts">
-  // Bereichsansicht: Kopf, Reiter, bearbeitbare Abschnitte. Reiter „Übersicht“
-  // und „Aufgaben“ gibt es immer, die übrigen nur wenn zum Bereich Daten
-  // vorliegen (wie früher docs/js/themen.js:themaReiter, hier ohne Zuschnitt
-  // — das ist kein Teil dieses Auftrags).
+  // Bereichsansicht: Kopf, Reiter, bearbeitbare Abschnitte. Reiter „Übersicht“,
+  // „Aufgaben“, „Entscheidungen“ und „Zuschnitt“ gibt es immer (die letzten
+  // beiden mit Leerzustand); die übrigen nur wenn zum Bereich Daten vorliegen
+  // (wie früher docs/js/themen.js:themaReiter).
   import { store } from '../daten.svelte';
   import { router } from '../router.svelte';
   import AufgabenListe from '../aufgaben/AufgabenListe.svelte';
+  import EinzelteilListe from '../zuschnitt/EinzelteilListe.svelte';
   import Markdown from '../Markdown.svelte';
   import Galerie from '../medien/Galerie.svelte';
   import Abschnitt from './Abschnitt.svelte';
   import { fortschritt } from './sortierung';
   import { Etikett, FortschrittBalken, Karte, Kennzahl, Leerzustand, Tabs } from '../ui';
   import { dezimal } from '../zahlformat';
+  import { IconWegweiser } from '../ui/icons';
 
   let { name }: { name: string } = $props();
 
@@ -34,6 +36,7 @@
   const f = $derived(fortschritt(aufgaben, name));
 
   const teile = $derived((store.daten?.teile ?? []).filter((t) => t.kategorie === name));
+  const einzelteile = $derived((store.daten?.einzelteile ?? []).filter((e) => e.bereich === name));
   const entscheidungen = $derived((store.daten?.entscheidungen ?? []).filter((s) => s.bereich === name));
   const anleitungen = $derived((store.daten?.anleitungen ?? []).filter((s) => s.bereich === name));
   const recherche = $derived((store.daten?.recherche ?? []).filter((s) => s.bereich === name));
@@ -42,7 +45,7 @@
   const kosten = $derived(teile.reduce((s, t) => s + zahl(t.preis), 0));
   const gewicht = $derived(teile.reduce((s, t) => s + zahl(t.gewicht_kg), 0));
 
-  type ReiterId = 'uebersicht' | 'aufgaben' | 'teile' | 'entscheidungen' | 'anleitungen' | 'recherche' | 'medien';
+  type ReiterId = 'uebersicht' | 'aufgaben' | 'teile' | 'zuschnitt' | 'entscheidungen' | 'anleitungen' | 'recherche' | 'medien';
 
   const reiter = $derived.by((): { id: ReiterId; wort: string; zahl: number }[] => {
     const r: { id: ReiterId; wort: string; zahl: number }[] = [
@@ -50,7 +53,8 @@
       { id: 'aufgaben', wort: 'Aufgaben', zahl: f.gesamt },
     ];
     if (teile.length) r.push({ id: 'teile', wort: 'Teile', zahl: teile.length });
-    if (entscheidungen.length) r.push({ id: 'entscheidungen', wort: 'Entscheidungen', zahl: entscheidungen.length });
+    r.push({ id: 'zuschnitt', wort: 'Zuschnitt', zahl: einzelteile.length });
+    r.push({ id: 'entscheidungen', wort: 'Entscheidungen', zahl: entscheidungen.length });
     if (anleitungen.length) r.push({ id: 'anleitungen', wort: 'Anleitungen', zahl: anleitungen.length });
     if (recherche.length) r.push({ id: 'recherche', wort: 'Recherche', zahl: recherche.length });
     if (medien.length) r.push({ id: 'medien', wort: 'Medien', zahl: medien.length });
@@ -126,13 +130,19 @@
           {/each}
         </ul>
       </Karte>
+    {:else if aktiv === 'zuschnitt'}
+      {#key name}<EinzelteilListe bereich={name} />{/key}
     {:else if aktiv === 'entscheidungen'}
-      {#each entscheidungen as s (s.datei)}
-        <Karte titel={s.titel}>
-          {#snippet aktionen()}<Etikett>{s.status}</Etikett>{/snippet}
-          <Markdown text={s.text} />
-        </Karte>
-      {/each}
+      {#if entscheidungen.length}
+        {#each entscheidungen as s (s.datei)}
+          <Karte titel={s.titel}>
+            {#snippet aktionen()}<Etikett>{s.status}</Etikett>{/snippet}
+            <Markdown text={s.text} />
+          </Karte>
+        {/each}
+      {:else}
+        <Leerzustand icon={IconWegweiser} titel="Keine Entscheidung zu diesem Bereich" text="Entscheidungen pflegt Claude im Vault (Entscheidungen/)." />
+      {/if}
     {:else if aktiv === 'anleitungen'}
       {#each anleitungen as s (s.datei)}
         <Karte titel={s.titel}>

@@ -105,11 +105,11 @@ def daten_json(sortierung: str = STANDARD_SORTIERUNG) -> dict:
     """Kompletter Bestand — dieselbe Struktur wie ``GET /api/daten``."""
     bestand = laden()
 
-    # Kennzahlen: dieselbe Logik wie `python camper.py status --json`
-    # (tools/build.py:daten() → "kennzahlen", das auf tools/status.py und
-    # tasks/parts/bauteile aufsetzt) — hier wiederverwendet, nicht neu
-    # gerechnet.
-    kennzahlen = build.daten(sortierung)["kennzahlen"]
+    # Kennzahlen und Kategorien: dieselbe Logik wie `python camper.py status
+    # --json` (tools/build.py:daten() → "kennzahlen"/"kategorien", das auf
+    # tools/status.py und tasks/parts/bauteile aufsetzt) — hier
+    # wiederverwendet, nicht neu gerechnet.
+    bau = build.daten(sortierung)
 
     return {
         "erzeugt": datetime.now().isoformat(timespec="minutes"),
@@ -123,7 +123,8 @@ def daten_json(sortierung: str = STANDARD_SORTIERUNG) -> dict:
         "einzelteile": bestand.einzelteile,
         "medien": bestand.medien,
         "versionen": _versionen(bestand),
-        "kennzahlen": kennzahlen,
+        "kennzahlen": bau["kennzahlen"],
+        "kategorien": bau["kategorien"],
         "bearbeitbar": _bearbeitbar(),
         "vokabular": _vokabular(),
     }

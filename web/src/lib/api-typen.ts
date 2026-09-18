@@ -72,6 +72,7 @@ export interface DatenAntwort {
   medien: MediumAntwort[];
   versionen: Record<string, string>;
   kennzahlen: KennzahlenAntwort;
+  kategorien: KategorieAntwort[];
   bearbeitbar: Record<string, any>;
   vokabular: Record<string, string[]>;
 }
@@ -107,6 +108,14 @@ export interface EinzelteilPatchAnfrage {
 
 export interface FehlerAntwort {
   fehler: string;
+}
+
+export interface KategorieAntwort {
+  name: string;
+  teile: number;
+  kosten: number;
+  gewicht: number;
+  verbaut: number;
 }
 
 export interface KennzahlenAntwort {

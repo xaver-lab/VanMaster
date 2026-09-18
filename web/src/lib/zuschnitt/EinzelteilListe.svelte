@@ -2,7 +2,10 @@
   // Einzelteilliste (data/bauteile.csv): Bretter, Leisten, Zuschnitte mit
   // Maßen in mm — was aus den gekauften Teilen (parts.csv) gebaut wird.
   // Filter nach Bereich/Material, Suche, Gruppierung nach Bereich, Anlegen,
-  // Detailfenster. Aufbau nach dem Muster von lib/aufgaben/AufgabenListe.
+  // Detailfenster. Aufbau nach dem Muster von lib/aufgaben/AufgabenListe:
+  // mit `bereich` gesetzt (Reiter „Zuschnitt“ im Bereich-Detail) ist die
+  // Liste auf den Bereich vorgefiltert und die Bereichsauswahl entfällt.
+  import { untrack } from 'svelte';
   import type { EinzelteilAntwort } from '../api-typen';
   import { store } from '../daten.svelte';
   import { toasts } from '../toasts.svelte';
@@ -15,17 +18,26 @@
   import { IconPlus, IconSuche, IconZuschnitt } from '../ui/icons';
   import { flaeche, laufmeter, zahl } from './mass';
 
+  let { bereich }: { bereich?: string } = $props();
 
   let bereichFilter = $state('');
   let materialFilter = $state('');
   type Gruppierung = 'bereich' | 'material' | 'art';
-  const GRUPPIER_OPTIONEN = [
-    { wert: 'bereich', label: 'nach Bereich' },
-    { wert: 'material', label: 'nach Material' },
-    { wert: 'art', label: 'nach Art' },
-  ];
-  let gruppierung = $state<Gruppierung>(gemerkteGruppierung());
-  function gemerkteGruppierung(): Gruppierung {
+  const GRUPPIER_OPTIONEN = $derived(
+    bereich
+      ? [
+          { wert: 'material', label: 'nach Material' },
+          { wert: 'art', label: 'nach Art' },
+        ]
+      : [
+          { wert: 'bereich', label: 'nach Bereich' },
+          { wert: 'material', label: 'nach Material' },
+          { wert: 'art', label: 'nach Art' },
+        ],
+  );
+  let gruppierung = $state<Gruppierung>(untrack(() => gemerkteGruppierung(bereich)));
+  function gemerkteGruppierung(vorBereich?: string): Gruppierung {
+    if (vorBereich) return 'material';
     try {
       const g = localStorage.getItem('zuschnittGruppierung');
       return g === 'material' || g === 'art' ? g : 'bereich';
@@ -34,6 +46,7 @@
     }
   }
   $effect(() => {
+    if (bereich) return;
     try {
       localStorage.setItem('zuschnittGruppierung', gruppierung);
     } catch {
@@ -45,16 +58,21 @@
   let formOffen = $state(false);
 
   const alleEinzelteile = $derived(store.daten?.einzelteile ?? []);
+  const einzelteileImBereich = $derived(
+    bereich ? alleEinzelteile.filter((e) => e.bereich === bereich) : alleEinzelteile,
+  );
   const teile = $derived(store.daten?.teile ?? []);
   const teileNachId = $derived(new Map(teile.map((t) => [t.id, t] as const)));
   const nachId = $derived(new Map(alleEinzelteile.map((e) => [e.id, e] as const)));
   const bereiche = $derived(store.daten?.bereiche.map((b) => b.name) ?? []);
   const anlegenErlaubt = $derived(!!store.daten?.bearbeitbar?.einzelteil_anlegen);
 
+  const wirksamerBereich = $derived(bereich || bereichFilter);
+
   // Materialliste folgt dem Bereichsfilter; ein nicht mehr passendes
   // Material fällt aus dem Filter.
   const materialien = $derived.by(() => {
-    const imBereich = alleEinzelteile.filter((e) => !bereichFilter || e.bereich === bereichFilter);
+    const imBereich = alleEinzelteile.filter((e) => !wirksamerBereich || e.bereich === wirksamerBereich);
     const menge = new Set(imBereich.map((e) => e.material).filter((m): m is string => !!m));
     return [...menge].sort((a, b) => a.localeCompare(b, 'de'));
   });
@@ -72,7 +90,7 @@
 
   const gefiltert = $derived(
     alleEinzelteile
-      .filter((e) => !bereichFilter || e.bereich === bereichFilter)
+      .filter((e) => !wirksamerBereich || e.bereich === wirksamerBereich)
       .filter((e) => !materialFilter || e.material === materialFilter)
       .filter(passtSuche),
   );
@@ -124,7 +142,8 @@
   let neuTeil = $state('');
 
   $effect(() => {
-    if (!neuBereich && bereiche.length) neuBereich = bereiche[0];
+    if (bereich) neuBereich = bereich;
+    else if (!neuBereich && bereiche.length) neuBereich = bereiche[0];
   });
 
   function formOeffnen(): void {
@@ -184,14 +203,16 @@
     type="search"
     klein
   />
-  <Auswahl
-    class="bereich-wahl"
-    bind:wert={bereichFilter}
-    optionen={bereiche}
-    leer="alle Bereiche"
-    aria-label="Bereich filtern"
-    klein
-  />
+  {#if !bereich}
+    <Auswahl
+      class="bereich-wahl"
+      bind:wert={bereichFilter}
+      optionen={bereiche}
+      leer="alle Bereiche"
+      aria-label="Bereich filtern"
+      klein
+    />
+  {/if}
   <Auswahl
     class="material-wahl"
     bind:wert={materialFilter}
@@ -213,7 +234,11 @@
 <Dialog bind:offen={formOffen} titel="Einzelteil anlegen" beschreibung="Wird in bauteile.csv eingetragen.">
   <Feld label="Titel" bind:wert={neuTitel} placeholder="z. B. Bettrahmen Seite links" />
   <div class="zwei">
-    <Auswahl label="Bereich" bind:wert={neuBereich} optionen={bereiche} />
+    {#if bereich}
+      <Feld label="Bereich" wert={bereich} readonly mono />
+    {:else}
+      <Auswahl label="Bereich" bind:wert={neuBereich} optionen={bereiche} />
+    {/if}
     <Auswahl label="Art" bind:wert={neuArt} optionen={vokabular.einzelteilArt} leer="—" />
   </div>
   <Feld label="Material" bind:wert={neuMaterial} optional placeholder="z. B. Siebdruckplatte 15 mm" />
@@ -240,8 +265,8 @@
 {#if !gefiltert.length}
   <Leerzustand
     icon={IconZuschnitt}
-    titel={alleEinzelteile.length ? 'Kein Einzelteil passt zum Filter' : 'Noch keine Einzelteile'}
-    text={alleEinzelteile.length
+    titel={einzelteileImBereich.length ? 'Kein Einzelteil passt zum Filter' : 'Noch keine Einzelteile'}
+    text={einzelteileImBereich.length
       ? 'Filter lockern oder die Suche anpassen.'
       : 'Bretter, Leisten und Platten mit Maßen in mm — was aus den gekauften Teilen gebaut wird.'}
   >
@@ -263,7 +288,7 @@
       <Karte polster="keins">
         <ul class="einzelteile">
           {#each g.eintraege as e (e.id)}
-            <EinzelteilZeile {e} mitBereich={!bereichFilter} {teileNachId} onOeffnen={oeffnen} />
+            <EinzelteilZeile {e} mitBereich={!wirksamerBereich} {teileNachId} onOeffnen={oeffnen} />
           {/each}
         </ul>
       </Karte>

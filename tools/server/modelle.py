@@ -128,6 +128,14 @@ class KennzahlenAntwort(_Basis):
     bauteile: int
 
 
+class KategorieAntwort(_Basis):
+    name: str
+    teile: int
+    kosten: float
+    gewicht: float
+    verbaut: int
+
+
 class DatenAntwort(_Basis):
     """Form von ``GET /api/daten`` — vollständiger Bestand."""
 
@@ -143,6 +151,7 @@ class DatenAntwort(_Basis):
     medien: list[MediumAntwort]
     versionen: dict[str, str]
     kennzahlen: KennzahlenAntwort
+    kategorien: list[KategorieAntwort]
     bearbeitbar: dict[str, Any]
     vokabular: dict[str, list[str]]
 

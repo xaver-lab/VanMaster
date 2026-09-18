@@ -123,7 +123,7 @@ Das alte Dashboard (`docs/`) läuft unverändert weiter, bis Phase 9 es ablöst.
 - [x] [Sonnet] Medien-Galerie und Lupe
 - [x] [Sonnet] Befehlspalette (Strg+K) über alle Inhalte
 - [x] [Sonnet] Browser-Prüfung aller Ansichten gegen das alte Dashboard: fehlt etwas?
-- [ ] [Sonnet] Lücken aus dem Vergleich schließen: Bereichsreiter „Entscheidungen“ und „Zuschnitt“, Startseite „Kosten je Kategorie“
+- [x] [Sonnet] Lücken aus dem Vergleich schließen: Bereichsreiter „Entscheidungen“ und „Zuschnitt“, Startseite „Kosten je Kategorie“
 - [ ] [Haupt] Feinschliff nach Rückmeldung
 
 ## Phase 9 — Veröffentlichen und Ablösen
@@ -181,6 +181,7 @@ Eine Zeile je abgeschlossenem Punkt oder getroffener Entscheidung.
 - 2026-09-18 Phase 8: Medien-Galerie (`lib/medien/`: MedienAnsicht, Galerie, Lupe, url.ts) mit Filter nach Bereich und Art, Suche und Lupe (←/→, Esc, Zähler). Der Bereichsreiter „Medien“ nutzt dieselbe Galerie. Bilder kommen aus den Web-Kopien `docs/medien/` über die neue Server-Route `/medien` (in `start.py`, nicht mehr über `/alt`; Vite leitet `/medien` im Dev weiter). Befehlspalette (`lib/palette/`): Strg+K, Suche über Bereiche, Aufgaben, Teile, Einzelteile, Seiten und Medien, dazu Ansichten und Hell/Dunkel. Startseite nimmt die Teile-Stufen aus dem `vokabular`. Im Browser geprüft (Port 8767): Bilder laden, Lupe blättert, Palette findet.
 - 2026-09-18 Phase 8: Vergleich neu gegen alt (Subagent, nur lesend). Es fehlen im Bereich-Detail die Reiter „Entscheidungen“ und „Zuschnitt“ (im alten auch leer sichtbar) und auf der Startseite „Kosten je Kategorie“. Themen-Liste, Aufgaben, Teile, Zuschnitt, Medien und Palette sind gleichwertig, keine Konsolenfehler. Neuer Punkt zum Schließen der Lücken.
 - 2026-09-18 Phase 6: Rest der Browser-Prüfung mit sichtbarem Browserfenster und echten Eingaben. Umbenennen per Enter, Löschen mit Abbrechen, Escape und Bestätigen landen alle richtig in der Datei, Vault danach bytegleich, kein Code geändert. Die früheren Aussetzer kamen vom versteckten Browserfenster, der Code war nicht schuld.
+- 2026-09-18 Phase 8: Lücken geschlossen. Das Bereich-Detail hat jetzt die Reiter „Entscheidungen“ (nur lesend, mit Leerzustand) und „Zuschnitt“ (`EinzelteilListe bereich?`). Auf der Startseite steht „Kosten je Kategorie“ mit `Kennzahl`-Kacheln, `/api/daten` liefert dafür `kategorien` aus `build.daten()`. Die Summen stimmen mit `/alt/` überein (3.046 €). `bauteile.csv` ist noch leer, deshalb ist der Zuschnitt-Reiter nur im Leerzustand geprüft.
 
 ## Offene Fragen
 
@@ -195,8 +196,8 @@ Eine Zeile je abgeschlossenem Punkt oder getroffener Entscheidung.
 Stand 2026-09-18: Phasen 0–5 fertig und abgenommen. Phase 6 und 7 sind gebaut,
 `web check` (0 Fehler, 0 Warnungen) und `web build` laufen. 
 
-Browser-Prüfungen für Phase 6 und 8 sind durch (siehe Protokoll). Nächster Schritt: die Lücken
-aus dem Vergleich schließen (Phase 8), dann Feinschliff mit dem Nutzer (Phase 6–8).
+Browser-Prüfungen für Phase 6 und 8 sind durch (siehe Protokoll). Die Lücken aus dem Vergleich
+sind geschlossen. Nächster Schritt: Feinschliff mit dem Nutzer (Phase 6–8), danach Phase 9.
 Browser-Prüfungen nur mit sichtbarem Browserfenster (`tabs_select`), sonst kommen Enter/Escape nicht an.
 
 - Neuer Rechner: `pip install --user -r requirements.txt`; Node portabel nach `~/nodejs/`

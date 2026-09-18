@@ -355,6 +355,13 @@
         "title": "Erzeugt",
         "type": "string"
       },
+      "kategorien": {
+        "items": {
+          "$ref": "#/$defs/KategorieAntwort"
+        },
+        "title": "Kategorien",
+        "type": "array"
+      },
       "kennzahlen": {
         "$ref": "#/$defs/KennzahlenAntwort"
       },
@@ -417,6 +424,7 @@
       "medien",
       "versionen",
       "kennzahlen",
+      "kategorien",
       "bearbeitbar",
       "vokabular"
     ],
@@ -559,6 +567,39 @@
       "fehler"
     ],
     "title": "FehlerAntwort",
+    "type": "object"
+  },
+  "KategorieAntwort": {
+    "properties": {
+      "gewicht": {
+        "title": "Gewicht",
+        "type": "number"
+      },
+      "kosten": {
+        "title": "Kosten",
+        "type": "number"
+      },
+      "name": {
+        "title": "Name",
+        "type": "string"
+      },
+      "teile": {
+        "title": "Teile",
+        "type": "integer"
+      },
+      "verbaut": {
+        "title": "Verbaut",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "name",
+      "teile",
+      "kosten",
+      "gewicht",
+      "verbaut"
+    ],
+    "title": "KategorieAntwort",
     "type": "object"
   },
   "KennzahlenAntwort": {

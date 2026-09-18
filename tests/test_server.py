@@ -38,7 +38,7 @@ def test_daten_vollstaendig(client, repo):
     for schluessel in (
         "erzeugt", "bereiche", "aufgaben", "querverweise", "entscheidungen",
         "anleitungen", "recherche", "teile", "einzelteile", "medien",
-        "versionen", "kennzahlen", "bearbeitbar", "vokabular",
+        "versionen", "kennzahlen", "kategorien", "bearbeitbar", "vokabular",
     ):
         assert schluessel in d
     assert d["vokabular"]["einzelteil_art"][0] == "Platte"
@@ -49,6 +49,10 @@ def test_daten_vollstaendig(client, repo):
     for feld in ("aufgaben_fertig", "aufgaben_gesamt", "teile", "kosten",
                  "kosten_bestellt", "gewicht", "offene_entscheidungen", "bauteile"):
         assert feld in k
+    if d["kategorien"]:
+        kat = d["kategorien"][0]
+        for feld in ("name", "teile", "kosten", "gewicht", "verbaut"):
+            assert feld in kat
 
 
 def test_daten_versionen_stimmen_mit_datei_version(client, repo):
