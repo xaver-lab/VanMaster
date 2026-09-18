@@ -35,6 +35,19 @@
         "8766"
       ],
       "port": 8766
+    },
+    {
+      "name": "camper-pruef",
+      "runtimeExecutable": "python",
+      "runtimeArgs": [
+        "camper.py",
+        "serve",
+        "--kein-browser",
+        "--kein-commit",
+        "--port",
+        "8767"
+      ],
+      "port": 8767
     }
   ]
 }

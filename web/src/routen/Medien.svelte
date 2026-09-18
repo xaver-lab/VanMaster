@@ -1,11 +1,5 @@
 <script lang="ts">
-  import Leerzustand from '../lib/ui/Leerzustand.svelte';
-  import { IconMedien } from '../lib/ui/icons';
+  import MedienAnsicht from '../lib/medien/MedienAnsicht.svelte';
 </script>
 
-<Leerzustand
-  icon={IconMedien}
-  marke="Phase 8"
-  titel="Fotos und Skizzen kommen hierher"
-  text="Baustellenfotos, Datenblätter und Skizzen, sortiert nach Bereich."
-/>
+<MedienAnsicht />

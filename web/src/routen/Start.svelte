@@ -1,5 +1,6 @@
 <script lang="ts">
   import { store } from '../lib/daten.svelte';
+  import { vokabular } from '../lib/vokabular.svelte';
   import type { AufgabeAntwort, BereichAntwort } from '../lib/api-typen';
   import Karte from '../lib/ui/Karte.svelte';
   import Rubrik from '../lib/ui/Rubrik.svelte';
@@ -13,7 +14,7 @@
   const kg = new Intl.NumberFormat('de-DE', { maximumFractionDigits: 1 });
 
   const REIHENFOLGE: Record<string, number> = { erledigt: 0, laeuft: 1, blockiert: 2, offen: 3, verworfen: 4 };
-  const TEILE_STUFEN = ['Idee', 'Recherche', 'Entschieden', 'Bestellt', 'Geliefert', 'Verbaut'];
+  const TEILE_STUFEN = $derived(vokabular.teilStatus);
   const PRIO: Record<string, number> = { kritisch: 0, hoch: 1 };
 
   let d = $derived(store.daten);

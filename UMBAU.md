@@ -119,9 +119,9 @@ Das alte Dashboard (`docs/`) läuft unverändert weiter, bis Phase 9 es ablöst.
 
 ## Phase 8 — Start, Medien, Suche
 
-- [ ] [Sonnet] Startseite mit Kennzahlen und Entscheidungen
-- [ ] [Sonnet] Medien-Galerie und Lupe
-- [ ] [Sonnet] Befehlspalette (Strg+K) über alle Inhalte
+- [x] [Sonnet] Startseite mit Kennzahlen und Entscheidungen
+- [x] [Sonnet] Medien-Galerie und Lupe
+- [x] [Sonnet] Befehlspalette (Strg+K) über alle Inhalte
 - [ ] [Sonnet] Browser-Prüfung aller Ansichten gegen das alte Dashboard: fehlt etwas?
 - [ ] [Haupt] Feinschliff nach Rückmeldung
 
@@ -177,10 +177,15 @@ Eine Zeile je abgeschlossenem Punkt oder getroffener Entscheidung.
 - 2026-09-18 Phase-7-Zweig lokal auf `main` übernommen. `web check`: 1 Fehler (`filterStatus` in TeileListe zu eng typisiert) und 8 Warnungen, alle behoben — jetzt 0/0, `web build` läuft. Nebenbei: `AufgabenListe` im Bereichs-Reiter steht jetzt in `{#key name}`, sonst blieb beim Wechsel zwischen Bereichen der alte Bereich im Anlegen-Formular stehen. `Kennzahl` rendert `a`/`button`/`div` einzeln statt `svelte:element`. Browser-Prüfung steht noch aus.
 - 2026-09-18 Browser-Prüfung Phase 6/7 (Subagent, im versteckten Browser-Fenster): Anlegen, Status, Beschreibung, Live-Aktualisierung per SSE, 409 bei alter Version, Bereichsreiter, Teile- und Zuschnitt-Bearbeitung landen korrekt in Vault/CSV. **Nicht bestätigt:** Löschen über den Bestätigungsdialog und Umbenennen per Enter. Das Fenster hatte keinen Fokus und feuert kein `close` am `<dialog>`, deshalb im echten Browser nachprüfen. Danach behoben: Zahlen deutsch formatiert (`lib/zahlformat.ts`), Teile ohne Preis zeigen „—“ statt „0 €“, Zuschnitt zählt Stück statt Zeilen, und Leisten gehen nicht mehr in die Fläche ein.
 - 2026-09-18 Offene Punkte aus der Browser-Prüfung erledigt: `/api/daten` liefert `vokabular` (Teile-Status/-Prio/-Kategorien, Einzelteil-Art/-Status, Maßquelle aus `common.py`). Das Web liest es über `lib/vokabular.svelte.ts` und hat keine eigenen Listen mehr. Zuschnitt: Materialfilter folgt dem Bereich, Gruppierung wählbar (Bereich/Material/Art). Überschreibschutz für Bereichsabschnitte und Aufgabenbeschreibungen (`lib/ueberschreiben.ts`): Ändert sich der Ausgangstext während der Bearbeitung, erscheint ein Hinweis, und vor dem Speichern wird nachgefragt. Hell-Thema: `--farbe-text-3` auf #6f685b (vorher 2,8–3,5:1, jetzt 4,2–5,3:1).
+- 2026-09-18 Phase 8: Medien-Galerie (`lib/medien/`: MedienAnsicht, Galerie, Lupe, url.ts) mit Filter nach Bereich und Art, Suche und Lupe (←/→, Esc, Zähler). Der Bereichsreiter „Medien“ nutzt dieselbe Galerie. Bilder kommen aus den Web-Kopien `docs/medien/` über die neue Server-Route `/medien` (in `start.py`, nicht mehr über `/alt`; Vite leitet `/medien` im Dev weiter). Befehlspalette (`lib/palette/`): Strg+K, Suche über Bereiche, Aufgaben, Teile, Einzelteile, Seiten und Medien, dazu Ansichten und Hell/Dunkel. Startseite nimmt die Teile-Stufen aus dem `vokabular`. Im Browser geprüft (Port 8767): Bilder laden, Lupe blättert, Palette findet.
 
 ## Offene Fragen
 
-- keine
+- Palette: Treffer mit loser Buchstabenfolge („kabel“ findet „Klappenbeschlag … Kinvaro“) stehen in ihrer Gruppe vor echten Worttreffern anderer Typen. Lose Treffer ausblenden, wenn es genug echte gibt?
+- Medien-Treffer in der Palette öffnen nur die Galerie. Lupe per Route (`#/medien/<id>`) direkt öffnen?
+- Einzelteile haben keine Detail-Route (`#/zuschnitt/<id>`), die Palette springt nur in die Liste.
+- Palette zeigt die Dialog-Kopfzeile „Suchen oder springen“ mit X (das alte Dashboard hatte nur das Eingabefeld). `Dialog` ohne Kopf erlauben?
+- 3D-Modelle haben keine Web-Kopie und sind in der Galerie nur als Kachel „nur im Vault“ zu sehen.
 
 ## Übergabe an den nächsten Chat
 

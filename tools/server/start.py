@@ -158,6 +158,11 @@ def app_bauen(sortierung: str = STANDARD_SORTIERUNG, *, commit_ein: bool = True,
     neue Oberfläche (oder Hinweisseite) auf ``/``, optional Auto-Commit."""
     app = app_erstellen(poll_intervall)
     _alte_api_routen(app, sortierung)
+    # Web-Kopien der Medien (tools/media.py: web_export) — eigene Route,
+    # damit die neue Oberfläche nicht am alten Dashboard hängt.
+    medien = common.DOCS / "medien"
+    medien.mkdir(parents=True, exist_ok=True)
+    app.mount("/medien", StaticFiles(directory=str(medien)), name="medien")
     app.mount("/alt", StaticFiles(directory=str(common.DOCS), html=True),
               name="alt-dashboard")
     _statisch_neu(app)

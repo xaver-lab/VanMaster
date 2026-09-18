@@ -123,3 +123,17 @@ def test_alte_schreibroute_unbekannte_aufgabe_500_statt_absturz(docs_repo):
     r = c.post("/alt/api/task", json={"id": "keine-echte-id", "status": "laeuft"})
     assert r.status_code == 500
     assert r.json()["fehler"]
+
+
+# ------------------------------------------------------------------- Medien
+
+def test_medien_route_liefert_web_kopie(repo):
+    ordner = common.DOCS / "medien" / "kueche"
+    ordner.mkdir(parents=True)
+    (ordner / "skizze.png").write_bytes(b"\x89PNG-test")
+
+    c = _client()
+    r = c.get("/medien/kueche/skizze.png")
+    assert r.status_code == 200
+    assert r.content == b"\x89PNG-test"
+    assert c.get("/medien/kueche/fehlt.png").status_code == 404

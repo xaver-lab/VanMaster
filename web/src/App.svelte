@@ -7,6 +7,7 @@
   import Schiene from './lib/Schiene.svelte';
   import ToastAnzeige from './lib/ToastAnzeige.svelte';
   import BestaetigungsHost from './lib/ui/BestaetigungsHost.svelte';
+  import Palette from './lib/palette/Palette.svelte';
   import IconKnopf from './lib/ui/IconKnopf.svelte';
   import Kbd from './lib/ui/Kbd.svelte';
   import Leerzustand from './lib/ui/Leerzustand.svelte';
@@ -101,6 +102,7 @@
 
 <ToastAnzeige />
 <BestaetigungsHost />
+<Palette />
 
 <style>
   .app { display: flex; min-height: 100vh; }

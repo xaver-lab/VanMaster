@@ -7,6 +7,7 @@
   import { router } from '../router.svelte';
   import AufgabenListe from '../aufgaben/AufgabenListe.svelte';
   import Markdown from '../Markdown.svelte';
+  import Galerie from '../medien/Galerie.svelte';
   import Abschnitt from './Abschnitt.svelte';
   import { fortschritt } from './sortierung';
   import { Etikett, FortschrittBalken, Karte, Kennzahl, Leerzustand, Tabs } from '../ui';
@@ -145,13 +146,7 @@
         </Karte>
       {/each}
     {:else if aktiv === 'medien'}
-      <Karte polster="keins">
-        <ul class="liste">
-          {#each medien as m (m.datei)}
-            <li><span class="titel">{m.name}</span><span class="zusatz">{m.art}</span></li>
-          {/each}
-        </ul>
-      </Karte>
+      <Galerie {medien} />
     {/if}
   </div>
 {/if}

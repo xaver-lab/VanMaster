@@ -10,6 +10,7 @@ export default defineConfig({
       // camper serve läuft unter 127.0.0.1:8765, inkl. SSE (/api/live) —
       // Proxy darf die Antwort nicht puffern, sonst kommen die Ereignisse
       // nicht laufend an.
+      '/medien': { target: 'http://127.0.0.1:8765', changeOrigin: true },
       '/api': {
         target: 'http://127.0.0.1:8765',
         changeOrigin: true,
