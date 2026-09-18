@@ -3,9 +3,8 @@
   "configurations": [
     {
       "name": "dashboard",
-      "runtimeExecutable": "py",
+      "runtimeExecutable": "python",
       "runtimeArgs": [
-        "-3.13",
         "-m",
         "http.server",
         "8777",
@@ -16,9 +15,8 @@
     },
     {
       "name": "camper-neu",
-      "runtimeExecutable": "py",
+      "runtimeExecutable": "python",
       "runtimeArgs": [
-        "-3.13",
         "camper.py",
         "serve",
         "--kein-browser"
@@ -27,9 +25,8 @@
     },
     {
       "name": "camper-serve",
-      "runtimeExecutable": "py",
+      "runtimeExecutable": "python",
       "runtimeArgs": [
-        "-3.13",
         "camper.py",
         "serve",
         "--alt",

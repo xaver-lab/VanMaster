@@ -101,7 +101,7 @@ Das alte Dashboard (`docs/`) läuft unverändert weiter, bis Phase 9 es ablöst.
 - [x] [Sonnet] `web/`: Vite + Svelte 5 + TypeScript, Build per `camper web build` (ruft `~/nodejs/npm.cmd`), `node_modules` und `dist` in `.gitignore`
 - [x] [Sonnet] Datenschicht im Browser: ein Store, lädt `/api/daten` (Server) oder `data.json` (statisch), hört auf SSE, Schreibfunktionen mit Hash und Konfliktanzeige, Sperre während laufender Anfrage
 - [x] [Sonnet] Rahmen: Navigation, Routing per Hash, Hell/Dunkel, Toasts, Tastenkürzel wie heute; Lesemodus blendet alle Bearbeitungselemente aus
-- [ ] [Haupt] Stil aus `docs/css/` übernehmen, Abnahme mit dem Nutzer
+- [x] [Haupt] Stil aus `docs/css/` übernehmen, Abnahme mit dem Nutzer
 
 ## Phase 6 — Aufgaben und Bereichstexte (ab hier nutzbar)
 
@@ -159,7 +159,8 @@ Eine Zeile je abgeschlossenem Punkt oder getroffener Entscheidung.
 - 2026-09-18 Phase 4 abgenommen: 162 Tests grün (~85 s). Echter Server: `task add` von außen kommt als SSE `extern` an; PATCH mit altem Hash → 409 samt `stand`; Bestand danach unverändert. Hinweis: curl-Aufrufe mit Umlauten im Git-Bash scheitern an der Kodierung (400) — kein Serverfehler.
 - 2026-09-18 Phase 5: `web/` = Vite 8.3 + Svelte 5.57 + TypeScript 5.9 (TS 7 noch nicht von svelte-check unterstützt), `base: './'`, Dev-Proxy `/api` → 8765. `camper web build|dev|check` (`tools/web.py`): npm aus `~/nodejs/npm.cmd`, sonst PATH; installiert bei fehlendem node_modules per `npm ci`. Server liefert `/` samt Assets. 3 Tests.
 - 2026-09-18 Phase 5: Store `web/src/lib/daten.svelte.ts` (Modus server/statisch, SSE mit Neuverbinden, Schreibfunktionen mit Hash, 409 → Stand übernehmen + Konflikt-Toast; Sperre weist parallele Schreibaufrufe ab statt Warteschlange). Rahmen: Kopfleiste, Hash-Routing, Hell/Dunkel, Toasts, Tastenkürzel, `Schreibbar.svelte` blendet im Lesemodus aus; Platzhalter-Ansichten in `web/src/routen/`. Kürzel für Palette und Lupe folgen mit den Ansichten. Server- und statischer Fall geprüft.
-- 2026-09-18 Phase 5: Stil aus `docs/css/basis.css`/`palette.css` in `web/src/app.css` (gleiche Farbvariablen, dunkel als Grundlage), Seitenschiene links wie früher (`Schiene.svelte`), Kopf mit Suchknopf und live-Anzeige, Kacheln auf Start. Reihenfolge 1 Start, 2 Bereiche, 3 Aufgaben … wie im alten Dashboard, `#/themen` → Bereiche. launch.json auf `py -3.13`. Wartet auf Abnahme durch den Nutzer.
+- 2026-09-18 Phase 5: Stil aus `docs/css/basis.css`/`palette.css` in `web/src/app.css` (gleiche Farbvariablen, dunkel als Grundlage), Seitenschiene links wie früher (`Schiene.svelte`), Kopf mit Suchknopf und live-Anzeige, Kacheln auf Start. Reihenfolge 1 Start, 2 Bereiche, 3 Aufgaben … wie im alten Dashboard, `#/themen` → Bereiche. launch.json kurzzeitig auf `py -3.13`, wieder zurück auf `python`.
+- 2026-09-18 Phase 5 abgenommen: Oberfläche startet sauber (Nutzer).
 
 ## Offene Fragen
 
@@ -167,11 +168,12 @@ Eine Zeile je abgeschlossenem Punkt oder getroffener Entscheidung.
 
 ## Übergabe an den nächsten Chat
 
-Stand 2026-09-18: Phasen 0–4 fertig und abgenommen. Weiter mit **Phase 5**.
+Stand 2026-09-18: Phasen 0–5 fertig und abgenommen. Weiter mit **Phase 6**.
 
 - Neuer Rechner: `pip install --user -r requirements.txt`; Node portabel nach `~/nodejs/`
   (Version 24, nicht im PATH) oder systemweit im PATH — `camper web` findet beides.
-- Auf dem Zweitrechner ist `python` im Git-Bash 3.14 ohne Pakete → `py -3.13` benutzen.
+- `python` muss 3.13 mit den Paketen sein (`python --version`); zeigt es auf eine andere Version, PATH prüfen.
+- Web: `python camper.py web build|check|dev`; Oberfläche liegt in `web/src/` (`lib/daten.svelte.ts` Store, `lib/router.svelte.ts`, `lib/Schreibbar.svelte`, `routen/`), Stil global in `web/src/app.css` (Klassen aus dem alten Dashboard).
 - Tests: `PYTHONIOENCODING=utf-8 python -m pytest -q` (162 Tests, ~85 s).
   Einzelne Datei reicht zum Abnehmen, am Phasenende einmal alles.
 - Node für npm/npx: `PATH=~/nodejs:$PATH` in der Sitzung setzen, sonst
