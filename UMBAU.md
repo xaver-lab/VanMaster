@@ -67,8 +67,8 @@ Das alte Dashboard (`docs/`) läuft unverändert weiter, bis Phase 9 es ablöst.
 
 ## Phase 1 — Formatbeschreibung
 
-- [ ] [Sonnet] `FORMAT.md` entwerfen aus `tools/*.py` und dem echten Vault: Aufbau Bereichsdatei (YAML-Kopf, feste Abschnitte), Aufgabenzeile (`- [ ]`, `^id`, `#prio`, `@braucht:`, Dauer, eingerückte Beschreibung, Verschachtelung), Querverweise `[[…]]`, Entscheidungen/Anleitungen/Recherche, CSV-Spalten, Medienablage, Matrix bearbeitbar/nur Claude. Abweichungen im Bestand auflisten
-- [ ] [Haupt] `FORMAT.md` mit dem Nutzer durchgehen, offene Punkte entscheiden
+- [x] [Sonnet] `FORMAT.md` entwerfen aus `tools/*.py` und dem echten Vault: Aufbau Bereichsdatei (YAML-Kopf, feste Abschnitte), Aufgabenzeile (`- [ ]`, `^id`, `#prio`, `@braucht:`, Dauer, eingerückte Beschreibung, Verschachtelung), Querverweise `[[…]]`, Entscheidungen/Anleitungen/Recherche, CSV-Spalten, Medienablage, Matrix bearbeitbar/nur Claude. Abweichungen im Bestand auflisten
+- [x] [Haupt] `FORMAT.md` mit dem Nutzer durchgehen, offene Punkte entscheiden
 - [ ] [Sonnet] Bestand an `FORMAT.md` angleichen (nur Form, kein Inhalt); Liste der Änderungen melden
 
 ## Phase 2 — Datenkern `tools/kern/`
@@ -139,6 +139,7 @@ Eine Zeile je abgeschlossenem Punkt oder getroffener Entscheidung.
 - 2026-09-18 Stack festgelegt (siehe oben), Plan angelegt.
 - 2026-09-18 Phase 0: PLAN.md verweist auf UMBAU.md; fastapi 0.141.1, uvicorn 0.53.0, pytest 9.1.1 installiert (Skripte nicht im PATH → `python -m`); Node v24.14.0, npm 11.9.0.
 - 2026-09-18 Phase 0: `tests/conftest.py` — Fixture `repo` kopiert vault/ und data/ nach tmp_path und biegt alle Pfadkonstanten der `tools`-Module um (auch künftige Unterpakete wie `tools/kern/`). Aufruf: `python -m pytest -q`.
+- 2026-09-18 Phase 1: `FORMAT.md` entworfen (Code + Bestand, 8 Abweichungen); mit Nutzer entschieden: `[[…]]` bleibt und wird im Web aufgelöst, fester Aufbau für Anleitungen/Recherche, `system` in `kategorie` aufgehen lassen, zusätzliche Web-Felder — alles in FORMAT.md §10.
 
 ## Offene Fragen
 
