@@ -94,6 +94,15 @@ Anordnung entscheidet der Nutzer, Fahrzeug-Innenmaße dazu stehen unter
   Vorbild für einen zu bauenden Tisch oder als Maß für vorhandenes
   Campingzubehör gedacht.
 
+Aus `_input/Ideas/Notizen.txt` (Rohnotiz, unbewertet):
+
+- Lagerplatz für ein Fernglas über der Fahrerkabine.
+- Faltbare Schwerlast-Winkelhalter mit Arretierung — als Beschlag-Idee, wofür
+  genau ist offen.
+- Frage, ob sich die Matratze aufstellen lässt, um darunter ranzukommen.
+- CAD-Referenz für die Inneneinrichtung eines Renault Master Low Loader:
+  https://grabcad.com/library/campervan-interior-renault-master-low-loader-1
+
 ## Links
 
 - [Klappenbeschlag Grass Kinvaro T-57](https://www.amazon.de/dp/B01AC7CZ58) — Hochschwenk-Automatik, 240 N

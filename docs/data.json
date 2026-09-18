@@ -1,5 +1,5 @@
 {
-  "erzeugt": "2026-09-18T08:35",
+  "erzeugt": "2026-09-18T08:36",
   "projekt": "VanMaster",
   "sortierung": "baustellen",
   "kennzahlen": {
@@ -21,7 +21,7 @@
       "beschreibung": "Bett, Küchenblock, Schränke, Sitzbank mit Toilette, Tisch, Befestigung an der Karosserie.",
       "stand": "### Hängeschränke\n\nKorpus und Fronten aus EpicPLY-Multiplex. Die Fronten sind Klappen, die nach\noben schwenken, keine seitlich öffnenden Türen — so steht beim Kochen nichts\nauf Kopfhöhe im Weg.\n\n**Beschläge**\n\n- Klappenbeschlag Grass Kinvaro T-57 (Hochschwenk-Automatik, 240 N). Trägt\n  Klappen bis 6,2 kg, öffnet auf 75 oder 90°. Ein Paar je Klappe.\n- Verschließbares Push-Lock-Schloss statt Griff: sitzt bündig, hakt nicht am\n  Kopf und hält die Klappe auf der Fahrt zu.\n- Zusätzlich Möbelmagnete an den Klappen.\n\n**Was das für den Zuschnitt heißt**\n\n- Die Klappen müssen **14–16 mm** stark sein, sonst passt das Push-Lock nicht.\n  Pro Schloss ein Loch mit 26 mm Durchmesser in der Front.\n- Klappengewicht pro Beschlagpaar unter 6,2 kg halten. Bei 15 mm Multiplex\n  (rund 10 kg/m²) heißt das: Klappenfläche höchstens etwa 0,6 m².\n- Über der Klappe muss der Öffnungsweg frei bleiben — der Beschlag schwenkt\n  die Front nach oben vor die Decke.\n\n### Sitzbank, Tisch und Toilette\n\n**Toilette.** Eine Kassettentoilette (Porta-Potti-Bauart) sitzt ausziehbar in\neiner Lade neben der Sitzbank — auf einem Rollbrett mit kleinen Lenkrollen,\nsodass sie sich beim Entleeren einfach herausziehen lässt. Ein\nKlopapierhalter mit zwei Rollen sitzt in derselben Lade daneben.\n\n**Tisch.** Zweiteilige Bambus-Tischplatte auf einem einzelnen Metallbein:\neine kleinere Platte liegt über einer größeren, vermutlich zum Vergrößern der\nFläche verschieb- oder klappbar. Separat dazu ein Wandarm-Tisch, der sich zum\nBeifahrersitz hin schwenken lässt und dort als kleine Ablage direkt am\nFahrersitzbereich dient — deckt sich mit der Notiz „Ausklapptisch zum\nBeifahrersitz\" unter [[Küche]].\n\n**Gewürzregal.** Schmales Auszugregal mit Drahtkörben auf einer\nVollauszugschiene, an eine Schrankseite montiert.\n\n**Maße aus der Konstruktion.** Aus den handschriftlichen Aufmaßen\n(`_input/Konstruktion/Maße.txt`): Ausziehlade 162 × 82 cm, Kisten 80 × 40 cm\n— letzteres deckt sich mit dem Euro-Stapelbehälter-Format aus dem Ideenbild\nin den Notizen unten.",
       "auslegung": "",
-      "notizen": "- Wabenmuster im CAD-Seitenteil ist eine Idee zur Gewichtsersparnis, noch nicht\n  gerechnet.\n- Stückzahl der Klappen hängt am Layout, deshalb stehen die Beschlagmengen offen.\n\nAus `_input/Kühlschrank und Sitzbank/` (Rohnotizen und Ideenbilder, unbewertet):\n\n- Ideenbild eines fertigen Ausbaus zeigt Hängeschränke, Dachfenster und\n  Kochstelle im Zusammenspiel — als grober Raumeindruck, keine Maße.\n- Toilettenmodell, Rollbrett-Konstruktion und Tischform sind noch offen.\n\nAus `_input/Konstruktion/` (Rohnotizen und Ideenbilder, unbewertet — die\nAnordnung entscheidet der Nutzer, Fahrzeug-Innenmaße dazu stehen unter\n[[Karosserie]]):\n\n- Zwei Grundriss-Varianten von Hand skizziert (2D, oben und Seitenansicht):\n  Drehsitze vorne, Bett hinten, Küchenblock mit Kühlschrank und Spüle,\n  Ausziehlade, Regal. Keine Maße auf der Skizze.\n- Eine 3D-Skizze (axonometrisch) zeigt dieselbe Anordnung räumlich, mit\n  „Kühlschrank\", „Sessel 1/2\", „Liegefläche\" und „Kiste\" beschriftet.\n- Ein 3D-Render eines Schrankmoduls mit rot markierten Fächern — offenbar aus\n  einem CAD- oder Konfigurator-Tool, Zweck der Markierung nicht klar.\n- Ein 3D-Render von vier Euro-Stapelbehältern auf einer Holzplatte —\n  Ideenbild für Stauraum in Schubladen- oder Regalform.\n- Zwei Fotos mit handschriftlich eingetragenen Maßen an vorhandenen\n  Gegenständen: eine zusammengerollte Matte/Zelttasche (Länge ca. 109 cm,\n  Ø ca. 30 cm) und ein Camping-Falttisch (Platte ca. 68 × 100 cm,\n  Beinhöhe zusammengeklappt 8,5 cm, Plattendicke 2,5–3 cm). Unklar, ob als\n  Vorbild für einen zu bauenden Tisch oder als Maß für vorhandenes\n  Campingzubehör gedacht.",
+      "notizen": "- Wabenmuster im CAD-Seitenteil ist eine Idee zur Gewichtsersparnis, noch nicht\n  gerechnet.\n- Stückzahl der Klappen hängt am Layout, deshalb stehen die Beschlagmengen offen.\n\nAus `_input/Kühlschrank und Sitzbank/` (Rohnotizen und Ideenbilder, unbewertet):\n\n- Ideenbild eines fertigen Ausbaus zeigt Hängeschränke, Dachfenster und\n  Kochstelle im Zusammenspiel — als grober Raumeindruck, keine Maße.\n- Toilettenmodell, Rollbrett-Konstruktion und Tischform sind noch offen.\n\nAus `_input/Konstruktion/` (Rohnotizen und Ideenbilder, unbewertet — die\nAnordnung entscheidet der Nutzer, Fahrzeug-Innenmaße dazu stehen unter\n[[Karosserie]]):\n\n- Zwei Grundriss-Varianten von Hand skizziert (2D, oben und Seitenansicht):\n  Drehsitze vorne, Bett hinten, Küchenblock mit Kühlschrank und Spüle,\n  Ausziehlade, Regal. Keine Maße auf der Skizze.\n- Eine 3D-Skizze (axonometrisch) zeigt dieselbe Anordnung räumlich, mit\n  „Kühlschrank\", „Sessel 1/2\", „Liegefläche\" und „Kiste\" beschriftet.\n- Ein 3D-Render eines Schrankmoduls mit rot markierten Fächern — offenbar aus\n  einem CAD- oder Konfigurator-Tool, Zweck der Markierung nicht klar.\n- Ein 3D-Render von vier Euro-Stapelbehältern auf einer Holzplatte —\n  Ideenbild für Stauraum in Schubladen- oder Regalform.\n- Zwei Fotos mit handschriftlich eingetragenen Maßen an vorhandenen\n  Gegenständen: eine zusammengerollte Matte/Zelttasche (Länge ca. 109 cm,\n  Ø ca. 30 cm) und ein Camping-Falttisch (Platte ca. 68 × 100 cm,\n  Beinhöhe zusammengeklappt 8,5 cm, Plattendicke 2,5–3 cm). Unklar, ob als\n  Vorbild für einen zu bauenden Tisch oder als Maß für vorhandenes\n  Campingzubehör gedacht.\n\nAus `_input/Ideas/Notizen.txt` (Rohnotiz, unbewertet):\n\n- Lagerplatz für ein Fernglas über der Fahrerkabine.\n- Faltbare Schwerlast-Winkelhalter mit Arretierung — als Beschlag-Idee, wofür\n  genau ist offen.\n- Frage, ob sich die Matratze aufstellen lässt, um darunter ranzukommen.\n- CAD-Referenz für die Inneneinrichtung eines Renault Master Low Loader:\n  https://grabcad.com/library/campervan-interior-renault-master-low-loader-1",
       "links": [
         {
           "titel": "Klappenbeschlag Grass Kinvaro T-57",
@@ -46,7 +46,7 @@
       "beschreibung": "Batterien, Laderegler, Solar, Verteilung, Verbraucher.",
       "stand": "Skizze aus dem Miro-Board (Frame \"Elektrik\", übernommen 2026-09-17):\n\n- Quellen: PV-Modul (6mm² Kabel + Stecker) und Autobatterie laufen je über eine\n  Sicherung (6A bzw. 16A DC) zum DC-Laderegler. Die Batteriebank (300 Ah) läuft\n  über eine Sicherung (10A DC pro Batterie) zum zentralen Verteiler.\n- Der Verteiler speist gesicherte Zonen (je 6A DC, 2x2,5mm² Kabel):\n  - Vorne: Lampen 12V, USB 12V\n  - Bett: Lampen 12V, USB 12V\n  - Dach: Dachlüfter, Soundsystem\n  - Küche: USB-Steckdose, Schalter → Wasserpumpe, Taster → Abwasser-Ventil,\n    Füllanzeige → LED\n  - AC 230V: Wechselrichter → 230V-Steckdose, Beamer\n- Die Standheizung (Diesel) hängt an einer eigenen Sicherung direkt am Verteiler.\n- Kabeltypen im Diagramm: 2x2,5mm² (Verbraucher), Yf 10mm² (Hauptleitungen\n  Batterie/Laderegler), 3x1,5mm² (vereinzelt).\n\nRohauszug (SVG) in `_input/miro_export.md`.",
       "auslegung": "",
-      "notizen": "",
+      "notizen": "Aus `_input/Ideas/Notizen.txt` (Rohnotiz, unbewertet):\n\n- ESP32-C6-DEV-KIT-N8 als möglicher Baustein für eine eigene Steuerung/\n  Sensorik — https://www.waveshare.com/wiki/ESP32-C6-DEV-KIT-N8 . Unklar, ob\n  das in die Camper-Elektrik gehört oder ins separate Smart-Home-Nebenprojekt.",
       "links": [],
       "datei": "vault/Bereiche/Elektrik.md",
       "fertig": 0,
@@ -321,7 +321,7 @@
       "prio": "kritisch",
       "dauer": "",
       "datei": "vault\\Bereiche\\Elektrik.md",
-      "zeile": 50
+      "zeile": 54
     },
     {
       "id": "batteriebank-entscheiden",
@@ -338,7 +338,7 @@
       "prio": "kritisch",
       "dauer": "",
       "datei": "vault\\Bereiche\\Elektrik.md",
-      "zeile": 51
+      "zeile": 55
     },
     {
       "id": "batteriehalterung",
@@ -355,7 +355,7 @@
       "prio": "",
       "dauer": "",
       "datei": "vault\\Bereiche\\Elektrik.md",
-      "zeile": 55
+      "zeile": 59
     },
     {
       "id": "solar-montieren",
@@ -370,7 +370,7 @@
       "prio": "hoch",
       "dauer": "",
       "datei": "vault\\Bereiche\\Elektrik.md",
-      "zeile": 56
+      "zeile": 60
     },
     {
       "id": "verteilung",
@@ -387,7 +387,7 @@
       "prio": "",
       "dauer": "",
       "datei": "vault\\Bereiche\\Elektrik.md",
-      "zeile": 57
+      "zeile": 61
     },
     {
       "id": "heizung-entscheiden",
@@ -617,7 +617,7 @@
       "prio": "kritisch",
       "dauer": "",
       "datei": "vault\\Bereiche\\Möbel.md",
-      "zeile": 106
+      "zeile": 115
     },
     {
       "id": "bettrahmen",
@@ -634,7 +634,7 @@
       "prio": "",
       "dauer": "",
       "datei": "vault\\Bereiche\\Möbel.md",
-      "zeile": 107
+      "zeile": 116
     },
     {
       "id": "kuechenblock",
@@ -651,7 +651,7 @@
       "prio": "",
       "dauer": "",
       "datei": "vault\\Bereiche\\Möbel.md",
-      "zeile": 108
+      "zeile": 117
     },
     {
       "id": "schraenke",
@@ -668,7 +668,7 @@
       "prio": "",
       "dauer": "",
       "datei": "vault\\Bereiche\\Möbel.md",
-      "zeile": 109
+      "zeile": 118
     },
     {
       "id": "sitzbank",
@@ -685,7 +685,7 @@
       "prio": "",
       "dauer": "",
       "datei": "vault\\Bereiche\\Möbel.md",
-      "zeile": 110
+      "zeile": 119
     },
     {
       "id": "tisch",
@@ -702,7 +702,7 @@
       "prio": "",
       "dauer": "",
       "datei": "vault\\Bereiche\\Möbel.md",
-      "zeile": 111
+      "zeile": 120
     },
     {
       "id": "masse-aufnehmen",
