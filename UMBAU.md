@@ -113,8 +113,8 @@ Das alte Dashboard (`docs/`) läuft unverändert weiter, bis Phase 9 es ablöst.
 
 ## Phase 7 — Teile und Einzelteile
 
-- [ ] [Sonnet] Teileansicht (Liste/Raster, Filter, Kosten), Statuswechsler, Felder bearbeiten, Detailfenster
-- [ ] [Sonnet] Zuschnitt/Einzelteile mit Bearbeitung
+- [~] [Sonnet] Teileansicht (Liste/Raster, Filter, Kosten), Statuswechsler, Felder bearbeiten, Detailfenster
+- [~] [Sonnet] Zuschnitt/Einzelteile mit Bearbeitung
 - [ ] [Haupt] Feinschliff nach Rückmeldung
 
 ## Phase 8 — Start, Medien, Suche
@@ -171,6 +171,10 @@ Eine Zeile je abgeschlossenem Punkt oder getroffener Entscheidung.
 
 - 2026-09-18 Phase 6: Baustein `ui/Kennzahl.svelte` (`titel`, `wert`, `zusatz`, `icon`, `ton` neutral|signal|gut|info|warn, `href`/`onclick`) — in `index.ts`, `DESIGN.md` und auf `#/muster`; der Bereichs-Kopf benutzt ihn statt eigener Kacheln. Offen bleibt auch hier die Build-Prüfung. Hinweis: `routen/Start.svelte` hat noch ein handgestricktes `.grosszahl`/`.zahl`-Muster in den Karten Budget/Teile — Kandidat für die Kennzahl, in Phase 8.
 
+- 2026-09-18 Phase 7: Teileansicht (`web/src/lib/teile/`: TeileListe, TeilZeile, TeilKarte, TeilDetail, format.ts) - Kennzahlen-Kopf, Status-Tabs, Kategoriefilter, Suche, Liste/Raster, Anlegen/Loeschen, Detail-`Dialog`. **Teile haben ein eigenes Status-Vokabular** (`tools/common.py: PART_STATUS` = Idee, Recherche, Entschieden, Bestellt, Geliefert, Verbaut) - nicht das Aufgaben-Enum aus `lib/ui`; daher `Etikett` mit Tonzuordnung in `teile/format.ts` statt `Statusmarke`. Bearbeitbarkeit je Feld zur Laufzeit aus `bearbeitbar.teil_felder`.
+- 2026-09-18 Phase 7: Zuschnitt (`web/src/lib/zuschnitt/`: EinzelteilListe, -Zeile, -Detail, -Feld, mass.ts, status.ts) - Filter Bereich/Material, Gruppierung nach Bereich, Kennzahlen Anzahl/Flaeche/Laufmeter, alle Felder ausser `id` bearbeitbar, `teil_id` als Auswahl ueber die Teile. Eigenes Vokabular auch hier (`BAUTEIL_STATUS`, `BAUTEIL_ART`, `MASSQUELLE` in `tools/common.py`) - **in den Komponenten fest verdrahtet, weil die API diese Listen nicht ausliefert. Aendert sich das Vokabular, muss es dort nachgezogen werden** (besser waere: die Listen ueber `/api/daten` mitliefern).
+- 2026-09-18 Beide Phase-7-Ansichten sind **ungeprueft** (kein Build, siehe Uebergabe). Der Commit „Zwischenstand Zuschnitt-Ansicht“ enthaelt entgegen seiner Nachricht bereits den fertigen Stand.
+
 ## Offene Fragen
 
 - Phase 6, Umstellen auf die Bausteine: lokal einmal `python camper.py web check`
@@ -190,7 +194,8 @@ python camper.py web check && python camper.py web build
 ```
 
 Läuft das durch, die mit `[~]` markierten Punkte auf `[x]` setzen und mit der
-Browser-Prüfung aus Phase 6 weitermachen. Gibt es Fehler, zuerst die abstellen —
+Browser-Prüfung aus Phase 6 weitermachen - danach Phase 7 im Browser ansehen
+(`#/teile`, `#/zuschnitt`) und den Feinschliff mit dem Nutzer. Gibt es Fehler, zuerst die abstellen —
 der Code ist von Hand gegen Props, Importe und Store-Signaturen geprüft, aber kein
 Compiler hat ihn je gesehen. Erwartbar sind Tippfehler in Prop-Namen und
 Svelte-5-Syntax, nicht falsche Logik.
