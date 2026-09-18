@@ -69,6 +69,26 @@ Aus `_input/Kühlschrank und Sitzbank/` (Rohnotizen und Ideenbilder, unbewertet)
   Kochstelle im Zusammenspiel — als grober Raumeindruck, keine Maße.
 - Toilettenmodell, Rollbrett-Konstruktion und Tischform sind noch offen.
 
+Aus `_input/Konstruktion/` (Rohnotizen und Ideenbilder, unbewertet — die
+Anordnung entscheidet der Nutzer, Fahrzeug-Innenmaße dazu stehen unter
+[[Karosserie]]):
+
+- Zwei Grundriss-Varianten von Hand skizziert (2D, oben und Seitenansicht):
+  Drehsitze vorne, Bett hinten, Küchenblock mit Kühlschrank und Spüle,
+  Ausziehlade, Regal. Keine Maße auf der Skizze.
+- Eine 3D-Skizze (axonometrisch) zeigt dieselbe Anordnung räumlich, mit
+  „Kühlschrank", „Sessel 1/2", „Liegefläche" und „Kiste" beschriftet.
+- Ein 3D-Render eines Schrankmoduls mit rot markierten Fächern — offenbar aus
+  einem CAD- oder Konfigurator-Tool, Zweck der Markierung nicht klar.
+- Ein 3D-Render von vier Euro-Stapelbehältern auf einer Holzplatte —
+  Ideenbild für Stauraum in Schubladen- oder Regalform.
+- Zwei Fotos mit handschriftlich eingetragenen Maßen an vorhandenen
+  Gegenständen: eine zusammengerollte Matte/Zelttasche (Länge ca. 109 cm,
+  Ø ca. 30 cm) und ein Camping-Falttisch (Platte ca. 68 × 100 cm,
+  Beinhöhe zusammengeklappt 8,5 cm, Plattendicke 2,5–3 cm). Unklar, ob als
+  Vorbild für einen zu bauenden Tisch oder als Maß für vorhandenes
+  Campingzubehör gedacht.
+
 ## Links
 
 - [Klappenbeschlag Grass Kinvaro T-57](https://www.amazon.de/dp/B01AC7CZ58) — Hochschwenk-Automatik, 240 N

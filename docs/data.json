@@ -1,5 +1,5 @@
 {
-  "erzeugt": "2026-09-17T22:34",
+  "erzeugt": "2026-09-18T08:22",
   "projekt": "VanMaster",
   "sortierung": "baustellen",
   "kennzahlen": {
@@ -21,7 +21,7 @@
       "beschreibung": "Bett, Küchenblock, Schränke, Sitzbank mit Toilette, Tisch, Befestigung an der Karosserie.",
       "stand": "### Hängeschränke\n\nKorpus und Fronten aus EpicPLY-Multiplex. Die Fronten sind Klappen, die nach\noben schwenken, keine seitlich öffnenden Türen — so steht beim Kochen nichts\nauf Kopfhöhe im Weg.\n\n**Beschläge**\n\n- Klappenbeschlag Grass Kinvaro T-57 (Hochschwenk-Automatik, 240 N). Trägt\n  Klappen bis 6,2 kg, öffnet auf 75 oder 90°. Ein Paar je Klappe.\n- Verschließbares Push-Lock-Schloss statt Griff: sitzt bündig, hakt nicht am\n  Kopf und hält die Klappe auf der Fahrt zu.\n- Zusätzlich Möbelmagnete an den Klappen.\n\n**Was das für den Zuschnitt heißt**\n\n- Die Klappen müssen **14–16 mm** stark sein, sonst passt das Push-Lock nicht.\n  Pro Schloss ein Loch mit 26 mm Durchmesser in der Front.\n- Klappengewicht pro Beschlagpaar unter 6,2 kg halten. Bei 15 mm Multiplex\n  (rund 10 kg/m²) heißt das: Klappenfläche höchstens etwa 0,6 m².\n- Über der Klappe muss der Öffnungsweg frei bleiben — der Beschlag schwenkt\n  die Front nach oben vor die Decke.\n\n### Sitzbank, Tisch und Toilette\n\n**Toilette.** Eine Kassettentoilette (Porta-Potti-Bauart) sitzt ausziehbar in\neiner Lade neben der Sitzbank — auf einem Rollbrett mit kleinen Lenkrollen,\nsodass sie sich beim Entleeren einfach herausziehen lässt. Ein\nKlopapierhalter mit zwei Rollen sitzt in derselben Lade daneben.\n\n**Tisch.** Zweiteilige Bambus-Tischplatte auf einem einzelnen Metallbein:\neine kleinere Platte liegt über einer größeren, vermutlich zum Vergrößern der\nFläche verschieb- oder klappbar. Separat dazu ein Wandarm-Tisch, der sich zum\nBeifahrersitz hin schwenken lässt und dort als kleine Ablage direkt am\nFahrersitzbereich dient — deckt sich mit der Notiz „Ausklapptisch zum\nBeifahrersitz\" unter [[Küche]].\n\n**Gewürzregal.** Schmales Auszugregal mit Drahtkörben auf einer\nVollauszugschiene, an eine Schrankseite montiert.",
       "auslegung": "",
-      "notizen": "- Wabenmuster im CAD-Seitenteil ist eine Idee zur Gewichtsersparnis, noch nicht\n  gerechnet.\n- Stückzahl der Klappen hängt am Layout, deshalb stehen die Beschlagmengen offen.\n\nAus `_input/Kühlschrank und Sitzbank/` (Rohnotizen und Ideenbilder, unbewertet):\n\n- Ideenbild eines fertigen Ausbaus zeigt Hängeschränke, Dachfenster und\n  Kochstelle im Zusammenspiel — als grober Raumeindruck, keine Maße.\n- Toilettenmodell, Rollbrett-Konstruktion und Tischform sind noch offen.",
+      "notizen": "- Wabenmuster im CAD-Seitenteil ist eine Idee zur Gewichtsersparnis, noch nicht\n  gerechnet.\n- Stückzahl der Klappen hängt am Layout, deshalb stehen die Beschlagmengen offen.\n\nAus `_input/Kühlschrank und Sitzbank/` (Rohnotizen und Ideenbilder, unbewertet):\n\n- Ideenbild eines fertigen Ausbaus zeigt Hängeschränke, Dachfenster und\n  Kochstelle im Zusammenspiel — als grober Raumeindruck, keine Maße.\n- Toilettenmodell, Rollbrett-Konstruktion und Tischform sind noch offen.\n\nAus `_input/Konstruktion/` (Rohnotizen und Ideenbilder, unbewertet — die\nAnordnung entscheidet der Nutzer, Fahrzeug-Innenmaße dazu stehen unter\n[[Karosserie]]):\n\n- Zwei Grundriss-Varianten von Hand skizziert (2D, oben und Seitenansicht):\n  Drehsitze vorne, Bett hinten, Küchenblock mit Kühlschrank und Spüle,\n  Ausziehlade, Regal. Keine Maße auf der Skizze.\n- Eine 3D-Skizze (axonometrisch) zeigt dieselbe Anordnung räumlich, mit\n  „Kühlschrank\", „Sessel 1/2\", „Liegefläche\" und „Kiste\" beschriftet.\n- Ein 3D-Render eines Schrankmoduls mit rot markierten Fächern — offenbar aus\n  einem CAD- oder Konfigurator-Tool, Zweck der Markierung nicht klar.\n- Ein 3D-Render von vier Euro-Stapelbehältern auf einer Holzplatte —\n  Ideenbild für Stauraum in Schubladen- oder Regalform.\n- Zwei Fotos mit handschriftlich eingetragenen Maßen an vorhandenen\n  Gegenständen: eine zusammengerollte Matte/Zelttasche (Länge ca. 109 cm,\n  Ø ca. 30 cm) und ein Camping-Falttisch (Platte ca. 68 × 100 cm,\n  Beinhöhe zusammengeklappt 8,5 cm, Plattendicke 2,5–3 cm). Unklar, ob als\n  Vorbild für einen zu bauenden Tisch oder als Maß für vorhandenes\n  Campingzubehör gedacht.",
       "links": [
         {
           "titel": "Klappenbeschlag Grass Kinvaro T-57",
@@ -165,9 +165,9 @@
       "status": "geplant",
       "phase": 2,
       "beschreibung": "Alles am Fahrzeug selbst: Innenmaße und Konstruktionsgrundlagen, Ausschnitte\nfür Fenster und Dachfenster, Rostbehandlung, Durchführungen und Befestigungs-\npunkte am Blech.",
-      "stand": "",
-      "auslegung": "",
-      "notizen": "- Überschneidet sich mit dem Bereich Vorbereitung: Rost prüfen, Entkernen und\n  Innenmaße aufnehmen liegen dort als Aufgaben. Beim Aufräumen der Struktur\n  klären, ob die beiden Bereiche zusammengehören.",
+      "stand": "**Innenraum-Aufmaß.** Der Laderaum ist von Hand komplett aufgemessen: Grundriss\nam Boden (mit den beiden Radkasten-Ausschnitten), ein Schnitt auf mittlerer\nHöhe, der Dachbereich, der Ausschnitt der Schiebetür sowie die Wandabwicklung\nvon Fahrer- und Beifahrerseite. Das ist die Grundlage, an der sich Kühlschrank,\nKüchenblock und die übrigen Möbel bei Tiefe und Breite messen müssen (siehe\n[[Küche]] zur Gangbreite).",
+      "auslegung": "Werte aus der handschriftlichen Aufmaß-Skizze (Foto), alle in cm. Ziffern auf\ndem Foto teils eng beieinander — bei Zweifeln gegen das Originalblatt prüfen.\n\n| Bereich | Maß | Wert |\n|---|---|---|\n| Boden, Grundriss | Länge oben (Fahrerseite) | 220 |\n| Boden, Grundriss | Gesamtlänge, Variante 1 | 217 |\n| Boden, Grundriss | Gesamtlänge, Variante 2 (ca.) | 237 |\n| Boden, Grundriss | Breite rechts | 176 |\n| Boden, Grundriss | Radkasten-Ausschnitt vorne | 77 |\n| Boden, Grundriss | Radkasten-Ausschnitt hinten | 77 / 139 |\n| Mittlere Höhe | Innenbreite | 172 |\n| Dachbereich | Innenbreite oben | 138 |\n| Dachbereich | Türausschnitt oben | 134 |\n| Schiebetür-Ausschnitt | Breite oben | 138 |\n| Schiebetür-Ausschnitt | Höhe links | 182 |\n| Schiebetür-Ausschnitt | Breite bis Türschloss | 149 |\n| Schiebetür-Ausschnitt | Breite unten | 157 |\n| Fahrerseite, Wand | obere Reihe | 199 |\n| Fahrerseite, Wand | Höhenversatz an der Fuge | 8,5 |\n| Fahrerseite, Wand | Feld daneben | 140 |\n| Beifahrerseite, Wand | Höhe erstes Feld | 145 |\n| Beifahrerseite, Wand | Höhe zweites Feld | 134 |\n| Beifahrerseite, Wand | Radkasten-Ausschnitt | 39 / 77 |",
+      "notizen": "- Überschneidet sich mit dem Bereich Vorbereitung: Rost prüfen, Entkernen und\n  Innenmaße aufnehmen liegen dort als Aufgaben. Beim Aufräumen der Struktur\n  klären, ob die beiden Bereiche zusammengehören.\n- Die Aufmaß-Skizze (`_input/Konstruktion/`) ist ein Foto von Hand\n  beschrifteter Millimeterpapier-Zeichnungen, schräg fotografiert. Einzelne\n  Zahlen sind auf dem Foto nicht zweifelsfrei zu lesen (z. B. zwei\n  übereinanderstehende Werte am linken Rand des Bodengrundrisses, „175\" und\n  „157\"); diese Stelle ist oben nicht übernommen und sollte am Original\n  nachgeprüft werden.",
       "links": [],
       "datei": "vault/Bereiche/Karosserie.md",
       "fertig": 0,
@@ -489,7 +489,7 @@
       "prio": "kritisch",
       "dauer": "",
       "datei": "vault\\Bereiche\\Möbel.md",
-      "zeile": 81
+      "zeile": 101
     },
     {
       "id": "bettrahmen",
@@ -506,7 +506,7 @@
       "prio": "",
       "dauer": "",
       "datei": "vault\\Bereiche\\Möbel.md",
-      "zeile": 82
+      "zeile": 102
     },
     {
       "id": "kuechenblock",
@@ -523,7 +523,7 @@
       "prio": "",
       "dauer": "",
       "datei": "vault\\Bereiche\\Möbel.md",
-      "zeile": 83
+      "zeile": 103
     },
     {
       "id": "schraenke",
@@ -540,7 +540,7 @@
       "prio": "",
       "dauer": "",
       "datei": "vault\\Bereiche\\Möbel.md",
-      "zeile": 84
+      "zeile": 104
     },
     {
       "id": "sitzbank",
@@ -557,7 +557,7 @@
       "prio": "",
       "dauer": "",
       "datei": "vault\\Bereiche\\Möbel.md",
-      "zeile": 85
+      "zeile": 105
     },
     {
       "id": "tisch",
@@ -574,7 +574,7 @@
       "prio": "",
       "dauer": "",
       "datei": "vault\\Bereiche\\Möbel.md",
-      "zeile": 86
+      "zeile": 106
     },
     {
       "id": "masse-aufnehmen",
@@ -2306,6 +2306,12 @@
       "pfad": "medien/daemmung/2026-09-17-boden-kleben.png"
     },
     {
+      "name": "2026-09-18-innenraum-aufmass-boden-mitte-oben-tuer-seiten",
+      "bereich": "Karosserie",
+      "datei": "2026-09-18-innenraum-aufmass-boden-mitte-oben-tuer-seiten.jpg",
+      "pfad": "medien/karosserie/2026-09-18-innenraum-aufmass-boden-mitte-oben-tuer-seiten.jpg"
+    },
+    {
       "name": "2026-09-17-gaskocher-hinter-klappe-ausklapptisch",
       "bereich": "Küche",
       "datei": "2026-09-17-gaskocher-hinter-klappe-ausklapptisch.png",
@@ -2406,6 +2412,42 @@
       "bereich": "Möbel",
       "datei": "2026-09-17-toilette-ausziehlade-mit-klopapierhalter.png",
       "pfad": "medien/moebel/2026-09-17-toilette-ausziehlade-mit-klopapierhalter.png"
+    },
+    {
+      "name": "2026-09-18-camping-falttisch-mit-massen",
+      "bereich": "Möbel",
+      "datei": "2026-09-18-camping-falttisch-mit-massen.jpeg",
+      "pfad": "medien/moebel/2026-09-18-camping-falttisch-mit-massen.jpeg"
+    },
+    {
+      "name": "2026-09-18-eurobehaelter-4x-auf-holzplatte",
+      "bereich": "Möbel",
+      "datei": "2026-09-18-eurobehaelter-4x-auf-holzplatte.png",
+      "pfad": "medien/moebel/2026-09-18-eurobehaelter-4x-auf-holzplatte.png"
+    },
+    {
+      "name": "2026-09-18-grundriss-2d-skizze-drehsitze-kueche-bett",
+      "bereich": "Möbel",
+      "datei": "2026-09-18-grundriss-2d-skizze-drehsitze-kueche-bett.png",
+      "pfad": "medien/moebel/2026-09-18-grundriss-2d-skizze-drehsitze-kueche-bett.png"
+    },
+    {
+      "name": "2026-09-18-grundriss-3d-skizze-sessel-liegeflaeche-kiste",
+      "bereich": "Möbel",
+      "datei": "2026-09-18-grundriss-3d-skizze-sessel-liegeflaeche-kiste.png",
+      "pfad": "medien/moebel/2026-09-18-grundriss-3d-skizze-sessel-liegeflaeche-kiste.png"
+    },
+    {
+      "name": "2026-09-18-matte-zelttasche-mit-massen",
+      "bereich": "Möbel",
+      "datei": "2026-09-18-matte-zelttasche-mit-massen.jpeg",
+      "pfad": "medien/moebel/2026-09-18-matte-zelttasche-mit-massen.jpeg"
+    },
+    {
+      "name": "2026-09-18-schrankmodul-render-rot-markierte-faecher",
+      "bereich": "Möbel",
+      "datei": "2026-09-18-schrankmodul-render-rot-markierte-faecher.png",
+      "pfad": "medien/moebel/2026-09-18-schrankmodul-render-rot-markierte-faecher.png"
     }
   ],
   "dokumente": [

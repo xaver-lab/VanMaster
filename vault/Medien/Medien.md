@@ -13,6 +13,10 @@ erzeugt: true
 ![[Medien/Dämmung/2026-09-17-armaflex.png]]
 ![[Medien/Dämmung/2026-09-17-boden-kleben.png]]
 
+## Karosserie
+
+![[Medien/Karosserie/2026-09-18-innenraum-aufmass-boden-mitte-oben-tuer-seiten.jpg]]
+
 ## Küche
 
 ![[Medien/Küche/2026-09-17-gaskocher-hinter-klappe-ausklapptisch.png]]
@@ -36,3 +40,9 @@ erzeugt: true
 ![[Medien/Möbel/2026-09-17-tischplatte-zweiteilig-auf-einzelbein.png]]
 ![[Medien/Möbel/2026-09-17-toilette-auf-rollbrett.png]]
 ![[Medien/Möbel/2026-09-17-toilette-ausziehlade-mit-klopapierhalter.png]]
+![[Medien/Möbel/2026-09-18-camping-falttisch-mit-massen.jpeg]]
+![[Medien/Möbel/2026-09-18-eurobehaelter-4x-auf-holzplatte.png]]
+![[Medien/Möbel/2026-09-18-grundriss-2d-skizze-drehsitze-kueche-bett.png]]
+![[Medien/Möbel/2026-09-18-grundriss-3d-skizze-sessel-liegeflaeche-kiste.png]]
+![[Medien/Möbel/2026-09-18-matte-zelttasche-mit-massen.jpeg]]
+![[Medien/Möbel/2026-09-18-schrankmodul-render-rot-markierte-faecher.png]]
