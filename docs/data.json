@@ -1,10 +1,10 @@
 {
-  "erzeugt": "2026-09-18T10:28",
+  "erzeugt": "2026-09-18T11:36",
   "projekt": "VanMaster",
   "sortierung": "baustellen",
   "kennzahlen": {
     "aufgaben_fertig": 6,
-    "aufgaben_gesamt": 34,
+    "aufgaben_gesamt": 37,
     "teile": 67,
     "kosten": 3045.53,
     "kosten_bestellt": 443.3,
@@ -13,6 +13,31 @@
     "bauteile": 0
   },
   "bereiche": [
+    {
+      "name": "Karosserie",
+      "kurz": "Innenmaße, Fenster- und Dachausschnitte, Rost, Durchführungen",
+      "status": "in-arbeit",
+      "phase": 1,
+      "beschreibung": "Alles am Fahrzeug selbst: Innenmaße und Konstruktionsgrundlagen, Ausschnitte\nfür Fenster und Dachfenster, Rostbehandlung, Durchführungen und Befestigungs-\npunkte am Blech.",
+      "stand": "**Vorbereitung abgeschlossen.** Rost geprüft und behandelt, alte Verkleidung\nund Holzboden entfernt, Innenmaße aufgenommen — der Van ist entkernt und\nbereit für Ausschnitte und Einbauten.\n\n**Innenraum-Aufmaß.** Der Laderaum ist von Hand komplett aufgemessen: Grundriss\nam Boden (mit den beiden Radkasten-Ausschnitten), ein Schnitt auf mittlerer\nHöhe, der Dachbereich, der Ausschnitt der Schiebetür sowie die Wandabwicklung\nvon Fahrer- und Beifahrerseite. Das ist die Grundlage, an der sich Kühlschrank,\nKüchenblock und die übrigen Möbel bei Tiefe und Breite messen müssen (siehe\n[[Küche]] zur Gangbreite).\n\n**Dachfenster.** Entschieden ist ein Dachfenster mit Lüfter, Fernbedienung,\nInsektenschutz und Verdunkelung, 400×400 mm. Der Einbau läuft über einen\nselbst gebauten Holzrahmen (Stärke Blechausschnitt +2 mm), der mit Polymax\nangeklebt, von innen verschraubt und mit Butyl-Dichtmasse gegen das Fenster\nabgedichtet wird; vor dem Einbau wird die geschnittene Blechkante mit\nRostschutz behandelt. Der Arbeitsablauf steht unter Aufgaben.",
+      "auslegung": "Werte aus der handschriftlichen Aufmaß-Skizze (Foto), alle in cm. Ziffern auf\ndem Foto teils eng beieinander — bei Zweifeln gegen das Originalblatt prüfen.\n\n| Bereich | Maß | Wert |\n|---|---|---|\n| Boden, Grundriss | Länge oben (Fahrerseite) | 220 |\n| Boden, Grundriss | Gesamtlänge, Variante 1 | 217 |\n| Boden, Grundriss | Gesamtlänge, Variante 2 (ca.) | 237 |\n| Boden, Grundriss | Breite rechts | 176 |\n| Boden, Grundriss | Radkasten-Ausschnitt vorne | 77 |\n| Boden, Grundriss | Radkasten-Ausschnitt hinten | 77 / 139 |\n| Mittlere Höhe | Innenbreite | 172 |\n| Dachbereich | Innenbreite oben | 138 |\n| Dachbereich | Türausschnitt oben | 134 |\n| Schiebetür-Ausschnitt | Breite oben | 138 |\n| Schiebetür-Ausschnitt | Höhe links | 182 |\n| Schiebetür-Ausschnitt | Breite bis Türschloss | 149 |\n| Schiebetür-Ausschnitt | Breite unten | 157 |\n| Fahrerseite, Wand | obere Reihe | 199 |\n| Fahrerseite, Wand | Höhenversatz an der Fuge | 8,5 |\n| Fahrerseite, Wand | Feld daneben | 140 |\n| Beifahrerseite, Wand | Höhe erstes Feld | 145 |\n| Beifahrerseite, Wand | Höhe zweites Feld | 134 |\n| Beifahrerseite, Wand | Radkasten-Ausschnitt | 39 / 77 |",
+      "notizen": "- Die Aufmaß-Skizze (`_input/Konstruktion/`) ist ein Foto von Hand\n  beschrifteter Millimeterpapier-Zeichnungen, schräg fotografiert. Einzelne\n  Zahlen sind auf dem Foto nicht zweifelsfrei zu lesen (z. B. zwei\n  übereinanderstehende Werte am linken Rand des Bodengrundrisses, „175\" und\n  „157\"; auch die beiden Gesamtlängen-Werte 217/237 widersprechen sich).\n  Nutzer prüft diese Stellen selbst gegen das 3D-Modell, nicht hier auflösen.\n\nAus `_input/Fenster und Dachfenster/` (Rohnotiz, unbewertet — ob und wann die\nSeitenfenster gebaut werden, entscheidet der Nutzer):\n\n- Seitenfenster Fahrerseite: Notiz „erst einbauen, wenn Tisch fertig ist (dann\n  perfekt)\". Noch nicht festgelegt.\n- Seitenfenster Beifahrerseite: Notiz „bauen wir?? (stört bei Küche!)\". Ob es\n  überhaupt kommt, ist offen — Konflikt mit der Küchenplanung angemerkt.",
+      "links": [
+        {
+          "titel": "Dachfenster Super Fan 400×400",
+          "url": "https://belluna.eu/shop/super-fan-dachfenster-mit-luefter-fernbedienung-insektenschutz-und-verdunkelung-400x400-mm-generation-3-1/",
+          "zusatz": "Lüfter, Fernbedienung, Insektenschutz, Verdunkelung"
+        },
+        {
+          "titel": "Belluna Fenster-Kategorie",
+          "url": "https://belluna.eu/kategorie/fenster/",
+          "zusatz": "Übersicht für die noch offenen Seitenfenster"
+        }
+      ],
+      "datei": "vault/Bereiche/Karosserie.md",
+      "fertig": 3,
+      "gesamt": 13
+    },
     {
       "name": "Elektrik",
       "kurz": "Batterien, Laderegler, Solar, Verteilung, Verbraucher",
@@ -110,45 +135,6 @@
       "datei": "vault/Bereiche/Dämmung.md",
       "fertig": 2,
       "gesamt": 4
-    },
-    {
-      "name": "Vorbereitung",
-      "kurz": "Aufmaß, Rost, Entkernen — was vor dem Ausbau passiert",
-      "status": "in-arbeit",
-      "phase": 1,
-      "beschreibung": "Was vor dem eigentlichen Ausbau passiert: Innenmaße aufnehmen, Rost suchen und\nbehandeln, alte Verkleidung und Holzboden herausnehmen.",
-      "stand": "",
-      "auslegung": "",
-      "notizen": "- Gehört inhaltlich eng zum Bereich Karosserie — beim Aufräumen der Struktur\n  klären, ob die beiden zusammengelegt werden.",
-      "links": [],
-      "datei": "vault/Bereiche/Vorbereitung.md",
-      "fertig": 3,
-      "gesamt": 3
-    },
-    {
-      "name": "Karosserie",
-      "kurz": "Innenmaße, Fenster- und Dachausschnitte, Rost, Durchführungen",
-      "status": "geplant",
-      "phase": 2,
-      "beschreibung": "Alles am Fahrzeug selbst: Innenmaße und Konstruktionsgrundlagen, Ausschnitte\nfür Fenster und Dachfenster, Rostbehandlung, Durchführungen und Befestigungs-\npunkte am Blech.",
-      "stand": "**Innenraum-Aufmaß.** Der Laderaum ist von Hand komplett aufgemessen: Grundriss\nam Boden (mit den beiden Radkasten-Ausschnitten), ein Schnitt auf mittlerer\nHöhe, der Dachbereich, der Ausschnitt der Schiebetür sowie die Wandabwicklung\nvon Fahrer- und Beifahrerseite. Das ist die Grundlage, an der sich Kühlschrank,\nKüchenblock und die übrigen Möbel bei Tiefe und Breite messen müssen (siehe\n[[Küche]] zur Gangbreite).\n\n**Dachfenster.** Entschieden ist ein Dachfenster mit Lüfter, Fernbedienung,\nInsektenschutz und Verdunkelung, 400×400 mm. Der Einbau läuft über einen\nselbst gebauten Holzrahmen (Stärke Blechausschnitt +2 mm), der mit Polymax\nangeklebt, von innen verschraubt und mit Butyl-Dichtmasse gegen das Fenster\nabgedichtet wird; vor dem Einbau wird die geschnittene Blechkante mit\nRostschutz behandelt. Der Arbeitsablauf steht unter Aufgaben.",
-      "auslegung": "Werte aus der handschriftlichen Aufmaß-Skizze (Foto), alle in cm. Ziffern auf\ndem Foto teils eng beieinander — bei Zweifeln gegen das Originalblatt prüfen.\n\n| Bereich | Maß | Wert |\n|---|---|---|\n| Boden, Grundriss | Länge oben (Fahrerseite) | 220 |\n| Boden, Grundriss | Gesamtlänge, Variante 1 | 217 |\n| Boden, Grundriss | Gesamtlänge, Variante 2 (ca.) | 237 |\n| Boden, Grundriss | Breite rechts | 176 |\n| Boden, Grundriss | Radkasten-Ausschnitt vorne | 77 |\n| Boden, Grundriss | Radkasten-Ausschnitt hinten | 77 / 139 |\n| Mittlere Höhe | Innenbreite | 172 |\n| Dachbereich | Innenbreite oben | 138 |\n| Dachbereich | Türausschnitt oben | 134 |\n| Schiebetür-Ausschnitt | Breite oben | 138 |\n| Schiebetür-Ausschnitt | Höhe links | 182 |\n| Schiebetür-Ausschnitt | Breite bis Türschloss | 149 |\n| Schiebetür-Ausschnitt | Breite unten | 157 |\n| Fahrerseite, Wand | obere Reihe | 199 |\n| Fahrerseite, Wand | Höhenversatz an der Fuge | 8,5 |\n| Fahrerseite, Wand | Feld daneben | 140 |\n| Beifahrerseite, Wand | Höhe erstes Feld | 145 |\n| Beifahrerseite, Wand | Höhe zweites Feld | 134 |\n| Beifahrerseite, Wand | Radkasten-Ausschnitt | 39 / 77 |",
-      "notizen": "- Überschneidet sich mit dem Bereich Vorbereitung: Rost prüfen, Entkernen und\n  Innenmaße aufnehmen liegen dort als Aufgaben. Beim Aufräumen der Struktur\n  klären, ob die beiden Bereiche zusammengehören.\n- Die Aufmaß-Skizze (`_input/Konstruktion/`) ist ein Foto von Hand\n  beschrifteter Millimeterpapier-Zeichnungen, schräg fotografiert. Einzelne\n  Zahlen sind auf dem Foto nicht zweifelsfrei zu lesen (z. B. zwei\n  übereinanderstehende Werte am linken Rand des Bodengrundrisses, „175\" und\n  „157\"); diese Stelle ist oben nicht übernommen und sollte am Original\n  nachgeprüft werden.\n\nAus `_input/Fenster und Dachfenster/` (Rohnotiz, unbewertet — ob und wann die\nSeitenfenster gebaut werden, entscheidet der Nutzer):\n\n- Seitenfenster Fahrerseite: Notiz „erst einbauen, wenn Tisch fertig ist (dann\n  perfekt)\". Noch nicht festgelegt.\n- Seitenfenster Beifahrerseite: Notiz „bauen wir?? (stört bei Küche!)\". Ob es\n  überhaupt kommt, ist offen — Konflikt mit der Küchenplanung angemerkt.",
-      "links": [
-        {
-          "titel": "Dachfenster Super Fan 400×400",
-          "url": "https://belluna.eu/shop/super-fan-dachfenster-mit-luefter-fernbedienung-insektenschutz-und-verdunkelung-400x400-mm-generation-3-1/",
-          "zusatz": "Lüfter, Fernbedienung, Insektenschutz, Verdunkelung"
-        },
-        {
-          "titel": "Belluna Fenster-Kategorie",
-          "url": "https://belluna.eu/kategorie/fenster/",
-          "zusatz": "Übersicht für die noch offenen Seitenfenster"
-        }
-      ],
-      "datei": "vault/Bereiche/Karosserie.md",
-      "fertig": 0,
-      "gesamt": 7
     },
     {
       "name": "Heizung",
@@ -341,7 +327,7 @@
       "braucht": [],
       "prio": "kritisch",
       "dauer": "",
-      "beschreibung": "",
+      "beschreibung": "Test",
       "datei": "vault\\Bereiche\\Elektrik.md",
       "zeile": 54,
       "fotos": []
@@ -362,7 +348,7 @@
       "dauer": "",
       "beschreibung": "",
       "datei": "vault\\Bereiche\\Elektrik.md",
-      "zeile": 55,
+      "zeile": 56,
       "fotos": []
     },
     {
@@ -381,7 +367,7 @@
       "dauer": "",
       "beschreibung": "",
       "datei": "vault\\Bereiche\\Elektrik.md",
-      "zeile": 59,
+      "zeile": 60,
       "fotos": []
     },
     {
@@ -398,7 +384,7 @@
       "dauer": "",
       "beschreibung": "",
       "datei": "vault\\Bereiche\\Elektrik.md",
-      "zeile": 60,
+      "zeile": 61,
       "fotos": []
     },
     {
@@ -417,7 +403,7 @@
       "dauer": "",
       "beschreibung": "",
       "datei": "vault\\Bereiche\\Elektrik.md",
-      "zeile": 61,
+      "zeile": 62,
       "fotos": []
     },
     {
@@ -476,6 +462,59 @@
       "fotos": []
     },
     {
+      "id": "masse-aufnehmen",
+      "titel": "Innenmaße aufnehmen und Skizze anlegen",
+      "status": "erledigt",
+      "bereich": "Karosserie",
+      "gruppe": "Fahrzeug vorbereiten",
+      "ebene": 0,
+      "eltern": "",
+      "kinder": [],
+      "braucht": [],
+      "prio": "kritisch",
+      "dauer": "",
+      "beschreibung": "",
+      "datei": "vault\\Bereiche\\Karosserie.md",
+      "zeile": 89,
+      "fotos": []
+    },
+    {
+      "id": "rost-pruefen",
+      "titel": "Rost prüfen und behandeln",
+      "status": "erledigt",
+      "bereich": "Karosserie",
+      "gruppe": "Fahrzeug vorbereiten",
+      "ebene": 0,
+      "eltern": "",
+      "kinder": [],
+      "braucht": [],
+      "prio": "hoch",
+      "dauer": "",
+      "beschreibung": "",
+      "datei": "vault\\Bereiche\\Karosserie.md",
+      "zeile": 90,
+      "fotos": []
+    },
+    {
+      "id": "entkernen",
+      "titel": "Alte Verkleidung und Holzboden raus",
+      "status": "erledigt",
+      "bereich": "Karosserie",
+      "gruppe": "Fahrzeug vorbereiten",
+      "ebene": 0,
+      "eltern": "",
+      "kinder": [],
+      "braucht": [
+        "rost-pruefen"
+      ],
+      "prio": "hoch",
+      "dauer": "",
+      "beschreibung": "",
+      "datei": "vault\\Bereiche\\Karosserie.md",
+      "zeile": 91,
+      "fotos": []
+    },
+    {
       "id": "df-position",
       "titel": "Position bestimmen",
       "status": "offen",
@@ -489,7 +528,7 @@
       "dauer": "",
       "beschreibung": "",
       "datei": "vault\\Bereiche\\Karosserie.md",
-      "zeile": 88,
+      "zeile": 95,
       "fotos": []
     },
     {
@@ -508,7 +547,7 @@
       "dauer": "",
       "beschreibung": "",
       "datei": "vault\\Bereiche\\Karosserie.md",
-      "zeile": 89,
+      "zeile": 96,
       "fotos": []
     },
     {
@@ -527,7 +566,7 @@
       "dauer": "",
       "beschreibung": "",
       "datei": "vault\\Bereiche\\Karosserie.md",
-      "zeile": 90,
+      "zeile": 97,
       "fotos": []
     },
     {
@@ -546,7 +585,7 @@
       "dauer": "",
       "beschreibung": "",
       "datei": "vault\\Bereiche\\Karosserie.md",
-      "zeile": 91,
+      "zeile": 98,
       "fotos": []
     },
     {
@@ -565,7 +604,7 @@
       "dauer": "",
       "beschreibung": "",
       "datei": "vault\\Bereiche\\Karosserie.md",
-      "zeile": 92,
+      "zeile": 99,
       "fotos": []
     },
     {
@@ -584,7 +623,7 @@
       "dauer": "",
       "beschreibung": "",
       "datei": "vault\\Bereiche\\Karosserie.md",
-      "zeile": 93,
+      "zeile": 100,
       "fotos": []
     },
     {
@@ -603,7 +642,58 @@
       "dauer": "",
       "beschreibung": "",
       "datei": "vault\\Bereiche\\Karosserie.md",
-      "zeile": 94,
+      "zeile": 101,
+      "fotos": []
+    },
+    {
+      "id": "sf-fahrer-entscheiden",
+      "titel": "Entscheiden: Seitenfenster Fahrerseite einbauen",
+      "status": "offen",
+      "bereich": "Karosserie",
+      "gruppe": "Seitenfenster",
+      "ebene": 0,
+      "eltern": "",
+      "kinder": [],
+      "braucht": [],
+      "prio": "",
+      "dauer": "",
+      "beschreibung": "",
+      "datei": "vault\\Bereiche\\Karosserie.md",
+      "zeile": 105,
+      "fotos": []
+    },
+    {
+      "id": "sf-beifahrer-entscheiden",
+      "titel": "Entscheiden: Seitenfenster Beifahrerseite (Konflikt mit Küche klären)",
+      "status": "offen",
+      "bereich": "Karosserie",
+      "gruppe": "Seitenfenster",
+      "ebene": 0,
+      "eltern": "",
+      "kinder": [],
+      "braucht": [],
+      "prio": "",
+      "dauer": "",
+      "beschreibung": "",
+      "datei": "vault\\Bereiche\\Karosserie.md",
+      "zeile": 106,
+      "fotos": []
+    },
+    {
+      "id": "durchfuehrungen-festlegen",
+      "titel": "Durchführungen und Befestigungspunkte am Blech festlegen (Kabel, Wasser, Abgas)",
+      "status": "offen",
+      "bereich": "Karosserie",
+      "gruppe": "Durchführungen",
+      "ebene": 0,
+      "eltern": "",
+      "kinder": [],
+      "braucht": [],
+      "prio": "",
+      "dauer": "",
+      "beschreibung": "",
+      "datei": "vault\\Bereiche\\Karosserie.md",
+      "zeile": 110,
       "fotos": []
     },
     {
@@ -799,59 +889,6 @@
       "beschreibung": "",
       "datei": "vault\\Bereiche\\Möbel.md",
       "zeile": 176,
-      "fotos": []
-    },
-    {
-      "id": "masse-aufnehmen",
-      "titel": "Innenmaße aufnehmen und Skizze anlegen",
-      "status": "erledigt",
-      "bereich": "Vorbereitung",
-      "gruppe": "Fahrzeug",
-      "ebene": 0,
-      "eltern": "",
-      "kinder": [],
-      "braucht": [],
-      "prio": "kritisch",
-      "dauer": "",
-      "beschreibung": "",
-      "datei": "vault\\Bereiche\\Vorbereitung.md",
-      "zeile": 36,
-      "fotos": []
-    },
-    {
-      "id": "rost-pruefen",
-      "titel": "Rost prüfen und behandeln",
-      "status": "erledigt",
-      "bereich": "Vorbereitung",
-      "gruppe": "Fahrzeug",
-      "ebene": 0,
-      "eltern": "",
-      "kinder": [],
-      "braucht": [],
-      "prio": "hoch",
-      "dauer": "",
-      "beschreibung": "",
-      "datei": "vault\\Bereiche\\Vorbereitung.md",
-      "zeile": 37,
-      "fotos": []
-    },
-    {
-      "id": "entkernen",
-      "titel": "Alte Verkleidung und Holzboden raus",
-      "status": "erledigt",
-      "bereich": "Vorbereitung",
-      "gruppe": "Fahrzeug",
-      "ebene": 0,
-      "eltern": "",
-      "kinder": [],
-      "braucht": [
-        "rost-pruefen"
-      ],
-      "prio": "hoch",
-      "dauer": "",
-      "beschreibung": "",
-      "datei": "vault\\Bereiche\\Vorbereitung.md",
-      "zeile": 38,
       "fotos": []
     },
     {

@@ -1,8 +1,8 @@
 ---
 bereich: Karosserie
 kurz: Innenmaße, Fenster- und Dachausschnitte, Rost, Durchführungen
-status: geplant
-phase: 2
+status: in-arbeit
+phase: 1
 ---
 
 # Karosserie
@@ -14,6 +14,10 @@ für Fenster und Dachfenster, Rostbehandlung, Durchführungen und Befestigungs-
 punkte am Blech.
 
 ## Stand
+
+**Vorbereitung abgeschlossen.** Rost geprüft und behandelt, alte Verkleidung
+und Holzboden entfernt, Innenmaße aufgenommen — der Van ist entkernt und
+bereit für Ausschnitte und Einbauten.
 
 **Innenraum-Aufmaß.** Der Laderaum ist von Hand komplett aufgemessen: Grundriss
 am Boden (mit den beiden Radkasten-Ausschnitten), ein Schnitt auf mittlerer
@@ -58,15 +62,12 @@ dem Foto teils eng beieinander — bei Zweifeln gegen das Originalblatt prüfen.
 
 ## Notizen
 
-- Überschneidet sich mit dem Bereich Vorbereitung: Rost prüfen, Entkernen und
-  Innenmaße aufnehmen liegen dort als Aufgaben. Beim Aufräumen der Struktur
-  klären, ob die beiden Bereiche zusammengehören.
 - Die Aufmaß-Skizze (`_input/Konstruktion/`) ist ein Foto von Hand
   beschrifteter Millimeterpapier-Zeichnungen, schräg fotografiert. Einzelne
   Zahlen sind auf dem Foto nicht zweifelsfrei zu lesen (z. B. zwei
   übereinanderstehende Werte am linken Rand des Bodengrundrisses, „175" und
-  „157"); diese Stelle ist oben nicht übernommen und sollte am Original
-  nachgeprüft werden.
+  „157"; auch die beiden Gesamtlängen-Werte 217/237 widersprechen sich).
+  Nutzer prüft diese Stellen selbst gegen das 3D-Modell, nicht hier auflösen.
 
 Aus `_input/Fenster und Dachfenster/` (Rohnotiz, unbewertet — ob und wann die
 Seitenfenster gebaut werden, entscheidet der Nutzer):
@@ -83,6 +84,12 @@ Seitenfenster gebaut werden, entscheidet der Nutzer):
 
 ## Aufgaben
 
+### Fahrzeug vorbereiten
+
+- [x] Innenmaße aufnehmen und Skizze anlegen ^masse-aufnehmen #kritisch
+- [x] Rost prüfen und behandeln ^rost-pruefen #hoch
+- [x] Alte Verkleidung und Holzboden raus ^entkernen #hoch @braucht:rost-pruefen
+
 ### Dachfenster einbauen
 
 - [ ] Position bestimmen ^df-position
@@ -92,3 +99,12 @@ Seitenfenster gebaut werden, entscheidet der Nutzer):
 - [ ] Holzrahmen mit Polymax ankleben ^df-ankleben @braucht:df-rostschutz
 - [ ] Butyl-Dichtmasse einsetzen ^df-dichtmasse @braucht:df-ankleben
 - [ ] Von innen verschrauben ^df-verschrauben @braucht:df-dichtmasse
+
+### Seitenfenster
+
+- [ ] Entscheiden: Seitenfenster Fahrerseite einbauen ^sf-fahrer-entscheiden
+- [ ] Entscheiden: Seitenfenster Beifahrerseite (Konflikt mit Küche klären) ^sf-beifahrer-entscheiden
+
+### Durchführungen
+
+- [ ] Durchführungen und Befestigungspunkte am Blech festlegen (Kabel, Wasser, Abgas) ^durchfuehrungen-festlegen

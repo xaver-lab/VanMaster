@@ -52,6 +52,7 @@ _(noch keine)_
 ### Auslegung
 
 - [/] Strombilanz rechnen (Verbraucher, Tagesbedarf) ^strombilanz #kritisch
+  > Test
 - [/] Batteriebank und Laderegler festlegen ^batteriebank-entscheiden #kritisch @braucht:strombilanz
 
 ### Einbau
