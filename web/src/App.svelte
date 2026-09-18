@@ -3,6 +3,7 @@
   // Fehleranzeige, Konfliktkasten. Inhalt der Ansichten kommt in Phase 6–8.
   import { onMount } from 'svelte';
   import { daten, laden } from './lib/daten.svelte';
+  import { verbinden } from './lib/live';
   import { routing } from './lib/routing.svelte';
   import { tastenAnmelden } from './lib/tasten';
   import Kopfleiste from './komponenten/Kopfleiste.svelte';
@@ -28,9 +29,17 @@
   let aktiveAnsicht = $derived(ANSICHT_KOMPONENTE[routing.route.ansicht]);
 
   onMount(() => {
-    laden();
     const tastenAbmelden = tastenAnmelden({});
-    return () => tastenAbmelden();
+    // SSE erst nach dem ersten Laden — vorher steht der Modus nicht fest.
+    // Im Lesemodus bricht verbinden() von selbst ab.
+    let liveAbmelden: (() => void) | null = null;
+    laden().then(() => {
+      liveAbmelden = verbinden();
+    });
+    return () => {
+      tastenAbmelden();
+      liveAbmelden?.();
+    };
   });
 </script>
 

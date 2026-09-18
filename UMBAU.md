@@ -99,8 +99,8 @@ Das alte Dashboard (`docs/`) läuft unverändert weiter, bis Phase 9 es ablöst.
 ## Phase 5 — Web-Grundgerüst
 
 - [x] [Sonnet] `web/`: Vite + Svelte 5 + TypeScript, Build per `camper web build` (ruft `~/nodejs/npm.cmd`), `node_modules` und `dist` in `.gitignore`
-- [ ] [Sonnet] Datenschicht im Browser: ein Store, lädt `/api/daten` (Server) oder `data.json` (statisch), hört auf SSE, Schreibfunktionen mit Hash und Konfliktanzeige, Sperre während laufender Anfrage
-- [ ] [Sonnet] Rahmen: Navigation, Routing per Hash, Hell/Dunkel, Toasts, Tastenkürzel wie heute; Lesemodus blendet alle Bearbeitungselemente aus
+- [x] [Sonnet] Datenschicht im Browser: ein Store, lädt `/api/daten` (Server) oder `data.json` (statisch), hört auf SSE, Schreibfunktionen mit Hash und Konfliktanzeige, Sperre während laufender Anfrage
+- [x] [Sonnet] Rahmen: Navigation, Routing per Hash, Hell/Dunkel, Toasts, Tastenkürzel wie heute; Lesemodus blendet alle Bearbeitungselemente aus
 - [ ] [Haupt] Stil aus `docs/css/` übernehmen, Abnahme mit dem Nutzer
 
 ## Phase 6 — Aufgaben und Bereichstexte (ab hier nutzbar)
@@ -158,6 +158,8 @@ Eine Zeile je abgeschlossenem Punkt oder getroffener Entscheidung.
 - 2026-09-18 Phase 4: `tools/server/live.py` — Wächter pollt mtime/Größe (1 s, `VANMASTER_LIVE_INTERVALL`, 0 = aus), SSE `GET /api/live`: `event: aenderung`, `data: {dateien:[{datei,version}], quelle: web|extern}`, Heartbeat 15 s. SSE-Test über echten uvicorn-Thread, weil TestClient SSE puffert. 9 Tests.
 - 2026-09-18 Phase 4 abgenommen: 162 Tests grün (~85 s). Echter Server: `task add` von außen kommt als SSE `extern` an; PATCH mit altem Hash → 409 samt `stand`; Bestand danach unverändert. Hinweis: curl-Aufrufe mit Umlauten im Git-Bash scheitern an der Kodierung (400) — kein Serverfehler.
 - 2026-09-18 Phase 5: `web/` von Hand als Vite+Svelte-5+TypeScript-Gerüst angelegt (package.json, vite.config.ts mit `base: './'` und `/api`-Proxy auf 8765, tsconfig strict, App.svelte als Platzhalter); `tools/web.py` + Befehl `camper web install|build|dev` sucht npm unter `~/nodejs/npm.cmd` → `~/nodejs/npm` → PATH. Ungeprüft, siehe Offene Fragen.
+- 2026-09-18 Phase 5: Rahmen — `App.svelte` (Kopfleiste, Bühne, Toasts, Lade-/Fehleranzeige, Konfliktkasten), `lib/routing.svelte.ts` (Hash `#/<ansicht>/<a>/<b>`, sechs Ansichten start|themen|aufgaben|teile|zuschnitt|medien), `lib/thema.svelte.ts` (System + localStorage, `data-thema`), `lib/toast.svelte.ts`, `lib/tasten.ts` (1–6, t, Strg+K, /, Escape), Platzhalter unter `komponenten/`. Lesemodus über `NurSchreiben.svelte` — ab Phase 6 jedes Bearbeitungselement damit umschließen. CSS-Variablen aus `docs/css/basis.css` übernommen, Optik noch offen.
+- 2026-09-18 Phase 5: Datenschicht — `lib/api.ts` (`ApiFehler` mit `status`/`stand`), `lib/daten.svelte.ts` (Runen-Store mit Gettern, Modus server→`data.json`, 14 Schreibfunktionen, Sperre weist parallele Anfragen ab, 409 setzt `konflikt` und lädt neu, 403/422/404 als Meldung über `beobachten`), `lib/live.ts` (EventSource mit Backoff, ignoriert `quelle: web`). Hauptchat hat `verbinden()` in `App.svelte` nach dem ersten `laden()` eingehängt — der Subagent konnte das nicht selbst.
 
 ## Offene Fragen
 
@@ -171,7 +173,10 @@ Eine Zeile je abgeschlossenem Punkt oder getroffener Entscheidung.
 
 ## Übergabe an den nächsten Chat
 
-Stand 2026-09-18: Phasen 0–4 fertig und abgenommen. Weiter mit **Phase 5**.
+Stand 2026-09-18: Phasen 0–4 fertig und abgenommen. Phase 5 Punkte 1–3 gebaut,
+aber **ungeprüft** (siehe Offene Fragen). Weiter mit: `camper web install &&
+`camper web build` auf dem Rechner des Nutzers, Testlauf, dann Phase 5 Punkt 4
+(Stil aus `docs/css/` übernehmen, Abnahme).
 
 - Neuer Rechner: `pip install --user -r requirements.txt`; Node portabel nach `~/nodejs/`
   (Version 24, nicht im PATH).
