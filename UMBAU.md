@@ -107,7 +107,7 @@ Das alte Dashboard (`docs/`) läuft unverändert weiter, bis Phase 9 es ablöst.
 
 - [x] [Sonnet] Aufgabenliste mit Filter, Gruppierung, Suche; Statuswechsler; Anlegen, Umbenennen, Löschen (mit Rückfrage); Detailfenster mit Beschreibung
 - [x] [Sonnet] Bereichsansicht: Kopf, Reiter, bearbeitbare Abschnitte (Textfeld mit Markdown-Vorschau), nur-lesende Abschnitte sichtbar markiert
-- [ ] [Sonnet] Aufgabenliste (`web/src/lib/aufgaben/`) und Bereichsansicht (`web/src/lib/bereiche/`) auf die Bausteine aus `web/src/lib/ui/` und die Tokens aus `web/DESIGN.md` umstellen (Knopf, Chip, Statusmarke, Kontrollkaestchen, Dialog/`bestaetigen()`, Tabs, Rubrik, Leerzustand, Fortschritt); eigene Kopien dieser Elemente und alte Variablennamen entfernen; Verhalten bleibt gleich
+- [~] [Sonnet] Aufgabenliste (`web/src/lib/aufgaben/`) und Bereichsansicht (`web/src/lib/bereiche/`) auf die Bausteine aus `web/src/lib/ui/` und die Tokens aus `web/DESIGN.md` umstellen (Knopf, Chip, Statusmarke, Kontrollkaestchen, Dialog/`bestaetigen()`, Tabs, Rubrik, Leerzustand, Fortschritt); eigene Kopien dieser Elemente und alte Variablennamen entfernen; Verhalten bleibt gleich
 - [ ] [Sonnet] Browser-Prüfung: Anlegen/Ändern/Löschen landet in der Datei; Claude ändert parallel eine Datei → Oberfläche aktualisiert sich; Konflikt wird angezeigt
 - [ ] [Haupt] Feinschliff nach Rückmeldung des Nutzers
 
@@ -167,9 +167,12 @@ Eine Zeile je abgeschlossenem Punkt oder getroffener Entscheidung.
 - 2026-09-18 Phase 6: Bereichsansicht (`web/src/lib/bereiche/`): Übersicht sortierbar baustellen/phase/name, Detail mit Kopf und Reitern im Hash (`#/bereiche/<Name>/<reiter>`), Abschnitte nach `bearbeitbar.bereich_abschnitte` mit Text/Vorschau, sonst „pflegt Claude“. Konflikt beim Speichern: Toast, Eingabe bleibt, erneutes Speichern geht. Vault danach bytegleich.
 - 2026-09-18 Designsystem „Werkstattheft“ vom Nutzer abgenommen und nach main übernommen: warmes Papier/Graphit, eine Signalfarbe, Archivo + JetBrains Mono, Lucide-Icons (alles lokal über npm). Bausteine in `web/src/lib/ui/` (Sammelimport `ui/index.ts`), Anleitung `web/DESIGN.md`, Musterseite `#/muster`. Alte Variablennamen gelten als Aliase weiter. Neuer Punkt in Phase 6: Aufgaben- und Bereichsansicht auf die Bausteine umstellen.
 
+- 2026-09-18 Phase 6: Aufgaben- und Bereichsansicht auf die Bausteine aus `lib/ui/` umgestellt (Knopf, IconKnopf, Chip, Etikett, Statusmarke, Kontrollkaestchen, Feld/Auswahl/Textfeld, Dialog + `bestaetigen()`, Tabs, Rubrik, Karte, Leerzustand, FortschrittBalken); Statuswechsler jetzt `Auswahl`, Aufgaben-Detail echter `Dialog`, Zeilenklick echter `<button>` (a11y). Keine alten Aliasnamen, keine eigenen Nachbauten mehr (grep leer), Importe und Props gegen `lib/ui/` geprüft. **Offen: `camper web check|build` — in der Cloud-Sitzung ist der npm-Registry-Zugriff gesperrt, `node_modules` fehlt. Punkt bleibt mit `[~]` markiert, bis der Build lokal einmal durchläuft.**
+
 ## Offene Fragen
 
-- keine
+- Phase 6, Umstellen auf die Bausteine: lokal einmal `python camper.py web check`
+  und `web build` laufen lassen. Läuft es durch, Punkt auf `[x]` setzen; sonst Fehler hier notieren.
 
 ## Übergabe an den nächsten Chat
 

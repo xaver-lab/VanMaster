@@ -1,5 +1,5 @@
 <script lang="ts">
-  // Wiederverwendbare Aufgabenliste: Filter (Chips), Gruppierung, Suche,
+  // Wiederverwendbare Aufgabenliste: Filter (Tabs), Gruppierung, Suche,
   // Anlegen, Detailfenster. Die Ansicht Aufgaben.svelte bettet sie ohne
   // Bereichs-Einschränkung ein; die Bereichsansicht (anderer Agent) mit
   // `bereich` gesetzt.
@@ -10,6 +10,19 @@
   import Schreibbar from '../Schreibbar.svelte';
   import AufgabeZeile from './AufgabeZeile.svelte';
   import AufgabeDetail from './AufgabeDetail.svelte';
+  import {
+    Auswahl,
+    Chip,
+    Dialog,
+    Feld,
+    FortschrittBalken,
+    Karte,
+    Knopf,
+    Leerzustand,
+    Rubrik,
+    Tabs,
+  } from '../ui';
+  import { IconPlus, IconSuche } from '../ui/icons';
 
   let {
     bereich,
@@ -29,6 +42,7 @@
   type Filter = 'offen' | 'laeuft' | 'blockiert' | 'erledigt' | 'alle';
   const FILTER: Filter[] = ['offen', 'laeuft', 'blockiert', 'erledigt', 'alle'];
   const RANG: Record<string, number> = { kritisch: 0, hoch: 1, mittel: 2, nice: 3 };
+  const PRIO_OPTIONEN = ['kritisch', 'hoch', 'mittel', 'nice'];
   type Gruppierung = 'bereich' | 'status' | 'prio' | 'flach';
 
   function gemerkt<T extends string>(schluessel: string, standard: T): T {
@@ -79,12 +93,12 @@
     }
   }
 
-  function filterWaehlen(f: Filter): void {
-    filter = f;
+  function filterWaehlen(f: string): void {
+    filter = f as Filter;
     merken('aufgabenFilter', f);
   }
-  function gruppierungWaehlen(g: Gruppierung): void {
-    gruppierung = g;
+  function gruppierungWaehlen(g: string): void {
+    gruppierung = g as Gruppierung;
     merken('aufgabenGruppierung', g);
   }
 
@@ -100,6 +114,15 @@
     erledigt: blaetter.filter((a) => a.status === 'erledigt').length,
     alle: blaetter.length,
   });
+
+  const filterTabs = $derived(FILTER.map((f) => ({ id: f, label: STATUS_WORT[f], zahl: zahlen[f] })));
+
+  const gruppierOptionen = $derived([
+    ...(bereich ? [] : [{ wert: 'bereich', label: 'nach Thema' }]),
+    { wert: 'status', label: 'nach Status' },
+    { wert: 'prio', label: 'nach Priorität' },
+    { wert: 'flach', label: 'keine Gruppierung' },
+  ]);
 
   const suchtext = $derived(suche.trim().toLowerCase());
   function passtSuche(a: AufgabeAntwort): boolean {
@@ -224,98 +247,66 @@
 
 {#if laufend.length}
   <div class="aufgaben-uebersicht">
-    <h4>In Arbeit ({laufend.length})</h4>
+    <Rubrik titel="In Arbeit" zahl={laufend.length} />
     <div class="uebersicht-reihe">
       {#each laufend as a (a.id)}
-        <button type="button" class="uebersicht-eintrag" onclick={() => oeffnen(a.id)}>
-          <span class="titel">{a.titel}</span>
-          {#if !bereich && a.bereich}<span class="zusatz">{a.bereich}</span>{/if}
-        </button>
+        <Chip onclick={() => oeffnen(a.id)}>{a.titel}{#if !bereich && a.bereich} · {a.bereich}{/if}</Chip>
       {/each}
     </div>
   </div>
 {/if}
 
 <div class="leiste">
-  <div class="chips">
-    {#each FILTER as f (f)}
-      <button type="button" class="chip" class:aktiv={filter === f} onclick={() => filterWaehlen(f)}>
-        <span>{STATUS_WORT[f]}</span>
-        <span class="zahl">{zahlen[f]}</span>
-      </button>
-    {/each}
+  <Tabs tabs={filterTabs} aktiv={filter} onwechsel={filterWaehlen} label="Status" />
+  <div class="leiste-werkzeug">
+    <Feld
+      bind:wert={suche}
+      placeholder="Suche in Titel und Beschreibung…"
+      aria-label="Aufgaben durchsuchen"
+      icon={IconSuche}
+      type="search"
+      klein
+    />
+    <Auswahl
+      class="gruppen-wahl"
+      wert={gruppierung}
+      optionen={gruppierOptionen}
+      onchange={(e) => gruppierungWaehlen((e.target as HTMLSelectElement).value)}
+      aria-label="Gruppierung"
+      klein
+    />
+    {#if anlegenErlaubt}
+      <Schreibbar>
+        {#snippet children()}
+          <Knopf variante="primaer" groesse="s" icon={IconPlus} onclick={formOeffnen}>Aufgabe</Knopf>
+        {/snippet}
+      </Schreibbar>
+    {/if}
   </div>
-  <input
-    type="search"
-    placeholder="Suche in Titel und Beschreibung…"
-    bind:value={suche}
-    aria-label="Aufgaben durchsuchen"
-  />
-  <select class="wahl" bind:value={gruppierung} onchange={() => gruppierungWaehlen(gruppierung)} aria-label="Gruppierung">
-    {#if !bereich}<option value="bereich">nach Thema</option>{/if}
-    <option value="status">nach Status</option>
-    <option value="prio">nach Priorität</option>
-    <option value="flach">keine Gruppierung</option>
-  </select>
-  {#if anlegenErlaubt}
-    <Schreibbar>
-      {#snippet children()}
-        <button type="button" class="flachknopf" onclick={formOeffnen}>+ Aufgabe</button>
-      {/snippet}
-    </Schreibbar>
-  {/if}
 </div>
 
-{#if formOffen}
-  <div class="karte anlegen-form">
-    <label>
-      Titel
-      <input type="text" bind:value={neuTitel} placeholder="Was ist zu tun?" autofocus />
-    </label>
-    {#if !bereich}
-      <label>
-        Bereich
-        <select class="wahl" bind:value={neuBereich}>
-          {#each store.daten?.bereiche ?? [] as b (b.name)}
-            <option value={b.name}>{b.name}</option>
-          {/each}
-        </select>
-      </label>
-    {/if}
-    <label>
-      Priorität
-      <select class="wahl" bind:value={neuPrio}>
-        <option value="">— keine —</option>
-        <option value="kritisch">kritisch</option>
-        <option value="hoch">hoch</option>
-        <option value="mittel">mittel</option>
-        <option value="nice">nice</option>
-      </select>
-    </label>
-    <label>
-      Unterpunkt von
-      <select class="wahl" bind:value={neuEltern}>
-        <option value="">— eigenständig —</option>
-        {#each moeglicheEltern as e (e.id)}
-          <option value={e.id}>{e.titel}</option>
-        {/each}
-      </select>
-    </label>
-    <div class="anlegen-form-leiste">
-      <button type="button" class="flachknopf" onclick={anlegen} disabled={store.beschaeftigt}>Anlegen</button>
-      <button type="button" class="flachknopf" onclick={formAbbrechen}>Abbrechen</button>
-    </div>
-  </div>
-{/if}
+<Dialog bind:offen={formOffen} titel="Aufgabe anlegen">
+  <Feld label="Titel" bind:wert={neuTitel} placeholder="Was ist zu tun?" />
+  {#if !bereich}
+    <Auswahl label="Bereich" bind:wert={neuBereich} optionen={store.daten?.bereiche.map((b) => b.name) ?? []} />
+  {/if}
+  <Auswahl label="Priorität" bind:wert={neuPrio} optionen={PRIO_OPTIONEN} leer="— keine —" />
+  <Auswahl
+    label="Unterpunkt von"
+    bind:wert={neuEltern}
+    optionen={moeglicheEltern.map((e) => ({ wert: e.id, label: e.titel }))}
+    leer="— eigenständig —"
+  />
+  {#snippet fuss()}
+    <Knopf variante="leise" onclick={formAbbrechen}>Abbrechen</Knopf>
+    <Knopf variante="primaer" onclick={anlegen} laedt={store.beschaeftigt}>Anlegen</Knopf>
+  {/snippet}
+</Dialog>
 
 {#if !gruppen.length}
-  <p class="leer">Keine Aufgabe passt zum Filter.</p>
+  <Leerzustand titel="Keine Aufgabe passt zum Filter" text="Filter lockern oder die Suche anpassen." />
 {:else if gruppierung === 'flach'}
-  <div class="karte">
-    <div class="karten-kopf">
-      <h2>Alle Treffer</h2>
-      <span class="zaehler">{gruppen[0].eintraege.length}</span>
-    </div>
+  <Karte titel={gruppen[0].anzeigename} zusatz={gruppen[0].eintraege.length} polster="keins">
     <ul class="aufgaben">
       {#each reihenFuer(gruppen[0].eintraege) as r, i (r.a?.id ?? 'g' + i)}
         {#if r.art === 'gruppe'}
@@ -325,17 +316,14 @@
         {/if}
       {/each}
     </ul>
-  </div>
+  </Karte>
 {:else}
   {#each gruppen as g (g.name)}
     {@const fertig = g.alle.filter((a) => a.status === 'erledigt' || a.status === 'verworfen').length}
-    <details class="sammelblock nach-status-{g.name}" open>
+    <details class="sammelblock" open>
       <summary>
         <span class="name">{g.anzeigename}</span>
-        <div class="balken">
-          <span style="width: {g.alle.length ? (100 * fertig) / g.alle.length : 0}%"></span>
-        </div>
-        <span class="zaehler">{fertig}/{g.alle.length}</span>
+        <FortschrittBalken wert={g.alle.length ? fertig / g.alle.length : 0} zahl="{fertig}/{g.alle.length}" />
       </summary>
       <ul class="aufgaben">
         {#each reihenFuer(g.eintraege) as r, i (r.a?.id ?? g.name + '-g' + i)}
@@ -356,178 +344,66 @@
 
 <style>
   .aufgaben-uebersicht {
-    background: var(--flaeche);
-    border: 1px solid var(--linie);
-    border-radius: var(--radius);
-    padding: 0.7rem 0.9rem;
-    margin-bottom: 1rem;
-  }
-  .aufgaben-uebersicht h4 {
-    margin: 0 0 0.5rem;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--gedaempft);
+    margin-bottom: var(--a-5);
   }
   .uebersicht-reihe {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-  .uebersicht-eintrag {
-    display: flex;
-    align-items: baseline;
-    gap: 0.4rem;
-    background: var(--akzent-tief);
-    border: 1px solid transparent;
-    border-radius: 99px;
-    padding: 0.3rem 0.75rem;
-    font-size: 0.85rem;
-    color: var(--text);
-  }
-  .uebersicht-eintrag:hover {
-    border-color: var(--akzent);
-  }
-  .uebersicht-eintrag .zusatz {
-    color: var(--gedaempft);
-    font-size: 0.76rem;
+    gap: var(--a-2);
   }
 
-  .anlegen-form {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 0.6rem 1rem;
-    margin-bottom: 0.8rem;
-    align-items: end;
-  }
-  .anlegen-form label {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-    font-size: 0.78rem;
-    color: var(--gedaempft);
-  }
-  .anlegen-form input,
-  .anlegen-form select {
-    min-height: 38px;
-    padding: 0 0.65rem;
-    background: var(--flaeche);
-    color: var(--text);
-    border: 1px solid var(--linie);
-    border-radius: var(--radius-klein);
-    font-size: 0.9rem;
-  }
-  .anlegen-form input:focus,
-  .anlegen-form select:focus {
-    outline: none;
-    border-color: var(--akzent);
-  }
-  .anlegen-form-leiste {
-    display: flex;
-    gap: 0.5rem;
-    grid-column: 1 / -1;
-  }
-
-  /* -------------------------------------------------------- Leiste/Filter */
   .leiste {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
+    justify-content: space-between;
+    gap: var(--a-3);
+    margin-bottom: var(--a-5);
   }
-  .leiste input[type='search'] {
-    flex: 1 1 15rem;
-    min-width: 0;
-    min-height: 38px;
-    padding: 0 0.75rem;
-    background: var(--flaeche);
-    color: var(--text);
-    border: 1px solid var(--linie);
-    border-radius: var(--radius-klein);
-  }
-  .leiste input[type='search']:focus {
-    outline: none;
-    border-color: var(--akzent);
-  }
-  .wahl {
-    min-height: 38px;
-    padding: 0 0.75rem;
-    background: var(--flaeche);
-    color: var(--text);
-    border: 1px solid var(--linie);
-    border-radius: var(--radius-klein);
-  }
-  .wahl:focus {
-    outline: none;
-    border-color: var(--akzent);
-  }
-  .chips {
+  .leiste-werkzeug {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.35rem;
-  }
-  .chip {
-    min-height: 32px;
-    padding: 0 0.7rem;
-    background: var(--flaeche);
-    border: 1px solid var(--linie);
-    border-radius: 99px;
-    color: var(--gedaempft);
-    font-size: 0.85rem;
-    display: inline-flex;
     align-items: center;
-    gap: 0.35rem;
+    gap: var(--a-2);
+    margin-left: auto;
   }
-  .chip:hover {
-    border-color: var(--linie-hell);
-    color: var(--text);
+  .leiste-werkzeug :global(.ui-feld) {
+    width: 15rem;
   }
-  .chip.aktiv {
-    background: var(--akzent);
-    border-color: var(--akzent);
-    color: #1a1205;
-    font-weight: 600;
-  }
-  :global(html[data-thema='hell']) .chip.aktiv {
-    color: #fff;
-  }
-  .chip .zahl {
-    font-size: 0.75rem;
-    opacity: 0.75;
-    font-variant-numeric: tabular-nums;
+  :global(.gruppen-wahl) {
+    width: 11rem;
+    flex: none;
   }
 
-  /* ---------------------------------------------------------------- Liste */
   ul.aufgaben {
     list-style: none;
     margin: 0;
     padding: 0;
   }
   li.gruppe {
-    color: var(--gedaempft);
-    font-size: 0.74rem;
+    color: var(--farbe-text-2);
+    font-size: var(--text-xs);
     letter-spacing: 0.07em;
     text-transform: uppercase;
-    margin: 0.9rem 0 0.2rem;
-    padding-left: 0.1rem;
+    margin: var(--a-3) 0 var(--a-1);
+    padding-left: 2px;
     background: none;
     cursor: default;
   }
 
   .sammelblock {
-    background: var(--flaeche);
-    border: 1px solid var(--linie);
-    border-radius: var(--radius);
-    margin-bottom: 0.6rem;
+    background: var(--farbe-flaeche);
+    border: 1px solid var(--farbe-linie);
+    border-radius: var(--r-l);
+    margin-bottom: var(--a-2);
     overflow: hidden;
   }
   .sammelblock > summary {
     list-style: none;
     display: flex;
     align-items: center;
-    gap: 0.7rem;
-    padding: 0.55rem 0.9rem;
+    gap: var(--a-3);
+    padding: var(--a-3) var(--a-4);
     cursor: pointer;
   }
   .sammelblock > summary::-webkit-details-marker {
@@ -535,21 +411,21 @@
   }
   .sammelblock > summary::before {
     content: '▸';
-    color: var(--gedaempft);
-    font-size: 0.8rem;
-    transition: transform 0.15s;
+    color: var(--farbe-text-2);
+    font-size: var(--text-s);
+    transition: transform var(--t-kurz);
   }
   .sammelblock[open] > summary::before {
     transform: rotate(90deg);
   }
   .sammelblock > summary .name {
-    font-weight: 600;
+    font-weight: 650;
     flex: 0 0 auto;
   }
-  .sammelblock > summary .balken {
+  .sammelblock > summary :global(.ui-balken) {
     max-width: 220px;
   }
   .sammelblock > ul.aufgaben {
-    padding: 0 0.5rem 0.4rem;
+    padding: 0 var(--a-2) var(--a-2);
   }
 </style>

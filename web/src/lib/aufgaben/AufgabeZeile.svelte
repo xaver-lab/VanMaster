@@ -1,19 +1,15 @@
 <script lang="ts">
   // Eine Aufgabenzeile: Kästchen (offen↔erledigt), Statuswechsler (alle
-  // Status), Titel, Meta (Thema/Prio/Dauer/Blocker). Klick auf die Zeile
-  // öffnet das Detailfenster; Kästchen und Wechsler stoppen die Ausbreitung.
+  // Status), Titel, Meta (Thema/Prio/Dauer/Blocker). Klick auf den Titel
+  // öffnet das Detailfenster; Kästchen und Wechsler sind eigene Bedienelemente
+  // neben dem Titel-Knopf, nicht darin verschachtelt.
   import type { AufgabeAntwort } from '../api-typen';
   import { store } from '../daten.svelte';
   import Schreibbar from '../Schreibbar.svelte';
+  import { Auswahl, Etikett, Kontrollkaestchen, Statusmarke, STATUS_TEXT, type Status } from '../ui';
 
-  const STATUS_WORT: Record<string, string> = {
-    offen: 'offen',
-    laeuft: 'läuft',
-    blockiert: 'blockiert',
-    erledigt: 'erledigt',
-    verworfen: 'verworfen',
-  };
-  const ALLE_STATUS = ['offen', 'laeuft', 'blockiert', 'erledigt', 'verworfen'];
+  const ALLE_STATUS: Status[] = ['offen', 'laeuft', 'blockiert', 'erledigt', 'verworfen'];
+  const STATUS_OPTIONEN = ALLE_STATUS.map((s) => ({ wert: s, label: STATUS_TEXT[s] }));
 
   let {
     a,
@@ -29,7 +25,6 @@
     ebeneMax?: number;
   } = $props();
 
-  let menueOffen = $state(false);
   let hatKinder = $derived(!!a.kinder?.length);
   let blockerListe = $derived(
     (a.braucht ?? [])
@@ -37,272 +32,105 @@
       .filter((b): b is AufgabeAntwort => !!b && b.status !== 'erledigt' && b.status !== 'verworfen'),
   );
 
-  async function schnellwechsel(e: Event): Promise<void> {
-    e.stopPropagation();
+  async function schnellwechsel(erledigt: boolean): Promise<void> {
     if (hatKinder || store.beschaeftigt) return;
-    const ziel = a.status === 'erledigt' ? 'offen' : 'erledigt';
-    await store.aufgabePatch(a.id, a.datei ?? '', { status: ziel });
+    await store.aufgabePatch(a.id, a.datei ?? '', { status: erledigt ? 'erledigt' : 'offen' });
   }
 
-  async function statusSetzen(e: Event, status: string): Promise<void> {
-    e.stopPropagation();
-    menueOffen = false;
-    if (status === a.status) return;
+  async function statusSetzen(e: Event): Promise<void> {
+    const status = (e.target as HTMLSelectElement).value;
+    if (!status || status === a.status) return;
     await store.aufgabePatch(a.id, a.datei ?? '', { status });
-  }
-
-  function wechslerKlick(e: Event): void {
-    e.stopPropagation();
-    if (hatKinder) return;
-    menueOffen = !menueOffen;
   }
 </script>
 
-<svelte:window onclick={() => (menueOffen = false)} />
-
-<li
-  class="{a.status} ebene-{Math.min(a.ebene ?? 0, ebeneMax)}"
-  class:kopfknoten={hatKinder}
-  role="button"
-  tabindex="0"
-  onclick={() => onOeffnen(a.id)}
-  onkeydown={(e) => e.key === 'Enter' && onOeffnen(a.id)}
->
+<li class="{a.status} ebene-{Math.min(a.ebene ?? 0, ebeneMax)}" class:kopfknoten={hatKinder}>
   <Schreibbar>
     {#snippet children()}
-      <input
-        type="checkbox"
-        class="kaestchen"
+      <Kontrollkaestchen
         checked={a.status === 'erledigt'}
         disabled={hatKinder || store.beschaeftigt}
-        title={hatKinder ? 'Sammelaufgabe — Haken an den Unterpunkten' : 'offen ↔ erledigt'}
-        onclick={schnellwechsel}
+        titel={hatKinder ? 'Sammelaufgabe — Haken an den Unterpunkten' : 'offen ↔ erledigt'}
+        onchange={schnellwechsel}
       />
     {/snippet}
   </Schreibbar>
-  <Schreibbar>
-    {#snippet children()}
-      <div class="wechsler">
-        <button
-          type="button"
-          class="status {a.status}"
+
+  {#if store.darfSchreiben}
+    <Schreibbar>
+      {#snippet children()}
+        <Auswahl
+          class="status-wahl"
+          klein
+          wert={a.status}
+          optionen={STATUS_OPTIONEN}
           disabled={hatKinder}
+          onchange={statusSetzen}
+          aria-label="Status ändern"
           title={hatKinder ? 'Sammelaufgabe — Haken an den Unterpunkten' : 'Status ändern'}
-          onclick={wechslerKlick}
-        >
-          {a.status === 'verworfen' ? 'verworfen' : STATUS_WORT[a.status] ?? a.status}
-          {#if !hatKinder}▾{/if}
-        </button>
-        {#if menueOffen}
-          <div class="menue">
-            {#each ALLE_STATUS as s (s)}
-              <button
-                type="button"
-                class:aktiv={a.status === s}
-                onclick={(e) => statusSetzen(e, s)}
-              >
-                {STATUS_WORT[s]}
-              </button>
-            {/each}
-          </div>
-        {/if}
-      </div>
-    {/snippet}
-  </Schreibbar>
-  {#if !store.darfSchreiben}
-    <span class="status {a.status}">
-      {a.status === 'verworfen' ? 'verworfen' : STATUS_WORT[a.status] ?? a.status}
-    </span>
+        />
+      {/snippet}
+    </Schreibbar>
+  {:else}
+    <Statusmarke status={a.status} kompakt />
   {/if}
 
-  <div class="aufgabe-text">
+  <button type="button" class="aufgabe-text" onclick={() => onOeffnen(a.id)}>
     <span class="titel">{a.titel}</span>
     {#if mitThema || (a.prio && a.prio !== 'mittel') || a.dauer || blockerListe.length}
-      <div class="aufgabe-meta">
-        {#if mitThema && a.bereich}
-          <span class="aufgabe-marke thema">{a.bereich}</span>
-        {/if}
+      <span class="aufgabe-meta">
+        {#if mitThema && a.bereich}<Etikett>{a.bereich}</Etikett>{/if}
         {#if a.prio && a.prio !== 'mittel'}
-          <span class="aufgabe-marke {a.prio}">{a.prio}</span>
+          <Etikett ton={a.prio === 'kritisch' ? 'warn' : 'signal'}>{a.prio}</Etikett>
         {/if}
-        {#if a.dauer}
-          <span class="aufgabe-marke">{a.dauer}</span>
-        {/if}
+        {#if a.dauer}<Etikett>{a.dauer}</Etikett>{/if}
         {#if blockerListe.length}
-          <span class="aufgabe-marke blocker">braucht: {blockerListe.map((b) => b.titel).join(', ')}</span>
+          <Etikett ton="warn">braucht: {blockerListe.map((b) => b.titel).join(', ')}</Etikett>
         {/if}
-      </div>
+      </span>
     {/if}
-  </div>
+  </button>
 </li>
 
 <style>
-  .kaestchen {
-    width: 1.05rem;
-    height: 1.05rem;
-    margin: 0.15rem 0 0;
-    accent-color: var(--akzent);
-    cursor: pointer;
-  }
-
   li {
     display: flex;
-    align-items: flex-start;
-    gap: 0.6rem;
-    padding: 0.45rem 0.5rem;
-    margin: 0.15rem 0;
-    border-radius: var(--radius-klein);
-    border-left: 3px solid var(--linie);
+    align-items: center;
+    gap: var(--a-3);
+    padding: var(--a-2);
+    margin: 2px 0;
+    border-radius: var(--r-s);
+    border-left: 3px solid var(--farbe-linie);
   }
-  li:hover {
-    background: var(--flaeche-hoch);
-    cursor: pointer;
-  }
-  li.ebene-1 {
-    margin-left: 1.1rem;
-  }
-  li.ebene-2 {
-    margin-left: 2.2rem;
-  }
-  li.kopfknoten {
-    font-weight: 600;
-  }
-  li.laeuft {
-    border-left-color: var(--akzent);
-  }
-  li.blockiert {
-    border-left-color: var(--warn);
-  }
-  li.erledigt {
-    border-left-color: var(--gut);
-  }
-  li.verworfen {
-    border-left-color: var(--linie-hell);
-  }
-  li.erledigt .titel {
-    color: var(--gedaempft);
-    text-decoration: line-through;
-  }
-  li.verworfen .titel {
-    color: var(--gedaempft);
-    opacity: 0.65;
-  }
+  li.ebene-1 { margin-left: var(--a-5); }
+  li.ebene-2 { margin-left: var(--a-7); }
+  li.kopfknoten { font-weight: 650; }
+  li.laeuft { border-left-color: var(--farbe-signal); }
+  li.blockiert { border-left-color: var(--farbe-warn); }
+  li.erledigt { border-left-color: var(--farbe-gut); }
+  li.verworfen { border-left-color: var(--farbe-linie-stark); }
+  li.erledigt .titel { color: var(--farbe-text-2); text-decoration: line-through; }
+  li.verworfen .titel { color: var(--farbe-text-2); opacity: 0.65; }
 
-  .wechsler {
-    position: relative;
-  }
-  .status {
-    font-size: 0.7rem;
-    padding: 0.05rem 0.5rem;
-    border-radius: 99px;
-    border: 1px solid var(--linie);
-    white-space: nowrap;
-    background: none;
-    color: var(--gedaempft);
-  }
-  .status.offen {
-    color: var(--gedaempft);
-    border-color: var(--linie);
-  }
-  .status.laeuft {
-    color: var(--akzent);
-    border-color: transparent;
-    background: var(--akzent-tief);
-  }
-  .status.blockiert {
-    color: var(--warn);
-    border-color: transparent;
-    background: var(--warn-tief);
-  }
-  .status.erledigt {
-    color: var(--gut);
-    border-color: transparent;
-    background: var(--gut-tief);
-  }
-  .status.verworfen {
-    color: var(--gedaempft);
-  }
-  .status:disabled {
-    opacity: 0.5;
-    cursor: default;
-  }
-  .wechsler > .status {
-    min-height: 26px;
-    cursor: pointer;
-  }
-  .wechsler > .status:hover:not(:disabled) {
-    border-color: var(--akzent);
-    color: var(--text);
-  }
-  .menue {
-    position: absolute;
-    left: 0;
-    top: calc(100% + 4px);
-    z-index: 12;
-    min-width: 10rem;
-    padding: 0.3rem;
-    background: var(--flaeche-hoch);
-    border: 1px solid var(--linie-hell);
-    border-radius: var(--radius-klein);
-    box-shadow: var(--schatten);
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
-  }
-  .menue button {
-    text-align: left;
-    background: none;
-    border: none;
-    border-radius: 6px;
-    padding: 0.4rem 0.55rem;
-    font-size: 0.85rem;
-    color: var(--text);
-  }
-  .menue button:hover {
-    background: var(--flaeche);
-  }
-  .menue button.aktiv {
-    color: var(--akzent);
-  }
+  :global(.status-wahl) { width: 136px; flex: none; }
 
   .aufgabe-text {
     flex: 1 1 auto;
     min-width: 0;
-  }
-  .aufgabe-text .titel {
-    display: block;
-  }
-  .aufgabe-meta {
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-    margin-top: 0.2rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    background: none;
+    border: 0;
+    padding: var(--a-1);
+    border-radius: var(--r-s);
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
   }
-  .aufgabe-marke {
-    font-size: 0.7rem;
-    padding: 0.05rem 0.45rem;
-    border-radius: 99px;
-    border: 1px solid var(--linie);
-    color: var(--gedaempft);
-    white-space: nowrap;
-  }
-  .aufgabe-marke.kritisch {
-    color: var(--warn);
-    border-color: transparent;
-    background: var(--warn-tief);
-  }
-  .aufgabe-marke.hoch {
-    color: var(--akzent);
-    border-color: transparent;
-    background: var(--akzent-tief);
-  }
-  .aufgabe-marke.blocker {
-    color: var(--wartet);
-    border-color: transparent;
-    background: var(--wartet-tief);
-    white-space: normal;
-  }
-  .aufgabe-marke.thema {
-    color: var(--gedaempft);
-  }
+  .aufgabe-text:hover { background: var(--farbe-flaeche-hoch); }
+  .titel { display: block; }
+  .aufgabe-meta { display: flex; flex-wrap: wrap; gap: var(--a-1); }
 </style>
