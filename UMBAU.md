@@ -106,7 +106,7 @@ Das alte Dashboard (`docs/`) läuft unverändert weiter, bis Phase 9 es ablöst.
 ## Phase 6 — Aufgaben und Bereichstexte (ab hier nutzbar)
 
 - [x] [Sonnet] Aufgabenliste mit Filter, Gruppierung, Suche; Statuswechsler; Anlegen, Umbenennen, Löschen (mit Rückfrage); Detailfenster mit Beschreibung
-- [ ] [Sonnet] Bereichsansicht: Kopf, Reiter, bearbeitbare Abschnitte (Textfeld mit Markdown-Vorschau), nur-lesende Abschnitte sichtbar markiert
+- [x] [Sonnet] Bereichsansicht: Kopf, Reiter, bearbeitbare Abschnitte (Textfeld mit Markdown-Vorschau), nur-lesende Abschnitte sichtbar markiert
 - [ ] [Sonnet] Browser-Prüfung: Anlegen/Ändern/Löschen landet in der Datei; Claude ändert parallel eine Datei → Oberfläche aktualisiert sich; Konflikt wird angezeigt
 - [ ] [Haupt] Feinschliff nach Rückmeldung des Nutzers
 
@@ -163,6 +163,8 @@ Eine Zeile je abgeschlossenem Punkt oder getroffener Entscheidung.
 - 2026-09-18 Phase 5 abgenommen: Oberfläche startet sauber (Nutzer).
 - 2026-09-18 Nutzer: Stil wirkt „AI-Standard“ → Opus-Subagent entwirft parallel im Worktree ein neues Designsystem (`web/src/lib/ui/`, `web/DESIGN.md`, Musterseite `#/muster`); Abnahme durch den Nutzer vor dem Übernehmen.
 - 2026-09-18 Phase 6: Aufgabenliste (`web/src/lib/aufgaben/`: AufgabenListe `bereich?`, `anlegenErlaubt?`; AufgabeZeile, AufgabeDetail `#/aufgaben/<id>`), Filter/Gruppierung/Suche, Statuswechsler, Anlegen/Umbenennen/Löschen mit Rückfrage, Beschreibung mit Vorschau. `lib/markdown.ts` + `Markdown.svelte` lösen `[[…]]` auf; externe Links nur http(s)/ohne Schema. An Heizung durchgespielt, Vault danach bytegleich. Stil vorerst schlicht, folgt dem neuen Designsystem.
+- 2026-09-18 Phase 6: Bereichsansicht (`web/src/lib/bereiche/`): Übersicht sortierbar baustellen/phase/name, Detail mit Kopf und Reitern im Hash (`#/bereiche/<Name>/<reiter>`), Abschnitte nach `bearbeitbar.bereich_abschnitte` mit Text/Vorschau, sonst „pflegt Claude“. Konflikt beim Speichern: Toast, Eingabe bleibt, erneutes Speichern geht. Vault danach bytegleich.
+- 2026-09-18 Designentwurf „Werkstattheft“ fertig (Branch `worktree-agent-a1b58d27984b30b25`, Commit 0bea125, Vorschau-Eintrag `design-vorschau` Port 8767 in launch.json nur lokal) — wartet auf Abnahme durch den Nutzer.
 
 ## Offene Fragen
 
