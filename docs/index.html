@@ -120,6 +120,10 @@
           <input id="teile-suche" type="search" placeholder="Teil, Händler, Kennwert …" autocomplete="off">
           <select id="teile-kategorie" class="wahl"><option value="">alle Kategorien</option></select>
           <div class="chips" id="teile-chips"></div>
+          <div class="rasterwahl" id="teile-rasterwahl">
+            <button data-raster="block" title="Kacheln">▦</button>
+            <button data-raster="liste" title="Liste">☰</button>
+          </div>
         </div>
         <div id="teile-summe" class="summenband"></div>
         <div id="teile-liste"></div>
@@ -163,6 +167,14 @@
   <button class="lupe-pfeil links" aria-label="Zurück">‹</button>
   <figure><img alt=""><figcaption></figcaption></figure>
   <button class="lupe-pfeil rechts" aria-label="Weiter">›</button>
+</div>
+
+<!-- Teil-Detail -->
+<div id="teil-modal" class="modal-hinter" hidden>
+  <div class="modal" role="dialog" aria-modal="true">
+    <button class="modal-zu" aria-label="Schließen">✕</button>
+    <div id="teil-modal-inhalt"></div>
+  </div>
 </div>
 
 <div id="toasts" class="toasts"></div>

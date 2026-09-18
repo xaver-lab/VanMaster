@@ -1,18 +1,45 @@
 /* ------------------------------------------------------------ Teile */
 
+.rasterwahl { display: flex; gap: 2px; margin-left: auto; }
+.rasterwahl button {
+  background: var(--flaeche); border: 1px solid var(--linie); color: var(--gedaempft);
+  width: 32px; height: 32px; font-size: 0.95rem; line-height: 1;
+}
+.rasterwahl button:first-child { border-radius: var(--radius-klein) 0 0 var(--radius-klein); }
+.rasterwahl button:last-child { border-radius: 0 var(--radius-klein) var(--radius-klein) 0; margin-left: -1px; }
+.rasterwahl button.aktiv { color: var(--akzent); background: var(--akzent-tief); border-color: var(--akzent); z-index: 1; }
+
 .teilgitter { display: grid; gap: 0.6rem;
               grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
 .teil {
   background: var(--flaeche); border: 1px solid var(--linie);
   border-radius: var(--radius); padding: 0.75rem 0.85rem;
-  box-shadow: var(--schatten);
+  box-shadow: var(--schatten); cursor: pointer;
 }
+.teil:hover { border-color: var(--akzent); }
 .teil .kopf { display: flex; justify-content: space-between; gap: 0.7rem; align-items: baseline; }
 .teil .name { font-weight: 600; }
 .teil .preis { font-variant-numeric: tabular-nums; white-space: nowrap; }
 .teil .beschreibung { color: var(--gedaempft); font-size: 0.85rem; margin: 0.25rem 0 0; }
 .teil .zeile2 { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.5rem;
                 color: var(--gedaempft); font-size: 0.78rem; align-items: center; }
+
+/* Listen-Ansicht: eine Zeile je Artikel */
+.teilliste { display: flex; flex-direction: column;
+             border: 1px solid var(--linie); border-radius: var(--radius);
+             background: var(--flaeche); overflow: hidden; }
+.teilzeile {
+  display: flex; align-items: center; gap: 0.6rem; padding: 0.5rem 0.75rem;
+  border-top: 1px solid var(--linie); cursor: pointer;
+}
+.teilzeile:first-child { border-top: none; }
+.teilzeile:hover { background: var(--flaeche-hoch); }
+.teilzeile .name { font-weight: 600; flex: 1 1 auto; min-width: 0;
+                    overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.teilzeile .kategorie { color: var(--gedaempft); font-size: 0.78rem; flex: 0 0 auto;
+                         display: none; }
+.teilzeile .preis { font-variant-numeric: tabular-nums; white-space: nowrap; flex: 0 0 auto; }
+@media (min-width: 680px) { .teilzeile .kategorie { display: block; width: 8rem; } }
 
 .status { font-size: 0.7rem; padding: 0.05rem 0.5rem; border-radius: 99px;
           border: 1px solid var(--linie); white-space: nowrap; }
@@ -44,6 +71,44 @@
 }
 .menue button:hover { background: var(--flaeche); }
 .menue button.aktiv { color: var(--akzent); }
+
+/* -------------------------------------------------------- Teil-Modal */
+
+.modal-hinter {
+  position: fixed; inset: 0; z-index: 28; background: rgba(6, 8, 12, 0.6);
+  display: flex; align-items: center; justify-content: center; padding: 1rem;
+}
+.modal-hinter[hidden] { display: none; }
+.modal {
+  position: relative; background: var(--flaeche-hoch); border: 1px solid var(--linie-hell);
+  border-radius: var(--radius); box-shadow: var(--schatten);
+  width: min(640px, 100%); max-height: min(85vh, 900px); overflow-y: auto;
+  padding: 1.25rem 1.35rem;
+}
+.modal-zu {
+  position: sticky; float: right; top: 0; right: 0; margin-left: 0.5rem;
+  background: var(--flaeche); border: 1px solid var(--linie); color: var(--gedaempft);
+  width: 30px; height: 30px; border-radius: 50%; font-size: 0.9rem; z-index: 1;
+}
+.modal-zu:hover { color: var(--text); border-color: var(--akzent); }
+
+.tm-titel { font-size: 1.15rem; font-weight: 700; margin: 0 2.2rem 0.2rem 0; }
+.tm-kopf { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-bottom: 0.7rem; }
+.tm-beschreibung { color: var(--gedaempft); margin: 0 0 0.9rem; }
+.tm-felder { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+             gap: 0.55rem 1rem; margin-bottom: 0.9rem; }
+.tm-feld dt { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;
+              color: var(--gedaempft); margin-bottom: 0.1rem; }
+.tm-feld dd { margin: 0; }
+.tm-abschnitt { margin-top: 1rem; }
+.tm-abschnitt h4 { margin: 0 0 0.45rem; font-size: 0.8rem; text-transform: uppercase;
+                    letter-spacing: 0.05em; color: var(--gedaempft); }
+.tm-fotos { display: grid; gap: 0.5rem; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
+.tm-fotos button { padding: 0; border: 1px solid var(--linie); border-radius: var(--radius-klein);
+                    overflow: hidden; aspect-ratio: 4/3; cursor: zoom-in; background: var(--flaeche); }
+.tm-fotos img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.tm-themen { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.tm-themen a.chip { text-decoration: none; }
 
 /* -------------------------------------------------------- Tabellen */
 

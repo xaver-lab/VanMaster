@@ -64,6 +64,17 @@ el("palette-eingabe").addEventListener("keydown", (e) => {
 for (const id of ["teile-suche", "teile-kategorie"]) {
   el(id).addEventListener("input", teileListe);
 }
+el("teile-rasterwahl").addEventListener("click", (e) => {
+  const knopf = e.target.closest("button");
+  if (!knopf) return;
+  teileRaster = knopf.dataset.raster;
+  merken("teileRaster", teileRaster);
+  teileRasterwahl();
+  teileListe();
+});
+el("teil-modal").addEventListener("click", (e) => {
+  if (e.target === el("teil-modal") || e.target.closest(".modal-zu")) teilModalSchliessen();
+});
 for (const id of ["aufgaben-suche", "aufgaben-gruppierung"]) {
   el(id).addEventListener("input", aufgabenListe);
 }
@@ -97,6 +108,7 @@ window.addEventListener("keydown", (e) => {
   if (e.key === "Escape") {
     paletteSchliessen();
     el("lupe").hidden = true;
+    el("teil-modal").hidden = true;
     document.querySelectorAll(".menue").forEach((m) => m.remove());
     if (imFeld) document.activeElement.blur();
     return;

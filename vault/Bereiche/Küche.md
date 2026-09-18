@@ -108,5 +108,5 @@ Keine Maße darauf.
 ### Ausstattung
 
 - [ ] Kochstelle entscheiden ^kochstelle-entscheiden #hoch
-- [ ] Kühlschrank entscheiden ^kuehlschrank-entscheiden #hoch @braucht:strombilanz
+- [/] Kühlschrank entscheiden ^kuehlschrank-entscheiden #hoch @braucht:strombilanz
 - [ ] Küche einbauen ^kueche-einbauen @braucht:kuechenblock

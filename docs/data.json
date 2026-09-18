@@ -1,9 +1,9 @@
 {
-  "erzeugt": "2026-09-18T08:41",
+  "erzeugt": "2026-09-18T10:16",
   "projekt": "VanMaster",
   "sortierung": "baustellen",
   "kennzahlen": {
-    "aufgaben_fertig": 1,
+    "aufgaben_fertig": 6,
     "aufgaben_gesamt": 34,
     "teile": 67,
     "kosten": 3045.53,
@@ -13,6 +13,20 @@
     "bauteile": 0
   },
   "bereiche": [
+    {
+      "name": "Elektrik",
+      "kurz": "Batterien, Laderegler, Solar, Verteilung, Verbraucher",
+      "status": "in-arbeit",
+      "phase": 4,
+      "beschreibung": "Batterien, Laderegler, Solar, Verteilung, Verbraucher.",
+      "stand": "Skizze aus dem Miro-Board (Frame \"Elektrik\", übernommen 2026-09-17):\n\n- Quellen: PV-Modul (6mm² Kabel + Stecker) und Autobatterie laufen je über eine\n  Sicherung (6A bzw. 16A DC) zum DC-Laderegler. Die Batteriebank (300 Ah) läuft\n  über eine Sicherung (10A DC pro Batterie) zum zentralen Verteiler.\n- Der Verteiler speist gesicherte Zonen (je 6A DC, 2x2,5mm² Kabel):\n  - Vorne: Lampen 12V, USB 12V\n  - Bett: Lampen 12V, USB 12V\n  - Dach: Dachlüfter, Soundsystem\n  - Küche: USB-Steckdose, Schalter → Wasserpumpe, Taster → Abwasser-Ventil,\n    Füllanzeige → LED\n  - AC 230V: Wechselrichter → 230V-Steckdose, Beamer\n- Die Standheizung (Diesel) hängt an einer eigenen Sicherung direkt am Verteiler.\n- Kabeltypen im Diagramm: 2x2,5mm² (Verbraucher), Yf 10mm² (Hauptleitungen\n  Batterie/Laderegler), 3x1,5mm² (vereinzelt).\n\nRohauszug (SVG) in `_input/miro_export.md`.",
+      "auslegung": "",
+      "notizen": "Aus `_input/Ideas/Notizen.txt` (Rohnotiz, unbewertet):\n\n- ESP32-C6-DEV-KIT-N8 als möglicher Baustein für eine eigene Steuerung/\n  Sensorik — https://www.waveshare.com/wiki/ESP32-C6-DEV-KIT-N8 . Unklar, ob\n  das in die Camper-Elektrik gehört oder ins separate Smart-Home-Nebenprojekt.",
+      "links": [],
+      "datei": "vault/Bereiche/Elektrik.md",
+      "fertig": 0,
+      "gesamt": 5
+    },
     {
       "name": "Möbel",
       "kurz": "Bett, Küchenblock, Hängeschränke, Sitzbank, Tisch, Toilette, Stauraum",
@@ -35,36 +49,8 @@
         }
       ],
       "datei": "vault/Bereiche/Möbel.md",
-      "fertig": 0,
+      "fertig": 1,
       "gesamt": 6
-    },
-    {
-      "name": "Elektrik",
-      "kurz": "Batterien, Laderegler, Solar, Verteilung, Verbraucher",
-      "status": "in-arbeit",
-      "phase": 4,
-      "beschreibung": "Batterien, Laderegler, Solar, Verteilung, Verbraucher.",
-      "stand": "Skizze aus dem Miro-Board (Frame \"Elektrik\", übernommen 2026-09-17):\n\n- Quellen: PV-Modul (6mm² Kabel + Stecker) und Autobatterie laufen je über eine\n  Sicherung (6A bzw. 16A DC) zum DC-Laderegler. Die Batteriebank (300 Ah) läuft\n  über eine Sicherung (10A DC pro Batterie) zum zentralen Verteiler.\n- Der Verteiler speist gesicherte Zonen (je 6A DC, 2x2,5mm² Kabel):\n  - Vorne: Lampen 12V, USB 12V\n  - Bett: Lampen 12V, USB 12V\n  - Dach: Dachlüfter, Soundsystem\n  - Küche: USB-Steckdose, Schalter → Wasserpumpe, Taster → Abwasser-Ventil,\n    Füllanzeige → LED\n  - AC 230V: Wechselrichter → 230V-Steckdose, Beamer\n- Die Standheizung (Diesel) hängt an einer eigenen Sicherung direkt am Verteiler.\n- Kabeltypen im Diagramm: 2x2,5mm² (Verbraucher), Yf 10mm² (Hauptleitungen\n  Batterie/Laderegler), 3x1,5mm² (vereinzelt).\n\nRohauszug (SVG) in `_input/miro_export.md`.",
-      "auslegung": "",
-      "notizen": "Aus `_input/Ideas/Notizen.txt` (Rohnotiz, unbewertet):\n\n- ESP32-C6-DEV-KIT-N8 als möglicher Baustein für eine eigene Steuerung/\n  Sensorik — https://www.waveshare.com/wiki/ESP32-C6-DEV-KIT-N8 . Unklar, ob\n  das in die Camper-Elektrik gehört oder ins separate Smart-Home-Nebenprojekt.",
-      "links": [],
-      "datei": "vault/Bereiche/Elektrik.md",
-      "fertig": 0,
-      "gesamt": 5
-    },
-    {
-      "name": "Dämmung",
-      "kurz": "Rostvorsorge, Entdröhnung, Armaflex, Dampfbremse, Bodenaufbau",
-      "status": "in-arbeit",
-      "phase": 3,
-      "beschreibung": "Rostvorsorge, Entdröhnung, Wärmedämmung und Dampfbremse an Boden, Wänden,\nDecke, Radkästen und Türen. Grundlage für alles, was später darauf steht.",
-      "stand": "Aus dem Ordner `Isolierung` übernommen (2026-09-17).\n\n### Aufbau in Schichten\n\n1. Rost behandeln, wo welcher sitzt. Produkt offen, im Rohmaterial steht\n   Hammerite mit Fragezeichen.\n2. Blech mit Bremsenreiniger entfetten — sonst hält weder Matte noch Kleber.\n3. Antidröhnmatten auf die freien Blechflächen kleben.\n4. Armaflex flächig: 19 mm an die Wände (15 m²), 6 mm auf den Boden (5 m²),\n   1,5 mm an die Decke (5 m²). Für die Steher ist zusätzlich eine Rolle\n   6 mm vorgesehen, das ist noch nicht fix.\n5. Boden: Holzlatten mit Polymax aufkleben, darauf der Bodenaufbau.\n\n### Regeln aus dem Rohmaterial\n\n- Nicht in die Träger dämmen. Gedämmt werden Seitenwände, Decke, Radkasten,\n  Kabine und Türen.\n- Kondensation ist der Grund für die geschlossenzellige Bauweise: Armaflex\n  nimmt selbst kein Wasser auf, deshalb darf hinter der Dämmung keine Luft\n  an kaltes Blech kommen. Lückenlos kleben statt stopfen.\n- Die Lattenhöhe am Boden ist offen und bestimmt die spätere Stehhöhe mit.\n\n### Reihenfolge\n\nDer Boden wird erst gedämmt, wenn die Auszüge von Küche und Bett am Boden\ngeplant sind — die Holzlatten müssen dort liegen, wo später Last und\nVerschraubungen hinkommen. Das ist eine Layout-Entscheidung und wartet auf\nden Nutzer.",
-      "auslegung": "",
-      "notizen": "- Bedeutet „Abgeschlossen\" in der Miro-Einkaufsliste entschieden oder bereits\n  gekauft? Die Teile stehen vorerst auf „Entschieden\".\n- Kürzel „VL\" bei der Armaflex-Rolle ungeklärt.\n- Mengen für Antidröhnmatten, Holzlatten und Kleber noch nicht gerechnet.",
-      "links": [],
-      "datei": "vault/Bereiche/Dämmung.md",
-      "fertig": 0,
-      "gesamt": 4
     },
     {
       "name": "Küche",
@@ -112,6 +98,20 @@
       "gesamt": 3
     },
     {
+      "name": "Dämmung",
+      "kurz": "Rostvorsorge, Entdröhnung, Armaflex, Dampfbremse, Bodenaufbau",
+      "status": "in-arbeit",
+      "phase": 3,
+      "beschreibung": "Rostvorsorge, Entdröhnung, Wärmedämmung und Dampfbremse an Boden, Wänden,\nDecke, Radkästen und Türen. Grundlage für alles, was später darauf steht.",
+      "stand": "Aus dem Ordner `Isolierung` übernommen (2026-09-17).\n\n### Aufbau in Schichten\n\n1. Rost behandeln, wo welcher sitzt. Produkt offen, im Rohmaterial steht\n   Hammerite mit Fragezeichen.\n2. Blech mit Bremsenreiniger entfetten — sonst hält weder Matte noch Kleber.\n3. Antidröhnmatten auf die freien Blechflächen kleben.\n4. Armaflex flächig: 19 mm an die Wände (15 m²), 6 mm auf den Boden (5 m²),\n   1,5 mm an die Decke (5 m²). Für die Steher ist zusätzlich eine Rolle\n   6 mm vorgesehen, das ist noch nicht fix.\n5. Boden: Holzlatten mit Polymax aufkleben, darauf der Bodenaufbau.\n\n### Regeln aus dem Rohmaterial\n\n- Nicht in die Träger dämmen. Gedämmt werden Seitenwände, Decke, Radkasten,\n  Kabine und Türen.\n- Kondensation ist der Grund für die geschlossenzellige Bauweise: Armaflex\n  nimmt selbst kein Wasser auf, deshalb darf hinter der Dämmung keine Luft\n  an kaltes Blech kommen. Lückenlos kleben statt stopfen.\n- Die Lattenhöhe am Boden ist offen und bestimmt die spätere Stehhöhe mit.\n\n### Reihenfolge\n\nDer Boden wird erst gedämmt, wenn die Auszüge von Küche und Bett am Boden\ngeplant sind — die Holzlatten müssen dort liegen, wo später Last und\nVerschraubungen hinkommen. Das ist eine Layout-Entscheidung und wartet auf\nden Nutzer.",
+      "auslegung": "",
+      "notizen": "- Bedeutet „Abgeschlossen\" in der Miro-Einkaufsliste entschieden oder bereits\n  gekauft? Die Teile stehen vorerst auf „Entschieden\".\n- Kürzel „VL\" bei der Armaflex-Rolle ungeklärt.\n- Mengen für Antidröhnmatten, Holzlatten und Kleber noch nicht gerechnet.",
+      "links": [],
+      "datei": "vault/Bereiche/Dämmung.md",
+      "fertig": 2,
+      "gesamt": 4
+    },
+    {
       "name": "Vorbereitung",
       "kurz": "Aufmaß, Rost, Entkernen — was vor dem Ausbau passiert",
       "status": "in-arbeit",
@@ -122,7 +122,7 @@
       "notizen": "- Gehört inhaltlich eng zum Bereich Karosserie — beim Aufräumen der Struktur\n  klären, ob die beiden zusammengelegt werden.",
       "links": [],
       "datei": "vault/Bereiche/Vorbereitung.md",
-      "fertig": 1,
+      "fertig": 3,
       "gesamt": 3
     },
     {
@@ -247,7 +247,7 @@
     {
       "id": "daemmstoff-entscheiden",
       "titel": "Dämmstoff festlegen",
-      "status": "laeuft",
+      "status": "erledigt",
       "bereich": "Dämmung",
       "gruppe": "Boden, Wand, Decke",
       "ebene": 0,
@@ -262,7 +262,7 @@
     {
       "id": "hohlraeume-daemmen",
       "titel": "Hohlräume und Streben dämmen",
-      "status": "offen",
+      "status": "erledigt",
       "bereich": "Dämmung",
       "gruppe": "Boden, Wand, Decke",
       "ebene": 0,
@@ -326,7 +326,7 @@
     {
       "id": "batteriebank-entscheiden",
       "titel": "Batteriebank und Laderegler festlegen",
-      "status": "offen",
+      "status": "laeuft",
       "bereich": "Elektrik",
       "gruppe": "Auslegung",
       "ebene": 0,
@@ -360,7 +360,7 @@
     {
       "id": "solar-montieren",
       "titel": "Solarmodule montieren",
-      "status": "offen",
+      "status": "laeuft",
       "bereich": "Elektrik",
       "gruppe": "Einbau",
       "ebene": 0,
@@ -573,7 +573,7 @@
     {
       "id": "kuehlschrank-entscheiden",
       "titel": "Kühlschrank entscheiden",
-      "status": "offen",
+      "status": "laeuft",
       "bereich": "Küche",
       "gruppe": "Ausstattung",
       "ebene": 0,
@@ -607,7 +607,7 @@
     {
       "id": "layout",
       "titel": "Layout festlegen (macht der Nutzer)",
-      "status": "offen",
+      "status": "erledigt",
       "bereich": "Möbel",
       "gruppe": "Aufbau",
       "ebene": 0,
@@ -722,7 +722,7 @@
     {
       "id": "rost-pruefen",
       "titel": "Rost prüfen und behandeln",
-      "status": "offen",
+      "status": "erledigt",
       "bereich": "Vorbereitung",
       "gruppe": "Fahrzeug",
       "ebene": 0,
@@ -737,7 +737,7 @@
     {
       "id": "entkernen",
       "titel": "Alte Verkleidung und Holzboden raus",
-      "status": "offen",
+      "status": "erledigt",
       "bereich": "Vorbereitung",
       "gruppe": "Fahrzeug",
       "ebene": 0,
@@ -754,7 +754,7 @@
     {
       "id": "tankgroessen",
       "titel": "Tankgrößen festlegen (Frisch, Grau)",
-      "status": "offen",
+      "status": "laeuft",
       "bereich": "Wasser",
       "gruppe": "Anlage",
       "ebene": 0,
@@ -824,7 +824,17 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "Dämmung",
+      "aufgabe_titel": "Hohlräume und Streben dämmen",
+      "fotos": [
+        {
+          "name": "2026-09-17-antidroehnmatten",
+          "bereich": "Dämmung",
+          "datei": "2026-09-17-antidroehnmatten.png",
+          "pfad": "medien/daemmung/2026-09-17-antidroehnmatten.png"
+        }
+      ]
     },
     {
       "id": "armaflex-1-5-mm-decke",
@@ -848,7 +858,17 @@
       "menge_n": 5.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "Dämmung",
+      "aufgabe_titel": "Hohlräume und Streben dämmen",
+      "fotos": [
+        {
+          "name": "2026-09-17-armaflex",
+          "bereich": "Dämmung",
+          "datei": "2026-09-17-armaflex.png",
+          "pfad": "medien/daemmung/2026-09-17-armaflex.png"
+        }
+      ]
     },
     {
       "id": "armaflex-19-mm-waende",
@@ -872,7 +892,17 @@
       "menge_n": 15.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "Dämmung",
+      "aufgabe_titel": "Hohlräume und Streben dämmen",
+      "fotos": [
+        {
+          "name": "2026-09-17-armaflex",
+          "bereich": "Dämmung",
+          "datei": "2026-09-17-armaflex.png",
+          "pfad": "medien/daemmung/2026-09-17-armaflex.png"
+        }
+      ]
     },
     {
       "id": "armaflex-6-mm-boden",
@@ -896,7 +926,29 @@
       "menge_n": 5.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "Dämmung",
+      "aufgabe_titel": "Boden aufbauen",
+      "fotos": [
+        {
+          "name": "2026-09-17-armaflex",
+          "bereich": "Dämmung",
+          "datei": "2026-09-17-armaflex.png",
+          "pfad": "medien/daemmung/2026-09-17-armaflex.png"
+        },
+        {
+          "name": "2026-09-17-boden-kleben",
+          "bereich": "Dämmung",
+          "datei": "2026-09-17-boden-kleben.png",
+          "pfad": "medien/daemmung/2026-09-17-boden-kleben.png"
+        },
+        {
+          "name": "2026-09-18-innenraum-aufmass-boden-mitte-oben-tuer-seiten",
+          "bereich": "Karosserie",
+          "datei": "2026-09-18-innenraum-aufmass-boden-mitte-oben-tuer-seiten.jpg",
+          "pfad": "medien/karosserie/2026-09-18-innenraum-aufmass-boden-mitte-oben-tuer-seiten.jpg"
+        }
+      ]
     },
     {
       "id": "armaflex-6-mm-vl-rolle",
@@ -920,7 +972,17 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": [
+        {
+          "name": "2026-09-17-armaflex",
+          "bereich": "Dämmung",
+          "datei": "2026-09-17-armaflex.png",
+          "pfad": "medien/daemmung/2026-09-17-armaflex.png"
+        }
+      ]
     },
     {
       "id": "holzlatten-bodenunterkonstruktion",
@@ -944,7 +1006,10 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "Dämmung",
+      "aufgabe_titel": "Boden aufbauen",
+      "fotos": []
     },
     {
       "id": "aufbaubatterie-lifepo4",
@@ -968,7 +1033,10 @@
       "menge_n": 1.0,
       "preis_n": 1399.0,
       "gesamt": 1399.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "Elektrik",
+      "aufgabe_titel": "Strombilanz rechnen (Verbraucher, Tagesbedarf)",
+      "fotos": []
     },
     {
       "id": "kabel-2x2-5",
@@ -992,7 +1060,10 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": []
     },
     {
       "id": "laderegler-sbb-60",
@@ -1016,7 +1087,10 @@
       "menge_n": 1.0,
       "preis_n": 354.3,
       "gesamt": 354.3,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": []
     },
     {
       "id": "licht-bett",
@@ -1040,7 +1114,17 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": [
+        {
+          "name": "2026-09-18-grundriss-2d-skizze-drehsitze-kueche-bett",
+          "bereich": "Möbel",
+          "datei": "2026-09-18-grundriss-2d-skizze-drehsitze-kueche-bett.png",
+          "pfad": "medien/moebel/2026-09-18-grundriss-2d-skizze-drehsitze-kueche-bett.png"
+        }
+      ]
     },
     {
       "id": "licht-kueche",
@@ -1064,7 +1148,17 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": [
+        {
+          "name": "2026-09-18-grundriss-2d-skizze-drehsitze-kueche-bett",
+          "bereich": "Möbel",
+          "datei": "2026-09-18-grundriss-2d-skizze-drehsitze-kueche-bett.png",
+          "pfad": "medien/moebel/2026-09-18-grundriss-2d-skizze-drehsitze-kueche-bett.png"
+        }
+      ]
     },
     {
       "id": "schlaeuche-fuer-verkabelung",
@@ -1088,7 +1182,10 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": []
     },
     {
       "id": "sicherung-flachsicherungsblock",
@@ -1112,7 +1209,10 @@
       "menge_n": 2.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": []
     },
     {
       "id": "solarmodule",
@@ -1136,7 +1236,10 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "Elektrik",
+      "aufgabe_titel": "Solarmodule montieren",
+      "fotos": []
     },
     {
       "id": "speichersystem-bma",
@@ -1160,7 +1263,10 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": []
     },
     {
       "id": "usb-steckdose-fuer-pc-108w",
@@ -1184,7 +1290,10 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": []
     },
     {
       "id": "usb-steckdosen",
@@ -1208,7 +1317,10 @@
       "menge_n": 3.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": []
     },
     {
       "id": "wandlampe",
@@ -1232,7 +1344,10 @@
       "menge_n": 2.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": []
     },
     {
       "id": "wechselrichter",
@@ -1256,7 +1371,10 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": []
     },
     {
       "id": "abwasser-ventil-12v",
@@ -1280,7 +1398,10 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": []
     },
     {
       "id": "abwasserschlauch-mit-rueckschlagklappe",
@@ -1304,7 +1425,10 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": []
     },
     {
       "id": "frischwasserschlauch",
@@ -1328,7 +1452,10 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": []
     },
     {
       "id": "frischwassertank",
@@ -1352,7 +1479,10 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "Wasser",
+      "aufgabe_titel": "Tankgrößen festlegen (Frisch, Grau)",
+      "fotos": []
     },
     {
       "id": "fuellstandsanzeige-abwasser",
@@ -1376,7 +1506,10 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "Wasser",
+      "aufgabe_titel": "Tankgrößen festlegen (Frisch, Grau)",
+      "fotos": []
     },
     {
       "id": "pumpenschalter-frischwasser",
@@ -1400,7 +1533,10 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "Wasser",
+      "aufgabe_titel": "Pumpe und Leitungen planen",
+      "fotos": []
     },
     {
       "id": "taster-abwasser-ablass",
@@ -1424,7 +1560,10 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "Wasser",
+      "aufgabe_titel": "Pumpe und Leitungen planen",
+      "fotos": []
     },
     {
       "id": "wasserdruckhalteanlage",
@@ -1448,7 +1587,10 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": []
     },
     {
       "id": "wasserfilter-mit-druckhalteanlage",
@@ -1472,7 +1614,10 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": []
     },
     {
       "id": "wasserfilter-vorfilter",
@@ -1496,7 +1641,10 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": []
     },
     {
       "id": "wasserhahn",
@@ -1520,7 +1668,10 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": []
     },
     {
       "id": "wasserpumpe",
@@ -1544,7 +1695,10 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": []
     },
     {
       "id": "wasserverteiler-dusche-absperrbar",
@@ -1568,7 +1722,10 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": []
     },
     {
       "id": "standheizung",
@@ -1592,7 +1749,10 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "Heizung",
+      "aufgabe_titel": "Heizungstyp entscheiden (Diesel/Gas)",
+      "fotos": []
     },
     {
       "id": "audiosystem",
@@ -1616,7 +1776,10 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": []
     },
     {
       "id": "autositz-beifahrer-drehsitz",
@@ -1640,7 +1803,10 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": []
     },
     {
       "id": "camping-toilette-kassette",
@@ -1664,7 +1830,29 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": [
+        {
+          "name": "2026-09-17-toilette-auf-rollbrett",
+          "bereich": "Möbel",
+          "datei": "2026-09-17-toilette-auf-rollbrett.png",
+          "pfad": "medien/moebel/2026-09-17-toilette-auf-rollbrett.png"
+        },
+        {
+          "name": "2026-09-17-toilette-ausziehlade-mit-klopapierhalter",
+          "bereich": "Möbel",
+          "datei": "2026-09-17-toilette-ausziehlade-mit-klopapierhalter.png",
+          "pfad": "medien/moebel/2026-09-17-toilette-ausziehlade-mit-klopapierhalter.png"
+        },
+        {
+          "name": "2026-09-18-camping-falttisch-mit-massen",
+          "bereich": "Möbel",
+          "datei": "2026-09-18-camping-falttisch-mit-massen.jpeg",
+          "pfad": "medien/moebel/2026-09-18-camping-falttisch-mit-massen.jpeg"
+        }
+      ]
     },
     {
       "id": "dachfenster",
@@ -1688,7 +1876,17 @@
       "menge_n": 1.0,
       "preis_n": 299.0,
       "gesamt": 299.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": [
+        {
+          "name": "2026-09-17-ideenbild-haengeschraenke-dachfenster-kochstelle",
+          "bereich": "Möbel",
+          "datei": "2026-09-17-ideenbild-haengeschraenke-dachfenster-kochstelle.png",
+          "pfad": "medien/moebel/2026-09-17-ideenbild-haengeschraenke-dachfenster-kochstelle.png"
+        }
+      ]
     },
     {
       "id": "dachfenster-zwischenstueck",
@@ -1712,7 +1910,17 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": [
+        {
+          "name": "2026-09-17-ideenbild-haengeschraenke-dachfenster-kochstelle",
+          "bereich": "Möbel",
+          "datei": "2026-09-17-ideenbild-haengeschraenke-dachfenster-kochstelle.png",
+          "pfad": "medien/moebel/2026-09-17-ideenbild-haengeschraenke-dachfenster-kochstelle.png"
+        }
+      ]
     },
     {
       "id": "drehsitz-fahrer",
@@ -1736,7 +1944,10 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": []
     },
     {
       "id": "eisenwinkel",
@@ -1760,7 +1971,10 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": []
     },
     {
       "id": "fenster-weitere",
@@ -1784,7 +1998,10 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": []
     },
     {
       "id": "holz-epicply",
@@ -1808,7 +2025,10 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": []
     },
     {
       "id": "holzlack",
@@ -1832,7 +2052,10 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": []
     },
     {
       "id": "klappenbeschlag-grass-kinvaro-t-57",
@@ -1856,7 +2079,10 @@
       "menge_n": 1.0,
       "preis_n": 25.0,
       "gesamt": 25.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "Möbel",
+      "aufgabe_titel": "Stauraum und Schränke",
+      "fotos": []
     },
     {
       "id": "matratze",
@@ -1880,7 +2106,10 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": []
     },
     {
       "id": "moebelmagnete",
@@ -1904,7 +2133,10 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "Möbel",
+      "aufgabe_titel": "Stauraum und Schränke",
+      "fotos": []
     },
     {
       "id": "push-lock-schrankschloss",
@@ -1928,7 +2160,10 @@
       "menge_n": 1.0,
       "preis_n": 29.23,
       "gesamt": 29.23,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "Möbel",
+      "aufgabe_titel": "Stauraum und Schränke",
+      "fotos": []
     },
     {
       "id": "sitzplatte",
@@ -1952,7 +2187,10 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": []
     },
     {
       "id": "tischfuss-einzelbein",
@@ -1976,7 +2214,17 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": [
+        {
+          "name": "2026-09-17-tischplatte-zweiteilig-auf-einzelbein",
+          "bereich": "Möbel",
+          "datei": "2026-09-17-tischplatte-zweiteilig-auf-einzelbein.png",
+          "pfad": "medien/moebel/2026-09-17-tischplatte-zweiteilig-auf-einzelbein.png"
+        }
+      ]
     },
     {
       "id": "tischplatte-zweiteilig-bambus",
@@ -2000,7 +2248,17 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": [
+        {
+          "name": "2026-09-17-tischplatte-zweiteilig-auf-einzelbein",
+          "bereich": "Möbel",
+          "datei": "2026-09-17-tischplatte-zweiteilig-auf-einzelbein.png",
+          "pfad": "medien/moebel/2026-09-17-tischplatte-zweiteilig-auf-einzelbein.png"
+        }
+      ]
     },
     {
       "id": "gaskocher",
@@ -2024,7 +2282,17 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": [
+        {
+          "name": "2026-09-17-gaskocher-hinter-klappe-ausklapptisch",
+          "bereich": "Küche",
+          "datei": "2026-09-17-gaskocher-hinter-klappe-ausklapptisch.png",
+          "pfad": "medien/kueche/2026-09-17-gaskocher-hinter-klappe-ausklapptisch.png"
+        }
+      ]
     },
     {
       "id": "kompressorkuehlschrank",
@@ -2048,7 +2316,10 @@
       "menge_n": 1.0,
       "preis_n": 425.0,
       "gesamt": 425.0,
-      "gewicht_n": 17.4
+      "gewicht_n": 17.4,
+      "bereich_name": "Küche",
+      "aufgabe_titel": "Kühlschrank entscheiden",
+      "fotos": []
     },
     {
       "id": "scharnier-set-easyconnect",
@@ -2072,7 +2343,10 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": []
     },
     {
       "id": "waschbecken-spuelbecken-camper",
@@ -2096,7 +2370,10 @@
       "menge_n": 1.0,
       "preis_n": 329.0,
       "gesamt": 329.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": []
     },
     {
       "id": "ausziehschiene-lade-hinten",
@@ -2120,7 +2397,17 @@
       "menge_n": 1.0,
       "preis_n": 89.0,
       "gesamt": 89.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": [
+        {
+          "name": "2026-09-17-gewuerzregal-schmale-ausziehschiene",
+          "bereich": "Möbel",
+          "datei": "2026-09-17-gewuerzregal-schmale-ausziehschiene.png",
+          "pfad": "medien/moebel/2026-09-17-gewuerzregal-schmale-ausziehschiene.png"
+        }
+      ]
     },
     {
       "id": "auszugschiene-gewuerzregal",
@@ -2144,7 +2431,17 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": [
+        {
+          "name": "2026-09-17-gewuerzregal-schmale-ausziehschiene",
+          "bereich": "Möbel",
+          "datei": "2026-09-17-gewuerzregal-schmale-ausziehschiene.png",
+          "pfad": "medien/moebel/2026-09-17-gewuerzregal-schmale-ausziehschiene.png"
+        }
+      ]
     },
     {
       "id": "auszugschiene-toilette",
@@ -2168,7 +2465,23 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": [
+        {
+          "name": "2026-09-17-toilette-auf-rollbrett",
+          "bereich": "Möbel",
+          "datei": "2026-09-17-toilette-auf-rollbrett.png",
+          "pfad": "medien/moebel/2026-09-17-toilette-auf-rollbrett.png"
+        },
+        {
+          "name": "2026-09-17-toilette-ausziehlade-mit-klopapierhalter",
+          "bereich": "Möbel",
+          "datei": "2026-09-17-toilette-ausziehlade-mit-klopapierhalter.png",
+          "pfad": "medien/moebel/2026-09-17-toilette-ausziehlade-mit-klopapierhalter.png"
+        }
+      ]
     },
     {
       "id": "auszugschienen-kueche",
@@ -2192,7 +2505,17 @@
       "menge_n": 6.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": [
+        {
+          "name": "2026-09-18-grundriss-2d-skizze-drehsitze-kueche-bett",
+          "bereich": "Möbel",
+          "datei": "2026-09-18-grundriss-2d-skizze-drehsitze-kueche-bett.png",
+          "pfad": "medien/moebel/2026-09-18-grundriss-2d-skizze-drehsitze-kueche-bett.png"
+        }
+      ]
     },
     {
       "id": "lagerkisten-eurobox-60x40x32",
@@ -2216,7 +2539,10 @@
       "menge_n": 4.0,
       "preis_n": 17.0,
       "gesamt": 68.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": []
     },
     {
       "id": "scharniere-gewandlager",
@@ -2240,7 +2566,10 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": []
     },
     {
       "id": "schliessmechanismus-kueche-gewandlager",
@@ -2264,7 +2593,17 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": [
+        {
+          "name": "2026-09-18-grundriss-2d-skizze-drehsitze-kueche-bett",
+          "bereich": "Möbel",
+          "datei": "2026-09-18-grundriss-2d-skizze-drehsitze-kueche-bett.png",
+          "pfad": "medien/moebel/2026-09-18-grundriss-2d-skizze-drehsitze-kueche-bett.png"
+        }
+      ]
     },
     {
       "id": "winkel-fuer-ausziehlade",
@@ -2288,7 +2627,17 @@
       "menge_n": 2.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": [
+        {
+          "name": "2026-09-17-toilette-ausziehlade-mit-klopapierhalter",
+          "bereich": "Möbel",
+          "datei": "2026-09-17-toilette-ausziehlade-mit-klopapierhalter.png",
+          "pfad": "medien/moebel/2026-09-17-toilette-ausziehlade-mit-klopapierhalter.png"
+        }
+      ]
     },
     {
       "id": "bremsenreiniger",
@@ -2312,7 +2661,10 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": []
     },
     {
       "id": "dachfenster-kleber-carloflex",
@@ -2336,7 +2688,17 @@
       "menge_n": 4.0,
       "preis_n": 7.0,
       "gesamt": 28.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": [
+        {
+          "name": "2026-09-17-ideenbild-haengeschraenke-dachfenster-kochstelle",
+          "bereich": "Möbel",
+          "datei": "2026-09-17-ideenbild-haengeschraenke-dachfenster-kochstelle.png",
+          "pfad": "medien/moebel/2026-09-17-ideenbild-haengeschraenke-dachfenster-kochstelle.png"
+        }
+      ]
     },
     {
       "id": "kleber-fensterrahmen",
@@ -2360,7 +2722,10 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": []
     },
     {
       "id": "polymax-kleber-holzlatten",
@@ -2384,7 +2749,10 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "Dämmung",
+      "aufgabe_titel": "Boden aufbauen",
+      "fotos": []
     },
     {
       "id": "rostschutz-hammerite",
@@ -2408,7 +2776,10 @@
       "menge_n": 1.0,
       "preis_n": 0.0,
       "gesamt": 0.0,
-      "gewicht_n": 0.0
+      "gewicht_n": 0.0,
+      "bereich_name": "",
+      "aufgabe_titel": "",
+      "fotos": []
     }
   ],
   "bauteile": [],

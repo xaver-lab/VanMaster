@@ -34,5 +34,5 @@ _(noch keine)_
 ### Fahrzeug
 
 - [x] Innenmaße aufnehmen und Skizze anlegen ^masse-aufnehmen #kritisch
-- [ ] Rost prüfen und behandeln ^rost-pruefen #hoch
-- [ ] Alte Verkleidung und Holzboden raus ^entkernen #hoch @braucht:rost-pruefen
+- [x] Rost prüfen und behandeln ^rost-pruefen #hoch
+- [x] Alte Verkleidung und Holzboden raus ^entkernen #hoch @braucht:rost-pruefen

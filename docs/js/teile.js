@@ -3,8 +3,16 @@
 /* --------------------------------------------------------------- Teile */
 
 let teileFilterStatus = gemerkt("teileFilter", "");
+let teileRaster = gemerkt("teileRaster", "block");
+
+function teileRasterwahl() {
+  for (const knopf of el("teile-rasterwahl").children) {
+    knopf.classList.toggle("aktiv", knopf.dataset.raster === teileRaster);
+  }
+}
 
 function teileFilter() {
+  teileRasterwahl();
   const kat = el("teile-kategorie");
   const gewaehlt = kat.value;
   leeren(kat).append(new Option("alle Kategorien", ""));
@@ -46,11 +54,23 @@ function teilKarte(t) {
   if (t.link) {
     const a = neu("a", null, "Shop ↗");
     a.href = t.link; a.target = "_blank"; a.rel = "noopener";
+    a.addEventListener("click", (e) => e.stopPropagation());
     zeile.append(a);
   }
   zeile.append(statusWechsler(t));
   box.append(zeile);
+  box.addEventListener("click", () => teilModalOeffnen(t));
   return box;
+}
+
+function teilZeile(t) {
+  const row = neu("div", "teilzeile");
+  row.append(neu("span", "name", t.titel));
+  row.append(neu("span", "kategorie", t.kategorie));
+  row.append(neu("span", "preis", euro(t.gesamt)));
+  row.append(statusWechsler(t));
+  row.addEventListener("click", () => teilModalOeffnen(t));
+  return row;
 }
 
 /** Statusknopf mit kleinem Menü — schreibt über die API oder zeigt den Befehl. */
@@ -105,7 +125,90 @@ function teileListe() {
     ziel.append(neu("p", "leer", "Kein Teil passt zum Filter."));
     return;
   }
-  const gitter = neu("div", "teilgitter");
-  for (const t of teile) gitter.append(teilKarte(t));
-  ziel.append(gitter);
+  if (teileRaster === "liste") {
+    const liste = neu("div", "teilliste");
+    for (const t of teile) liste.append(teilZeile(t));
+    ziel.append(liste);
+  } else {
+    const gitter = neu("div", "teilgitter");
+    for (const t of teile) gitter.append(teilKarte(t));
+    ziel.append(gitter);
+  }
+}
+
+/* ----------------------------------------------------------- Detail */
+
+function teilModalOeffnen(t) {
+  const box = leeren(el("teil-modal-inhalt"));
+
+  box.append(neu("div", "tm-titel", t.titel));
+  const kopf = neu("div", "tm-kopf");
+  const status = statusWechsler(t);
+  kopf.append(status);
+  kopf.append(neu("span", null, euro(t.gesamt)));
+  box.append(kopf);
+
+  if (t.beschreibung) box.append(neu("p", "tm-beschreibung", t.beschreibung));
+
+  const felder = [
+    ["Kategorie", t.kategorie], ["System", t.system],
+    ["Menge", t.menge_n ? `${t.menge_n} ${t.einheit}` : ""],
+    ["Preis", t.preis_n ? euro(t.preis_n) + " / Stk" : ""],
+    ["Priorität", t.prioritaet], ["Kennwerte", t.kennwerte],
+    ["Gewicht", t.gewicht_n ? t.gewicht_n.toFixed(1) + " kg" : ""],
+    ["Händler", t.haendler], ["Entscheidung", t.entscheidung],
+    ["Notiz", t.notiz], ["Gekauft am", t.gekauft_am],
+  ].filter(([, wert]) => wert);
+  if (felder.length) {
+    const dl = neu("dl", "tm-felder");
+    for (const [k, wert] of felder) {
+      const feld = neu("div", "tm-feld");
+      feld.append(neu("dt", null, k), neu("dd", null, String(wert)));
+      dl.append(feld);
+    }
+    box.append(dl);
+  }
+
+  if (t.link) {
+    const abschnitt = neu("div", "tm-abschnitt");
+    const a = neu("a", null, "Zum Shop ↗");
+    a.href = t.link; a.target = "_blank"; a.rel = "noopener";
+    abschnitt.append(a);
+    box.append(abschnitt);
+  }
+
+  if (t.fotos && t.fotos.length) {
+    const abschnitt = neu("div", "tm-abschnitt");
+    abschnitt.append(neu("h4", null, "Fotos"));
+    const raster = neu("div", "tm-fotos");
+    for (const f of t.fotos) {
+      const kachel = neu("button");
+      const img = neu("img");
+      img.src = f.pfad; img.alt = f.name; img.loading = "lazy";
+      kachel.append(img);
+      kachel.addEventListener("click", () => lupeOeffnen(t.fotos, t.fotos.indexOf(f)));
+      raster.append(kachel);
+    }
+    abschnitt.append(raster);
+    box.append(abschnitt);
+  }
+
+  if (t.bereich_name) {
+    const abschnitt = neu("div", "tm-abschnitt");
+    abschnitt.append(neu("h4", null, "Verwendet für"));
+    const themen = neu("div", "tm-themen");
+    const a = neu("a", "chip", t.bereich_name);
+    a.href = "#" + ["themen", t.bereich_name].map(encodeURIComponent).join("/");
+    a.addEventListener("click", () => teilModalSchliessen());
+    themen.append(a);
+    if (t.aufgabe_titel) themen.append(neu("span", "zusatz", "· " + t.aufgabe_titel));
+    abschnitt.append(themen);
+    box.append(abschnitt);
+  }
+
+  el("teil-modal").hidden = false;
+}
+
+function teilModalSchliessen() {
+  el("teil-modal").hidden = true;
 }

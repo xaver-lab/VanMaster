@@ -30,11 +30,28 @@ def seiten(ordner) -> list[dict]:
     return out
 
 
+def teil_fotos(teil_id: str, bilder: list[dict]) -> list[dict]:
+    """Bilder liegen nach Bereich einsortiert, nicht pro Teil. Angenähert über
+    ein gemeinsames Wort zwischen Teil-Id und Bildname (z. B. `armaflex-1-5-
+    mm-decke` und `2026-09-17-armaflex.png` teilen sich das Wort `armaflex`).
+    Ganze Wörter, nicht Teilstrings — sonst matcht `decke` in `holzdeckel`."""
+    tokens = {t for t in teil_id.split("-") if len(t) >= 4}
+    if not tokens:
+        return []
+    treffer = []
+    for b in bilder:
+        namensworte = set(b["name"].lower().split("-"))
+        if tokens & namensworte:
+            treffer.append(b)
+    return treffer
+
+
 def daten(sortierung: str = STANDARD_SORTIERUNG) -> dict:
     m = media.web_export()
     alle = tasks.load()
     teile = parts.load()
     fertig, gesamt_n = tasks.fortschritt(alle)
+    nach_id = {a["id"]: a for a in alle}
 
     nach_b = tasks.nach_bereich(alle)
     bereiche_json = []
@@ -75,6 +92,10 @@ def daten(sortierung: str = STANDARD_SORTIERUNG) -> dict:
         eintrag["preis_n"] = round(parts.num(t["preis"]), 2)
         eintrag["gesamt"] = round(parts.gesamt(t), 2)
         eintrag["gewicht_n"] = round(parts.gewicht(t), 2)
+        aufgabe = nach_id.get(t["fuer_aufgabe"])
+        eintrag["bereich_name"] = aufgabe["bereich"] if aufgabe else ""
+        eintrag["aufgabe_titel"] = aufgabe["titel"] if aufgabe else ""
+        eintrag["fotos"] = teil_fotos(t["id"], m["bilder"])
         teile_json.append(eintrag)
 
     bauteile_json = []

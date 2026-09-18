@@ -168,7 +168,7 @@ Original-Wortlaut, unbewertet — die Anordnung entscheidet der Nutzer):
 
 ### Aufbau
 
-- [ ] Layout festlegen (macht der Nutzer) ^layout #kritisch
+- [x] Layout festlegen (macht der Nutzer) ^layout #kritisch
 - [ ] Bettrahmen bauen ^bettrahmen @braucht:layout
 - [ ] Küchenblock bauen ^kuechenblock @braucht:layout
 - [ ] Stauraum und Schränke ^schraenke @braucht:layout
