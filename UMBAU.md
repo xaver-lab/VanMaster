@@ -162,6 +162,24 @@ Eine Zeile je abgeschlossenem Punkt oder getroffener Entscheidung.
 
 - keine
 
+## Übergabe an den nächsten Chat
+
+Stand 2026-09-18: Phasen 0–4 fertig und abgenommen. Weiter mit **Phase 5**.
+
+- Tests: `PYTHONIOENCODING=utf-8 python -m pytest -q` (162 Tests, ~85 s).
+  Einzelne Datei reicht zum Abnehmen, am Phasenende einmal alles.
+- Node für npm/npx: `PATH=~/nodejs:$PATH` in der Sitzung setzen, sonst
+  scheitert npx am Node-Aufruf. `camper web build` soll `~/nodejs/npm.cmd`
+  aufrufen.
+- Typen für `web/`: `python -m tools.server.schema` → `web/src/lib/api-typen.ts`.
+- Server zum Prüfen: Preview `camper-neu` (Port 8765) aus `.claude/launch.json`;
+  altes Dashboard unter `/alt/`, alter Server als `camper-serve` (8766).
+- SSE `GET /api/live`: `event: aenderung`, `data: {dateien:[{datei,version}], quelle}`.
+  `quelle: "web"` = eigene Änderung, kein Konflikt anzeigen.
+- Status-Schlüssel ohne Umlaut: `offen|laeuft|erledigt|verworfen|blockiert`.
+- Parallele Subagenten: jedem die Dateien zuweisen, die er NICHT anfassen darf;
+  nach Rückmeldung nur seine Dateien committen.
+
 ## Startprompt für jeden neuen Chat
 
 ```text
