@@ -73,7 +73,7 @@ Das alte Dashboard (`docs/`) läuft unverändert weiter, bis Phase 9 es ablöst.
 
 ## Phase 2 — Datenkern `tools/kern/`
 
-- [ ] [Sonnet] Lesen: Bereiche, Abschnitte, Aufgabenbaum, Querverweise, Entscheidungen, Teile, Einzelteile, Medien → typisierte Datenklassen. Test: alle echten Dateien lesen ohne Fehler, Ergebnis gleich wie heutiges `tools/tasks.py`/`parts.py`
+- [x] [Sonnet] Lesen: Bereiche, Abschnitte, Aufgabenbaum, Querverweise, Entscheidungen, Teile, Einzelteile, Medien → typisierte Datenklassen. Test: alle echten Dateien lesen ohne Fehler, Ergebnis gleich wie heutiges `tools/tasks.py`/`parts.py`
 - [ ] [Sonnet] Schreiben Aufgaben: anlegen (ID erzeugen, eindeutig), Status, Titel, Beschreibung, Priorität, löschen (mit Unterpunkten). Test: Rundlauf lesen→schreiben ist bytegleich; Änderung berührt nur die betroffenen Zeilen
 - [ ] [Sonnet] Schreiben Abschnitte: Bereichsabschnitt ersetzen, nur erlaubte Abschnitte laut Matrix. Test wie oben
 - [ ] [Sonnet] Schreiben CSV: Teile- und Einzelteilfelder ändern, anlegen, löschen. Test: Spaltenreihenfolge und unberührte Zeilen bleiben gleich
@@ -141,6 +141,7 @@ Eine Zeile je abgeschlossenem Punkt oder getroffener Entscheidung.
 - 2026-09-18 Phase 0: `tests/conftest.py` — Fixture `repo` kopiert vault/ und data/ nach tmp_path und biegt alle Pfadkonstanten der `tools`-Module um (auch künftige Unterpakete wie `tools/kern/`). Aufruf: `python -m pytest -q`.
 - 2026-09-18 Phase 1: `FORMAT.md` entworfen (Code + Bestand, 8 Abweichungen); mit Nutzer entschieden: `[[…]]` bleibt und wird im Web aufgelöst, fester Aufbau für Anleitungen/Recherche, `system` in `kategorie` aufgehen lassen, zusätzliche Web-Felder — alles in FORMAT.md §10.
 - 2026-09-18 Phase 1: Bestand angeglichen — Vault war schon formgerecht; Spalte `system` aus parts.csv entfernt (4 Teile → Dämmung/Karosserie), Code und altes Dashboard nachgezogen, `Karosserie` in die Kategorieliste. Phase 1 fertig.
+- 2026-09-18 Phase 2: Kern liest alles (`tools/kern/lesen.py`, `modelle.py`, `format.py`); Grammatik und CSV-Spalten wohnen jetzt in `kern/format.py`, alte Module importieren von dort. Jede Einheit kennt Datei (repo-relativ, `/`) und Zeilenbereich. 9 Tests.
 
 ## Offene Fragen
 

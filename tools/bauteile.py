@@ -16,15 +16,12 @@ from .common import (
     BAUTEILE_CSV, BAUTEILE_XLSX, BAUTEIL_ART, BAUTEIL_STATUS, MASSQUELLE,
     fail, slug, table,
 )
+from .kern.format import (
+    EINZELTEIL_BERECHNET as COMPUTED, EINZELTEIL_FELDER as FIELDS,
+)
 
-FIELDS = [
-    "id", "titel", "bereich", "art", "material",
-    "laenge_mm", "breite_mm", "dicke_mm", "anzahl",
-    "teil_id", "fuer_aufgabe", "massquelle", "status", "notiz",
-]
-
-# Nur in der Excel-Ausleihe, beim Import ignoriert.
-COMPUTED = ["flaeche_m2", "laufmeter"]
+# FIELDS: Spaltenreihenfolge von data/bauteile.csv. COMPUTED: nur in der
+# Excel-Ausleihe, beim Import ignoriert. Beide aus tools/kern/format.py.
 
 ZAHLFELDER = ("laenge_mm", "breite_mm", "dicke_mm", "anzahl")
 

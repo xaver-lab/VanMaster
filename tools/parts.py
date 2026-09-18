@@ -9,16 +9,11 @@ from .common import (
     PART_KATEGORIEN, PART_PRIO, PART_STATUS,
     bar, euro, fail, slug, table, write_text,
 )
+from .kern.format import TEIL_BERECHNET as COMPUTED, TEIL_FELDER as FIELDS
 
-FIELDS = [
-    "id", "titel", "beschreibung", "kategorie",
-    "menge", "einheit", "preis", "status", "prioritaet",
-    "link", "haendler", "fuer_aufgabe", "entscheidung",
-    "kennwerte", "gewicht_kg", "notiz", "gekauft_am",
-]
-
-# Zusatzspalte nur in der Excel-Ausleihe, wird beim Import ignoriert.
-COMPUTED = ["gesamt"]
+# FIELDS: Spaltenreihenfolge von data/parts.csv. COMPUTED: Zusatzspalte nur
+# in der Excel-Ausleihe, wird beim Import ignoriert. Beide aus
+# tools/kern/format.py — einzige Stelle, die das Format kennt.
 
 
 def load() -> list[dict]:

@@ -17,31 +17,16 @@ Checkbox in den Notizen ist ein Merker, keine Aufgabe.
 """
 from __future__ import annotations
 
-import re
 from pathlib import Path
 
 from .common import (
     BEREICHE_DIR, STANDARD_SORTIERUNG, bar, fail, read_text, slug,
     split_frontmatter,
 )
-
-BOX = {" ": "offen", "/": "laeuft", "x": "erledigt", "X": "erledigt",
-       "-": "verworfen", "!": "blockiert"}
-BOX_ZEICHEN = {"offen": " ", "laeuft": "/", "erledigt": "x",
-              "verworfen": "-", "blockiert": "!"}
-ERLEDIGT = ("erledigt", "verworfen")
-
-PRIOS = {"kritisch": 0, "hoch": 1, "mittel": 2, "nice": 3}
-
-ZEILE = re.compile(r"^(?P<einzug>[ \t]*)- \[(?P<box>[ xX/\-!])\] (?P<rest>.*)$")
-BESCHREIBUNG = re.compile(r"^[ \t]+>\s?(?P<text>.*)$")
-ANKER = re.compile(r"(?:^|\s)\^([A-Za-z0-9\-_]+)")
-PRIO = re.compile(r"(?:^|\s)#(kritisch|hoch|mittel|nice)\b", re.I)
-MARKE = re.compile(r"(?:^|\s)@(braucht|dauer):([^\s]+)")
-
-
-def ebene(einzug: str) -> int:
-    return (einzug.replace("\t", "  ").count(" ")) // 2
+from .kern.format import (
+    ANKER, BESCHREIBUNG, BOX, BOX_ZEICHEN, ERLEDIGT, MARKE, PRIO, PRIOS,
+    ZEILE, ebene,
+)
 
 
 def load() -> list[dict]:

@@ -28,17 +28,11 @@ Bereich hinten — die Dateien müssen nicht alle gleichzeitig umgestellt werden
 """
 from __future__ import annotations
 
-import re
-
 from .common import (
     BEREICHE_DIR, SORTIERUNGEN, STANDARD_SORTIERUNG, abschnitte, read_text,
     split_frontmatter,
 )
-
-# - [Titel](url) — Zusatz   ·   der Zusatz ist freiwillig
-LINK = re.compile(r"^\s*-\s*\[(?P<titel>[^\]]+)\]\((?P<url>[^)]+)\)\s*(?:[—-]\s*(?P<zusatz>.*))?$")
-
-LEER = re.compile(r"^_\(.*\)_$")
+from .kern.format import LEER, LINK, phase
 
 
 def _sauber(text: str) -> str:
@@ -92,14 +86,6 @@ def load() -> list[dict]:
 STATUS_RANG = {"in-arbeit": 0, "geplant": 1, "fertig": 2}
 
 OHNE_PHASE = 999  # kein `phase:` im Kopf → hinten, aber nicht weg.
-
-
-def phase(wert) -> int | None:
-    """`phase: 2` aus dem Kopf — alles Unbrauchbare zählt als nicht gesetzt."""
-    try:
-        return int(str(wert).strip())
-    except (TypeError, ValueError):
-        return None
 
 
 def _offen(b: dict) -> int:
