@@ -63,6 +63,6 @@ _(noch keine)_
 ### Boden, Wand, Decke
 
 - [x] Dämmstoff festlegen ^daemmstoff-entscheiden #kritisch
-- [x] Hohlräume und Streben dämmen ^hohlraeume-daemmen @braucht:daemmstoff-entscheiden
+- [x] Seitenwände, Decke, Radkästen und Türen dämmen ^flaechen-daemmen @braucht:daemmstoff-entscheiden
 - [ ] Dampfbremse setzen ^dampfbremse
-- [ ] Boden aufbauen ^boden-aufbauen @braucht:hohlraeume-daemmen
+- [ ] Boden aufbauen ^boden-aufbauen @braucht:flaechen-daemmen

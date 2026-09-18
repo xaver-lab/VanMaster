@@ -1,5 +1,5 @@
 {
-  "erzeugt": "2026-09-18T11:36",
+  "erzeugt": "2026-09-18T11:38",
   "projekt": "VanMaster",
   "sortierung": "baustellen",
   "kennzahlen": {
@@ -248,8 +248,8 @@
       "fotos": []
     },
     {
-      "id": "hohlraeume-daemmen",
-      "titel": "Hohlräume und Streben dämmen",
+      "id": "flaechen-daemmen",
+      "titel": "Seitenwände, Decke, Radkästen und Türen dämmen",
       "status": "erledigt",
       "bereich": "Dämmung",
       "gruppe": "Boden, Wand, Decke",
@@ -293,7 +293,7 @@
       "eltern": "",
       "kinder": [],
       "braucht": [
-        "hohlraeume-daemmen"
+        "flaechen-daemmen"
       ],
       "prio": "",
       "dauer": "",
@@ -984,8 +984,8 @@
       "preis_n": 0.0,
       "gesamt": 0.0,
       "gewicht_n": 0.0,
-      "bereich_name": "Dämmung",
-      "aufgabe_titel": "Hohlräume und Streben dämmen",
+      "bereich_name": "",
+      "aufgabe_titel": "",
       "fotos": [
         {
           "name": "2026-09-17-antidroehnmatten",
@@ -1018,8 +1018,8 @@
       "preis_n": 0.0,
       "gesamt": 0.0,
       "gewicht_n": 0.0,
-      "bereich_name": "Dämmung",
-      "aufgabe_titel": "Hohlräume und Streben dämmen",
+      "bereich_name": "",
+      "aufgabe_titel": "",
       "fotos": [
         {
           "name": "2026-09-17-armaflex",
@@ -1052,8 +1052,8 @@
       "preis_n": 0.0,
       "gesamt": 0.0,
       "gewicht_n": 0.0,
-      "bereich_name": "Dämmung",
-      "aufgabe_titel": "Hohlräume und Streben dämmen",
+      "bereich_name": "",
+      "aufgabe_titel": "",
       "fotos": [
         {
           "name": "2026-09-17-armaflex",
