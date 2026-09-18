@@ -1,11 +1,11 @@
 {
-  "erzeugt": "2026-09-18T08:22",
+  "erzeugt": "2026-09-18T08:33",
   "projekt": "VanMaster",
   "sortierung": "baustellen",
   "kennzahlen": {
     "aufgaben_fertig": 1,
-    "aufgaben_gesamt": 27,
-    "teile": 66,
+    "aufgaben_gesamt": 34,
+    "teile": 70,
     "kosten": 3045.53,
     "kosten_bestellt": 443.3,
     "gewicht": 17.4,
@@ -126,6 +126,31 @@
       "gesamt": 3
     },
     {
+      "name": "Karosserie",
+      "kurz": "Innenmaße, Fenster- und Dachausschnitte, Rost, Durchführungen",
+      "status": "geplant",
+      "phase": 2,
+      "beschreibung": "Alles am Fahrzeug selbst: Innenmaße und Konstruktionsgrundlagen, Ausschnitte\nfür Fenster und Dachfenster, Rostbehandlung, Durchführungen und Befestigungs-\npunkte am Blech.",
+      "stand": "**Innenraum-Aufmaß.** Der Laderaum ist von Hand komplett aufgemessen: Grundriss\nam Boden (mit den beiden Radkasten-Ausschnitten), ein Schnitt auf mittlerer\nHöhe, der Dachbereich, der Ausschnitt der Schiebetür sowie die Wandabwicklung\nvon Fahrer- und Beifahrerseite. Das ist die Grundlage, an der sich Kühlschrank,\nKüchenblock und die übrigen Möbel bei Tiefe und Breite messen müssen (siehe\n[[Küche]] zur Gangbreite).\n\n**Dachfenster.** Entschieden ist ein Dachfenster mit Lüfter, Fernbedienung,\nInsektenschutz und Verdunkelung, 400×400 mm. Der Einbau läuft über einen\nselbst gebauten Holzrahmen (Stärke Blechausschnitt +2 mm), der mit Polymax\nangeklebt, von innen verschraubt und mit Butyl-Dichtmasse gegen das Fenster\nabgedichtet wird; vor dem Einbau wird die geschnittene Blechkante mit\nRostschutz behandelt. Der Arbeitsablauf steht unter Aufgaben.",
+      "auslegung": "Werte aus der handschriftlichen Aufmaß-Skizze (Foto), alle in cm. Ziffern auf\ndem Foto teils eng beieinander — bei Zweifeln gegen das Originalblatt prüfen.\n\n| Bereich | Maß | Wert |\n|---|---|---|\n| Boden, Grundriss | Länge oben (Fahrerseite) | 220 |\n| Boden, Grundriss | Gesamtlänge, Variante 1 | 217 |\n| Boden, Grundriss | Gesamtlänge, Variante 2 (ca.) | 237 |\n| Boden, Grundriss | Breite rechts | 176 |\n| Boden, Grundriss | Radkasten-Ausschnitt vorne | 77 |\n| Boden, Grundriss | Radkasten-Ausschnitt hinten | 77 / 139 |\n| Mittlere Höhe | Innenbreite | 172 |\n| Dachbereich | Innenbreite oben | 138 |\n| Dachbereich | Türausschnitt oben | 134 |\n| Schiebetür-Ausschnitt | Breite oben | 138 |\n| Schiebetür-Ausschnitt | Höhe links | 182 |\n| Schiebetür-Ausschnitt | Breite bis Türschloss | 149 |\n| Schiebetür-Ausschnitt | Breite unten | 157 |\n| Fahrerseite, Wand | obere Reihe | 199 |\n| Fahrerseite, Wand | Höhenversatz an der Fuge | 8,5 |\n| Fahrerseite, Wand | Feld daneben | 140 |\n| Beifahrerseite, Wand | Höhe erstes Feld | 145 |\n| Beifahrerseite, Wand | Höhe zweites Feld | 134 |\n| Beifahrerseite, Wand | Radkasten-Ausschnitt | 39 / 77 |",
+      "notizen": "- Überschneidet sich mit dem Bereich Vorbereitung: Rost prüfen, Entkernen und\n  Innenmaße aufnehmen liegen dort als Aufgaben. Beim Aufräumen der Struktur\n  klären, ob die beiden Bereiche zusammengehören.\n- Die Aufmaß-Skizze (`_input/Konstruktion/`) ist ein Foto von Hand\n  beschrifteter Millimeterpapier-Zeichnungen, schräg fotografiert. Einzelne\n  Zahlen sind auf dem Foto nicht zweifelsfrei zu lesen (z. B. zwei\n  übereinanderstehende Werte am linken Rand des Bodengrundrisses, „175\" und\n  „157\"); diese Stelle ist oben nicht übernommen und sollte am Original\n  nachgeprüft werden.\n\nAus `_input/Fenster und Dachfenster/` (Rohnotiz, unbewertet — ob und wann die\nSeitenfenster gebaut werden, entscheidet der Nutzer):\n\n- Seitenfenster Fahrerseite: Notiz „erst einbauen, wenn Tisch fertig ist (dann\n  perfekt)\". Noch nicht festgelegt.\n- Seitenfenster Beifahrerseite: Notiz „bauen wir?? (stört bei Küche!)\". Ob es\n  überhaupt kommt, ist offen — Konflikt mit der Küchenplanung angemerkt.",
+      "links": [
+        {
+          "titel": "Dachfenster Super Fan 400×400",
+          "url": "https://belluna.eu/shop/super-fan-dachfenster-mit-luefter-fernbedienung-insektenschutz-und-verdunkelung-400x400-mm-generation-3-1/",
+          "zusatz": "Lüfter, Fernbedienung, Insektenschutz, Verdunkelung"
+        },
+        {
+          "titel": "Belluna Fenster-Kategorie",
+          "url": "https://belluna.eu/kategorie/fenster/",
+          "zusatz": "Übersicht für die noch offenen Seitenfenster"
+        }
+      ],
+      "datei": "vault/Bereiche/Karosserie.md",
+      "fertig": 0,
+      "gesamt": 7
+    },
+    {
       "name": "Heizung",
       "kurz": "Heizgerät, Abgasführung, Luftverteilung",
       "status": "geplant",
@@ -158,20 +183,6 @@
       "datei": "vault/Bereiche/Wasser.md",
       "fertig": 0,
       "gesamt": 3
-    },
-    {
-      "name": "Karosserie",
-      "kurz": "Innenmaße, Fenster- und Dachausschnitte, Rost, Durchführungen",
-      "status": "geplant",
-      "phase": 2,
-      "beschreibung": "Alles am Fahrzeug selbst: Innenmaße und Konstruktionsgrundlagen, Ausschnitte\nfür Fenster und Dachfenster, Rostbehandlung, Durchführungen und Befestigungs-\npunkte am Blech.",
-      "stand": "**Innenraum-Aufmaß.** Der Laderaum ist von Hand komplett aufgemessen: Grundriss\nam Boden (mit den beiden Radkasten-Ausschnitten), ein Schnitt auf mittlerer\nHöhe, der Dachbereich, der Ausschnitt der Schiebetür sowie die Wandabwicklung\nvon Fahrer- und Beifahrerseite. Das ist die Grundlage, an der sich Kühlschrank,\nKüchenblock und die übrigen Möbel bei Tiefe und Breite messen müssen (siehe\n[[Küche]] zur Gangbreite).",
-      "auslegung": "Werte aus der handschriftlichen Aufmaß-Skizze (Foto), alle in cm. Ziffern auf\ndem Foto teils eng beieinander — bei Zweifeln gegen das Originalblatt prüfen.\n\n| Bereich | Maß | Wert |\n|---|---|---|\n| Boden, Grundriss | Länge oben (Fahrerseite) | 220 |\n| Boden, Grundriss | Gesamtlänge, Variante 1 | 217 |\n| Boden, Grundriss | Gesamtlänge, Variante 2 (ca.) | 237 |\n| Boden, Grundriss | Breite rechts | 176 |\n| Boden, Grundriss | Radkasten-Ausschnitt vorne | 77 |\n| Boden, Grundriss | Radkasten-Ausschnitt hinten | 77 / 139 |\n| Mittlere Höhe | Innenbreite | 172 |\n| Dachbereich | Innenbreite oben | 138 |\n| Dachbereich | Türausschnitt oben | 134 |\n| Schiebetür-Ausschnitt | Breite oben | 138 |\n| Schiebetür-Ausschnitt | Höhe links | 182 |\n| Schiebetür-Ausschnitt | Breite bis Türschloss | 149 |\n| Schiebetür-Ausschnitt | Breite unten | 157 |\n| Fahrerseite, Wand | obere Reihe | 199 |\n| Fahrerseite, Wand | Höhenversatz an der Fuge | 8,5 |\n| Fahrerseite, Wand | Feld daneben | 140 |\n| Beifahrerseite, Wand | Höhe erstes Feld | 145 |\n| Beifahrerseite, Wand | Höhe zweites Feld | 134 |\n| Beifahrerseite, Wand | Radkasten-Ausschnitt | 39 / 77 |",
-      "notizen": "- Überschneidet sich mit dem Bereich Vorbereitung: Rost prüfen, Entkernen und\n  Innenmaße aufnehmen liegen dort als Aufgaben. Beim Aufräumen der Struktur\n  klären, ob die beiden Bereiche zusammengehören.\n- Die Aufmaß-Skizze (`_input/Konstruktion/`) ist ein Foto von Hand\n  beschrifteter Millimeterpapier-Zeichnungen, schräg fotografiert. Einzelne\n  Zahlen sind auf dem Foto nicht zweifelsfrei zu lesen (z. B. zwei\n  übereinanderstehende Werte am linken Rand des Bodengrundrisses, „175\" und\n  „157\"); diese Stelle ist oben nicht übernommen und sollte am Original\n  nachgeprüft werden.",
-      "links": [],
-      "datei": "vault/Bereiche/Karosserie.md",
-      "fertig": 0,
-      "gesamt": 0
     }
   ],
   "kategorien": [
@@ -226,7 +237,7 @@
     },
     {
       "name": "Verbrauchsmaterial",
-      "teile": 4,
+      "teile": 8,
       "kosten": 28.0,
       "gewicht": 0.0,
       "verbaut": 0
@@ -426,6 +437,123 @@
       "dauer": "",
       "datei": "vault\\Bereiche\\Heizung.md",
       "zeile": 45
+    },
+    {
+      "id": "df-position",
+      "titel": "Position bestimmen",
+      "status": "offen",
+      "bereich": "Karosserie",
+      "gruppe": "Dachfenster einbauen",
+      "ebene": 0,
+      "eltern": "",
+      "kinder": [],
+      "braucht": [],
+      "prio": "",
+      "dauer": "",
+      "datei": "vault\\Bereiche\\Karosserie.md",
+      "zeile": 88
+    },
+    {
+      "id": "df-rahmen",
+      "titel": "Holzrahmen bauen, Stärke Blechausschnitt +2 mm",
+      "status": "offen",
+      "bereich": "Karosserie",
+      "gruppe": "Dachfenster einbauen",
+      "ebene": 0,
+      "eltern": "",
+      "kinder": [],
+      "braucht": [
+        "df-position"
+      ],
+      "prio": "",
+      "dauer": "",
+      "datei": "vault\\Bereiche\\Karosserie.md",
+      "zeile": 89
+    },
+    {
+      "id": "df-schneiden",
+      "titel": "Mit Rahmen anzeichnen, abkleben, schneiden",
+      "status": "offen",
+      "bereich": "Karosserie",
+      "gruppe": "Dachfenster einbauen",
+      "ebene": 0,
+      "eltern": "",
+      "kinder": [],
+      "braucht": [
+        "df-rahmen"
+      ],
+      "prio": "",
+      "dauer": "",
+      "datei": "vault\\Bereiche\\Karosserie.md",
+      "zeile": 90
+    },
+    {
+      "id": "df-rostschutz",
+      "titel": "Testen, feilen, Rostschutz auftragen",
+      "status": "offen",
+      "bereich": "Karosserie",
+      "gruppe": "Dachfenster einbauen",
+      "ebene": 0,
+      "eltern": "",
+      "kinder": [],
+      "braucht": [
+        "df-schneiden"
+      ],
+      "prio": "",
+      "dauer": "",
+      "datei": "vault\\Bereiche\\Karosserie.md",
+      "zeile": 91
+    },
+    {
+      "id": "df-ankleben",
+      "titel": "Holzrahmen mit Polymax ankleben",
+      "status": "offen",
+      "bereich": "Karosserie",
+      "gruppe": "Dachfenster einbauen",
+      "ebene": 0,
+      "eltern": "",
+      "kinder": [],
+      "braucht": [
+        "df-rostschutz"
+      ],
+      "prio": "",
+      "dauer": "",
+      "datei": "vault\\Bereiche\\Karosserie.md",
+      "zeile": 92
+    },
+    {
+      "id": "df-dichtmasse",
+      "titel": "Butyl-Dichtmasse einsetzen",
+      "status": "offen",
+      "bereich": "Karosserie",
+      "gruppe": "Dachfenster einbauen",
+      "ebene": 0,
+      "eltern": "",
+      "kinder": [],
+      "braucht": [
+        "df-ankleben"
+      ],
+      "prio": "",
+      "dauer": "",
+      "datei": "vault\\Bereiche\\Karosserie.md",
+      "zeile": 93
+    },
+    {
+      "id": "df-verschrauben",
+      "titel": "Von innen verschrauben",
+      "status": "offen",
+      "bereich": "Karosserie",
+      "gruppe": "Dachfenster einbauen",
+      "ebene": 0,
+      "eltern": "",
+      "kinder": [],
+      "braucht": [
+        "df-dichtmasse"
+      ],
+      "prio": "",
+      "dauer": "",
+      "datei": "vault\\Bereiche\\Karosserie.md",
+      "zeile": 94
     },
     {
       "id": "kochstelle-entscheiden",
@@ -2187,6 +2315,30 @@
       "gewicht_n": 0.0
     },
     {
+      "id": "dachfenster-super-fan-400x400",
+      "titel": "Dachfenster Super Fan 400x400",
+      "beschreibung": "Dachfenster mit Lüfter, Fernbedienung, Insektenschutz und Verdunkelung, 400x400 mm, Generation 3",
+      "kategorie": "Verbrauchsmaterial",
+      "system": "Karosserie",
+      "menge": "1",
+      "einheit": "Stk",
+      "preis": "",
+      "status": "Entschieden",
+      "prioritaet": "Hoch",
+      "link": "https://belluna.eu/shop/super-fan-dachfenster-mit-luefter-fernbedienung-insektenschutz-und-verdunkelung-400x400-mm-generation-3-1/",
+      "haendler": "",
+      "fuer_aufgabe": "",
+      "entscheidung": "",
+      "kennwerte": "",
+      "gewicht_kg": "",
+      "notiz": "",
+      "gekauft_am": "",
+      "menge_n": 1.0,
+      "preis_n": 0.0,
+      "gesamt": 0.0,
+      "gewicht_n": 0.0
+    },
+    {
       "id": "dachfenster-kleber-carloflex",
       "titel": "Dachfenster-Kleber (Carloflex)",
       "beschreibung": "",
@@ -2208,6 +2360,54 @@
       "menge_n": 4.0,
       "preis_n": 7.0,
       "gesamt": 28.0,
+      "gewicht_n": 0.0
+    },
+    {
+      "id": "holz-fuer-fensterrahmen",
+      "titel": "Holz für Fensterrahmen",
+      "beschreibung": "Rahmenholz für Fensterausschnitte, +2mm über Blechstärke",
+      "kategorie": "Verbrauchsmaterial",
+      "system": "Karosserie",
+      "menge": "1",
+      "einheit": "Stk",
+      "preis": "",
+      "status": "Idee",
+      "prioritaet": "Hoch",
+      "link": "",
+      "haendler": "",
+      "fuer_aufgabe": "",
+      "entscheidung": "",
+      "kennwerte": "",
+      "gewicht_kg": "",
+      "notiz": "",
+      "gekauft_am": "",
+      "menge_n": 1.0,
+      "preis_n": 0.0,
+      "gesamt": 0.0,
+      "gewicht_n": 0.0
+    },
+    {
+      "id": "kleber-fensterrahmen",
+      "titel": "Kleber Fensterrahmen",
+      "beschreibung": "Butyl-Dichtmasse (Produkt noch offen) zum Ankleben des Holzrahmens und Abdichten des Fensters",
+      "kategorie": "Verbrauchsmaterial",
+      "system": "Karosserie",
+      "menge": "1",
+      "einheit": "Stk",
+      "preis": "",
+      "status": "Recherche",
+      "prioritaet": "Hoch",
+      "link": "",
+      "haendler": "",
+      "fuer_aufgabe": "",
+      "entscheidung": "",
+      "kennwerte": "",
+      "gewicht_kg": "",
+      "notiz": "",
+      "gekauft_am": "",
+      "menge_n": 1.0,
+      "preis_n": 0.0,
+      "gesamt": 0.0,
       "gewicht_n": 0.0
     },
     {
@@ -2252,6 +2452,30 @@
       "kennwerte": "",
       "gewicht_kg": "",
       "notiz": "Im Rohmaterial nur als Frage notiert ('Hammerite?!') — Produkt offen.",
+      "gekauft_am": "",
+      "menge_n": 1.0,
+      "preis_n": 0.0,
+      "gesamt": 0.0,
+      "gewicht_n": 0.0
+    },
+    {
+      "id": "rostschutz-fensterausschnitt",
+      "titel": "Rostschutz Fensterausschnitt",
+      "beschreibung": "Rostschutz für die geschnittene Blechkante am Fensterausschnitt",
+      "kategorie": "Verbrauchsmaterial",
+      "system": "Karosserie",
+      "menge": "1",
+      "einheit": "Stk",
+      "preis": "",
+      "status": "Idee",
+      "prioritaet": "Mittel",
+      "link": "",
+      "haendler": "",
+      "fuer_aufgabe": "",
+      "entscheidung": "",
+      "kennwerte": "",
+      "gewicht_kg": "",
+      "notiz": "",
       "gekauft_am": "",
       "menge_n": 1.0,
       "preis_n": 0.0,

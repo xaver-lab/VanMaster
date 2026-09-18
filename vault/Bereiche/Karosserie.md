@@ -22,6 +22,13 @@ von Fahrer- und Beifahrerseite. Das ist die Grundlage, an der sich Kühlschrank,
 Küchenblock und die übrigen Möbel bei Tiefe und Breite messen müssen (siehe
 [[Küche]] zur Gangbreite).
 
+**Dachfenster.** Entschieden ist ein Dachfenster mit Lüfter, Fernbedienung,
+Insektenschutz und Verdunkelung, 400×400 mm. Der Einbau läuft über einen
+selbst gebauten Holzrahmen (Stärke Blechausschnitt +2 mm), der mit Polymax
+angeklebt, von innen verschraubt und mit Butyl-Dichtmasse gegen das Fenster
+abgedichtet wird; vor dem Einbau wird die geschnittene Blechkante mit
+Rostschutz behandelt. Der Arbeitsablauf steht unter Aufgaben.
+
 ## Auslegung
 
 Werte aus der handschriftlichen Aufmaß-Skizze (Foto), alle in cm. Ziffern auf
@@ -61,10 +68,27 @@ dem Foto teils eng beieinander — bei Zweifeln gegen das Originalblatt prüfen.
   „157"); diese Stelle ist oben nicht übernommen und sollte am Original
   nachgeprüft werden.
 
+Aus `_input/Fenster und Dachfenster/` (Rohnotiz, unbewertet — ob und wann die
+Seitenfenster gebaut werden, entscheidet der Nutzer):
+
+- Seitenfenster Fahrerseite: Notiz „erst einbauen, wenn Tisch fertig ist (dann
+  perfekt)". Noch nicht festgelegt.
+- Seitenfenster Beifahrerseite: Notiz „bauen wir?? (stört bei Küche!)". Ob es
+  überhaupt kommt, ist offen — Konflikt mit der Küchenplanung angemerkt.
+
 ## Links
 
-_(noch keine)_
+- [Dachfenster Super Fan 400×400](https://belluna.eu/shop/super-fan-dachfenster-mit-luefter-fernbedienung-insektenschutz-und-verdunkelung-400x400-mm-generation-3-1/) — Lüfter, Fernbedienung, Insektenschutz, Verdunkelung
+- [Belluna Fenster-Kategorie](https://belluna.eu/kategorie/fenster/) — Übersicht für die noch offenen Seitenfenster
 
 ## Aufgaben
 
-_(noch keine — siehe Vorbereitung)_
+### Dachfenster einbauen
+
+- [ ] Position bestimmen ^df-position
+- [ ] Holzrahmen bauen, Stärke Blechausschnitt +2 mm ^df-rahmen @braucht:df-position
+- [ ] Mit Rahmen anzeichnen, abkleben, schneiden ^df-schneiden @braucht:df-rahmen
+- [ ] Testen, feilen, Rostschutz auftragen ^df-rostschutz @braucht:df-schneiden
+- [ ] Holzrahmen mit Polymax ankleben ^df-ankleben @braucht:df-rostschutz
+- [ ] Butyl-Dichtmasse einsetzen ^df-dichtmasse @braucht:df-ankleben
+- [ ] Von innen verschrauben ^df-verschrauben @braucht:df-dichtmasse

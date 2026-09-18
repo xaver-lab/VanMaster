@@ -14,6 +14,6 @@ erzeugt: true
 - [[Möbel]] — 17 Teile, 353,23 €
 - [[Küche]] — 4 Teile, 754,00 €
 - [[Stauraum]] — 8 Teile, 157,00 €
-- [[Verbrauchsmaterial]] — 4 Teile, 28,00 €
+- [[Verbrauchsmaterial]] — 8 Teile, 28,00 €
 
 **Gesamt:** 3 045,53 €
