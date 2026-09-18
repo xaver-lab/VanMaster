@@ -107,6 +107,7 @@ Das alte Dashboard (`docs/`) läuft unverändert weiter, bis Phase 9 es ablöst.
 
 - [x] [Sonnet] Aufgabenliste mit Filter, Gruppierung, Suche; Statuswechsler; Anlegen, Umbenennen, Löschen (mit Rückfrage); Detailfenster mit Beschreibung
 - [x] [Sonnet] Bereichsansicht: Kopf, Reiter, bearbeitbare Abschnitte (Textfeld mit Markdown-Vorschau), nur-lesende Abschnitte sichtbar markiert
+- [ ] [Sonnet] Aufgabenliste (`web/src/lib/aufgaben/`) und Bereichsansicht (`web/src/lib/bereiche/`) auf die Bausteine aus `web/src/lib/ui/` und die Tokens aus `web/DESIGN.md` umstellen (Knopf, Chip, Statusmarke, Kontrollkaestchen, Dialog/`bestaetigen()`, Tabs, Rubrik, Leerzustand, Fortschritt); eigene Kopien dieser Elemente und alte Variablennamen entfernen; Verhalten bleibt gleich
 - [ ] [Sonnet] Browser-Prüfung: Anlegen/Ändern/Löschen landet in der Datei; Claude ändert parallel eine Datei → Oberfläche aktualisiert sich; Konflikt wird angezeigt
 - [ ] [Haupt] Feinschliff nach Rückmeldung des Nutzers
 
@@ -164,7 +165,7 @@ Eine Zeile je abgeschlossenem Punkt oder getroffener Entscheidung.
 - 2026-09-18 Nutzer: Stil wirkt „AI-Standard“ → Opus-Subagent entwirft parallel im Worktree ein neues Designsystem (`web/src/lib/ui/`, `web/DESIGN.md`, Musterseite `#/muster`); Abnahme durch den Nutzer vor dem Übernehmen.
 - 2026-09-18 Phase 6: Aufgabenliste (`web/src/lib/aufgaben/`: AufgabenListe `bereich?`, `anlegenErlaubt?`; AufgabeZeile, AufgabeDetail `#/aufgaben/<id>`), Filter/Gruppierung/Suche, Statuswechsler, Anlegen/Umbenennen/Löschen mit Rückfrage, Beschreibung mit Vorschau. `lib/markdown.ts` + `Markdown.svelte` lösen `[[…]]` auf; externe Links nur http(s)/ohne Schema. An Heizung durchgespielt, Vault danach bytegleich. Stil vorerst schlicht, folgt dem neuen Designsystem.
 - 2026-09-18 Phase 6: Bereichsansicht (`web/src/lib/bereiche/`): Übersicht sortierbar baustellen/phase/name, Detail mit Kopf und Reitern im Hash (`#/bereiche/<Name>/<reiter>`), Abschnitte nach `bearbeitbar.bereich_abschnitte` mit Text/Vorschau, sonst „pflegt Claude“. Konflikt beim Speichern: Toast, Eingabe bleibt, erneutes Speichern geht. Vault danach bytegleich.
-- 2026-09-18 Designentwurf „Werkstattheft“ fertig (Branch `worktree-agent-a1b58d27984b30b25`, Commit 0bea125, Vorschau-Eintrag `design-vorschau` Port 8767 in launch.json nur lokal) — wartet auf Abnahme durch den Nutzer.
+- 2026-09-18 Designsystem „Werkstattheft“ vom Nutzer abgenommen und nach main übernommen: warmes Papier/Graphit, eine Signalfarbe, Archivo + JetBrains Mono, Lucide-Icons (alles lokal über npm). Bausteine in `web/src/lib/ui/` (Sammelimport `ui/index.ts`), Anleitung `web/DESIGN.md`, Musterseite `#/muster`. Alte Variablennamen gelten als Aliase weiter. Neuer Punkt in Phase 6: Aufgaben- und Bereichsansicht auf die Bausteine umstellen.
 
 ## Offene Fragen
 
@@ -172,25 +173,35 @@ Eine Zeile je abgeschlossenem Punkt oder getroffener Entscheidung.
 
 ## Übergabe an den nächsten Chat
 
-Stand 2026-09-18: Phasen 0–5 fertig und abgenommen. Weiter mit **Phase 6**.
+Stand 2026-09-18: Phasen 0–5 fertig und abgenommen. Phase 6: Aufgabenliste und
+Bereichsansicht gebaut, Designsystem übernommen. Weiter mit **Phase 6: Umstellen auf
+die Bausteine**, danach Browser-Prüfung und Feinschliff.
 
 - Neuer Rechner: `pip install --user -r requirements.txt`; Node portabel nach `~/nodejs/`
   (Version 24, nicht im PATH) oder systemweit im PATH — `camper web` findet beides.
 - `python` muss 3.13 mit den Paketen sein (`python --version`); zeigt es auf eine andere Version, PATH prüfen.
-- Web: `python camper.py web build|check|dev`; Oberfläche liegt in `web/src/` (`lib/daten.svelte.ts` Store, `lib/router.svelte.ts`, `lib/Schreibbar.svelte`, `routen/`), Stil global in `web/src/app.css` (Klassen aus dem alten Dashboard).
-- Tests: `PYTHONIOENCODING=utf-8 python -m pytest -q` (162 Tests, ~85 s).
+- Tests: `PYTHONIOENCODING=utf-8 python -m pytest -q` (~165 Tests, ~85 s).
   Einzelne Datei reicht zum Abnehmen, am Phasenende einmal alles.
-- Node für npm/npx: `PATH=~/nodejs:$PATH` in der Sitzung setzen, sonst
-  scheitert npx am Node-Aufruf. `camper web build` soll `~/nodejs/npm.cmd`
-  aufrufen.
+- Web: `python camper.py web build|check|dev`. Nach Änderungen an `web/src` neu bauen,
+  der Server liefert `web/dist` aus. `check` hat 11 bekannte Warnungen (a11y) in
+  `aufgaben/*` und `bereiche/Abschnitt.svelte` — beim Umstellen mit erledigen.
+- Aufbau `web/src/`: `lib/daten.svelte.ts` (Store, Schreibfunktionen, SSE), `lib/router.svelte.ts`,
+  `lib/Schreibbar.svelte` (Lesemodus), `lib/ui/` (Bausteine, siehe `web/DESIGN.md`),
+  `lib/markdown.ts` + `Markdown.svelte` (`[[…]]`), `lib/aufgaben/` (AufgabenListe `bereich?`,
+  `anlegenErlaubt?`), `lib/bereiche/`, `routen/` (eine Datei je Ansicht, `Muster.svelte`).
+- Neue Ansichten: zuerst `web/DESIGN.md` lesen, nur Bausteine aus `lib/ui/` und Tokens
+  (`--farbe-*`, `--a-*`, `--r-*`) benutzen, Stil scoped in der Komponente, `app.css` nur für Globales.
 - Typen für `web/`: `python -m tools.server.schema` → `web/src/lib/api-typen.ts`.
 - Server zum Prüfen: Preview `camper-neu` (Port 8765) aus `.claude/launch.json`;
-  altes Dashboard unter `/alt/`, alter Server als `camper-serve` (8766).
+  altes Dashboard unter `/alt/`, alter Server als `camper-serve` (8766). Selbst gestartete
+  Server immer mit `--kein-commit`.
+- Der neue Server liefert noch keine Bilder aus `vault/Medien` aus (für Phase 8 Medien nötig).
 - SSE `GET /api/live`: `event: aenderung`, `data: {dateien:[{datei,version}], quelle}`.
   `quelle: "web"` = eigene Änderung, kein Konflikt anzeigen.
 - Status-Schlüssel ohne Umlaut: `offen|laeuft|erledigt|verworfen|blockiert`.
 - Parallele Subagenten: jedem die Dateien zuweisen, die er NICHT anfassen darf;
-  nach Rückmeldung nur seine Dateien committen.
+  nach Rückmeldung nur seine Dateien committen. Größere Umgestaltung parallel: Worktree
+  (`isolation: "worktree"`), `.claude/worktrees/` ist in `.gitignore`.
 
 ## Startprompt für jeden neuen Chat
 
