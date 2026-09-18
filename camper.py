@@ -211,9 +211,14 @@ def cmd_build(args) -> None:
 
 
 def cmd_serve(args) -> None:
-    from tools import serve
-    serve.run(port=args.port, offen=args.offen, oeffnen=not args.kein_browser,
-              sortierung=sortierung(args))
+    if args.alt:
+        from tools import serve
+        serve.run(port=args.port, offen=args.offen, oeffnen=not args.kein_browser,
+                  sortierung=sortierung(args))
+        return
+    from tools.server import start
+    start.run(port=args.port, offen=args.offen, oeffnen=not args.kein_browser,
+              sortierung=sortierung(args), kein_commit=args.kein_commit)
 
 
 def cmd_ui(args) -> None:
@@ -390,6 +395,10 @@ def parser() -> argparse.ArgumentParser:
                    help="auch vom Handy im WLAN erreichbar")
     s.add_argument("--kein-browser", dest="kein_browser", action="store_true",
                    help="Browser nicht selbst öffnen")
+    s.add_argument("--alt", action="store_true",
+                   help="altes Dashboard (tools/serve.py) statt der neuen App — Rückfallweg")
+    s.add_argument("--kein-commit", dest="kein_commit", action="store_true",
+                   help="keine Auto-Commits der Web-Änderungen (nur neue App)")
     s.add_argument("--sortierung", choices=SORTIERUNGEN,
                    default=STANDARD_SORTIERUNG,
                    help="Reihenfolge der Themen: baustellen (Status und "

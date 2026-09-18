@@ -8,10 +8,16 @@
       "port": 8777
     },
     {
-      "name": "camper-serve",
+      "name": "camper-neu",
       "runtimeExecutable": "python",
       "runtimeArgs": ["camper.py", "serve", "--kein-browser"],
       "port": 8765
+    },
+    {
+      "name": "camper-serve",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["camper.py", "serve", "--alt", "--kein-browser", "--port", "8766"],
+      "port": 8766
     }
   ]
 }

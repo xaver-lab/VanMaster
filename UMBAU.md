@@ -92,7 +92,7 @@ Das alte Dashboard (`docs/`) läuft unverändert weiter, bis Phase 9 es ablöst.
 - [x] [Sonnet] `tools/server/`: FastAPI-App mit Pydantic-Modellen; `GET /api/daten`, CRUD für Aufgaben, Abschnitte, Teile, Einzelteile; jede Schreibanfrage trägt den Dateihash, Konflikt → 409 mit aktuellem Stand
 - [ ] [Sonnet] Live-Aktualisierung: Dateien per mtime überwachen (Standardbibliothek), Änderungen als Server-Sent Events an den Browser
 - [x] [Sonnet] Auto-Commit: Web-Änderungen sammeln, nach einigen Minuten ohne Eingabe ein Commit mit einer Zeile; kein Push
-- [ ] [Sonnet] `camper serve` startet die neue App (liefert `web/dist` aus); alte Oberfläche weiter unter `/alt/` erreichbar; `.claude/launch.json` ergänzen
+- [x] [Sonnet] `camper serve` startet die neue App (liefert `web/dist` aus); alte Oberfläche weiter unter `/alt/` erreichbar; `.claude/launch.json` ergänzen
 - [x] [Sonnet] JSON-Schema aus den Pydantic-Modellen exportieren → TypeScript-Typen für `web/`
 - [ ] [Haupt] Abnahme: API-Tests grün, Konfliktfall einmal von Hand durchgespielt
 
@@ -154,6 +154,7 @@ Eine Zeile je abgeschlossenem Punkt oder getroffener Entscheidung.
 - 2026-09-18 Phase 4: `tools/server/` (app.py, modelle.py, daten.py). `/api/daten` = erzeugt, bereiche, aufgaben, querverweise, entscheidungen, anleitungen, recherche, teile, einzelteile, medien, versionen, kennzahlen, bearbeitbar; `daten_json()` liefert dasselbe für den statischen Build. REST-Routen für Aufgaben, Abschnitte/Kopf, Teile, Einzelteile; 409 mit `stand`, 403/422/404. Einhängepunkt `app.state.nach_schreiben`. Teil-Felder außerhalb der Matrix → 422 (Kern meldet `Ungueltig`). 21 Tests.
 - 2026-09-18 Phase 4: `tools/server/commit.py` — `anmelden(app, ruhe_sekunden=180)` sammelt Web-Änderungen, committet nach Ruhe nur diese Dateien, eine Zeile „Web: … geändert“, ohne Co-Authored-By, kein Push; `jetzt_committen()` beim Beenden. 7 Tests.
 - 2026-09-18 Phase 4: `python -m tools.server.schema` erzeugt `web/src/lib/api-typen.ts` (+ `api-schema.json`) aus den 21 Pydantic-Modellen, ohne npm; tsc --strict fehlerfrei. npx braucht Node im PATH der Sitzung (`PATH=~/nodejs:$PATH`). 4 Tests.
+- 2026-09-18 Phase 4: `tools/server/start.py` — `camper serve` startet die neue App: `/api/*`, `/alt/` = altes Dashboard samt alten Schreibendpunkten, `/` = `web/dist` mit SPA-Fallback (ohne dist Hinweisseite). Auto-Commit an, `--kein-commit` aus, `--alt` = alter Server. launch.json: `camper-neu` (8765), `camper-serve` = alt (8766). 8 Tests.
 
 ## Offene Fragen
 
