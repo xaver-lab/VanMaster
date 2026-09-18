@@ -98,7 +98,7 @@ Das alte Dashboard (`docs/`) läuft unverändert weiter, bis Phase 9 es ablöst.
 
 ## Phase 5 — Web-Grundgerüst
 
-- [ ] [Sonnet] `web/`: Vite + Svelte 5 + TypeScript, Build per `camper web build` (ruft `~/nodejs/npm.cmd`), `node_modules` und `dist` in `.gitignore`
+- [x] [Sonnet] `web/`: Vite + Svelte 5 + TypeScript, Build per `camper web build` (ruft `~/nodejs/npm.cmd`), `node_modules` und `dist` in `.gitignore`
 - [ ] [Sonnet] Datenschicht im Browser: ein Store, lädt `/api/daten` (Server) oder `data.json` (statisch), hört auf SSE, Schreibfunktionen mit Hash und Konfliktanzeige, Sperre während laufender Anfrage
 - [ ] [Sonnet] Rahmen: Navigation, Routing per Hash, Hell/Dunkel, Toasts, Tastenkürzel wie heute; Lesemodus blendet alle Bearbeitungselemente aus
 - [ ] [Haupt] Stil aus `docs/css/` übernehmen, Abnahme mit dem Nutzer
@@ -167,7 +167,8 @@ Eine Zeile je abgeschlossenem Punkt oder getroffener Entscheidung.
 Stand 2026-09-18: Phasen 0–4 fertig und abgenommen. Weiter mit **Phase 5**.
 
 - Neuer Rechner: `pip install --user -r requirements.txt`; Node portabel nach `~/nodejs/`
-  (Version 24, nicht im PATH).
+  (Version 24, nicht im PATH) oder systemweit im PATH — `camper web` findet beides.
+- Auf dem Zweitrechner ist `python` im Git-Bash 3.14 ohne Pakete → `py -3.13` benutzen.
 - Tests: `PYTHONIOENCODING=utf-8 python -m pytest -q` (162 Tests, ~85 s).
   Einzelne Datei reicht zum Abnehmen, am Phasenende einmal alles.
 - Node für npm/npx: `PATH=~/nodejs:$PATH` in der Sitzung setzen, sonst

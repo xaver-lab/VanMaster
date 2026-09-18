@@ -18,6 +18,7 @@ desktop.ini
 .obsidian/workspace*.json
 .pytest_cache/
 
-# web/ (UMBAU.md Phase 5) — Build-Ausgaben, kein Vite-Projekt bislang
+# web/ (UMBAU.md Phase 5) — Vite + Svelte 5 + TypeScript, package-lock.json
+# gehört ins Repo, node_modules/ und dist/ nicht
 web/node_modules/
 web/dist/
