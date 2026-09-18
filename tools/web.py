@@ -3,6 +3,8 @@
     python camper.py web build   → web/dist erzeugen (npm install/ci bei Bedarf)
     python camper.py web dev     → Vite-Dev-Server (Proxy auf camper serve)
     python camper.py web check   → svelte-check (inkl. api-typen.ts)
+    python camper.py web daten   → web/dist/data.json + medien/ (Lesemodus,
+                                    z. B. GitHub Pages) — erst nach `web build`
 
 npm-Suche: zuerst ``~/nodejs/npm.cmd`` (portable Node auf manchen Rechnern —
 dann ``~/nodejs`` vorne in den PATH des Kindprozesses, sonst scheitert npm am
@@ -15,7 +17,7 @@ import shutil
 import subprocess
 from pathlib import Path
 
-from .common import ROOT, fail
+from .common import DOCS, ROOT, STANDARD_SORTIERUNG, fail, write_json
 
 WEB_DIR = ROOT / "web"
 
@@ -100,6 +102,35 @@ def check() -> str:
     else:
         zeilen.append("svelte-check ohne Ausgabe (ok)")
     return "\n".join(zeilen)
+
+
+def daten_export(sortierung: str = STANDARD_SORTIERUNG) -> str:
+    """web/dist/data.json + medien/ für den Lesemodus (GitHub Pages, UMBAU.md
+    Phase 9). Dieselbe Struktur wie ``GET /api/daten``
+    (``tools/server/daten.py:daten_json``); als Nebeneffekt davon aktualisiert
+    ``media.web_export()`` auch ``docs/medien`` — von dort wird hierher
+    kopiert. Läuft erst nach ``web build`` (braucht ``web/dist``)."""
+    dist = WEB_DIR / "dist"
+    if not (dist / "index.html").is_file():
+        fail("web/dist fehlt — erst `camper web build` laufen lassen.")
+    from fastapi.encoders import jsonable_encoder
+
+    from .server import daten as server_daten  # spät, um Zyklen zu vermeiden
+
+    # Gleiche Umwandlung wie FastAPI sie für GET /api/daten selbst macht
+    # (Bereich & Co. sind Dataclasses, json.dumps kann sie nicht direkt).
+    d = jsonable_encoder(server_daten.daten_json(sortierung))
+    write_json(dist / "data.json", d)
+
+    medien_ziel = dist / "medien"
+    if medien_ziel.exists():
+        shutil.rmtree(medien_ziel)
+    quelle = DOCS / "medien"
+    n = 0
+    if quelle.exists():
+        shutil.copytree(quelle, medien_ziel)
+        n = sum(1 for p in medien_ziel.rglob("*") if p.is_file())
+    return f"web/dist/data.json geschrieben, {n} Mediendateien nach web/dist/medien kopiert"
 
 
 def dev() -> None:

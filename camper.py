@@ -231,6 +231,8 @@ def cmd_web(args) -> None:
         print(web.build())
     elif args.was == "check":
         print(web.check())
+    elif args.was == "daten":
+        print(web.daten_export(sortierung(args)))
     else:
         web.dev()
 
@@ -423,6 +425,10 @@ def parser() -> argparse.ArgumentParser:
     web_sub.add_parser("build", help="web/dist erzeugen")
     web_sub.add_parser("dev", help="Vite-Dev-Server starten")
     web_sub.add_parser("check", help="svelte-check laufen lassen")
+    d = web_sub.add_parser("daten", help="web/dist/data.json + medien/ für "
+                           "den Lesemodus (nach `web build`)")
+    d.add_argument("--sortierung", choices=SORTIERUNGEN,
+                   default=STANDARD_SORTIERUNG)
     s.set_defaults(func=cmd_web)
     return p
 

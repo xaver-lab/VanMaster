@@ -51,3 +51,36 @@ def test_ohne_npm_klare_fehlermeldung(tmp_path, monkeypatch, capsys):
 
     fehler = capsys.readouterr().err
     assert "npm" in fehler
+
+
+def test_daten_export_ohne_dist_bricht_ab(repo, capsys):
+    """`web daten` setzt einen fertigen `web build` voraus (UMBAU.md Phase 9,
+    Lesemodus/GitHub Pages)."""
+    with pytest.raises(SystemExit):
+        web.daten_export()
+    assert "web build" in capsys.readouterr().err
+
+
+def test_daten_export_schreibt_data_json_und_kopiert_medien(repo):
+    """Schreibt web/dist/data.json (gleiche Struktur wie GET /api/daten) und
+    kopiert die Web-Bildkopien aus docs/medien (Nebeneffekt von
+    media.web_export() innerhalb von daten_json()) nach web/dist/medien."""
+    import json as _json
+
+    (web.WEB_DIR / "dist").mkdir(parents=True)
+    (web.WEB_DIR / "dist" / "index.html").write_text("<html></html>",
+                                                       encoding="utf-8")
+
+    meldung = web.daten_export()
+
+    ziel = web.WEB_DIR / "dist" / "data.json"
+    assert ziel.is_file()
+    daten = _json.loads(ziel.read_text(encoding="utf-8"))
+    assert "bereiche" in daten and "teile" in daten and "medien" in daten
+
+    medien_ziel = web.WEB_DIR / "dist" / "medien"
+    assert medien_ziel.is_dir()
+    kopiert = [p for p in medien_ziel.rglob("*") if p.is_file()]
+    assert len(kopiert) > 0
+    assert "data.json geschrieben" in meldung
+    assert "medien" in meldung
