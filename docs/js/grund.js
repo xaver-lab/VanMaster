@@ -21,10 +21,11 @@ const euro = (n) => (n || 0).toLocaleString("de-AT", {
 });
 const kleinschrift = (s) => (s || "").toLowerCase();
 
-const STATUS_WORT = { offen: "offen", laeuft: "läuft", erledigt: "erledigt",
-                      verworfen: "verworfen" };
-const STATUS_BEFEHL = { offen: "open", laeuft: "start", erledigt: "done",
-                        verworfen: "drop" };
+const STATUS_WORT = { offen: "offen", laeuft: "in Arbeit", blockiert: "blockiert",
+                      erledigt: "abgeschlossen", verworfen: "verworfen" };
+const STATUS_BEFEHL = { offen: "open", laeuft: "start", blockiert: "block",
+                        erledigt: "done", verworfen: "drop" };
+const AUFGABE_STATUS = ["offen", "laeuft", "blockiert", "erledigt"];
 const TEIL_STATUS = ["Idee", "Recherche", "Entschieden", "Bestellt",
                      "Geliefert", "Verbaut"];
 
@@ -144,14 +145,6 @@ function blocker(a, karte) {
   return (a.braucht || []).map((id) => karte[id]).filter((b) => b && !erledigt(b));
 }
 
-/** Klick auf das Kästchen: offen → läuft → erledigt → offen. */
-function naechsterStatus(status, rueckwaerts) {
-  const drei = ["offen", "laeuft", "erledigt"];
-  const i = drei.indexOf(status);
-  if (i < 0) return "offen";                    // aus „verworfen" zurück auf offen
-  return drei[(i + (rueckwaerts ? -1 : 1) + 3) % 3];
-}
-
 async function aufgabeSetzen(a, status) {
   if (!SCHREIBEN) {
     befehlAnbieten(`python camper.py task ${STATUS_BEFEHL[status]} ${a.id}`);
@@ -215,21 +208,45 @@ function statusMarke(wert) {
   return neu("span", "status " + (wert || "").replace(/\s+/g, "-"), wert || "—");
 }
 
-/** Aufgabenzeile mit klickbarem Kästchen. */
+/** Statuswechsler für Aufgaben — gleicher Aufbau wie bei den Teilen. */
+function aufgabeStatusWechsler(a) {
+  const huelle = neu("div", "wechsler");
+  const anzeige = a.status === "verworfen" ? "verworfen" : STATUS_WORT[a.status];
+  const knopf = neu("button", null, anzeige + (a.kinder.length ? "" : " ▾"));
+  knopf.className = "status " + a.status;
+  huelle.append(knopf);
+
+  if (a.kinder.length) {
+    knopf.disabled = true;
+    knopf.title = "Sammelaufgabe — Haken an den Unterpunkten";
+    return huelle;
+  }
+  knopf.title = "Status ändern";
+  knopf.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const offen = huelle.querySelector(".menue");
+    document.querySelectorAll(".menue").forEach((m) => m.remove());
+    if (offen) return;
+    const menue = neu("div", "menue");
+    for (const s of AUFGABE_STATUS) {
+      const eintrag = neu("button", a.status === s ? "aktiv" : "", STATUS_WORT[s]);
+      eintrag.addEventListener("click", (ev) => {
+        ev.stopPropagation();
+        menue.remove();
+        aufgabeSetzen(a, s);
+      });
+      menue.append(eintrag);
+    }
+    huelle.append(menue);
+  });
+  return huelle;
+}
+
+/** Aufgabenzeile — Klick öffnet das Detailmodal, das Kästchen den Statuswechsler. */
 function aufgabeZeile(a, karte, mitThema) {
   const li = neu("li", `${a.status} ebene-${Math.min(a.ebene, 2)}` +
                        (a.kinder.length ? " kopfknoten" : ""));
-  const kasten = neu("button", "kasten",
-                     { erledigt: "✓", laeuft: "●", verworfen: "✕", offen: "" }[a.status] || "");
-  kasten.title = a.kinder.length
-    ? "Sammelaufgabe — Haken an den Unterpunkten"
-    : `${STATUS_WORT[a.status]} · klicken zum Weiterschalten, Umschalt+Klick verwirft`;
-  if (a.kinder.length) kasten.classList.add("bittewarten");
-  kasten.addEventListener("click", (e) => {
-    e.stopPropagation();
-    if (a.kinder.length) return;
-    aufgabeSetzen(a, e.shiftKey ? "verworfen" : naechsterStatus(a.status, e.altKey));
-  });
+  li.addEventListener("click", () => aufgabeModalOeffnen(a));
 
   const text = neu("div", "aufgabe-text");
   text.append(neu("span", "titel", a.titel));
@@ -246,7 +263,7 @@ function aufgabeZeile(a, karte, mitThema) {
   }
   if (meta.children.length) text.append(meta);
 
-  li.append(kasten, text);
+  li.append(aufgabeStatusWechsler(a), text);
   return li;
 }
 

@@ -1,5 +1,5 @@
 {
-  "erzeugt": "2026-09-18T10:16",
+  "erzeugt": "2026-09-18T10:28",
   "projekt": "VanMaster",
   "sortierung": "baustellen",
   "kennzahlen": {
@@ -256,8 +256,10 @@
       "braucht": [],
       "prio": "kritisch",
       "dauer": "",
+      "beschreibung": "",
       "datei": "vault\\Bereiche\\Dämmung.md",
-      "zeile": 65
+      "zeile": 65,
+      "fotos": []
     },
     {
       "id": "hohlraeume-daemmen",
@@ -273,8 +275,10 @@
       ],
       "prio": "",
       "dauer": "",
+      "beschreibung": "",
       "datei": "vault\\Bereiche\\Dämmung.md",
-      "zeile": 66
+      "zeile": 66,
+      "fotos": []
     },
     {
       "id": "dampfbremse",
@@ -288,8 +292,10 @@
       "braucht": [],
       "prio": "",
       "dauer": "",
+      "beschreibung": "",
       "datei": "vault\\Bereiche\\Dämmung.md",
-      "zeile": 67
+      "zeile": 67,
+      "fotos": []
     },
     {
       "id": "boden-aufbauen",
@@ -305,8 +311,23 @@
       ],
       "prio": "",
       "dauer": "",
+      "beschreibung": "",
       "datei": "vault\\Bereiche\\Dämmung.md",
-      "zeile": 68
+      "zeile": 68,
+      "fotos": [
+        {
+          "name": "2026-09-17-boden-kleben",
+          "bereich": "Dämmung",
+          "datei": "2026-09-17-boden-kleben.png",
+          "pfad": "medien/daemmung/2026-09-17-boden-kleben.png"
+        },
+        {
+          "name": "2026-09-18-innenraum-aufmass-boden-mitte-oben-tuer-seiten",
+          "bereich": "Karosserie",
+          "datei": "2026-09-18-innenraum-aufmass-boden-mitte-oben-tuer-seiten.jpg",
+          "pfad": "medien/karosserie/2026-09-18-innenraum-aufmass-boden-mitte-oben-tuer-seiten.jpg"
+        }
+      ]
     },
     {
       "id": "strombilanz",
@@ -320,8 +341,10 @@
       "braucht": [],
       "prio": "kritisch",
       "dauer": "",
+      "beschreibung": "",
       "datei": "vault\\Bereiche\\Elektrik.md",
-      "zeile": 54
+      "zeile": 54,
+      "fotos": []
     },
     {
       "id": "batteriebank-entscheiden",
@@ -337,8 +360,10 @@
       ],
       "prio": "kritisch",
       "dauer": "",
+      "beschreibung": "",
       "datei": "vault\\Bereiche\\Elektrik.md",
-      "zeile": 55
+      "zeile": 55,
+      "fotos": []
     },
     {
       "id": "batteriehalterung",
@@ -354,8 +379,10 @@
       ],
       "prio": "",
       "dauer": "",
+      "beschreibung": "",
       "datei": "vault\\Bereiche\\Elektrik.md",
-      "zeile": 59
+      "zeile": 59,
+      "fotos": []
     },
     {
       "id": "solar-montieren",
@@ -369,8 +396,10 @@
       "braucht": [],
       "prio": "hoch",
       "dauer": "",
+      "beschreibung": "",
       "datei": "vault\\Bereiche\\Elektrik.md",
-      "zeile": 60
+      "zeile": 60,
+      "fotos": []
     },
     {
       "id": "verteilung",
@@ -386,8 +415,10 @@
       ],
       "prio": "",
       "dauer": "",
+      "beschreibung": "",
       "datei": "vault\\Bereiche\\Elektrik.md",
-      "zeile": 61
+      "zeile": 61,
+      "fotos": []
     },
     {
       "id": "heizung-entscheiden",
@@ -401,8 +432,10 @@
       "braucht": [],
       "prio": "kritisch",
       "dauer": "",
+      "beschreibung": "",
       "datei": "vault\\Bereiche\\Heizung.md",
-      "zeile": 43
+      "zeile": 43,
+      "fotos": []
     },
     {
       "id": "heizung-einbauort",
@@ -418,8 +451,10 @@
       ],
       "prio": "",
       "dauer": "",
+      "beschreibung": "",
       "datei": "vault\\Bereiche\\Heizung.md",
-      "zeile": 44
+      "zeile": 44,
+      "fotos": []
     },
     {
       "id": "heizung-einbauen",
@@ -435,8 +470,10 @@
       ],
       "prio": "",
       "dauer": "",
+      "beschreibung": "",
       "datei": "vault\\Bereiche\\Heizung.md",
-      "zeile": 45
+      "zeile": 45,
+      "fotos": []
     },
     {
       "id": "df-position",
@@ -450,8 +487,10 @@
       "braucht": [],
       "prio": "",
       "dauer": "",
+      "beschreibung": "",
       "datei": "vault\\Bereiche\\Karosserie.md",
-      "zeile": 88
+      "zeile": 88,
+      "fotos": []
     },
     {
       "id": "df-rahmen",
@@ -467,8 +506,10 @@
       ],
       "prio": "",
       "dauer": "",
+      "beschreibung": "",
       "datei": "vault\\Bereiche\\Karosserie.md",
-      "zeile": 89
+      "zeile": 89,
+      "fotos": []
     },
     {
       "id": "df-schneiden",
@@ -484,8 +525,10 @@
       ],
       "prio": "",
       "dauer": "",
+      "beschreibung": "",
       "datei": "vault\\Bereiche\\Karosserie.md",
-      "zeile": 90
+      "zeile": 90,
+      "fotos": []
     },
     {
       "id": "df-rostschutz",
@@ -501,8 +544,10 @@
       ],
       "prio": "",
       "dauer": "",
+      "beschreibung": "",
       "datei": "vault\\Bereiche\\Karosserie.md",
-      "zeile": 91
+      "zeile": 91,
+      "fotos": []
     },
     {
       "id": "df-ankleben",
@@ -518,8 +563,10 @@
       ],
       "prio": "",
       "dauer": "",
+      "beschreibung": "",
       "datei": "vault\\Bereiche\\Karosserie.md",
-      "zeile": 92
+      "zeile": 92,
+      "fotos": []
     },
     {
       "id": "df-dichtmasse",
@@ -535,8 +582,10 @@
       ],
       "prio": "",
       "dauer": "",
+      "beschreibung": "",
       "datei": "vault\\Bereiche\\Karosserie.md",
-      "zeile": 93
+      "zeile": 93,
+      "fotos": []
     },
     {
       "id": "df-verschrauben",
@@ -552,8 +601,10 @@
       ],
       "prio": "",
       "dauer": "",
+      "beschreibung": "",
       "datei": "vault\\Bereiche\\Karosserie.md",
-      "zeile": 94
+      "zeile": 94,
+      "fotos": []
     },
     {
       "id": "kochstelle-entscheiden",
@@ -567,8 +618,17 @@
       "braucht": [],
       "prio": "hoch",
       "dauer": "",
+      "beschreibung": "",
       "datei": "vault\\Bereiche\\Küche.md",
-      "zeile": 110
+      "zeile": 110,
+      "fotos": [
+        {
+          "name": "2026-09-17-ideenbild-haengeschraenke-dachfenster-kochstelle",
+          "bereich": "Möbel",
+          "datei": "2026-09-17-ideenbild-haengeschraenke-dachfenster-kochstelle.png",
+          "pfad": "medien/moebel/2026-09-17-ideenbild-haengeschraenke-dachfenster-kochstelle.png"
+        }
+      ]
     },
     {
       "id": "kuehlschrank-entscheiden",
@@ -584,8 +644,17 @@
       ],
       "prio": "hoch",
       "dauer": "",
+      "beschreibung": "",
       "datei": "vault\\Bereiche\\Küche.md",
-      "zeile": 111
+      "zeile": 111,
+      "fotos": [
+        {
+          "name": "2026-09-17-muellauszug-neben-kuehlschrank",
+          "bereich": "Küche",
+          "datei": "2026-09-17-muellauszug-neben-kuehlschrank.jpg",
+          "pfad": "medien/kueche/2026-09-17-muellauszug-neben-kuehlschrank.jpg"
+        }
+      ]
     },
     {
       "id": "kueche-einbauen",
@@ -601,8 +670,17 @@
       ],
       "prio": "",
       "dauer": "",
+      "beschreibung": "",
       "datei": "vault\\Bereiche\\Küche.md",
-      "zeile": 112
+      "zeile": 112,
+      "fotos": [
+        {
+          "name": "2026-09-18-grundriss-2d-skizze-drehsitze-kueche-bett",
+          "bereich": "Möbel",
+          "datei": "2026-09-18-grundriss-2d-skizze-drehsitze-kueche-bett.png",
+          "pfad": "medien/moebel/2026-09-18-grundriss-2d-skizze-drehsitze-kueche-bett.png"
+        }
+      ]
     },
     {
       "id": "layout",
@@ -616,8 +694,10 @@
       "braucht": [],
       "prio": "kritisch",
       "dauer": "",
+      "beschreibung": "",
       "datei": "vault\\Bereiche\\Möbel.md",
-      "zeile": 171
+      "zeile": 171,
+      "fotos": []
     },
     {
       "id": "bettrahmen",
@@ -633,8 +713,10 @@
       ],
       "prio": "",
       "dauer": "",
+      "beschreibung": "",
       "datei": "vault\\Bereiche\\Möbel.md",
-      "zeile": 172
+      "zeile": 172,
+      "fotos": []
     },
     {
       "id": "kuechenblock",
@@ -650,8 +732,17 @@
       ],
       "prio": "",
       "dauer": "",
+      "beschreibung": "",
       "datei": "vault\\Bereiche\\Möbel.md",
-      "zeile": 173
+      "zeile": 173,
+      "fotos": [
+        {
+          "name": "2026-09-17-kuechenblock-an-schiebetuer",
+          "bereich": "Küche",
+          "datei": "2026-09-17-kuechenblock-an-schiebetuer.png",
+          "pfad": "medien/kueche/2026-09-17-kuechenblock-an-schiebetuer.png"
+        }
+      ]
     },
     {
       "id": "schraenke",
@@ -667,8 +758,10 @@
       ],
       "prio": "",
       "dauer": "",
+      "beschreibung": "",
       "datei": "vault\\Bereiche\\Möbel.md",
-      "zeile": 174
+      "zeile": 174,
+      "fotos": []
     },
     {
       "id": "sitzbank",
@@ -684,8 +777,10 @@
       ],
       "prio": "",
       "dauer": "",
+      "beschreibung": "",
       "datei": "vault\\Bereiche\\Möbel.md",
-      "zeile": 175
+      "zeile": 175,
+      "fotos": []
     },
     {
       "id": "tisch",
@@ -701,8 +796,10 @@
       ],
       "prio": "",
       "dauer": "",
+      "beschreibung": "",
       "datei": "vault\\Bereiche\\Möbel.md",
-      "zeile": 176
+      "zeile": 176,
+      "fotos": []
     },
     {
       "id": "masse-aufnehmen",
@@ -716,8 +813,10 @@
       "braucht": [],
       "prio": "kritisch",
       "dauer": "",
+      "beschreibung": "",
       "datei": "vault\\Bereiche\\Vorbereitung.md",
-      "zeile": 36
+      "zeile": 36,
+      "fotos": []
     },
     {
       "id": "rost-pruefen",
@@ -731,8 +830,10 @@
       "braucht": [],
       "prio": "hoch",
       "dauer": "",
+      "beschreibung": "",
       "datei": "vault\\Bereiche\\Vorbereitung.md",
-      "zeile": 37
+      "zeile": 37,
+      "fotos": []
     },
     {
       "id": "entkernen",
@@ -748,8 +849,10 @@
       ],
       "prio": "hoch",
       "dauer": "",
+      "beschreibung": "",
       "datei": "vault\\Bereiche\\Vorbereitung.md",
-      "zeile": 38
+      "zeile": 38,
+      "fotos": []
     },
     {
       "id": "tankgroessen",
@@ -763,8 +866,10 @@
       "braucht": [],
       "prio": "hoch",
       "dauer": "",
+      "beschreibung": "",
       "datei": "vault\\Bereiche\\Wasser.md",
-      "zeile": 52
+      "zeile": 52,
+      "fotos": []
     },
     {
       "id": "wasser-leitungen",
@@ -780,8 +885,10 @@
       ],
       "prio": "",
       "dauer": "",
+      "beschreibung": "",
       "datei": "vault\\Bereiche\\Wasser.md",
-      "zeile": 53
+      "zeile": 53,
+      "fotos": []
     },
     {
       "id": "spuele-einbauen",
@@ -797,8 +904,23 @@
       ],
       "prio": "",
       "dauer": "",
+      "beschreibung": "",
       "datei": "vault\\Bereiche\\Wasser.md",
-      "zeile": 54
+      "zeile": 54,
+      "fotos": [
+        {
+          "name": "2026-09-17-kocher-spuele-kombi-mit-ausklapptisch",
+          "bereich": "Küche",
+          "datei": "2026-09-17-kocher-spuele-kombi-mit-ausklapptisch.png",
+          "pfad": "medien/kueche/2026-09-17-kocher-spuele-kombi-mit-ausklapptisch.png"
+        },
+        {
+          "name": "2026-09-17-spuele-edelstahl-mit-holzdeckel",
+          "bereich": "Küche",
+          "datei": "2026-09-17-spuele-edelstahl-mit-holzdeckel.png",
+          "pfad": "medien/kueche/2026-09-17-spuele-edelstahl-mit-holzdeckel.png"
+        }
+      ]
     }
   ],
   "teile": [

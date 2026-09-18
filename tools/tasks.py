@@ -3,11 +3,14 @@
 Zeilenformat, so wie Obsidian es nativ abhakt:
 
     - [ ] Batteriehalterung bauen ^batteriehalterung #hoch @dauer:3h
+      > Wie: Winkel aus 3mm Alu, an die Querträger geschraubt.
       - [x] Maße nehmen
     - [ ] Batterien anschließen ^batterien-anschliessen @braucht:batteriehalterung
 
-Kästchen: [ ] offen · [/] läuft · [x] erledigt · [-] verworfen.
+Kästchen: [ ] offen · [/] läuft · [!] blockiert · [x] erledigt · [-] verworfen.
 Marken: ^kennung (Obsidian-Blockanker) · #prio · @braucht:<kennung> · @dauer:<text>
+Direkt unter einer Aufgabe stehende Blockquote-Zeilen (`> …`) sind ihre
+Beschreibung ("wie wird das gemacht") — mehrere Zeilen werden aneinandergereiht.
 
 Gelesen wird nur der Abschnitt "## Aufgaben" einer Bereichsdatei — eine
 Checkbox in den Notizen ist ein Merker, keine Aufgabe.
@@ -22,13 +25,16 @@ from .common import (
     split_frontmatter,
 )
 
-BOX = {" ": "offen", "/": "laeuft", "x": "erledigt", "X": "erledigt", "-": "verworfen"}
-BOX_ZEICHEN = {"offen": " ", "laeuft": "/", "erledigt": "x", "verworfen": "-"}
+BOX = {" ": "offen", "/": "laeuft", "x": "erledigt", "X": "erledigt",
+       "-": "verworfen", "!": "blockiert"}
+BOX_ZEICHEN = {"offen": " ", "laeuft": "/", "erledigt": "x",
+              "verworfen": "-", "blockiert": "!"}
 ERLEDIGT = ("erledigt", "verworfen")
 
 PRIOS = {"kritisch": 0, "hoch": 1, "mittel": 2, "nice": 3}
 
-ZEILE = re.compile(r"^(?P<einzug>[ \t]*)- \[(?P<box>[ xX/\-])\] (?P<rest>.*)$")
+ZEILE = re.compile(r"^(?P<einzug>[ \t]*)- \[(?P<box>[ xX/\-!])\] (?P<rest>.*)$")
+BESCHREIBUNG = re.compile(r"^[ \t]+>\s?(?P<text>.*)$")
 ANKER = re.compile(r"(?:^|\s)\^([A-Za-z0-9\-_]+)")
 PRIO = re.compile(r"(?:^|\s)#(kritisch|hoch|mittel|nice)\b", re.I)
 MARKE = re.compile(r"(?:^|\s)@(braucht|dauer):([^\s]+)")
@@ -49,18 +55,27 @@ def load() -> list[dict]:
         gruppe = ""
         drin = False
         stapel: dict[int, str] = {}
+        letzte_aufgabe: dict | None = None
         for nr, zeile in enumerate(read_text(datei).splitlines(), start=1):
             if zeile.startswith("## ") and not zeile.startswith("### "):
                 drin = zeile[3:].strip().lower() == "aufgaben"
                 gruppe = ""
+                letzte_aufgabe = None
                 continue
             if not drin:
                 continue
             if zeile.startswith("#"):
                 gruppe = zeile.lstrip("#").strip()
+                letzte_aufgabe = None
                 continue
             treffer = ZEILE.match(zeile)
             if not treffer:
+                beschr = BESCHREIBUNG.match(zeile)
+                if beschr and letzte_aufgabe is not None:
+                    zusatz = beschr.group("text").rstrip()
+                    letzte_aufgabe["beschreibung"] = (
+                        f"{letzte_aufgabe['beschreibung']}\n{zusatz}"
+                        if letzte_aufgabe["beschreibung"] else zusatz)
                 continue
             tiefe = ebene(treffer.group("einzug"))
             rest = treffer.group("rest").strip()
@@ -84,7 +99,7 @@ def load() -> list[dict]:
 
             if not kennung:
                 kennung = slug(f"{bereich}-{titel}")[:60]
-            aufgaben.append({
+            neue_aufgabe = {
                 "id": kennung,
                 "titel": titel,
                 "status": BOX[treffer.group("box")],
@@ -96,9 +111,12 @@ def load() -> list[dict]:
                 "braucht": braucht,
                 "prio": prio,
                 "dauer": dauer,
+                "beschreibung": "",
                 "datei": str(datei.relative_to(BEREICHE_DIR.parent.parent)),
                 "zeile": nr,
-            })
+            }
+            aufgaben.append(neue_aufgabe)
+            letzte_aufgabe = neue_aufgabe
             stapel[tiefe] = kennung
             for t in list(stapel):
                 if t > tiefe:
@@ -240,6 +258,32 @@ def set_status(task_id: str, status: str) -> str:
                  f"{treffer.group('rest').strip()}")
     datei.write_text("\n".join(zeilen) + "\n", encoding="utf-8", newline="\n")
     return f"{a['titel']}: {a['status']} → {status}"
+
+
+def set_description(task_id: str, text: str) -> str:
+    """Setzt/ersetzt die Beschreibung einer Aufgabe — Blockquote-Zeilen direkt
+    darunter, im gleichen Einzug wie ihre Unterpunkte."""
+    aufgaben = load()
+    a = find(task_id, aufgaben)
+    if a is None:
+        fail(f"Keine Aufgabe zu '{task_id}' gefunden.")
+    datei = Path(BEREICHE_DIR.parent.parent / a["datei"])
+    zeilen = read_text(datei).splitlines()
+    i = a["zeile"] - 1
+    treffer = ZEILE.match(zeilen[i])
+    if not treffer:
+        fail(f"Zeile {a['zeile']} in {a['datei']} passt nicht mehr — bitte 'sync'.")
+    einzug = treffer.group("einzug").replace("\t", "  ") + "  "
+
+    ende = i + 1
+    while ende < len(zeilen) and BESCHREIBUNG.match(zeilen[ende]):
+        ende += 1
+
+    text = text.strip("\n")
+    neue = [f"{einzug}> {z}" for z in text.splitlines()] if text.strip() else []
+    zeilen[i + 1:ende] = neue
+    datei.write_text("\n".join(zeilen) + "\n", encoding="utf-8", newline="\n")
+    return f"{a['titel']}: Beschreibung {'gespeichert' if neue else 'gelöscht'}"
 
 
 def overview_text(sortierung: str = "") -> str:

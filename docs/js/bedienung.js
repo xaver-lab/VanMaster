@@ -75,6 +75,9 @@ el("teile-rasterwahl").addEventListener("click", (e) => {
 el("teil-modal").addEventListener("click", (e) => {
   if (e.target === el("teil-modal") || e.target.closest(".modal-zu")) teilModalSchliessen();
 });
+el("aufgabe-modal").addEventListener("click", (e) => {
+  if (e.target === el("aufgabe-modal") || e.target.closest(".modal-zu")) aufgabeModalSchliessen();
+});
 for (const id of ["aufgaben-suche", "aufgaben-gruppierung"]) {
   el(id).addEventListener("input", aufgabenListe);
 }
@@ -109,6 +112,7 @@ window.addEventListener("keydown", (e) => {
     paletteSchliessen();
     el("lupe").hidden = true;
     el("teil-modal").hidden = true;
+    el("aufgabe-modal").hidden = true;
     document.querySelectorAll(".menue").forEach((m) => m.remove());
     if (imFeld) document.activeElement.blur();
     return;

@@ -102,11 +102,13 @@
 
       <!-- --------------------------------------------------- Aufgaben -->
       <section id="aufgaben" class="ansicht">
+        <div id="aufgaben-uebersicht" class="aufgaben-uebersicht"></div>
         <div class="leiste">
           <input id="aufgaben-suche" type="search" placeholder="Aufgabe suchen …" autocomplete="off">
           <div class="chips" id="aufgaben-chips"></div>
           <select id="aufgaben-gruppierung" class="wahl">
             <option value="bereich">nach Thema</option>
+            <option value="status">nach Status</option>
             <option value="prio">nach Priorität</option>
             <option value="flach">flache Liste</option>
           </select>
@@ -174,6 +176,14 @@
   <div class="modal" role="dialog" aria-modal="true">
     <button class="modal-zu" aria-label="Schließen">✕</button>
     <div id="teil-modal-inhalt"></div>
+  </div>
+</div>
+
+<!-- Aufgabe-Detail -->
+<div id="aufgabe-modal" class="modal-hinter" hidden>
+  <div class="modal" role="dialog" aria-modal="true">
+    <button class="modal-zu" aria-label="Schließen">✕</button>
+    <div id="aufgabe-modal-inhalt"></div>
   </div>
 </div>
 

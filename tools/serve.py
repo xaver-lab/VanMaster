@@ -79,7 +79,10 @@ class Handler(SimpleHTTPRequestHandler):
         try:
             with SCHLOSS:
                 if pfad == "/api/task":
-                    text = tasks.set_status(nutzlast["id"], nutzlast["status"])
+                    if "beschreibung" in nutzlast:
+                        text = tasks.set_description(nutzlast["id"], nutzlast["beschreibung"])
+                    else:
+                        text = tasks.set_status(nutzlast["id"], nutzlast["status"])
                 elif pfad == "/api/teil":
                     text = parts.set_field(nutzlast["id"], nutzlast["feld"],
                                            nutzlast["wert"])

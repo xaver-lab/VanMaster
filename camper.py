@@ -72,7 +72,7 @@ def cmd_tasks(args) -> None:
 
 def cmd_task(args) -> None:
     ziel = {"done": "erledigt", "start": "laeuft",
-            "open": "offen", "drop": "verworfen"}[args.was]
+            "open": "offen", "drop": "verworfen", "block": "blockiert"}[args.was]
     print(tasks.set_status(args.id, ziel))
 
 
@@ -212,7 +212,7 @@ def parser() -> argparse.ArgumentParser:
     s.set_defaults(func=cmd_tasks)
 
     s = sub.add_parser("task", help="Aufgabe abhaken oder umstellen")
-    s.add_argument("was", choices=["done", "start", "open", "drop"])
+    s.add_argument("was", choices=["done", "start", "open", "drop", "block"])
     s.add_argument("id")
     s.set_defaults(func=cmd_task)
 
