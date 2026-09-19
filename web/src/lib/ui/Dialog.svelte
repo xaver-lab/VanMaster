@@ -13,6 +13,9 @@
     beschreibung?: string;
     breite?: 's' | 'm' | 'l';
     festhalten?: boolean;
+    // Ohne sichtbare Kopfzeile (kein Titel, kein X) — `titel` bleibt Pflicht
+    // und wird zur Beschriftung des Dialogs für Screenreader (aria-label).
+    kopflos?: boolean;
     onschliessen?: () => void;
     children?: Snippet;
     fuss?: Snippet;
@@ -24,6 +27,7 @@
     beschreibung,
     breite = 'm',
     festhalten = false,
+    kopflos = false,
     onschliessen,
     children,
     fuss,
@@ -82,7 +86,8 @@
 <dialog
   bind:this={el}
   class="ui-dialog b-{breite}"
-  aria-labelledby={titelId}
+  aria-labelledby={kopflos ? undefined : titelId}
+  aria-label={kopflos ? titel : undefined}
   onclose={beiClose}
   oncancel={(e) => {
     if (festhalten) e.preventDefault();
@@ -91,14 +96,16 @@
   onkeydown={fokusFalle}
 >
   {#if offen}
-    <div class="blatt">
-      <header>
-        <div>
-          <h2 id={titelId}>{titel}</h2>
-          {#if beschreibung}<p>{beschreibung}</p>{/if}
-        </div>
-        <IconKnopf icon={IconSchliessen} label="Schließen (Esc)" groesse="s" onclick={() => (offen = false)} />
-      </header>
+    <div class="blatt" class:kopflos>
+      {#if !kopflos}
+        <header>
+          <div>
+            <h2 id={titelId}>{titel}</h2>
+            {#if beschreibung}<p>{beschreibung}</p>{/if}
+          </div>
+          <IconKnopf icon={IconSchliessen} label="Schließen (Esc)" groesse="s" onclick={() => (offen = false)} />
+        </header>
+      {/if}
       {#if children}<div class="rumpf">{@render children()}</div>{/if}
       {#if fuss}<footer class="fuss">{@render fuss()}</footer>{/if}
     </div>
@@ -153,6 +160,7 @@
   }
   header p { margin-top: 4px; color: var(--farbe-text-2); font-size: var(--text-s); }
   .rumpf { padding: var(--a-2) var(--a-5) var(--a-5); overflow: auto; display: flex; flex-direction: column; gap: var(--a-4); }
+  .blatt.kopflos .rumpf { padding-top: var(--a-5); }
   .fuss {
     display: flex;
     justify-content: flex-end;

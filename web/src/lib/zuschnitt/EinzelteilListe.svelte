@@ -8,6 +8,7 @@
   import { untrack } from 'svelte';
   import type { EinzelteilAntwort } from '../api-typen';
   import { store } from '../daten.svelte';
+  import { router } from '../router.svelte';
   import { toasts } from '../toasts.svelte';
   import Schreibbar from '../Schreibbar.svelte';
   import EinzelteilZeile from './EinzelteilZeile.svelte';
@@ -56,6 +57,14 @@
   let suche = $state('');
   let offenId = $state<string | null>(null);
   let formOffen = $state(false);
+
+  // Nur bei eigener Route reagieren — eingebettet im Bereich-Detail (Reiter
+  // „Zuschnitt“, `bereich` gesetzt) läuft die Route über 'bereiche'.
+  $effect(() => {
+    if (router.route.ansicht !== 'zuschnitt') return;
+    const idAusRoute = router.route.parameter[0] ?? null;
+    if (idAusRoute !== offenId) offenId = idAusRoute;
+  });
 
   const alleEinzelteile = $derived(store.daten?.einzelteile ?? []);
   const einzelteileImBereich = $derived(
@@ -123,10 +132,12 @@
   const summeLaufmeter = $derived(gefiltert.reduce((s, e) => s + laufmeter(e), 0));
 
   function oeffnen(id: string): void {
-    offenId = id;
+    if (bereich) offenId = id;
+    else router.gehe('zuschnitt', id);
   }
   function schliessen(): void {
-    offenId = null;
+    if (bereich) offenId = null;
+    else router.gehe('zuschnitt');
   }
 
   // -------------------------------------------------------------- Anlegen

@@ -68,7 +68,7 @@
   }
 </script>
 
-<Dialog bind:offen={palette.offen} titel="Suchen oder springen" breite="m">
+<Dialog bind:offen={palette.offen} titel="Suchen oder springen" breite="m" kopflos>
   <Feld
     bind:wert={text}
     icon={IconSuche}
