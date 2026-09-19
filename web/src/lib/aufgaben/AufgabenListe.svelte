@@ -16,6 +16,7 @@
     Chip,
     Dialog,
     Feld,
+    Filterleiste,
     FortschrittBalken,
     Karte,
     Knopf,
@@ -257,9 +258,10 @@
   </div>
 {/if}
 
-<div class="leiste">
-  <Tabs tabs={filterTabs} aktiv={filter} onwechsel={filterWaehlen} label="Status" />
-  <div class="leiste-werkzeug">
+<Filterleiste>
+  {#snippet reiter()}
+    <Tabs tabs={filterTabs} aktiv={filter} onwechsel={filterWaehlen} label="Status" />
+  {/snippet}
     <Feld
       bind:wert={suche}
       placeholder="Suche in Titel und Beschreibung…"
@@ -269,7 +271,7 @@
       klein
     />
     <Auswahl
-      class="gruppen-wahl"
+      class="filter-wahl"
       wert={gruppierung}
       optionen={gruppierOptionen}
       onchange={(e) => gruppierungWaehlen((e.target as HTMLSelectElement).value)}
@@ -283,8 +285,7 @@
         {/snippet}
       </Schreibbar>
     {/if}
-  </div>
-</div>
+</Filterleiste>
 
 <Dialog bind:offen={formOffen} titel="Aufgabe anlegen">
   <Feld label="Titel" bind:wert={neuTitel} placeholder="Was ist zu tun?" />
@@ -351,29 +352,6 @@
     display: flex;
     flex-wrap: wrap;
     gap: var(--a-2);
-  }
-
-  .leiste {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--a-3);
-    margin-bottom: var(--a-5);
-  }
-  .leiste-werkzeug {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--a-2);
-    margin-left: auto;
-  }
-  .leiste-werkzeug :global(.ui-feld) {
-    width: 15rem;
-  }
-  :global(.gruppen-wahl) {
-    width: 11rem;
-    flex: none;
   }
 
   ul.aufgaben {

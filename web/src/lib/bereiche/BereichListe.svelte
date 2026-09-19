@@ -78,7 +78,9 @@
     justify-content: flex-end;
     margin-bottom: var(--a-4);
   }
-  :global(.sortier-wahl) {
+  /* Unter `.leiste` gebunden — unscoped leckte die Breite in jede andere
+     Ansicht, die zufällig denselben Klassennamen benutzt. */
+  .leiste :global(.sortier-wahl) {
     width: 12rem;
   }
 

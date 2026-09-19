@@ -4,7 +4,7 @@
   import type { MediumAntwort } from '../api-typen';
   import { store } from '../daten.svelte';
   import { router } from '../router.svelte';
-  import { Auswahl, Feld, Kennzahl, Leerzustand, Tabs } from '../ui';
+  import { Auswahl, Feld, Filterleiste, Kennzahl, Leerzustand, Tabs } from '../ui';
   import { IconMedien, IconSuche } from '../ui/icons';
   import Galerie from './Galerie.svelte';
   import Lupe from './Lupe.svelte';
@@ -117,9 +117,10 @@
     {/if}
   </div>
 
-  <div class="leiste">
-    <Tabs tabs={artTabs} aktiv={artWirksam} onwechsel={artWaehlen} label="Art" />
-    <div class="leiste-werkzeug">
+  <Filterleiste>
+    {#snippet reiter()}
+      <Tabs tabs={artTabs} aktiv={artWirksam} onwechsel={artWaehlen} label="Art" />
+    {/snippet}
       <Feld
         bind:wert={suche}
         placeholder="Suche im Namen…"
@@ -129,16 +130,15 @@
         klein
       />
       <Auswahl
-        class="bereich-wahl"
+        class="filter-wahl"
         wert={bereichWirksam}
         optionen={bereiche.map((b) => ({ wert: b, label: b || 'Unsortiert' }))}
         leer="alle Bereiche"
         onchange={(e) => bereichWaehlen((e.target as HTMLSelectElement).value)}
-        aria-label="Bereich filtern"
-        klein
-      />
-    </div>
-  </div>
+      aria-label="Bereich filtern"
+      klein
+    />
+  </Filterleiste>
 
   {#if !gefiltert.length}
     <Leerzustand titel="Nichts passt zum Filter" text="Filter lockern oder die Suche anpassen." />
@@ -155,27 +155,5 @@
     flex-wrap: wrap;
     gap: var(--a-5);
     margin-bottom: var(--a-5);
-  }
-  .leiste {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--a-3);
-    margin-bottom: var(--a-5);
-  }
-  .leiste-werkzeug {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--a-2);
-    margin-left: auto;
-  }
-  .leiste-werkzeug :global(.ui-feld) {
-    width: 15rem;
-  }
-  .leiste-werkzeug :global(.bereich-wahl) {
-    width: 11rem;
-    flex: none;
   }
 </style>

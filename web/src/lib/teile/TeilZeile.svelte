@@ -104,7 +104,9 @@
     font-weight: 600;
     white-space: nowrap;
   }
-  :global(.status-wahl) {
+  /* Unter `.teilzeile` gebunden — unscoped leckte die Breite in jede andere
+     Ansicht mit einem Feld dieses Namens. */
+  .teilzeile :global(.status-wahl) {
     width: 136px;
     flex: none;
   }
