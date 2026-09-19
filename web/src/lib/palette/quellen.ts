@@ -164,7 +164,7 @@ export function inhalte(d: DatenAntwort): Eintrag[] {
       kontext: m.dateiname,
       // Bilder springen direkt in die Lupe (#/medien/<id>), alles andere
       // (Unterlage, Modell ohne Web-Kopie) nur in die gefilterte Galerie.
-      ausfuehren: () => (istBild(m) ? router.gehe('medien', encodeURIComponent(m.datei)) : router.gehe('medien')),
+      ausfuehren: () => (istBild(m) ? router.gehe('medien', m.datei) : router.gehe('medien')),
     });
   }
 
