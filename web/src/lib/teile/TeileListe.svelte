@@ -4,6 +4,10 @@
   // Vorbild inhaltlich: docs/js/teile.js. Kategorie doppelt hier als Bereich
   // (PART_KATEGORIEN deckt sich mit den Arbeitsbereichen, siehe
   // lib/bereiche/BereichDetail.svelte: t.kategorie === bereichsname).
+  //
+  // Mit `kategorie` gesetzt (Reiter „Teile“ im Bereich-Detail) ist die
+  // Kategorie fest: die Auswahl entfällt, Neuanlagen landen im Bereich und
+  // die Detail-Route läuft über 'bereiche' statt 'teile'.
   import type { TeilAntwort } from '../api-typen';
   import { store } from '../daten.svelte';
   import { router } from '../router.svelte';
@@ -12,7 +16,7 @@
   import TeilZeile from './TeilZeile.svelte';
   import TeilKarte from './TeilKarte.svelte';
   import TeilDetail from './TeilDetail.svelte';
-  import { Auswahl, Dialog, Feld, Karte, Kennzahl, Knopf, Leerzustand, Tabs } from '../ui';
+  import { Auswahl, Dialog, Feld, Filterleiste, Karte, Kennzahl, Knopf, Leerzustand, Tabs } from '../ui';
   import { vokabular } from '../vokabular.svelte';
   import { dezimal } from '../zahlformat';
   import { IconEuro, IconGewicht, IconPlus, IconSuche } from '../ui/icons';
@@ -37,24 +41,31 @@
     }
   }
 
+  let { kategorie }: { kategorie?: string } = $props();
+
   let ansicht = $state<Ansicht>(gemerkt('teileAnsicht', 'liste'));
   let filterStatus = $state(gemerkt<string>('teileFilterStatus', ''));
   let filterKategorie = $state('');
+  const wirksameKategorie = $derived(kategorie || filterKategorie);
   let suche = $state('');
   let formOffen = $state(false);
   let offenId = $state<string | null>(null);
 
+  // Eingebettet trägt die Adresse den Bereich, nicht das Teil — dann bleibt
+  // das Detail reiner Zustand, sonst folgt es der Route.
   $effect(() => {
-    if (router.route.ansicht !== 'teile') return;
+    if (kategorie || router.route.ansicht !== 'teile') return;
     const idAusRoute = router.route.parameter[0] ?? null;
     if (idAusRoute !== offenId) offenId = idAusRoute;
   });
 
   function oeffnen(id: string): void {
-    router.gehe('teile', id);
+    if (kategorie) offenId = id;
+    else router.gehe('teile', id);
   }
   function schliessen(): void {
-    router.gehe('teile');
+    if (kategorie) offenId = null;
+    else router.gehe('teile');
   }
 
   function ansichtWaehlen(a: Ansicht): void {
@@ -70,11 +81,13 @@
 
   const kategorien = $derived([...new Set(alleTeile.map((t) => t.kategorie).filter(Boolean))].sort());
 
-  const statusVorhanden = $derived([...new Set(alleTeile.map((t) => t.status).filter(Boolean))]);
+  // Im Bereich zählen die Reiter nur die Teile dieses Bereichs.
+  const imBereich = $derived(kategorie ? alleTeile.filter((t) => t.kategorie === kategorie) : alleTeile);
+  const statusVorhanden = $derived([...new Set(imBereich.map((t) => t.status).filter(Boolean))]);
   const statusReihenfolge = $derived(vokabular.teilStatus.filter((s) => statusVorhanden.includes(s)));
   const statusTabs = $derived([
-    { id: '', label: 'alle', zahl: alleTeile.length },
-    ...statusReihenfolge.map((s) => ({ id: s, label: s, zahl: alleTeile.filter((t) => t.status === s).length })),
+    { id: '', label: 'alle', zahl: imBereich.length },
+    ...statusReihenfolge.map((s) => ({ id: s, label: s, zahl: imBereich.filter((t) => t.status === s).length })),
   ]);
 
   const suchtext = $derived(suche.trim().toLowerCase());
@@ -87,7 +100,7 @@
   const gefiltert = $derived(
     alleTeile.filter(
       (t) =>
-        (!filterKategorie || t.kategorie === filterKategorie) &&
+        (!wirksameKategorie || t.kategorie === wirksameKategorie) &&
         (!filterStatus || t.status === filterStatus) &&
         passtSuche(t),
     ),
@@ -111,7 +124,8 @@
   let neuLink = $state('');
 
   $effect(() => {
-    if (!neuKategorie && kategorien.length) neuKategorie = kategorien[0];
+    if (kategorie) neuKategorie = kategorie;
+    else if (!neuKategorie && kategorien.length) neuKategorie = kategorien[0];
   });
 
   function formOeffnen(): void {
@@ -158,9 +172,10 @@
   {#if ohnePreis}<Kennzahl titel="Ohne Preis" wert={ohnePreis} ton="warn" />{/if}
 </div>
 
-<div class="leiste">
-  <Tabs tabs={statusTabs} aktiv={filterStatus} onwechsel={statusWaehlen} label="Status" />
-  <div class="leiste-werkzeug">
+<Filterleiste>
+  {#snippet reiter()}
+    <Tabs tabs={statusTabs} aktiv={filterStatus} onwechsel={statusWaehlen} label="Status" />
+  {/snippet}
     <Feld
       bind:wert={suche}
       placeholder="Suche in Titel, Beschreibung, Notiz…"
@@ -169,8 +184,9 @@
       type="search"
       klein
     />
+    {#if !kategorie}
     <Auswahl
-      class="kategorie-wahl"
+      class="filter-wahl"
       wert={filterKategorie}
       optionen={kategorien}
       leer="alle Kategorien"
@@ -178,6 +194,7 @@
       aria-label="Kategorie/Bereich filtern"
       klein
     />
+    {/if}
     <div class="ansicht-wahl" role="group" aria-label="Ansicht">
       <button type="button" class:aktiv={ansicht === 'liste'} onclick={() => ansichtWaehlen('liste')} aria-label="Liste" title="Liste">
         <IconListe size={15} strokeWidth={1.8} aria-hidden="true" />
@@ -193,12 +210,13 @@
         {/snippet}
       </Schreibbar>
     {/if}
-  </div>
-</div>
+</Filterleiste>
 
 <Dialog bind:offen={formOffen} titel="Teil anlegen">
   <Feld label="Titel" bind:wert={neuTitel} placeholder="Was wird gekauft?" />
-  <Auswahl label="Kategorie" bind:wert={neuKategorie} optionen={kategorien} />
+  {#if !kategorie}
+    <Auswahl label="Kategorie" bind:wert={neuKategorie} optionen={kategorien} />
+  {/if}
   <div class="form-zeile">
     <Feld label="Menge" bind:wert={neuMenge} mono />
     <Feld label="Einheit" bind:wert={neuEinheit} />
@@ -240,29 +258,6 @@
     flex-wrap: wrap;
     gap: var(--a-5);
     margin-bottom: var(--a-5);
-  }
-
-  .leiste {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--a-3);
-    margin-bottom: var(--a-5);
-  }
-  .leiste-werkzeug {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--a-2);
-    margin-left: auto;
-  }
-  .leiste-werkzeug :global(.ui-feld) {
-    width: 15rem;
-  }
-  :global(.kategorie-wahl) {
-    width: 11rem;
-    flex: none;
   }
 
   .ansicht-wahl {

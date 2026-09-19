@@ -1,15 +1,18 @@
 <script lang="ts">
-  // Eine Aufgabenzeile: Kästchen (offen↔erledigt), Statuswechsler (alle
-  // Status), Titel, Meta (Thema/Prio/Dauer/Blocker). Klick auf den Titel
-  // öffnet das Detailfenster; Kästchen und Wechsler sind eigene Bedienelemente
-  // neben dem Titel-Knopf, nicht darin verschachtelt.
+  // Eine Aufgabenzeile: Kästchen (offen↔erledigt), Statusmarke, Titel,
+  // Meta (Thema/Prio/Dauer/Blocker). Klick auf den Titel öffnet das
+  // Detailfenster; das Kästchen ist ein eigenes Bedienelement neben dem
+  // Titel-Knopf, nicht darin verschachtelt.
+  //
+  // Nur ein Weg je Sache: das Kästchen schaltet offen↔erledigt, den
+  // Alltagsfall. Die übrigen Status (läuft, blockiert, verworfen) stehen im
+  // Detailfenster — die Statusmarke führt mit einem Klick dorthin. Vorher
+  // standen Kästchen und eine volle Status-Auswahl nebeneinander und
+  // bedienten denselben Zustand.
   import type { AufgabeAntwort } from '../api-typen';
   import { store } from '../daten.svelte';
   import Schreibbar from '../Schreibbar.svelte';
-  import { Auswahl, Etikett, Kontrollkaestchen, Statusmarke, STATUS_TEXT, type Status } from '../ui';
-
-  const ALLE_STATUS: Status[] = ['offen', 'laeuft', 'blockiert', 'erledigt', 'verworfen'];
-  const STATUS_OPTIONEN = ALLE_STATUS.map((s) => ({ wert: s, label: STATUS_TEXT[s] }));
+  import { Etikett, Kontrollkaestchen, Statusmarke } from '../ui';
 
   let {
     a,
@@ -37,11 +40,6 @@
     await store.aufgabePatch(a.id, a.datei ?? '', { status: erledigt ? 'erledigt' : 'offen' });
   }
 
-  async function statusSetzen(e: Event): Promise<void> {
-    const status = (e.target as HTMLSelectElement).value;
-    if (!status || status === a.status) return;
-    await store.aufgabePatch(a.id, a.datei ?? '', { status });
-  }
 </script>
 
 <li class="{a.status} ebene-{Math.min(a.ebene ?? 0, ebeneMax)}" class:kopfknoten={hatKinder}>
@@ -56,24 +54,12 @@
     {/snippet}
   </Schreibbar>
 
-  {#if store.darfSchreiben}
-    <Schreibbar>
-      {#snippet children()}
-        <Auswahl
-          class="status-wahl"
-          klein
-          wert={a.status}
-          optionen={STATUS_OPTIONEN}
-          disabled={hatKinder}
-          onchange={statusSetzen}
-          aria-label="Status ändern"
-          title={hatKinder ? 'Sammelaufgabe — Haken an den Unterpunkten' : 'Status ändern'}
-        />
-      {/snippet}
-    </Schreibbar>
-  {:else}
-    <Statusmarke status={a.status} kompakt />
-  {/if}
+  <Statusmarke
+    status={a.status}
+    kompakt
+    onclick={store.darfSchreiben ? () => onOeffnen(a.id) : undefined}
+    titel={store.darfSchreiben ? 'Status ändern (öffnet das Detail)' : undefined}
+  />
 
   <button type="button" class="aufgabe-text" onclick={() => onOeffnen(a.id)}>
     <span class="titel">{a.titel}</span>
@@ -112,7 +98,6 @@
   li.erledigt .titel { color: var(--farbe-text-2); text-decoration: line-through; }
   li.verworfen .titel { color: var(--farbe-text-2); opacity: 0.65; }
 
-  :global(.status-wahl) { width: 136px; flex: none; }
 
   .aufgabe-text {
     flex: 1 1 auto;

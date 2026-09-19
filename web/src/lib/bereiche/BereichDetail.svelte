@@ -7,6 +7,7 @@
   import { router } from '../router.svelte';
   import AufgabenListe from '../aufgaben/AufgabenListe.svelte';
   import EinzelteilListe from '../zuschnitt/EinzelteilListe.svelte';
+  import TeileListe from '../teile/TeileListe.svelte';
   import Markdown from '../Markdown.svelte';
   import Galerie from '../medien/Galerie.svelte';
   import Abschnitt from './Abschnitt.svelte';
@@ -120,16 +121,7 @@
     {:else if aktiv === 'aufgaben'}
       {#key name}<AufgabenListe bereich={name} />{/key}
     {:else if aktiv === 'teile'}
-      <Karte polster="keins">
-        <ul class="liste">
-          {#each teile as t (t.id)}
-            <li>
-              <span class="titel">{t.titel}</span>
-              <span class="zusatz">{t.status}{#if t.preis}&nbsp;·&nbsp;{euro.format(zahl(t.preis))}{/if}</span>
-            </li>
-          {/each}
-        </ul>
-      </Karte>
+      {#key name}<TeileListe kategorie={name} />{/key}
     {:else if aktiv === 'zuschnitt'}
       {#key name}<EinzelteilListe bereich={name} />{/key}
     {:else if aktiv === 'entscheidungen'}
@@ -201,28 +193,4 @@
     gap: var(--a-3);
   }
 
-  .liste {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  .liste li {
-    display: flex;
-    align-items: baseline;
-    gap: var(--a-3);
-    padding: var(--a-2) var(--a-4);
-    border-bottom: 1px solid var(--farbe-linie);
-  }
-  .liste li:last-child {
-    border-bottom: none;
-  }
-  .liste .titel {
-    font-weight: 550;
-  }
-  .liste .zusatz {
-    margin-left: auto;
-    color: var(--farbe-text-2);
-    font-size: var(--text-s);
-    white-space: nowrap;
-  }
 </style>
