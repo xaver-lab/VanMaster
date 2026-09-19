@@ -77,6 +77,20 @@ Commit-Nachricht: eine Zeile, was passiert ist. Kein Fließtext, keine
 Aufzählungen, keine Begründungen. Abschluss mit
 `Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>`.
 
+## Was nicht geht, wird mitgeschrieben
+
+Scheitert ein Schritt an etwas, das nur der Nutzer freimachen kann — gesperrte
+Rechte, fehlende Zugangsdaten, eine Anmeldung im Browser, ein Dienst, den es im
+Container nicht gibt —, dann kommt ein Eintrag nach `BLOCKIERT.md`, oben an.
+Nicht erst am Ende, nicht nur im Chat: der Chat ist weg, die Datei bleibt.
+
+Jeder Eintrag nennt Datum, was versucht wurde, was blockiert hat, den Stand der
+Arbeit und was es freimachen würde. Ist ein Punkt erledigt, wird der Eintrag
+gelöscht, nicht abgehakt — `BLOCKIERT.md` zeigt nur Offenes.
+
+Weiterarbeiten, so weit es ohne den blockierten Schritt geht. Ein Hänger ist
+kein Grund, den Rest liegen zu lassen.
+
 ## Keine sensiblen Daten ins Repo
 
 Repo und Website sind kein privater Ort. Was einmal gepusht ist, steht in der
