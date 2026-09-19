@@ -3,9 +3,12 @@
   // darunter die Galerie. Vorbild inhaltlich: docs/js/medien.js.
   import type { MediumAntwort } from '../api-typen';
   import { store } from '../daten.svelte';
+  import { router } from '../router.svelte';
   import { Auswahl, Feld, Kennzahl, Leerzustand, Tabs } from '../ui';
   import { IconMedien, IconSuche } from '../ui/icons';
   import Galerie from './Galerie.svelte';
+  import Lupe from './Lupe.svelte';
+  import { istBild } from './url';
 
   const ART_WORT: Record<string, string> = { bild: 'Bilder', dokument: 'Unterlagen', modell: 'Modelle' };
   const ART_REIHE = ['bild', 'dokument', 'modell'];
@@ -30,6 +33,29 @@
   let suche = $state('');
 
   const alle = $derived(store.daten?.medien ?? []);
+
+  // Direktsprung aus der Palette (#/medien/<id>): öffnet die Lupe unabhängig
+  // vom aktuellen Filter, auf allen Bildern (nicht nur den gefilterten).
+  const bilderAlle = $derived(alle.filter(istBild));
+  let routeIndex = $state<number | null>(null);
+  $effect(() => {
+    if (router.route.ansicht !== 'medien') return;
+    const param = router.route.parameter[0];
+    if (!param) {
+      if (routeIndex !== null) routeIndex = null;
+      return;
+    }
+    const datei = decodeURIComponent(param);
+    const i = bilderAlle.findIndex((m) => m.datei === datei);
+    if (i !== routeIndex) routeIndex = i >= 0 ? i : null;
+  });
+  $effect(() => {
+    // Lupe geschlossen (Esc/X/Klick daneben setzt routeIndex auf null) →
+    // Adresse zurück auf die reine Medienseite.
+    if (routeIndex === null && router.route.ansicht === 'medien' && router.route.parameter.length) {
+      router.gehe('medien');
+    }
+  });
 
   const bereiche = $derived.by(() => {
     const reihe = (store.daten?.bereiche ?? []).map((b) => b.name);
@@ -115,6 +141,8 @@
     <Galerie medien={gefiltert} gruppieren={!bereichWirksam} />
   {/if}
 {/if}
+
+<Lupe bilder={bilderAlle} bind:index={routeIndex} />
 
 <style>
   .kennzahlen {

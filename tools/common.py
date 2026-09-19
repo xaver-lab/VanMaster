@@ -18,6 +18,12 @@ PARTS_CSV = DATA / "parts.csv"
 PARTS_XLSX = GENERATED / "Stueckliste.xlsx"
 BAUTEILE_CSV = DATA / "bauteile.csv"
 BAUTEILE_XLSX = GENERATED / "Bauteile.xlsx"
+# Projektweite Kopffelder (u. a. Budget) — siehe FORMAT.md §11.
+CAMPER_MD = VAULT / "Camper.md"
+# Kostenverlauf, ein Datensatz je Tag. Bleibt bewusst unter data/, nicht
+# data/generated/ — sync überschreibt generated/ jedes Mal, die Historie muss
+# aber über sync-Läufe hinweg erhalten bleiben und in Git nachvollziehbar sein.
+VERLAUF_CSV = DATA / "verlauf.csv"
 # Web-Kopien der Bilder (verkleinert, ASCII-Namen) — erzeugt von
 # tools/media.py:web_export(), ausgeliefert über die Route /medien
 # (tools/server/start.py) bzw. kopiert von `camper web daten`.
@@ -63,6 +69,23 @@ BAUTEIL_ART = [
 ]
 BAUTEIL_STATUS = ["Idee", "Geplant", "Zugeschnitten", "Verbaut"]
 MASSQUELLE = ["geschaetzt", "gemessen", "cad"]
+
+# Arten, bei denen Länge x Breite x Dicke ein sinnvolles Volumen ergibt —
+# für Blech, Rohr, Kabel, Beschlag, Sonstiges trifft das die Form nicht,
+# dort bleibt `gewicht_kg` ohne Rechenweg.
+BAUTEIL_ART_MIT_VOLUMENGEWICHT = ("Platte", "Leiste", "Kantholz")
+
+# Materialdichten in kg/m³ — Richtwerte aus der Holzliteratur (Trockenraum-
+# dichte), für die Gewichtsschätzung von Platten/Leisten/Kantholz, wenn
+# `gewicht_kg` in bauteile.csv leer bleibt (FORMAT.md §6a). Abgleich per
+# Teilstring, klein geschrieben, gegen das freie Feld `material`; passt
+# keiner, bleibt das Gewicht unbekannt statt geraten.
+MATERIAL_DICHTE = {
+    "multiplex": 650, "siebdruck": 650, "sperrholz": 600, "mdf": 750,
+    "spanplatte": 650, "osb": 600, "leimholz": 500,
+    "kiefer": 500, "fichte": 450, "tanne": 450, "lärche": 550,
+    "buche": 700, "eiche": 700, "birke": 650, "pappel": 450,
+}
 
 _UMLAUTE = {"ä": "ae", "ö": "oe", "ü": "ue", "ß": "ss"}
 

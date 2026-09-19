@@ -60,6 +60,6 @@ TEIL_BERECHNET = ["gesamt"]
 EINZELTEIL_FELDER = [
     "id", "titel", "bereich", "art", "material",
     "laenge_mm", "breite_mm", "dicke_mm", "anzahl",
-    "teil_id", "fuer_aufgabe", "massquelle", "status", "notiz",
+    "teil_id", "fuer_aufgabe", "massquelle", "status", "gewicht_kg", "notiz",
 ]
 EINZELTEIL_BERECHNET = ["flaeche_m2", "laufmeter"]

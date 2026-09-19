@@ -147,6 +147,7 @@ class Einzelteil:
     fuer_aufgabe: str
     massquelle: str
     status: str
+    gewicht_kg: str
     notiz: str
     zeile: int = 0
 

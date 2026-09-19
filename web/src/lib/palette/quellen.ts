@@ -6,6 +6,7 @@ import { theme } from '../theme.svelte';
 import { STATUS_TEXT, istStatus } from '../ui/status';
 import { preisText } from '../teile/format';
 import { massText } from '../zuschnitt/mass';
+import { istBild } from '../medien/url';
 
 export type Art =
   | 'Befehl'
@@ -133,7 +134,7 @@ export function inhalte(d: DatenAntwort): Eintrag[] {
       titel: e.titel,
       neben: verbinden(e.bereich, massText(e)),
       kontext: verbinden(e.id, e.material, e.art),
-      ausfuehren: () => router.gehe('zuschnitt'),
+      ausfuehren: () => router.gehe('zuschnitt', e.id),
     });
   }
 
@@ -161,7 +162,9 @@ export function inhalte(d: DatenAntwort): Eintrag[] {
       titel: m.name,
       neben: m.bereich,
       kontext: m.dateiname,
-      ausfuehren: () => router.gehe('medien'),
+      // Bilder springen direkt in die Lupe (#/medien/<id>), alles andere
+      // (Unterlage, Modell ohne Web-Kopie) nur in die gefilterte Galerie.
+      ausfuehren: () => (istBild(m) ? router.gehe('medien', encodeURIComponent(m.datei)) : router.gehe('medien')),
     });
   }
 

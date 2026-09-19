@@ -261,6 +261,7 @@ Text trägt — kein Anker, keine ID (`parts.csv` Zeile mit
 | `fuer_aufgabe` | Bezug zu einer Aufgaben-ID | Text | frei |
 | `massquelle` | Herkunft des Maßes | Text | `MASSQUELLE` (`common.py:63`): geschaetzt, gemessen, cad — geprüft (`bauteile.py:176-177`) |
 | `status` | Baufortschritt | Text | `BAUTEIL_STATUS` (`common.py:62`): Idee, Geplant, Zugeschnitten, Verbaut — geprüft (`bauteile.py:172-173`) |
+| `gewicht_kg` | Gewicht je Stück | Zahl (Text) | frei, optional — leer erlaubt (siehe unten) |
 | `notiz` | Freitext | Text | frei |
 
 `flaeche_m2`/`laufmeter` sind reine Excel-Formelspalten (`COMPUTED`,
@@ -271,6 +272,27 @@ durch den Code belegt, nicht durch reale Daten.
 Im Gegensatz zu `parts.csv` hat `bauteile.csv` kein `preis`-Feld — Einzelteile
 werden nicht selbst bepreist, das Rohmaterial dazu steht (falls vorhanden)
 über `teil_id` in `parts.csv` (Docstring `bauteile.py:1-9`).
+
+#### `gewicht_kg` — angegeben oder aus Holzdichte berechnet
+
+`gewicht_kg` ist wie bei `parts.csv` das Gewicht je Stück, multipliziert mit
+`anzahl` für die Zeilensumme (`bauteile.gewicht()`). Es darf leer bleiben:
+
+- Ist `gewicht_kg` gesetzt, gilt dieser Wert (Quelle „angegeben").
+- Ist es leer **und** `art` eine von `Platte`, `Leiste`, `Kantholz`
+  (`common.BAUTEIL_ART_MIT_VOLUMENGEWICHT`) **und** `material` per
+  Teilstring (klein geschrieben) auf einen Eintrag in `common.MATERIAL_DICHTE`
+  passt **und** `laenge_mm`/`breite_mm`/`dicke_mm` alle drei gesetzt sind,
+  wird gerechnet: Volumen (m³) × Dichte (kg/m³) × `anzahl` (Quelle
+  „berechnet"). `MATERIAL_DICHTE` trägt grobe Richtwerte aus der
+  Holzliteratur (Trockenraumdichte), keine Datenblattwerte einzelner Platten.
+- Sonst (Blech, Rohr, Kabel, Beschlag, Sonstiges — dort trifft
+  Länge×Breite×Dicke keine sinnvolle Form — oder Maße/Material fehlen) bleibt
+  das Gewicht unbekannt (Quelle „fehlt"), ohne zu raten.
+
+Für Blech/Rohr/Kabel/Beschlag gibt es keinen Rechenweg — dort muss
+`gewicht_kg` von Hand eingetragen werden, sonst zählt die Zeile in
+`camper gewicht` als „ohne Gewichtsangabe".
 
 ---
 
@@ -413,3 +435,89 @@ und für `camper check`.
    Bereichsname, `phase`, alle `id`-Spalten und die übrigen Teilefelder
    (`beschreibung`, `einheit`, `fuer_aufgabe`, `entscheidung`, `kennwerte`,
    `gewicht_kg`).
+
+---
+
+## 11. Projektkopf `vault/Camper.md` — Budget
+
+Quelle: `tools/budget.py`. `vault/Camper.md` ist die einzige projektweite
+Datei mit YAML-Kopf (`projekt`, `fahrzeug`) — der Ort für weitere
+projektweite, von Hand gepflegte Zahlen, statt einer eigenen Ablage nur
+dafür.
+
+```yaml
+---
+projekt: VanMaster
+fahrzeug: Renault Master 2013
+budget: 25000
+budget_elektrik: 4000
+---
+```
+
+- `budget` — Zielbudget in Euro, das ganze Projekt. **Fehlt im Bestand**,
+  solange der Nutzer keins einträgt — `camper budget` erklärt dann nur, wo
+  es hingehört, ohne eine Zahl zu erfinden.
+- `budget_<kategorie>` — optionales Budget je `PART_KATEGORIEN`-Eintrag
+  (`common.py:37-40`), Feldname über `slug()` gebildet (z. B. `Dämmung` →
+  `budget_daemmung`, `Küche` → `budget_kueche`).
+- Beide Felder werden nur gelesen, nie über `tools/kern/` geschrieben — der
+  Nutzer trägt sie selbst im Kopf von `vault/Camper.md` ein, wie `projekt`
+  und `fahrzeug` heute schon.
+- Zahlen akzeptieren Komma oder Punkt (wie `parts.num()`); ein fehlendes
+  oder nicht lesbares Feld ergibt `None`, kein Fehler.
+
+---
+
+## 12. `data/verlauf.csv` — Kostenverlauf
+
+Quelle: `tools/verlauf.py`. Ein Datensatz je Kalendertag, fortgeschrieben von
+`camper verlauf`:
+
+| Spalte | Bedeutung |
+|---|---|
+| `datum` | `JJJJ-MM-TT`, ein Eintrag je Tag (eindeutig) |
+| `bezahlt` | Summe der Teile mit Status Bestellt/Geliefert/Verbaut |
+| `geplant` | Summe der Teile mit Status Idee/Recherche/Entschieden |
+| `prognose` | `bezahlt + geplant` |
+| `aufgaben_fertig`, `aufgaben_gesamt` | Aufgaben-Fortschritt zum Zeitpunkt der Erfassung |
+| `gewicht_kg` | Gewichtssumme der Stückliste, leer wenn 0 |
+
+Liegt bewusst unter `data/`, **nicht** unter `data/generated/`: Letzteres
+wird bei jedem `sync` verworfen und neu geschrieben, die Historie muss aber
+über sync-Läufe hinweg erhalten bleiben und in Git nachvollziehbar sein —
+wie `data/parts.csv` und `data/bauteile.csv` ist sie von Hand lesbar (CSV,
+UTF-8, LF) und wird ausschließlich über `tools/verlauf.py` fortgeschrieben.
+Ein erneuter Aufruf am selben Tag ersetzt die Zeile dieses Tages, statt eine
+Dublette anzulegen.
+
+---
+
+## 13. Projektkopf `vault/Camper.md` — Fahrzeug-Kenndaten
+
+Quelle: `tools/gewicht.py`. Wie das Zielbudget (§11) stehen die
+Fahrzeug-Kenndaten für die Zuladungsbilanz im Kopf von `vault/Camper.md` —
+derselbe Grund: einzige projektweite Datei mit YAML-Kopf, statt einer neuen
+Ablage nur für zwei Zahlen.
+
+```yaml
+---
+projekt: VanMaster
+fahrzeug: Renault Master 2013
+leergewicht_kg: 2100
+zul_gesamtgewicht_kg: 3500
+---
+```
+
+- `leergewicht_kg` — Leergewicht laut Fahrzeugschein (Zulassungsbescheinigung
+  Teil I, Feld G). **Fehlt im Bestand**, solange der Nutzer es nicht
+  einträgt.
+- `zul_gesamtgewicht_kg` — zulässiges Gesamtgewicht laut Fahrzeugschein
+  (Feld F.2). **Fehlt im Bestand** ebenso.
+- Beide Felder werden nur gelesen, nie über `tools/kern/` geschrieben — der
+  Nutzer trägt sie selbst ein, wie `projekt`/`fahrzeug` und die
+  Budget-Felder aus §11 schon heute. Zahlen akzeptieren Komma oder Punkt.
+- `camper gewicht` rechnet daraus die zulässige Zuladung
+  (`zul_gesamtgewicht_kg − leergewicht_kg`) und bilanziert sie gegen die
+  Gewichtssumme aus `data/parts.csv` und `data/bauteile.csv`
+  (`tools/gewicht.py:bilanz()`). Fehlt eines der beiden Felder, erklärt der
+  Befehl nur, wo sie eingetragen werden, statt Werte zu erfinden.

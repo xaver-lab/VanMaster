@@ -4,11 +4,26 @@
   // durch alle gezeigten Bilder in Anzeigereihenfolge.
   import type { MediumAntwort } from '../api-typen';
   import { store } from '../daten.svelte';
+  import { toasts } from '../toasts.svelte';
   import { Rubrik } from '../ui';
   import IconDatei from '@lucide/svelte/icons/file-text';
   import IconModell from '@lucide/svelte/icons/box';
+  import IconKopieren from '@lucide/svelte/icons/copy';
   import Lupe from './Lupe.svelte';
   import { endung, istBild, medienUrl } from './url';
+
+  // 3D-Modelle haben keine Web-Kopie (tools/media.py kopiert sie nicht) —
+  // Pfad im Vault kommt über `m.datei` (Projektwurzel-relativ), eine
+  // Dateigröße liefert /api/daten dafür bisher nicht (Medium hat kein
+  // `groesse`-Feld, siehe tools/kern/modelle.py).
+  async function pfadKopieren(pfad: string): Promise<void> {
+    try {
+      await navigator.clipboard.writeText(pfad);
+      toasts.info('Pfad kopiert.');
+    } catch {
+      toasts.fehler('Kopieren nicht möglich.');
+    }
+  }
 
   interface Props {
     medien: MediumAntwort[];
@@ -50,10 +65,15 @@
     </li>
   {:else}
     <li>
-      <div class="kachel datei stumm" title="{m.dateiname} — nur im Vault">
+      <div class="kachel datei stumm" title="{m.datei} — nur im Vault">
         <IconModell size={28} strokeWidth={1.5} aria-hidden="true" />
         <span class="art">{endung(m)} · nur im Vault</span>
         <span class="name">{m.dateiname}</span>
+        <span class="pfad">{m.datei}</span>
+        <button type="button" class="kopieren" onclick={() => pfadKopieren(m.datei)}>
+          <IconKopieren size={13} strokeWidth={1.8} aria-hidden="true" />
+          Pfad kopieren
+        </button>
       </div>
     </li>
   {/if}
@@ -162,7 +182,36 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+  .stumm {
+    aspect-ratio: auto;
+    padding: var(--a-4) var(--a-3);
+  }
   .stumm .art {
     color: var(--farbe-text-2);
+  }
+  .stumm .pfad {
+    max-width: 100%;
+    font-family: var(--schrift-mono);
+    font-size: var(--text-xs);
+    color: var(--farbe-text-2);
+    text-align: center;
+    overflow-wrap: anywhere;
+  }
+  .stumm .kopieren {
+    display: flex;
+    align-items: center;
+    gap: var(--a-1);
+    margin-top: var(--a-1);
+    padding: var(--a-1) var(--a-3);
+    border: 1px solid var(--farbe-linie-stark);
+    border-radius: var(--r-m);
+    background: var(--farbe-flaeche);
+    color: var(--farbe-text);
+    font: inherit;
+    font-size: var(--text-xs);
+    cursor: pointer;
+  }
+  .stumm .kopieren:hover {
+    background: var(--farbe-flaeche-hoch);
   }
 </style>

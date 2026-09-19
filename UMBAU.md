@@ -191,13 +191,15 @@ Eine Zeile je abgeschlossenem Punkt oder getroffener Entscheidung.
 
 - 2026-09-18 Phase 9: Doku auf den neuen Stand gebracht (CLAUDE.md, README.md, PLAN.md, Skill master-dev). Offen: `.claude/settings.json` sperrt noch die alten Pfade `docs/data.*`. Die Umstellung auf `web/dist/**` und `api-schema.json` hat die Auto-Modus-Prüfung blockiert, das macht der Nutzer. Phase 9 fertig, offen bleibt nur der Feinschliff 6–8 nach Rückmeldung.
 
+- 2026-09-19 Nacharbeit: `.claude/settings.json` sperrt jetzt `web/dist/**` und `web/src/lib/api-schema.json` statt der gelöschten `docs/data.*`. Altlasten des alten Dashboards entfernt (`appjs_full.diff.txt`, `_input/screen_b_dashboard.html`). README-Zeile `camper.py system elektrik` gegen `camper.py bereich Elektrik` getauscht, den Befehl `system` gibt es nicht. Nicht geprüft: Tests und Web-Build, die Cloud-Sitzung hat keinen Zugang zu PyPI und npm.
+
 ## Offene Fragen
 
-- Palette: Treffer mit loser Buchstabenfolge („kabel“ findet „Klappenbeschlag … Kinvaro“) stehen in ihrer Gruppe vor echten Worttreffern anderer Typen. Lose Treffer ausblenden, wenn es genug echte gibt?
-- Medien-Treffer in der Palette öffnen nur die Galerie. Lupe per Route (`#/medien/<id>`) direkt öffnen?
-- Einzelteile haben keine Detail-Route (`#/zuschnitt/<id>`), die Palette springt nur in die Liste.
-- Palette zeigt die Dialog-Kopfzeile „Suchen oder springen“ mit X (das alte Dashboard hatte nur das Eingabefeld). `Dialog` ohne Kopf erlauben?
-- 3D-Modelle haben keine Web-Kopie und sind in der Galerie nur als Kachel „nur im Vault“ zu sehen.
+- Entschieden (2026-09-19): Palette blendet lose Buchstabenfolgen-Treffer aus, solange es mindestens einen echten Worttreffer gibt — erst bei null echten Treffern kommen sie zurück (`web/src/lib/palette/suche.ts`).
+- Entschieden (2026-09-19): Medien-Treffer der Palette öffnen bei Bildern die Lupe direkt über `#/medien/<id>`, bei Unterlagen/Modellen weiter die Galerie.
+- Entschieden (2026-09-19): Einzelteile haben jetzt die Detail-Route `#/zuschnitt/<id>`, die Palette springt direkt hinein (`web/src/lib/zuschnitt/EinzelteilListe.svelte`).
+- Entschieden (2026-09-19): Palette zeigt keine Dialog-Kopfzeile mehr, nur das Eingabefeld — `Dialog` hat dafür die Eigenschaft `kopflos` bekommen (`web/src/lib/ui/Dialog.svelte`).
+- Entschieden (2026-09-19): 3D-Modell-Kachel bleibt ohne Viewer/Web-Kopie, zeigt jetzt aber Dateiname, Vault-Pfad und einen Knopf zum Pfad-Kopieren; eine Dateigröße liefert `/api/daten` bisher nicht (offen für `tools/`, siehe Bericht).
 
 ## Übergabe an den nächsten Chat
 

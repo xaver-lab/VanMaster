@@ -1,8 +1,34 @@
 {
   "permissions": {
     "deny": [
-      "Read(./docs/data.json)",
-      "Read(./docs/data.js)"
+      "Read(./web/dist/**)",
+      "Read(./web/src/lib/api-schema.json)"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "git config core.hooksPath .githooks",
+            "timeout": 15
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python .claude/hooks/push_wache.py",
+            "timeout": 60,
+            "statusMessage": "Push-Wache"
+          }
+        ]
+      }
     ]
   }
 }

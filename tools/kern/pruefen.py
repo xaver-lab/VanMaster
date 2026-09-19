@@ -313,7 +313,7 @@ def _csv_pruefen(pfad, rel_name: str, felder: list[str],
                 if werte["status"] and werte["status"] not in common.BAUTEIL_STATUS:
                     befunde.append(Befund(rel_name, nr, "fehler",
                                            f"status '{werte['status']}' ist nicht erlaubt"))
-                for feld in ("laenge_mm", "breite_mm", "dicke_mm", "anzahl"):
+                for feld in ("laenge_mm", "breite_mm", "dicke_mm", "anzahl", "gewicht_kg"):
                     wert = werte[feld]
                     if wert and not _ZAHL.match(wert.strip()):
                         befunde.append(Befund(rel_name, nr, "fehler",

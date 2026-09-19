@@ -86,7 +86,7 @@ def _einzelteil_pruefen(feld: str, wert: str) -> None:
         raise Ungueltig(
             f"massquelle muss eine von {', '.join(common.MASSQUELLE)} "
             f"sein, nicht '{wert}'.")
-    if feld in ("laenge_mm", "breite_mm", "dicke_mm", "anzahl"):
+    if feld in ("laenge_mm", "breite_mm", "dicke_mm", "anzahl", "gewicht_kg"):
         _zahl_pruefen(feld, wert)
 
 
