@@ -16,7 +16,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from tools import (  # noqa: E402
     ablauf, bauteile, bereiche, budget, build, geheim, gewicht, kern, material,
-    media, parts, status, tasks, verlauf, web,
+    media, parts, status, strom, tasks, verlauf, web,
 )
 from tools.common import (  # noqa: E402
     BAUTEIL_ART, BAUTEIL_STATUS, MASSQUELLE, PART_KATEGORIEN, SORTIERUNGEN,
@@ -230,6 +230,13 @@ def cmd_gewicht(args) -> None:
     print(gewicht.text())
 
 
+def cmd_strom(args) -> None:
+    if args.json:
+        zeige("", strom.bilanz(), True)
+        return
+    print(strom.text())
+
+
 def cmd_material(args) -> None:
     if args.json:
         zeige("", material.liste(bereich=args.bereich or ""), True)
@@ -440,6 +447,10 @@ def parser() -> argparse.ArgumentParser:
     s = sub.add_parser("gewicht", help="Zuladungsbilanz gegen das zulässige Gesamtgewicht")
     s.add_argument("--json", action="store_true")
     s.set_defaults(func=cmd_gewicht)
+
+    s = sub.add_parser("strom", help="Strombilanz: Tagesbedarf gegen die Batteriekapazität")
+    s.add_argument("--json", action="store_true")
+    s.set_defaults(func=cmd_strom)
 
     s = sub.add_parser("material", help="Materialliste fürs Baumarkt, nach Material/Dicke")
     s.add_argument("--bereich")

@@ -94,6 +94,8 @@
         ['Einheit', t.einheit],
         ['Kennwerte', t.kennwerte],
         ['Gewicht', zahl(t.gewicht_kg) ? `${dezimal(zahl(t.gewicht_kg))} kg` : ''],
+        ['Leistung', zahl(t.watt) ? `${dezimal(zahl(t.watt), 0)} W` : ''],
+        ['Laufzeit', zahl(t.stunden_pro_tag) ? `${dezimal(zahl(t.stunden_pro_tag))} h/Tag` : ''],
         ['Entscheidung', t.entscheidung],
       ] as [string, string][]
     ).filter(([, wert]) => !!wert),

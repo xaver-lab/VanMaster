@@ -53,7 +53,7 @@ TEIL_FELDER = [
     "id", "titel", "beschreibung", "kategorie",
     "menge", "einheit", "preis", "status", "prioritaet",
     "link", "haendler", "fuer_aufgabe", "entscheidung",
-    "kennwerte", "gewicht_kg", "notiz", "gekauft_am",
+    "kennwerte", "gewicht_kg", "watt", "stunden_pro_tag", "notiz", "gekauft_am",
 ]
 TEIL_BERECHNET = ["gesamt"]
 

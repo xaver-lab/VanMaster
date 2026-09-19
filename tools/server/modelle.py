@@ -86,6 +86,8 @@ class TeilAntwort(_Basis):
     entscheidung: str
     kennwerte: str
     gewicht_kg: str
+    watt: str
+    stunden_pro_tag: str
     notiz: str
     gekauft_am: str
     zeile: int = 0
@@ -228,6 +230,44 @@ class AblaufAntwort(_Basis):
     ring: list[AblaufAufgabeAntwort] = []
 
 
+class StromVerbraucherAntwort(_Basis):
+    id: str
+    titel: str
+    kategorie: str
+    status: str
+    menge: float
+    watt: float
+    stunden_pro_tag: float
+    wh_pro_tag: float
+    ah_pro_tag: float
+
+
+class StromLueckeAntwort(_Basis):
+    """Teil mit nur einem der beiden Werte — fehlt in der Bilanz."""
+
+    id: str
+    titel: str
+    watt: str = ""
+    stunden_pro_tag: str = ""
+
+
+class StromAntwort(_Basis):
+    """``camper strom`` — Tagesbedarf gegen die Batteriekapazität."""
+
+    verbraucher: list[StromVerbraucherAntwort] = []
+    unvollstaendig: list[StromLueckeAntwort] = []
+    teile_gesamt: int
+    wh_pro_tag: float
+    ah_pro_tag: float
+    ah_pro_tag_brutto: float
+    bordspannung_v: float
+    batterie_ah: float | None = None
+    batterie_nutzbar: float
+    nutzbar_ah: float | None = None
+    wirkungsgrad: float
+    reichweite_tage: float | None = None
+
+
 class DatenAntwort(_Basis):
     """Form von ``GET /api/daten`` — vollständiger Bestand."""
 
@@ -249,6 +289,7 @@ class DatenAntwort(_Basis):
     material: list[MaterialGruppeAntwort]
     einkauf: EinkaufAntwort
     ablauf: AblaufAntwort
+    strom: StromAntwort
     bearbeitbar: dict[str, Any]
     vokabular: dict[str, list[str]]
 

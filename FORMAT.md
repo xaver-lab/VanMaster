@@ -237,7 +237,9 @@ Text trägt — kein Anker, keine ID (`parts.csv` Zeile mit
 | `fuer_aufgabe` | Bezug zu einer Aufgaben-ID | Text | freie ID, kein Fremdschlüssel-Zwang |
 | `entscheidung` | Bezug zu einer Entscheidungsseite | Text | Dateiname/Titel der Seite, kein Anker |
 | `kennwerte` | technische Kennwerte | Text | frei, z. B. „1,5 mm" |
-| `gewicht_kg` | Gewicht je Einheit | Zahl (Text) | frei |
+| `gewicht_kg` | Gewicht je Einheit | Zahl (Text) | frei, Punkt als Trennzeichen beim Schreiben |
+| `watt` | Leistungsaufnahme je Stück, für `camper strom` (§14) | Zahl (Text) | frei, leer = kein Verbraucher |
+| `stunden_pro_tag` | geschätzte Laufzeit am Tag, für `camper strom` (§14) | Zahl (Text) | frei, leer = kein Verbraucher |
 | `notiz` | Freitext | Text | frei |
 | `gekauft_am` | Kaufdatum | Text | frei, im Bestand durchgehend leer (0 von 67 Zeilen gesetzt) |
 
@@ -521,3 +523,63 @@ zul_gesamtgewicht_kg: 3500
   Gewichtssumme aus `data/parts.csv` und `data/bauteile.csv`
   (`tools/gewicht.py:bilanz()`). Fehlt eines der beiden Felder, erklärt der
   Befehl nur, wo sie eingetragen werden, statt Werte zu erfinden.
+
+## 14. Strombilanz — `watt` und `stunden_pro_tag` in `data/parts.csv`
+
+Quelle: `tools/strom.py`. Die Verbraucher bekommen **keine eigene Ablage**.
+Kühlschrank, Pumpe, Licht und Lüfter sind Teile der Stückliste; sie dort ein
+zweites Mal zu führen hieße, zwei Listen derselben Dinge zu pflegen, die
+auseinanderlaufen, sobald ein Verbraucher umentschieden wird. Stattdessen
+zwei Spalten am Teil — derselbe Gedanke wie `gewicht_kg` für die Zuladung
+(§13).
+
+| Feld | Bedeutung |
+|---|---|
+| `watt` | Leistungsaufnahme je Stück |
+| `stunden_pro_tag` | geschätzte Laufzeit am Tag |
+
+- Als Verbraucher zählt nur ein Teil mit **beiden** Werten. Eines allein
+  ergibt keinen Tagesverbrauch; `camper strom` listet solche Zeilen getrennt
+  als „halb gepflegt" auf, statt zu raten.
+- Beide werden wie `preis`, `menge` und `gewicht_kg` als Zahl geprüft
+  (`kern/tabellen.py:_teil_pruefen`), beim Schreiben mit Punkt als
+  Dezimaltrennzeichen. Im Web sind sie **nicht** bearbeitbar (wie
+  `gewicht_kg`) — gepflegt wird über `camper parts excel` / `parts import`.
+
+### Anlagendaten im Projektkopf `vault/Camper.md`
+
+Wie Budget (§11) und Fahrzeuggewicht (§13):
+
+```yaml
+---
+projekt: VanMaster
+batterie_ah: 200
+bordspannung_v: 12
+batterie_nutzbar: 0.8
+wirkungsgrad: 0.85
+---
+```
+
+- `batterie_ah` — Nennkapazität der Aufbaubatterie. **Ohne sie gibt es keine
+  Reichweite**, nur den Tagesbedarf.
+- `bordspannung_v` — Vorgabe 12.
+- `batterie_nutzbar` — nutzbarer Anteil der Nennkapazität, Vorgabe 0.8.
+  LiFePO4 verträgt 0.8–0.9, Blei eher 0.5.
+- `wirkungsgrad` — Vorgabe 1.0, rechnet also ohne Wandlungs- und
+  Leitungsverluste. Kleiner als 1 erhöht den Bedarf aus der Batterie.
+- Alle vier werden nur gelesen, nie über `tools/kern/` geschrieben.
+
+### Rechenweg
+
+```
+Wh/Tag     = Menge × Watt × Stunden pro Tag
+Ah/Tag     = Wh/Tag ÷ Bordspannung
+Ah brutto  = Ah/Tag ÷ Wirkungsgrad
+nutzbar Ah = batterie_ah × batterie_nutzbar
+Reichweite = nutzbar Ah ÷ Ah brutto
+```
+
+Bewusst schlicht: kein Lade-/Entladeprofil, keine Temperaturabhängigkeit,
+kein Solarertrag. Die Reichweite ist der schlechteste Fall — ohne Nachladen.
+Unter einem Tag Reserve warnt `camper strom`
+(`tools/strom.py:SCHWELLE_TAGE`).

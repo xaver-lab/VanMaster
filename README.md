@@ -34,6 +34,7 @@ python camper.py bereich Elektrik    # Lage eines Bereichs
 python camper.py find "Heizung"      # Volltextsuche
 python camper.py media               # Bilder aus _input einsortieren
 python camper.py gewicht             # Zuladungsbilanz gegen das Fahrzeuggewicht
+python camper.py strom               # Strombilanz: Tagesbedarf gegen die Batterie
 python camper.py material            # Materialliste fürs Baumarkt, nach Material/Dicke
 python camper.py sync                # alles neu erzeugen
 python camper.py serve               # Dashboard mit Schreibzugriff

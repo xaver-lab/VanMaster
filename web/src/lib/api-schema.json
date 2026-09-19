@@ -629,6 +629,9 @@
         "title": "Recherche",
         "type": "array"
       },
+      "strom": {
+        "$ref": "#/$defs/StromAntwort"
+      },
       "teile": {
         "items": {
           "$ref": "#/$defs/TeilAntwort"
@@ -673,6 +676,7 @@
       "material",
       "einkauf",
       "ablauf",
+      "strom",
       "bearbeitbar",
       "vokabular"
     ],
@@ -1284,6 +1288,184 @@
     "title": "SeiteAntwort",
     "type": "object"
   },
+  "StromAntwort": {
+    "description": "``camper strom`` — Tagesbedarf gegen die Batteriekapazität.",
+    "properties": {
+      "ah_pro_tag": {
+        "title": "Ah Pro Tag",
+        "type": "number"
+      },
+      "ah_pro_tag_brutto": {
+        "title": "Ah Pro Tag Brutto",
+        "type": "number"
+      },
+      "batterie_ah": {
+        "anyOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Batterie Ah"
+      },
+      "batterie_nutzbar": {
+        "title": "Batterie Nutzbar",
+        "type": "number"
+      },
+      "bordspannung_v": {
+        "title": "Bordspannung V",
+        "type": "number"
+      },
+      "nutzbar_ah": {
+        "anyOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Nutzbar Ah"
+      },
+      "reichweite_tage": {
+        "anyOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Reichweite Tage"
+      },
+      "teile_gesamt": {
+        "title": "Teile Gesamt",
+        "type": "integer"
+      },
+      "unvollstaendig": {
+        "default": [],
+        "items": {
+          "$ref": "#/$defs/StromLueckeAntwort"
+        },
+        "title": "Unvollstaendig",
+        "type": "array"
+      },
+      "verbraucher": {
+        "default": [],
+        "items": {
+          "$ref": "#/$defs/StromVerbraucherAntwort"
+        },
+        "title": "Verbraucher",
+        "type": "array"
+      },
+      "wh_pro_tag": {
+        "title": "Wh Pro Tag",
+        "type": "number"
+      },
+      "wirkungsgrad": {
+        "title": "Wirkungsgrad",
+        "type": "number"
+      }
+    },
+    "required": [
+      "teile_gesamt",
+      "wh_pro_tag",
+      "ah_pro_tag",
+      "ah_pro_tag_brutto",
+      "bordspannung_v",
+      "batterie_nutzbar",
+      "wirkungsgrad"
+    ],
+    "title": "StromAntwort",
+    "type": "object"
+  },
+  "StromLueckeAntwort": {
+    "description": "Teil mit nur einem der beiden Werte — fehlt in der Bilanz.",
+    "properties": {
+      "id": {
+        "title": "Id",
+        "type": "string"
+      },
+      "stunden_pro_tag": {
+        "default": "",
+        "title": "Stunden Pro Tag",
+        "type": "string"
+      },
+      "titel": {
+        "title": "Titel",
+        "type": "string"
+      },
+      "watt": {
+        "default": "",
+        "title": "Watt",
+        "type": "string"
+      }
+    },
+    "required": [
+      "id",
+      "titel"
+    ],
+    "title": "StromLueckeAntwort",
+    "type": "object"
+  },
+  "StromVerbraucherAntwort": {
+    "properties": {
+      "ah_pro_tag": {
+        "title": "Ah Pro Tag",
+        "type": "number"
+      },
+      "id": {
+        "title": "Id",
+        "type": "string"
+      },
+      "kategorie": {
+        "title": "Kategorie",
+        "type": "string"
+      },
+      "menge": {
+        "title": "Menge",
+        "type": "number"
+      },
+      "status": {
+        "title": "Status",
+        "type": "string"
+      },
+      "stunden_pro_tag": {
+        "title": "Stunden Pro Tag",
+        "type": "number"
+      },
+      "titel": {
+        "title": "Titel",
+        "type": "string"
+      },
+      "watt": {
+        "title": "Watt",
+        "type": "number"
+      },
+      "wh_pro_tag": {
+        "title": "Wh Pro Tag",
+        "type": "number"
+      }
+    },
+    "required": [
+      "id",
+      "titel",
+      "kategorie",
+      "status",
+      "menge",
+      "watt",
+      "stunden_pro_tag",
+      "wh_pro_tag",
+      "ah_pro_tag"
+    ],
+    "title": "StromVerbraucherAntwort",
+    "type": "object"
+  },
   "TeilAnlegenAnfrage": {
     "properties": {
       "felder": {
@@ -1369,8 +1551,16 @@
         "title": "Status",
         "type": "string"
       },
+      "stunden_pro_tag": {
+        "title": "Stunden Pro Tag",
+        "type": "string"
+      },
       "titel": {
         "title": "Titel",
+        "type": "string"
+      },
+      "watt": {
+        "title": "Watt",
         "type": "string"
       },
       "zeile": {
@@ -1395,6 +1585,8 @@
       "entscheidung",
       "kennwerte",
       "gewicht_kg",
+      "watt",
+      "stunden_pro_tag",
       "notiz",
       "gekauft_am"
     ],

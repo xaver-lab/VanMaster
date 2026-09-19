@@ -120,6 +120,7 @@ export interface DatenAntwort {
   material: MaterialGruppeAntwort[];
   einkauf: EinkaufAntwort;
   ablauf: AblaufAntwort;
+  strom: StromAntwort;
   bearbeitbar: Record<string, any>;
   vokabular: Record<string, string[]>;
 }
@@ -256,6 +257,40 @@ export interface SeiteAntwort {
   text?: string;
 }
 
+export interface StromAntwort {
+  verbraucher?: StromVerbraucherAntwort[];
+  unvollstaendig?: StromLueckeAntwort[];
+  teile_gesamt: number;
+  wh_pro_tag: number;
+  ah_pro_tag: number;
+  ah_pro_tag_brutto: number;
+  bordspannung_v: number;
+  batterie_ah?: number | null;
+  batterie_nutzbar: number;
+  nutzbar_ah?: number | null;
+  wirkungsgrad: number;
+  reichweite_tage?: number | null;
+}
+
+export interface StromLueckeAntwort {
+  id: string;
+  titel: string;
+  watt?: string;
+  stunden_pro_tag?: string;
+}
+
+export interface StromVerbraucherAntwort {
+  id: string;
+  titel: string;
+  kategorie: string;
+  status: string;
+  menge: number;
+  watt: number;
+  stunden_pro_tag: number;
+  wh_pro_tag: number;
+  ah_pro_tag: number;
+}
+
 export interface TeilAnlegenAnfrage {
   felder: Record<string, any>;
   version: string;
@@ -277,6 +312,8 @@ export interface TeilAntwort {
   entscheidung: string;
   kennwerte: string;
   gewicht_kg: string;
+  watt: string;
+  stunden_pro_tag: string;
   notiz: string;
   gekauft_am: string;
   zeile?: number;

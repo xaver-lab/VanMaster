@@ -39,7 +39,8 @@ def test_daten_vollstaendig(client, repo):
         "erzeugt", "bereiche", "aufgaben", "querverweise", "entscheidungen",
         "anleitungen", "recherche", "teile", "einzelteile", "medien",
         "versionen", "kennzahlen", "kategorien", "budget", "gewicht",
-        "material", "einkauf", "ablauf", "bearbeitbar", "vokabular",
+        "material", "einkauf", "ablauf", "strom", "bearbeitbar",
+        "vokabular",
     ):
         assert schluessel in d
     assert d["vokabular"]["einzelteil_art"][0] == "Platte"
@@ -103,6 +104,29 @@ def test_daten_ablauf_stimmt_mit_dem_befehl(client, repo):
         [[a["id"] for a in s["aufgaben"]] for s in erwartet["stufen"]]
     assert [a["id"] for a in d["schluessel"]] == \
         [a["id"] for a in erwartet["schluessel"]]
+
+
+def test_daten_strom_stimmt_mit_dem_befehl(client, repo):
+    from tools import strom
+
+    d = client.get("/api/daten").json()["strom"]
+    erwartet = strom.bilanz()
+    for feld in ("wh_pro_tag", "ah_pro_tag", "ah_pro_tag_brutto",
+                 "bordspannung_v", "batterie_ah", "reichweite_tage"):
+        assert d[feld] == erwartet[feld], feld
+    assert [v["id"] for v in d["verbraucher"]] == \
+        [v["id"] for v in erwartet["verbraucher"]]
+
+
+def test_daten_teile_tragen_die_stromfelder(client, repo):
+    d = client.get("/api/daten").json()
+    for t in d["teile"]:
+        assert "watt" in t and "stunden_pro_tag" in t
+    # Nicht im Web bearbeitbar — wie gewicht_kg über Excel gepflegt.
+    matrix = d["bearbeitbar"]["teil_felder"]
+    assert matrix["watt"]["web"] is False
+    assert matrix["stunden_pro_tag"]["web"] is False
+    assert matrix["watt"]["claude"] is True
 
 
 def test_daten_medien_tragen_die_dateigroesse(client, repo):

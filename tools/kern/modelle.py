@@ -125,6 +125,8 @@ class Teil:
     entscheidung: str
     kennwerte: str
     gewicht_kg: str
+    watt: str            # Leistungsaufnahme je Stück, für die Strombilanz
+    stunden_pro_tag: str  # geschätzte Laufzeit am Tag
     notiz: str
     gekauft_am: str
     zeile: int = 0  # Zeilennummer in data/parts.csv (Kopfzeile = 1)

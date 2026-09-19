@@ -14,6 +14,7 @@ from .. import build, common
 from .. import gewicht as gewicht_mod
 from .. import parts
 from .. import material as material_mod
+from .. import strom as strom_mod
 from ..common import STANDARD_SORTIERUNG
 from ..kern import abschnitte as kern_abschnitte
 from ..kern import datei as kern_datei
@@ -144,6 +145,7 @@ def daten_json(sortierung: str = STANDARD_SORTIERUNG) -> dict:
         "material": _material(),
         "einkauf": parts.buy_daten(),
         "ablauf": ablauf_mod.plan(sortierung=sortierung),
+        "strom": strom_mod.bilanz(),
         "bearbeitbar": _bearbeitbar(),
         "vokabular": _vokabular(),
     }
