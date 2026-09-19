@@ -4,7 +4,7 @@
   import type { MediumAntwort } from '../api-typen';
   import { store } from '../daten.svelte';
   import { router } from '../router.svelte';
-  import { Auswahl, Feld, Kennzahl, Leerzustand, Tabs } from '../ui';
+  import { Auswahl, Feld, Filterleiste, Kennzahl, Leerzustand, Tabs } from '../ui';
   import { IconMedien, IconSuche } from '../ui/icons';
   import Galerie from './Galerie.svelte';
   import Lupe from './Lupe.svelte';
@@ -38,16 +38,21 @@
   // vom aktuellen Filter, auf allen Bildern (nicht nur den gefilterten).
   const bilderAlle = $derived(alle.filter(istBild));
   let routeIndex = $state<number | null>(null);
+  // Zuletzt aus der Adresse übernommener Parameter. Ohne ihn setzte der
+  // Effekt den Index sofort wieder, den das Schließen der Lupe genullt hat —
+  // über einen Direktlink geöffnet ließ sie sich dann nicht mehr schließen.
+  // Der Effekt reagiert deshalb nur auf echte Adressänderungen.
+  let letzterParam = '';
   $effect(() => {
     if (router.route.ansicht !== 'medien') return;
-    const param = router.route.parameter[0];
-    if (!param) {
-      if (routeIndex !== null) routeIndex = null;
-      return;
-    }
-    const datei = decodeURIComponent(param);
-    const i = bilderAlle.findIndex((m) => m.datei === datei);
-    if (i !== routeIndex) routeIndex = i >= 0 ? i : null;
+    // `param` kommt vom Router schon dekodiert — hier nicht noch einmal.
+    const param = router.route.parameter[0] ?? '';
+    if (param === letzterParam) return;
+    const i = param ? bilderAlle.findIndex((m) => m.datei === param) : -1;
+    // Bilder noch nicht geladen: später nochmal versuchen.
+    if (param && i < 0 && !bilderAlle.length) return;
+    letzterParam = param;
+    routeIndex = i >= 0 ? i : null;
   });
   $effect(() => {
     // Lupe geschlossen (Esc/X/Klick daneben setzt routeIndex auf null) →
@@ -112,9 +117,10 @@
     {/if}
   </div>
 
-  <div class="leiste">
-    <Tabs tabs={artTabs} aktiv={artWirksam} onwechsel={artWaehlen} label="Art" />
-    <div class="leiste-werkzeug">
+  <Filterleiste>
+    {#snippet reiter()}
+      <Tabs tabs={artTabs} aktiv={artWirksam} onwechsel={artWaehlen} label="Art" />
+    {/snippet}
       <Feld
         bind:wert={suche}
         placeholder="Suche im Namen…"
@@ -124,16 +130,15 @@
         klein
       />
       <Auswahl
-        class="bereich-wahl"
+        class="filter-wahl"
         wert={bereichWirksam}
         optionen={bereiche.map((b) => ({ wert: b, label: b || 'Unsortiert' }))}
         leer="alle Bereiche"
         onchange={(e) => bereichWaehlen((e.target as HTMLSelectElement).value)}
-        aria-label="Bereich filtern"
-        klein
-      />
-    </div>
-  </div>
+      aria-label="Bereich filtern"
+      klein
+    />
+  </Filterleiste>
 
   {#if !gefiltert.length}
     <Leerzustand titel="Nichts passt zum Filter" text="Filter lockern oder die Suche anpassen." />
@@ -150,27 +155,5 @@
     flex-wrap: wrap;
     gap: var(--a-5);
     margin-bottom: var(--a-5);
-  }
-  .leiste {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--a-3);
-    margin-bottom: var(--a-5);
-  }
-  .leiste-werkzeug {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--a-2);
-    margin-left: auto;
-  }
-  .leiste-werkzeug :global(.ui-feld) {
-    width: 15rem;
-  }
-  .leiste-werkzeug :global(.bereich-wahl) {
-    width: 11rem;
-    flex: none;
   }
 </style>

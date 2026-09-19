@@ -1,4 +1,120 @@
 {
+  "AblaufAntwort": {
+    "description": "``camper ablauf`` — offene Aufgaben in Stufen nach ``@braucht:``.",
+    "properties": {
+      "offen_gesamt": {
+        "title": "Offen Gesamt",
+        "type": "integer"
+      },
+      "ring": {
+        "default": [],
+        "items": {
+          "$ref": "#/$defs/AblaufAufgabeAntwort"
+        },
+        "title": "Ring",
+        "type": "array"
+      },
+      "schluessel": {
+        "default": [],
+        "items": {
+          "$ref": "#/$defs/AblaufAufgabeAntwort"
+        },
+        "title": "Schluessel",
+        "type": "array"
+      },
+      "stufen": {
+        "default": [],
+        "items": {
+          "$ref": "#/$defs/AblaufStufeAntwort"
+        },
+        "title": "Stufen",
+        "type": "array"
+      },
+      "tiefe": {
+        "title": "Tiefe",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "tiefe",
+      "offen_gesamt"
+    ],
+    "title": "AblaufAntwort",
+    "type": "object"
+  },
+  "AblaufAufgabeAntwort": {
+    "description": "Eine Aufgabe im Ablaufplan. ``haelt_auf`` ist die Zahl der offenen\nAufgaben, die an ihr hängen — direkt und über die Kette.",
+    "properties": {
+      "bereich": {
+        "title": "Bereich",
+        "type": "string"
+      },
+      "braucht": {
+        "default": [],
+        "items": {
+          "type": "string"
+        },
+        "title": "Braucht",
+        "type": "array"
+      },
+      "dauer": {
+        "default": "",
+        "title": "Dauer",
+        "type": "string"
+      },
+      "haelt_auf": {
+        "default": 0,
+        "title": "Haelt Auf",
+        "type": "integer"
+      },
+      "id": {
+        "title": "Id",
+        "type": "string"
+      },
+      "prio": {
+        "default": "",
+        "title": "Prio",
+        "type": "string"
+      },
+      "status": {
+        "title": "Status",
+        "type": "string"
+      },
+      "titel": {
+        "title": "Titel",
+        "type": "string"
+      }
+    },
+    "required": [
+      "id",
+      "titel",
+      "bereich",
+      "status"
+    ],
+    "title": "AblaufAufgabeAntwort",
+    "type": "object"
+  },
+  "AblaufStufeAntwort": {
+    "properties": {
+      "aufgaben": {
+        "default": [],
+        "items": {
+          "$ref": "#/$defs/AblaufAufgabeAntwort"
+        },
+        "title": "Aufgaben",
+        "type": "array"
+      },
+      "stufe": {
+        "title": "Stufe",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "stufe"
+    ],
+    "title": "AblaufStufeAntwort",
+    "type": "object"
+  },
   "AbschnittAnfrage": {
     "properties": {
       "text": {
@@ -308,9 +424,120 @@
     "title": "BereichAntwort",
     "type": "object"
   },
+  "BudgetAntwort": {
+    "description": "``camper budget`` — Zielbudget gegen bezahlt und geplant.",
+    "properties": {
+      "bezahlt": {
+        "title": "Bezahlt",
+        "type": "number"
+      },
+      "differenz_prognose": {
+        "anyOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Differenz Prognose"
+      },
+      "geplant": {
+        "title": "Geplant",
+        "type": "number"
+      },
+      "kategorien": {
+        "default": [],
+        "items": {
+          "$ref": "#/$defs/BudgetKategorieAntwort"
+        },
+        "title": "Kategorien",
+        "type": "array"
+      },
+      "prognose": {
+        "title": "Prognose",
+        "type": "number"
+      },
+      "rest": {
+        "anyOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Rest"
+      },
+      "ziel": {
+        "anyOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Ziel"
+      }
+    },
+    "required": [
+      "bezahlt",
+      "geplant",
+      "prognose"
+    ],
+    "title": "BudgetAntwort",
+    "type": "object"
+  },
+  "BudgetKategorieAntwort": {
+    "properties": {
+      "bezahlt": {
+        "title": "Bezahlt",
+        "type": "number"
+      },
+      "budget": {
+        "anyOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Budget"
+      },
+      "geplant": {
+        "title": "Geplant",
+        "type": "number"
+      },
+      "kategorie": {
+        "title": "Kategorie",
+        "type": "string"
+      },
+      "prognose": {
+        "title": "Prognose",
+        "type": "number"
+      }
+    },
+    "required": [
+      "kategorie",
+      "bezahlt",
+      "geplant",
+      "prognose"
+    ],
+    "title": "BudgetKategorieAntwort",
+    "type": "object"
+  },
   "DatenAntwort": {
     "description": "Form von ``GET /api/daten`` — vollständiger Bestand.",
     "properties": {
+      "ablauf": {
+        "$ref": "#/$defs/AblaufAntwort"
+      },
       "anleitungen": {
         "items": {
           "$ref": "#/$defs/SeiteAntwort"
@@ -337,6 +564,12 @@
         "title": "Bereiche",
         "type": "array"
       },
+      "budget": {
+        "$ref": "#/$defs/BudgetAntwort"
+      },
+      "einkauf": {
+        "$ref": "#/$defs/EinkaufAntwort"
+      },
       "einzelteile": {
         "items": {
           "$ref": "#/$defs/EinzelteilAntwort"
@@ -355,6 +588,9 @@
         "title": "Erzeugt",
         "type": "string"
       },
+      "gewicht": {
+        "$ref": "#/$defs/GewichtAntwort"
+      },
       "kategorien": {
         "items": {
           "$ref": "#/$defs/KategorieAntwort"
@@ -364,6 +600,13 @@
       },
       "kennzahlen": {
         "$ref": "#/$defs/KennzahlenAntwort"
+      },
+      "material": {
+        "items": {
+          "$ref": "#/$defs/MaterialGruppeAntwort"
+        },
+        "title": "Material",
+        "type": "array"
       },
       "medien": {
         "items": {
@@ -385,6 +628,9 @@
         },
         "title": "Recherche",
         "type": "array"
+      },
+      "strom": {
+        "$ref": "#/$defs/StromAntwort"
       },
       "teile": {
         "items": {
@@ -425,10 +671,70 @@
       "versionen",
       "kennzahlen",
       "kategorien",
+      "budget",
+      "gewicht",
+      "material",
+      "einkauf",
+      "ablauf",
+      "strom",
       "bearbeitbar",
       "vokabular"
     ],
     "title": "DatenAntwort",
+    "type": "object"
+  },
+  "EinkaufAntwort": {
+    "description": "``camper buy next`` — was als Nächstes bestellt werden kann.",
+    "properties": {
+      "gruppen": {
+        "default": [],
+        "items": {
+          "$ref": "#/$defs/EinkaufGruppeAntwort"
+        },
+        "title": "Gruppen",
+        "type": "array"
+      },
+      "summe": {
+        "title": "Summe",
+        "type": "number"
+      },
+      "teile_gesamt": {
+        "title": "Teile Gesamt",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "teile_gesamt",
+      "summe"
+    ],
+    "title": "EinkaufAntwort",
+    "type": "object"
+  },
+  "EinkaufGruppeAntwort": {
+    "description": "Ein Händlerbündel aus ``camper buy next``. ``teile`` sind Teile-IDs;\ndie Sätze stehen in ``teile`` der Gesamtantwort.",
+    "properties": {
+      "haendler": {
+        "title": "Haendler",
+        "type": "string"
+      },
+      "summe": {
+        "title": "Summe",
+        "type": "number"
+      },
+      "teile": {
+        "default": [],
+        "items": {
+          "type": "string"
+        },
+        "title": "Teile",
+        "type": "array"
+      }
+    },
+    "required": [
+      "haendler",
+      "summe"
+    ],
+    "title": "EinkaufGruppeAntwort",
     "type": "object"
   },
   "EinzelteilAnlegenAnfrage": {
@@ -569,6 +875,86 @@
     "title": "FehlerAntwort",
     "type": "object"
   },
+  "GewichtAntwort": {
+    "description": "``camper gewicht`` — Zuladungsbilanz.",
+    "properties": {
+      "ausbau_kg": {
+        "title": "Ausbau Kg",
+        "type": "number"
+      },
+      "bauteile_fehlt": {
+        "title": "Bauteile Fehlt",
+        "type": "integer"
+      },
+      "bauteile_gesamt": {
+        "title": "Bauteile Gesamt",
+        "type": "integer"
+      },
+      "bauteile_kg": {
+        "title": "Bauteile Kg",
+        "type": "number"
+      },
+      "leergewicht_kg": {
+        "anyOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Leergewicht Kg"
+      },
+      "teile_fehlt": {
+        "title": "Teile Fehlt",
+        "type": "integer"
+      },
+      "teile_gesamt": {
+        "title": "Teile Gesamt",
+        "type": "integer"
+      },
+      "teile_kg": {
+        "title": "Teile Kg",
+        "type": "number"
+      },
+      "zul_gesamtgewicht_kg": {
+        "anyOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Zul Gesamtgewicht Kg"
+      },
+      "zuladung_erlaubt_kg": {
+        "anyOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Zuladung Erlaubt Kg"
+      }
+    },
+    "required": [
+      "teile_kg",
+      "teile_fehlt",
+      "teile_gesamt",
+      "bauteile_kg",
+      "bauteile_fehlt",
+      "bauteile_gesamt",
+      "ausbau_kg"
+    ],
+    "title": "GewichtAntwort",
+    "type": "object"
+  },
   "KategorieAntwort": {
     "properties": {
       "gewicht": {
@@ -699,6 +1085,38 @@
     "title": "KopfAnfrage",
     "type": "object"
   },
+  "MaterialGruppeAntwort": {
+    "description": "Eine Zeile von ``camper material`` — Material + Dicke mit Bedarf.\n``zuschnitte`` sind Einzelteil-IDs; die Sätze stehen in ``einzelteile``.",
+    "properties": {
+      "bedarf": {
+        "title": "Bedarf",
+        "type": "string"
+      },
+      "dicke_mm": {
+        "default": "",
+        "title": "Dicke Mm",
+        "type": "string"
+      },
+      "material": {
+        "title": "Material",
+        "type": "string"
+      },
+      "zuschnitte": {
+        "default": [],
+        "items": {
+          "type": "string"
+        },
+        "title": "Zuschnitte",
+        "type": "array"
+      }
+    },
+    "required": [
+      "material",
+      "bedarf"
+    ],
+    "title": "MaterialGruppeAntwort",
+    "type": "object"
+  },
   "MediumAntwort": {
     "properties": {
       "art": {
@@ -716,6 +1134,11 @@
       "dateiname": {
         "title": "Dateiname",
         "type": "string"
+      },
+      "groesse": {
+        "default": 0,
+        "title": "Groesse",
+        "type": "integer"
       },
       "name": {
         "title": "Name",
@@ -865,6 +1288,184 @@
     "title": "SeiteAntwort",
     "type": "object"
   },
+  "StromAntwort": {
+    "description": "``camper strom`` — Tagesbedarf gegen die Batteriekapazität.",
+    "properties": {
+      "ah_pro_tag": {
+        "title": "Ah Pro Tag",
+        "type": "number"
+      },
+      "ah_pro_tag_brutto": {
+        "title": "Ah Pro Tag Brutto",
+        "type": "number"
+      },
+      "batterie_ah": {
+        "anyOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Batterie Ah"
+      },
+      "batterie_nutzbar": {
+        "title": "Batterie Nutzbar",
+        "type": "number"
+      },
+      "bordspannung_v": {
+        "title": "Bordspannung V",
+        "type": "number"
+      },
+      "nutzbar_ah": {
+        "anyOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Nutzbar Ah"
+      },
+      "reichweite_tage": {
+        "anyOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Reichweite Tage"
+      },
+      "teile_gesamt": {
+        "title": "Teile Gesamt",
+        "type": "integer"
+      },
+      "unvollstaendig": {
+        "default": [],
+        "items": {
+          "$ref": "#/$defs/StromLueckeAntwort"
+        },
+        "title": "Unvollstaendig",
+        "type": "array"
+      },
+      "verbraucher": {
+        "default": [],
+        "items": {
+          "$ref": "#/$defs/StromVerbraucherAntwort"
+        },
+        "title": "Verbraucher",
+        "type": "array"
+      },
+      "wh_pro_tag": {
+        "title": "Wh Pro Tag",
+        "type": "number"
+      },
+      "wirkungsgrad": {
+        "title": "Wirkungsgrad",
+        "type": "number"
+      }
+    },
+    "required": [
+      "teile_gesamt",
+      "wh_pro_tag",
+      "ah_pro_tag",
+      "ah_pro_tag_brutto",
+      "bordspannung_v",
+      "batterie_nutzbar",
+      "wirkungsgrad"
+    ],
+    "title": "StromAntwort",
+    "type": "object"
+  },
+  "StromLueckeAntwort": {
+    "description": "Teil mit nur einem der beiden Werte — fehlt in der Bilanz.",
+    "properties": {
+      "id": {
+        "title": "Id",
+        "type": "string"
+      },
+      "stunden_pro_tag": {
+        "default": "",
+        "title": "Stunden Pro Tag",
+        "type": "string"
+      },
+      "titel": {
+        "title": "Titel",
+        "type": "string"
+      },
+      "watt": {
+        "default": "",
+        "title": "Watt",
+        "type": "string"
+      }
+    },
+    "required": [
+      "id",
+      "titel"
+    ],
+    "title": "StromLueckeAntwort",
+    "type": "object"
+  },
+  "StromVerbraucherAntwort": {
+    "properties": {
+      "ah_pro_tag": {
+        "title": "Ah Pro Tag",
+        "type": "number"
+      },
+      "id": {
+        "title": "Id",
+        "type": "string"
+      },
+      "kategorie": {
+        "title": "Kategorie",
+        "type": "string"
+      },
+      "menge": {
+        "title": "Menge",
+        "type": "number"
+      },
+      "status": {
+        "title": "Status",
+        "type": "string"
+      },
+      "stunden_pro_tag": {
+        "title": "Stunden Pro Tag",
+        "type": "number"
+      },
+      "titel": {
+        "title": "Titel",
+        "type": "string"
+      },
+      "watt": {
+        "title": "Watt",
+        "type": "number"
+      },
+      "wh_pro_tag": {
+        "title": "Wh Pro Tag",
+        "type": "number"
+      }
+    },
+    "required": [
+      "id",
+      "titel",
+      "kategorie",
+      "status",
+      "menge",
+      "watt",
+      "stunden_pro_tag",
+      "wh_pro_tag",
+      "ah_pro_tag"
+    ],
+    "title": "StromVerbraucherAntwort",
+    "type": "object"
+  },
   "TeilAnlegenAnfrage": {
     "properties": {
       "felder": {
@@ -950,8 +1551,16 @@
         "title": "Status",
         "type": "string"
       },
+      "stunden_pro_tag": {
+        "title": "Stunden Pro Tag",
+        "type": "string"
+      },
       "titel": {
         "title": "Titel",
+        "type": "string"
+      },
+      "watt": {
+        "title": "Watt",
         "type": "string"
       },
       "zeile": {
@@ -976,6 +1585,8 @@
       "entscheidung",
       "kennwerte",
       "gewicht_kg",
+      "watt",
+      "stunden_pro_tag",
       "notiz",
       "gekauft_am"
     ],

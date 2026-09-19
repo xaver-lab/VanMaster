@@ -151,6 +151,57 @@ class DatenStore {
     return this.daten?.versionen[datei] ?? '';
   }
 
+  // ---------------------------------------------------------- Rückgängig
+  //
+  // Ein Statuswechsel ist ein Klick und schnell danebengegriffen — bei
+  // Aufgaben, Teilen und Einzelteilen gleichermaßen. Deshalb sitzt das
+  // Rückgängig hier im Store und nicht in den einzelnen Ansichten: wer
+  // `status` oder `prioritaet` schreibt, bekommt es ohne Zutun.
+  //
+  // Nur diese Felder: bei Freitext wäre ein Toast nach jedem Tippen Lärm,
+  // und die Eingabefelder haben ihren eigenen Überschreibschutz
+  // (`lib/ueberschreiben.ts`).
+  #umkehrbar = new Set(['status', 'prioritaet']);
+
+  // Das Zurücknehmen selbst darf keinen neuen Rückgängig-Toast auslösen,
+  // sonst schaukelt sich das auf.
+  #nimmtZurueck = false;
+
+  #rueckgaengigAnbieten(
+    was: string,
+    feld: string,
+    alt: string,
+    neu: string,
+    zurueck: () => Promise<unknown>,
+  ): void {
+    if (this.#nimmtZurueck || !this.#umkehrbar.has(feld)) return;
+    if (!alt || alt === neu) return;
+    toasts.info(`${was}: ${alt} → ${neu}`, {
+      label: 'Rückgängig',
+      tun: async () => {
+        this.#nimmtZurueck = true;
+        try {
+          await zurueck();
+        } finally {
+          this.#nimmtZurueck = false;
+        }
+      },
+    });
+  }
+
+  /** Ein Lauf, der selbst schon eine Rückmeldung gibt (etwa ein ganzer
+   *  Bestelllauf über mehrere Teile), unterdrückt die einzelnen
+   *  Rückgängig-Toasts — sonst kämen zehn Stück auf einmal. */
+  async ohneRueckgaengig<T>(lauf: () => Promise<T>): Promise<T> {
+    const vorher = this.#nimmtZurueck;
+    this.#nimmtZurueck = true;
+    try {
+      return await lauf();
+    } finally {
+      this.#nimmtZurueck = vorher;
+    }
+  }
+
   // -------------------------------------------------------- Schreibkern
 
   async #anfrage(
@@ -230,6 +281,7 @@ class DatenStore {
     datei: string,
     felder: Omit<AufgabePatchAnfrage, 'version'>,
   ): Promise<boolean> {
+    const vorher = this.daten?.aufgaben.find((a) => a.id === aufgabeId);
     const version = this.#version(datei);
     const erfolg = await this.#anfrage(
       'PATCH',
@@ -238,6 +290,12 @@ class DatenStore {
       { ...felder, version },
     );
     if (erfolg) await this.#neuLaden();
+    if (erfolg && vorher && felder.status && felder.status !== vorher.status) {
+      const alt = vorher.status;
+      this.#rueckgaengigAnbieten(vorher.titel, 'status', alt, felder.status, () =>
+        this.aufgabePatch(aufgabeId, datei, { status: alt }),
+      );
+    }
     return !!erfolg;
   }
 
@@ -293,6 +351,7 @@ class DatenStore {
   }
 
   async teilPatch(teilId: string, feld: string, wert: string): Promise<boolean> {
+    const vorher = this.daten?.teile.find((t) => t.id === teilId);
     const version = this.#version(DATEI_TEILE);
     const anfrage: TeilPatchAnfrage = { feld, wert, version };
     const erfolg = await this.#anfrage(
@@ -302,6 +361,12 @@ class DatenStore {
       anfrage,
     );
     if (erfolg) await this.#neuLaden();
+    if (erfolg && vorher) {
+      const alt = String((vorher as unknown as Record<string, unknown>)[feld] ?? '');
+      this.#rueckgaengigAnbieten(vorher.titel, feld, alt, wert, () =>
+        this.teilPatch(teilId, feld, alt),
+      );
+    }
     return !!erfolg;
   }
 
@@ -327,6 +392,7 @@ class DatenStore {
   }
 
   async einzelteilPatch(einzelteilId: string, feld: string, wert: string): Promise<boolean> {
+    const vorher = this.daten?.einzelteile.find((e) => e.id === einzelteilId);
     const version = this.#version(DATEI_BAUTEILE);
     const anfrage: EinzelteilPatchAnfrage = { feld, wert, version };
     const erfolg = await this.#anfrage(
@@ -336,6 +402,12 @@ class DatenStore {
       anfrage,
     );
     if (erfolg) await this.#neuLaden();
+    if (erfolg && vorher) {
+      const alt = String((vorher as unknown as Record<string, unknown>)[feld] ?? '');
+      this.#rueckgaengigAnbieten(vorher.titel, feld, alt, wert, () =>
+        this.einzelteilPatch(einzelteilId, feld, alt),
+      );
+    }
     return !!erfolg;
   }
 

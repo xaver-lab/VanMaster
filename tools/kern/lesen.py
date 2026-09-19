@@ -263,8 +263,12 @@ def einzelteile_lesen() -> list[Einzelteil]:
 
 def _medium(datei, bereich_name: str, art: str) -> Medium:
     rel = str(datei.relative_to(common.VAULT.parent)).replace("\\", "/")
+    try:
+        groesse = datei.stat().st_size
+    except OSError:
+        groesse = 0
     return Medium(name=datei.stem, dateiname=datei.name, bereich=bereich_name,
-                  art=art, datei=rel)
+                  art=art, datei=rel, groesse=groesse)
 
 
 def medien_lesen() -> list[Medium]:

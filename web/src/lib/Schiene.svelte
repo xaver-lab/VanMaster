@@ -7,6 +7,8 @@
   import {
     IconAufgaben,
     IconBereiche,
+    IconBilanz,
+    IconEinkauf,
     IconMedien,
     IconStart,
     IconTeile,
@@ -22,6 +24,8 @@
     teile: IconTeile,
     zuschnitt: IconZuschnitt,
     medien: IconMedien,
+    einkauf: IconEinkauf,
+    bilanz: IconBilanz,
   };
 
   let k = $derived(store.daten?.kennzahlen);
@@ -35,6 +39,7 @@
       teile: k.teile,
       zuschnitt: k.bauteile || undefined,
       medien: d.medien.length,
+      einkauf: d.einkauf.teile_gesamt || undefined,
     };
   });
 
@@ -126,7 +131,7 @@
 
   <div class="fuss">
     <div class="kuerzel">
-      <span><Kbd tasten="1–6" /> Ansicht</span>
+      <span><Kbd tasten="1–8" /> Ansicht</span>
       <span><Kbd tasten="T" /> Thema</span>
       <span><Kbd tasten="/" /> Suchen</span>
     </div>

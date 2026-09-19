@@ -15,8 +15,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from tools import (  # noqa: E402
-    bauteile, bereiche, budget, build, geheim, gewicht, kern, material,
-    media, parts, status, tasks, verlauf, web,
+    ablauf, bauteile, bereiche, budget, build, geheim, gewicht, kern, material,
+    media, parts, status, strom, tasks, verlauf, web,
 )
 from tools.common import (  # noqa: E402
     BAUTEIL_ART, BAUTEIL_STATUS, MASSQUELLE, PART_KATEGORIEN, SORTIERUNGEN,
@@ -117,6 +117,9 @@ def cmd_parts(args) -> None:
 
 
 def cmd_buy(args) -> None:
+    if args.json:
+        zeige("", parts.buy_daten(limit=args.limit), True)
+        return
     print(parts.buy_next(limit=args.limit))
 
 
@@ -213,11 +216,25 @@ def cmd_bauteile(args) -> None:
         print(bauteile.overview_text())
 
 
+def cmd_ablauf(args) -> None:
+    if args.json:
+        zeige("", ablauf.plan(args.bereich or "", args.sortierung), True)
+        return
+    print(ablauf.text(args.bereich or "", args.sortierung))
+
+
 def cmd_gewicht(args) -> None:
     if args.json:
         zeige("", gewicht.bilanz(), True)
         return
     print(gewicht.text())
+
+
+def cmd_strom(args) -> None:
+    if args.json:
+        zeige("", strom.bilanz(), True)
+        return
+    print(strom.text())
 
 
 def cmd_material(args) -> None:
@@ -366,6 +383,7 @@ def parser() -> argparse.ArgumentParser:
     s = sub.add_parser("buy", help="Einkaufsvorschlag")
     s.add_argument("was", nargs="?", default="next", choices=["next"])
     s.add_argument("--limit", type=int, default=0)
+    s.add_argument("--json", action="store_true")
     s.set_defaults(func=cmd_buy)
 
     s = sub.add_parser("bereich", help="alles zu einem Arbeitsbereich")
@@ -419,9 +437,20 @@ def parser() -> argparse.ArgumentParser:
     s.add_argument("--json", action="store_true")
     s.set_defaults(func=cmd_bauteile)
 
+    s = sub.add_parser("ablauf", help="Ablaufplan: Aufgaben in Stufen nach @braucht:")
+    s.add_argument("--bereich", help="nur diesen Bereich zeigen")
+    s.add_argument("--sortierung", default=STANDARD_SORTIERUNG,
+                   choices=SORTIERUNGEN)
+    s.add_argument("--json", action="store_true")
+    s.set_defaults(func=cmd_ablauf)
+
     s = sub.add_parser("gewicht", help="Zuladungsbilanz gegen das zulässige Gesamtgewicht")
     s.add_argument("--json", action="store_true")
     s.set_defaults(func=cmd_gewicht)
+
+    s = sub.add_parser("strom", help="Strombilanz: Tagesbedarf gegen die Batteriekapazität")
+    s.add_argument("--json", action="store_true")
+    s.set_defaults(func=cmd_strom)
 
     s = sub.add_parser("material", help="Materialliste fürs Baumarkt, nach Material/Dicke")
     s.add_argument("--bereich")

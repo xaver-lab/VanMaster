@@ -46,6 +46,7 @@ Element erzwingt dort ein Thema.
 - **Leerzustand** `titel` · `text` · `icon` · `marke` · `kompakt` · children = Aktion
 - **FortschrittRing** `wert` 0..1 · `zusatz` (schraffiert) · `groesse` · `dicke` · `ton` · **FortschrittBalken** dazu `teilung` (ein Strich je Einheit) · `label` · `zahl`
 - **Tabs** `tabs` [{id,label,zahl?,icon?}] · `bind:aktiv` · `onwechsel` — Inhalt wählt der Aufrufer
+- **Filterleiste** `reiter` (Snippet, meist `<Tabs>`) · children = Werkzeuge. Zeile über einer Liste: Reiter links, Suche/Auswahl/Knopf rechts; ohne `reiter` alles in einer Reihe und der Knopf ans Ende. Schmales Auswahlfeld: `class="filter-wahl"` (11 rem), Suchfeld bleibt 15 rem
 - **Kbd** `tasten="Strg K"` · Icons: `ui/icons.ts` (lucide, einzeln importiert; weitere per `@lucide/svelte/icons/<name>`)
 
 ## Regeln

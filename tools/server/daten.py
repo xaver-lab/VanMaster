@@ -8,7 +8,13 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Any
 
+from .. import ablauf as ablauf_mod
+from .. import budget as budget_mod
 from .. import build, common
+from .. import gewicht as gewicht_mod
+from .. import parts
+from .. import material as material_mod
+from .. import strom as strom_mod
 from ..common import STANDARD_SORTIERUNG
 from ..kern import abschnitte as kern_abschnitte
 from ..kern import datei as kern_datei
@@ -101,6 +107,15 @@ def _versionen(bestand) -> dict[str, str]:
     return versionen
 
 
+def _material() -> list[dict]:
+    """``camper material``, aber ohne die vollen Zuschnitt-Sätze: die stehen
+    schon unter ``einzelteile``, hier reichen ihre IDs."""
+    return [{"material": g["material"], "dicke_mm": g["dicke_mm"],
+             "bedarf": g["bedarf"],
+             "zuschnitte": [r.get("id", "") for r in g["zuschnitte"]]}
+            for g in material_mod.liste()]
+
+
 def daten_json(sortierung: str = STANDARD_SORTIERUNG) -> dict:
     """Kompletter Bestand — dieselbe Struktur wie ``GET /api/daten``."""
     bestand = laden()
@@ -125,6 +140,12 @@ def daten_json(sortierung: str = STANDARD_SORTIERUNG) -> dict:
         "versionen": _versionen(bestand),
         "kennzahlen": bau["kennzahlen"],
         "kategorien": bau["kategorien"],
+        "budget": budget_mod.daten(),
+        "gewicht": gewicht_mod.bilanz(),
+        "material": _material(),
+        "einkauf": parts.buy_daten(),
+        "ablauf": ablauf_mod.plan(sortierung=sortierung),
+        "strom": strom_mod.bilanz(),
         "bearbeitbar": _bearbeitbar(),
         "vokabular": _vokabular(),
     }

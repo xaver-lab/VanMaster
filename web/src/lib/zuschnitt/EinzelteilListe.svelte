@@ -13,7 +13,7 @@
   import Schreibbar from '../Schreibbar.svelte';
   import EinzelteilZeile from './EinzelteilZeile.svelte';
   import EinzelteilDetail from './EinzelteilDetail.svelte';
-  import { Auswahl, Dialog, Feld, Karte, Kennzahl, Knopf, Leerzustand } from '../ui';
+  import { Auswahl, Dialog, Feld, Filterleiste, Karte, Kennzahl, Knopf, Leerzustand } from '../ui';
   import { vokabular } from '../vokabular.svelte';
   import { dezimal } from '../zahlformat';
   import { IconPlus, IconSuche, IconZuschnitt } from '../ui/icons';
@@ -205,7 +205,7 @@
   {#if summeLaufmeter}<Kennzahl titel="Laufmeter" wert="{dezimal(summeLaufmeter, 2)} lfm" />{/if}
 </div>
 
-<div class="leiste">
+<Filterleiste>
   <Feld
     bind:wert={suche}
     placeholder="Suche in Titel, Material, Notiz…"
@@ -216,7 +216,7 @@
   />
   {#if !bereich}
     <Auswahl
-      class="bereich-wahl"
+      class="filter-wahl"
       bind:wert={bereichFilter}
       optionen={bereiche}
       leer="alle Bereiche"
@@ -225,14 +225,14 @@
     />
   {/if}
   <Auswahl
-    class="material-wahl"
+    class="filter-wahl"
     bind:wert={materialFilter}
     optionen={materialien}
     leer="alle Materialien"
     aria-label="Material filtern"
     klein
   />
-  <Auswahl bind:wert={gruppierung} optionen={GRUPPIER_OPTIONEN} aria-label="Gruppierung" klein />
+  <Auswahl class="filter-wahl" bind:wert={gruppierung} optionen={GRUPPIER_OPTIONEN} aria-label="Gruppierung" klein />
   {#if anlegenErlaubt}
     <Schreibbar>
       {#snippet children()}
@@ -240,7 +240,7 @@
       {/snippet}
     </Schreibbar>
   {/if}
-</div>
+</Filterleiste>
 
 <Dialog bind:offen={formOffen} titel="Einzelteil anlegen" beschreibung="Wird in bauteile.csv eingetragen.">
   <Feld label="Titel" bind:wert={neuTitel} placeholder="z. B. Bettrahmen Seite links" />
@@ -319,24 +319,6 @@
     margin-bottom: var(--a-5);
   }
 
-  .leiste {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--a-2);
-    margin-bottom: var(--a-5);
-  }
-  .leiste :global(.ui-feld) {
-    width: 15rem;
-  }
-  :global(.bereich-wahl),
-  :global(.material-wahl) {
-    width: 11rem;
-    flex: none;
-  }
-  .leiste :global(.ui-knopf) {
-    margin-left: auto;
-  }
 
   .zwei {
     display: grid;

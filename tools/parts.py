@@ -176,27 +176,52 @@ def add(titel: str, kategorie: str, **extra) -> str:
 
 # ------------------------------------------------------------ Einkaufszettel
 
-def buy_next(limit: int = 0) -> str:
+OHNE_HAENDLER = "ohne Händler"
+
+
+def buy_daten(limit: int = 0) -> dict:
+    """Einkaufsvorschlag als Daten: alles auf 'Entschieden', nach Priorität
+    und Betrag sortiert, nach Händler gebündelt. Grundlage für den Text von
+    ``camper buy next``, für ``--json`` und für die Einkaufsansicht — damit
+    Befehl und Dashboard dieselbe Reihenfolge zeigen."""
     rows = [r for r in load() if r["status"] == "Entschieden"]
-    if not rows:
-        return "Nichts zu bestellen — kein Teil steht auf 'Entschieden'."
     order = {p: i for i, p in enumerate(PART_PRIO)}
     rows.sort(key=lambda r: (order.get(r["prioritaet"], 9), -gesamt(r)))
     if limit:
         rows = rows[:limit]
+
     haendler: dict[str, list[dict]] = {}
     for row in rows:
-        haendler.setdefault(row["haendler"] or "ohne Händler", []).append(row)
+        haendler.setdefault(row["haendler"] or OHNE_HAENDLER, []).append(row)
+
+    gruppen = [
+        {
+            "haendler": name,
+            "summe": round(summe(hrows), 2),
+            "teile": [r["id"] for r in hrows],
+        }
+        for name, hrows in sorted(haendler.items(), key=lambda kv: -summe(kv[1]))
+    ]
+    return {"gruppen": gruppen, "teile_gesamt": len(rows),
+            "summe": round(summe(rows), 2)}
+
+
+def buy_next(limit: int = 0) -> str:
+    d = buy_daten(limit)
+    if not d["teile_gesamt"]:
+        return "Nichts zu bestellen — kein Teil steht auf 'Entschieden'."
+    nach_id = {r["id"]: r for r in load()}
     blocks = []
-    for name, hrows in sorted(haendler.items(), key=lambda kv: -summe(kv[1])):
-        lines = [f"{name} — {euro(summe(hrows))}"]
-        for r in hrows:
+    for gruppe in d["gruppen"]:
+        lines = [f"{gruppe['haendler']} — {euro(gruppe['summe'])}"]
+        for teil_id in gruppe["teile"]:
+            r = nach_id[teil_id]
             menge = f"{num(r['menge'], 1):g}x " if num(r["menge"], 1) != 1 else ""
             link = f"  {r['link']}" if r["link"] else ""
             lines.append(f"  - {menge}{r['titel']} · {r['prioritaet']} · "
                          f"{euro(gesamt(r))}{link}")
         blocks.append("\n".join(lines))
-    return "\n\n".join(blocks) + f"\n\nSumme: {euro(summe(rows))}"
+    return "\n\n".join(blocks) + f"\n\nSumme: {euro(d['summe'])}"
 
 
 # ------------------------------------------------------------------- Markdown

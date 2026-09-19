@@ -16,6 +16,7 @@
     Chip,
     Dialog,
     Feld,
+    Filterleiste,
     FortschrittBalken,
     Karte,
     Knopf,
@@ -24,6 +25,9 @@
     Tabs,
   } from '../ui';
   import { IconPlus, IconSuche } from '../ui/icons';
+  import Ablaufplan from './Ablaufplan.svelte';
+  import IconListe from '@lucide/svelte/icons/list';
+  import IconAblauf from '@lucide/svelte/icons/git-branch';
 
   let {
     bereich,
@@ -60,6 +64,14 @@
     } catch {
       /* egal — nur Komfort */
     }
+  }
+
+  // Zwei Darstellungen desselben Bestands: die Liste zum Abhaken, der
+  // Ablaufplan zum Planen (Stufen nach `@braucht:`, siehe tools/ablauf.py).
+  let darstellung = $state<'liste' | 'ablauf'>(gemerkt('aufgabenDarstellung', 'liste'));
+  function darstellungWaehlen(d: 'liste' | 'ablauf'): void {
+    darstellung = d;
+    merken('aufgabenDarstellung', d);
   }
 
   let filter = $state<Filter>(gemerkt('aufgabenFilter', 'offen'));
@@ -246,7 +258,7 @@
   }
 </script>
 
-{#if laufend.length}
+{#if darstellung === 'liste' && laufend.length}
   <div class="aufgaben-uebersicht">
     <Rubrik titel="In Arbeit" zahl={laufend.length} />
     <div class="uebersicht-reihe">
@@ -257,9 +269,13 @@
   </div>
 {/if}
 
-<div class="leiste">
-  <Tabs tabs={filterTabs} aktiv={filter} onwechsel={filterWaehlen} label="Status" />
-  <div class="leiste-werkzeug">
+<Filterleiste>
+  {#snippet reiter()}
+    {#if darstellung === 'liste'}
+      <Tabs tabs={filterTabs} aktiv={filter} onwechsel={filterWaehlen} label="Status" />
+    {/if}
+  {/snippet}
+  {#if darstellung === 'liste'}
     <Feld
       bind:wert={suche}
       placeholder="Suche in Titel und Beschreibung…"
@@ -269,7 +285,7 @@
       klein
     />
     <Auswahl
-      class="gruppen-wahl"
+      class="filter-wahl"
       wert={gruppierung}
       optionen={gruppierOptionen}
       onchange={(e) => gruppierungWaehlen((e.target as HTMLSelectElement).value)}
@@ -283,8 +299,30 @@
         {/snippet}
       </Schreibbar>
     {/if}
+  {/if}
+  <div class="darstellung-wahl" role="group" aria-label="Darstellung">
+    <button
+      type="button"
+      class:aktiv={darstellung === 'liste'}
+      onclick={() => darstellungWaehlen('liste')}
+      aria-pressed={darstellung === 'liste'}
+      title="Liste — zum Abhaken"
+    >
+      <IconListe size={15} strokeWidth={1.8} aria-hidden="true" />
+      <span>Liste</span>
+    </button>
+    <button
+      type="button"
+      class:aktiv={darstellung === 'ablauf'}
+      onclick={() => darstellungWaehlen('ablauf')}
+      aria-pressed={darstellung === 'ablauf'}
+      title="Ablaufplan — in welcher Reihenfolge es geht"
+    >
+      <IconAblauf size={15} strokeWidth={1.8} aria-hidden="true" />
+      <span>Ablauf</span>
+    </button>
   </div>
-</div>
+</Filterleiste>
 
 <Dialog bind:offen={formOffen} titel="Aufgabe anlegen">
   <Feld label="Titel" bind:wert={neuTitel} placeholder="Was ist zu tun?" />
@@ -304,7 +342,9 @@
   {/snippet}
 </Dialog>
 
-{#if !gruppen.length}
+{#if darstellung === 'ablauf'}
+  <Ablaufplan {bereich} onOeffnen={oeffnen} />
+{:else if !gruppen.length}
   <Leerzustand titel="Keine Aufgabe passt zum Filter" text="Filter lockern oder die Suche anpassen." />
 {:else if gruppierung === 'flach'}
   <Karte titel={gruppen[0].anzeigename} zusatz={gruppen[0].eintraege.length} polster="keins">
@@ -344,6 +384,35 @@
 {/if}
 
 <style>
+  /* Liste ↔ Ablauf. Mit Wort statt nur Icon: der Ablaufplan ist keine
+     Sortierung, sondern eine andere Frage an dieselben Aufgaben. */
+  .darstellung-wahl {
+    display: flex;
+    flex: none;
+    border: 1px solid var(--farbe-linie-stark);
+    border-radius: var(--r-m);
+    overflow: hidden;
+  }
+  .darstellung-wahl button {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 30px;
+    padding: 0 10px;
+    border: 0;
+    background: var(--farbe-flaeche);
+    color: var(--farbe-text-2);
+    font: inherit;
+    font-size: var(--text-s);
+    cursor: pointer;
+  }
+  .darstellung-wahl button + button { border-left: 1px solid var(--farbe-linie-stark); }
+  .darstellung-wahl button:hover { color: var(--farbe-text); }
+  .darstellung-wahl button.aktiv {
+    background: var(--farbe-tinte-fuellung);
+    color: var(--farbe-auf-tinte);
+  }
+
   .aufgaben-uebersicht {
     margin-bottom: var(--a-5);
   }
@@ -351,29 +420,6 @@
     display: flex;
     flex-wrap: wrap;
     gap: var(--a-2);
-  }
-
-  .leiste {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--a-3);
-    margin-bottom: var(--a-5);
-  }
-  .leiste-werkzeug {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--a-2);
-    margin-left: auto;
-  }
-  .leiste-werkzeug :global(.ui-feld) {
-    width: 15rem;
-  }
-  :global(.gruppen-wahl) {
-    width: 11rem;
-    flex: none;
   }
 
   ul.aufgaben {

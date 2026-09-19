@@ -1,6 +1,30 @@
 // erzeugt — nicht von Hand ändern, neu mit `python -m tools.server.schema`
 // Quelle: tools/server/modelle.py (JSON-Schema der Pydantic-Modelle)
 
+export interface AblaufAntwort {
+  stufen?: AblaufStufeAntwort[];
+  tiefe: number;
+  offen_gesamt: number;
+  schluessel?: AblaufAufgabeAntwort[];
+  ring?: AblaufAufgabeAntwort[];
+}
+
+export interface AblaufAufgabeAntwort {
+  id: string;
+  titel: string;
+  bereich: string;
+  status: string;
+  prio?: string;
+  dauer?: string;
+  braucht?: string[];
+  haelt_auf?: number;
+}
+
+export interface AblaufStufeAntwort {
+  stufe: number;
+  aufgaben?: AblaufAufgabeAntwort[];
+}
+
 export interface AbschnittAnfrage {
   text: string;
   version: string;
@@ -59,6 +83,24 @@ export interface BereichAntwort {
   aufgaben?: AufgabeAntwort[];
 }
 
+export interface BudgetAntwort {
+  ziel?: number | null;
+  bezahlt: number;
+  geplant: number;
+  prognose: number;
+  rest?: number | null;
+  differenz_prognose?: number | null;
+  kategorien?: BudgetKategorieAntwort[];
+}
+
+export interface BudgetKategorieAntwort {
+  kategorie: string;
+  bezahlt: number;
+  geplant: number;
+  prognose: number;
+  budget?: number | null;
+}
+
 export interface DatenAntwort {
   erzeugt: string;
   bereiche: BereichAntwort[];
@@ -73,8 +115,26 @@ export interface DatenAntwort {
   versionen: Record<string, string>;
   kennzahlen: KennzahlenAntwort;
   kategorien: KategorieAntwort[];
+  budget: BudgetAntwort;
+  gewicht: GewichtAntwort;
+  material: MaterialGruppeAntwort[];
+  einkauf: EinkaufAntwort;
+  ablauf: AblaufAntwort;
+  strom: StromAntwort;
   bearbeitbar: Record<string, any>;
   vokabular: Record<string, string[]>;
+}
+
+export interface EinkaufAntwort {
+  gruppen?: EinkaufGruppeAntwort[];
+  teile_gesamt: number;
+  summe: number;
+}
+
+export interface EinkaufGruppeAntwort {
+  haendler: string;
+  summe: number;
+  teile?: string[];
 }
 
 export interface EinzelteilAnlegenAnfrage {
@@ -110,6 +170,19 @@ export interface FehlerAntwort {
   fehler: string;
 }
 
+export interface GewichtAntwort {
+  teile_kg: number;
+  teile_fehlt: number;
+  teile_gesamt: number;
+  bauteile_kg: number;
+  bauteile_fehlt: number;
+  bauteile_gesamt: number;
+  ausbau_kg: number;
+  leergewicht_kg?: number | null;
+  zul_gesamtgewicht_kg?: number | null;
+  zuladung_erlaubt_kg?: number | null;
+}
+
 export interface KategorieAntwort {
   name: string;
   teile: number;
@@ -142,12 +215,20 @@ export interface KopfAnfrage {
   version: string;
 }
 
+export interface MaterialGruppeAntwort {
+  material: string;
+  dicke_mm?: string;
+  bedarf: string;
+  zuschnitte?: string[];
+}
+
 export interface MediumAntwort {
   name: string;
   dateiname: string;
   bereich: string;
   art: string;
   datei: string;
+  groesse?: number;
 }
 
 export interface QuerverweisAntwort {
@@ -176,6 +257,40 @@ export interface SeiteAntwort {
   text?: string;
 }
 
+export interface StromAntwort {
+  verbraucher?: StromVerbraucherAntwort[];
+  unvollstaendig?: StromLueckeAntwort[];
+  teile_gesamt: number;
+  wh_pro_tag: number;
+  ah_pro_tag: number;
+  ah_pro_tag_brutto: number;
+  bordspannung_v: number;
+  batterie_ah?: number | null;
+  batterie_nutzbar: number;
+  nutzbar_ah?: number | null;
+  wirkungsgrad: number;
+  reichweite_tage?: number | null;
+}
+
+export interface StromLueckeAntwort {
+  id: string;
+  titel: string;
+  watt?: string;
+  stunden_pro_tag?: string;
+}
+
+export interface StromVerbraucherAntwort {
+  id: string;
+  titel: string;
+  kategorie: string;
+  status: string;
+  menge: number;
+  watt: number;
+  stunden_pro_tag: number;
+  wh_pro_tag: number;
+  ah_pro_tag: number;
+}
+
 export interface TeilAnlegenAnfrage {
   felder: Record<string, any>;
   version: string;
@@ -197,6 +312,8 @@ export interface TeilAntwort {
   entscheidung: string;
   kennwerte: string;
   gewicht_kg: string;
+  watt: string;
+  stunden_pro_tag: string;
   notiz: string;
   gekauft_am: string;
   zeile?: number;

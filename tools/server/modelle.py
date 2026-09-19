@@ -86,6 +86,8 @@ class TeilAntwort(_Basis):
     entscheidung: str
     kennwerte: str
     gewicht_kg: str
+    watt: str
+    stunden_pro_tag: str
     notiz: str
     gekauft_am: str
     zeile: int = 0
@@ -115,6 +117,7 @@ class MediumAntwort(_Basis):
     bereich: str
     art: str
     datei: str
+    groesse: int = 0
 
 
 class KennzahlenAntwort(_Basis):
@@ -136,6 +139,135 @@ class KategorieAntwort(_Basis):
     verbaut: int
 
 
+class BudgetKategorieAntwort(_Basis):
+    kategorie: str
+    bezahlt: float
+    geplant: float
+    prognose: float
+    budget: float | None = None
+
+
+class BudgetAntwort(_Basis):
+    """``camper budget`` — Zielbudget gegen bezahlt und geplant."""
+
+    ziel: float | None = None
+    bezahlt: float
+    geplant: float
+    prognose: float
+    rest: float | None = None
+    differenz_prognose: float | None = None
+    kategorien: list[BudgetKategorieAntwort] = []
+
+
+class GewichtAntwort(_Basis):
+    """``camper gewicht`` — Zuladungsbilanz."""
+
+    teile_kg: float
+    teile_fehlt: int
+    teile_gesamt: int
+    bauteile_kg: float
+    bauteile_fehlt: int
+    bauteile_gesamt: int
+    ausbau_kg: float
+    leergewicht_kg: float | None = None
+    zul_gesamtgewicht_kg: float | None = None
+    zuladung_erlaubt_kg: float | None = None
+
+
+class MaterialGruppeAntwort(_Basis):
+    """Eine Zeile von ``camper material`` — Material + Dicke mit Bedarf.
+    ``zuschnitte`` sind Einzelteil-IDs; die Sätze stehen in ``einzelteile``."""
+
+    material: str
+    dicke_mm: str = ""
+    bedarf: str
+    zuschnitte: list[str] = []
+
+
+class EinkaufGruppeAntwort(_Basis):
+    """Ein Händlerbündel aus ``camper buy next``. ``teile`` sind Teile-IDs;
+    die Sätze stehen in ``teile`` der Gesamtantwort."""
+
+    haendler: str
+    summe: float
+    teile: list[str] = []
+
+
+class EinkaufAntwort(_Basis):
+    """``camper buy next`` — was als Nächstes bestellt werden kann."""
+
+    gruppen: list[EinkaufGruppeAntwort] = []
+    teile_gesamt: int
+    summe: float
+
+
+class AblaufAufgabeAntwort(_Basis):
+    """Eine Aufgabe im Ablaufplan. ``haelt_auf`` ist die Zahl der offenen
+    Aufgaben, die an ihr hängen — direkt und über die Kette."""
+
+    id: str
+    titel: str
+    bereich: str
+    status: str
+    prio: str = ""
+    dauer: str = ""
+    braucht: list[str] = []
+    haelt_auf: int = 0
+
+
+class AblaufStufeAntwort(_Basis):
+    stufe: int
+    aufgaben: list[AblaufAufgabeAntwort] = []
+
+
+class AblaufAntwort(_Basis):
+    """``camper ablauf`` — offene Aufgaben in Stufen nach ``@braucht:``."""
+
+    stufen: list[AblaufStufeAntwort] = []
+    tiefe: int
+    offen_gesamt: int
+    schluessel: list[AblaufAufgabeAntwort] = []
+    ring: list[AblaufAufgabeAntwort] = []
+
+
+class StromVerbraucherAntwort(_Basis):
+    id: str
+    titel: str
+    kategorie: str
+    status: str
+    menge: float
+    watt: float
+    stunden_pro_tag: float
+    wh_pro_tag: float
+    ah_pro_tag: float
+
+
+class StromLueckeAntwort(_Basis):
+    """Teil mit nur einem der beiden Werte — fehlt in der Bilanz."""
+
+    id: str
+    titel: str
+    watt: str = ""
+    stunden_pro_tag: str = ""
+
+
+class StromAntwort(_Basis):
+    """``camper strom`` — Tagesbedarf gegen die Batteriekapazität."""
+
+    verbraucher: list[StromVerbraucherAntwort] = []
+    unvollstaendig: list[StromLueckeAntwort] = []
+    teile_gesamt: int
+    wh_pro_tag: float
+    ah_pro_tag: float
+    ah_pro_tag_brutto: float
+    bordspannung_v: float
+    batterie_ah: float | None = None
+    batterie_nutzbar: float
+    nutzbar_ah: float | None = None
+    wirkungsgrad: float
+    reichweite_tage: float | None = None
+
+
 class DatenAntwort(_Basis):
     """Form von ``GET /api/daten`` — vollständiger Bestand."""
 
@@ -152,6 +284,12 @@ class DatenAntwort(_Basis):
     versionen: dict[str, str]
     kennzahlen: KennzahlenAntwort
     kategorien: list[KategorieAntwort]
+    budget: BudgetAntwort
+    gewicht: GewichtAntwort
+    material: list[MaterialGruppeAntwort]
+    einkauf: EinkaufAntwort
+    ablauf: AblaufAntwort
+    strom: StromAntwort
     bearbeitbar: dict[str, Any]
     vokabular: dict[str, list[str]]
 

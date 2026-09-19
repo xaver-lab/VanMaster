@@ -1,7 +1,7 @@
 // Hash-Routing wie im alten Dashboard: #/ansicht/param1/param2 —
 // Parameter sind erlaubt und werden einzeln weitergereicht.
 
-export const ANSICHTEN = ['start', 'bereiche', 'aufgaben', 'teile', 'zuschnitt', 'medien'] as const;
+export const ANSICHTEN = ['start', 'bereiche', 'aufgaben', 'teile', 'zuschnitt', 'medien', 'einkauf', 'bilanz'] as const;
 // Erreichbar per Adresse, aber nicht in der Navigation und ohne Zifferntaste.
 export const NEBENANSICHTEN = ['muster'] as const;
 export type Ansicht = (typeof ANSICHTEN)[number] | (typeof NEBENANSICHTEN)[number];
@@ -16,8 +16,17 @@ function istAnsicht(wert: string): wert is Ansicht {
 }
 
 function ausHash(): Route {
-  const roh = decodeURIComponent(location.hash.replace(/^#\/?/, ''));
-  const teile = roh.split('/').filter(Boolean);
+  // Erst zerlegen, dann je Stück dekodieren — `gehe()` kodiert jedes Stück
+  // einzeln. Würde der ganze Hash vorab dekodiert, zerfiele ein Dateiname
+  // mit `/` oder `%` in zwei Parameter.
+  const roh = location.hash.replace(/^#\/?/, '');
+  const teile = roh.split('/').filter(Boolean).map((stueck) => {
+    try {
+      return decodeURIComponent(stueck);
+    } catch {
+      return stueck;
+    }
+  });
   let [erste, ...rest] = teile;
   if (erste === 'themen') erste = 'bereiche'; // alte Adressen aus dem Dashboard
   const ansicht = erste && istAnsicht(erste) ? erste : 'start';
@@ -48,5 +57,7 @@ export const TITEL: Record<Ansicht, string> = {
   teile: 'Teile',
   zuschnitt: 'Zuschnitt',
   medien: 'Medien',
+  einkauf: 'Einkauf',
+  bilanz: 'Bilanz',
   muster: 'Muster',
 };

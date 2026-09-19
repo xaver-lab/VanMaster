@@ -38,7 +38,9 @@ def test_daten_vollstaendig(client, repo):
     for schluessel in (
         "erzeugt", "bereiche", "aufgaben", "querverweise", "entscheidungen",
         "anleitungen", "recherche", "teile", "einzelteile", "medien",
-        "versionen", "kennzahlen", "kategorien", "bearbeitbar", "vokabular",
+        "versionen", "kennzahlen", "kategorien", "budget", "gewicht",
+        "material", "einkauf", "ablauf", "strom", "bearbeitbar",
+        "vokabular",
     ):
         assert schluessel in d
     assert d["vokabular"]["einzelteil_art"][0] == "Platte"
@@ -53,6 +55,86 @@ def test_daten_vollstaendig(client, repo):
         kat = d["kategorien"][0]
         for feld in ("name", "teile", "kosten", "gewicht", "verbaut"):
             assert feld in kat
+
+
+def test_daten_auswertungen_stimmen_mit_den_befehlen(client, repo):
+    """budget/gewicht/material in /api/daten sind dieselben Zahlen wie
+    `camper budget|gewicht|material` — die Ansicht rechnet nicht selbst."""
+    from tools import budget, gewicht, material
+
+    d = client.get("/api/daten").json()
+
+    assert d["budget"]["bezahlt"] == budget.daten()["bezahlt"]
+    assert d["budget"]["prognose"] == budget.daten()["prognose"]
+    assert [k["kategorie"] for k in d["budget"]["kategorien"]] == \
+        [k["kategorie"] for k in budget.daten()["kategorien"]]
+
+    assert d["gewicht"] == gewicht.bilanz()
+
+    gruppen = material.liste()
+    assert len(d["material"]) == len(gruppen)
+    for gesendet, erwartet in zip(d["material"], gruppen):
+        assert gesendet["material"] == erwartet["material"]
+        assert gesendet["bedarf"] == erwartet["bedarf"]
+        # Nur IDs, nicht die ganzen Sätze — die stehen unter "einzelteile".
+        assert gesendet["zuschnitte"] == [r["id"] for r in erwartet["zuschnitte"]]
+
+
+def test_daten_einkauf_stimmt_mit_buy_next(client, repo):
+    from tools import parts
+
+    d = client.get("/api/daten").json()["einkauf"]
+    erwartet = parts.buy_daten()
+    assert d["teile_gesamt"] == erwartet["teile_gesamt"]
+    assert d["summe"] == erwartet["summe"]
+    assert [g["haendler"] for g in d["gruppen"]] == \
+        [g["haendler"] for g in erwartet["gruppen"]]
+    assert [g["teile"] for g in d["gruppen"]] == \
+        [g["teile"] for g in erwartet["gruppen"]]
+
+
+def test_daten_ablauf_stimmt_mit_dem_befehl(client, repo):
+    from tools import ablauf
+
+    d = client.get("/api/daten").json()["ablauf"]
+    erwartet = ablauf.plan()
+    assert d["tiefe"] == erwartet["tiefe"]
+    assert d["offen_gesamt"] == erwartet["offen_gesamt"]
+    assert [[a["id"] for a in s["aufgaben"]] for s in d["stufen"]] == \
+        [[a["id"] for a in s["aufgaben"]] for s in erwartet["stufen"]]
+    assert [a["id"] for a in d["schluessel"]] == \
+        [a["id"] for a in erwartet["schluessel"]]
+
+
+def test_daten_strom_stimmt_mit_dem_befehl(client, repo):
+    from tools import strom
+
+    d = client.get("/api/daten").json()["strom"]
+    erwartet = strom.bilanz()
+    for feld in ("wh_pro_tag", "ah_pro_tag", "ah_pro_tag_brutto",
+                 "bordspannung_v", "batterie_ah", "reichweite_tage"):
+        assert d[feld] == erwartet[feld], feld
+    assert [v["id"] for v in d["verbraucher"]] == \
+        [v["id"] for v in erwartet["verbraucher"]]
+
+
+def test_daten_teile_tragen_die_stromfelder(client, repo):
+    d = client.get("/api/daten").json()
+    for t in d["teile"]:
+        assert "watt" in t and "stunden_pro_tag" in t
+    # Nicht im Web bearbeitbar — wie gewicht_kg über Excel gepflegt.
+    matrix = d["bearbeitbar"]["teil_felder"]
+    assert matrix["watt"]["web"] is False
+    assert matrix["stunden_pro_tag"]["web"] is False
+    assert matrix["watt"]["claude"] is True
+
+
+def test_daten_medien_tragen_die_dateigroesse(client, repo):
+    d = client.get("/api/daten").json()
+    for m in d["medien"]:
+        assert m["groesse"] >= 0
+    if d["medien"]:
+        assert any(m["groesse"] > 0 for m in d["medien"])
 
 
 def test_daten_versionen_stimmen_mit_datei_version(client, repo):

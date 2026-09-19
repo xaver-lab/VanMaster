@@ -16,6 +16,7 @@ export { default as Leerzustand } from './Leerzustand.svelte';
 export { default as FortschrittRing } from './FortschrittRing.svelte';
 export { default as FortschrittBalken } from './FortschrittBalken.svelte';
 export { default as Tabs } from './Tabs.svelte';
+export { default as Filterleiste } from './Filterleiste.svelte';
 export { default as Kbd } from './Kbd.svelte';
 export { bestaetigen } from './bestaetigen.svelte';
 export { STATUS, STATUS_TEXT, istStatus, type Status } from './status';

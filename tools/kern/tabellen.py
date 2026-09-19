@@ -67,7 +67,9 @@ def _teil_pruefen(feld: str, wert: str) -> None:
         raise Ungueltig(
             f"kategorie muss eine von {', '.join(common.PART_KATEGORIEN)} "
             f"sein, nicht '{wert}'.")
-    if feld in ("preis", "menge", "gewicht_kg"):
+    # `watt`/`stunden_pro_tag` wie `gewicht_kg`: physikalische Kennwerte am
+    # Teil, als Zahl geprüft und über Excel gepflegt, nicht im Web.
+    if feld in ("preis", "menge", "gewicht_kg", "watt", "stunden_pro_tag"):
         _zahl_pruefen(feld, wert)
     if feld == "gekauft_am":
         _datum_pruefen(feld, wert)

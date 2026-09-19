@@ -154,6 +154,9 @@ html {
   -webkit-text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  /* Die Kopfzeile klebt oben. Ohne das landet jeder programmatische Sprung
+     (Tastaturfokus, Anker, scrollIntoView) unter ihr. */
+  scroll-padding-top: calc(var(--kopfhoehe) + var(--a-3));
 }
 
 body {

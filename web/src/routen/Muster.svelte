@@ -22,6 +22,7 @@
     STATUS,
     Statusmarke,
     Tabs,
+    Filterleiste,
     Textfeld,
   } from '../lib/ui';
   import {
@@ -218,6 +219,32 @@
           ]}
         />
         <p class="s-neben tab-inhalt">Aktiver Reiter: <b>{tab}</b> — Pfeiltasten wechseln.</p>
+      </section>
+
+      <section>
+        <Rubrik titel="Filterleiste" />
+        <p class="s-neben">Mit Reitern: Reiter links, Werkzeuge rechts.</p>
+        <Filterleiste>
+          {#snippet reiter()}
+            <Tabs
+              bind:aktiv={tab}
+              tabs={[
+                { id: 'beschreibung', label: 'alle', zahl: 22 },
+                { id: 'aufgaben', label: 'offen', zahl: 13 },
+              ]}
+            />
+          {/snippet}
+          <Feld wert="" placeholder="Suche…" icon={IconSuche} type="search" klein aria-label="Suche" />
+          <Auswahl class="filter-wahl" wert="" optionen={['Elektrik', 'Küche']} leer="alle Bereiche" klein aria-label="Bereich" />
+          <Knopf variante="primaer" groesse="s" icon={IconPlus}>Anlegen</Knopf>
+        </Filterleiste>
+
+        <p class="s-neben">Ohne Reiter: alles in einer Reihe, der Knopf rutscht ans Ende.</p>
+        <Filterleiste>
+          <Feld wert="" placeholder="Suche…" icon={IconSuche} type="search" klein aria-label="Suche" />
+          <Auswahl class="filter-wahl" wert="" optionen={['Platte', 'Leiste']} leer="alle Arten" klein aria-label="Art" />
+          <Knopf variante="primaer" groesse="s" icon={IconPlus}>Anlegen</Knopf>
+        </Filterleiste>
       </section>
 
       <section>

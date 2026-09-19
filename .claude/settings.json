@@ -23,7 +23,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python .claude/hooks/push_wache.py",
+            "command": "python \"$CLAUDE_PROJECT_DIR/.claude/hooks/push_wache.py\"",
             "timeout": 60,
             "statusMessage": "Push-Wache"
           }
