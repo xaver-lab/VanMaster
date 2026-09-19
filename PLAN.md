@@ -74,10 +74,13 @@ Das Repo ist öffentlich: Vault, CSVs und Medien liegen für jeden lesbar auf
 github.com, nicht nur die Website. Wie die Schritte im Einzelnen gehen, steht
 in `SICHERHEIT.md` — hier nur Reihenfolge und Stand.
 
-Schritt 1 trägt alles andere. Solange er offen ist, bringen die übrigen nichts.
+Schritt 1 ist zurückgestellt — der Nutzer macht das Repo später privat. Die
+Schritte 2 bis 4 laufen trotzdem an und bringen schon für sich etwas: Access
+schützt die Website. Solange Schritt 1 aussteht, bleiben Vault, CSVs und Medien
+auf github.com aber für jeden lesbar. Halber Schutz, nicht keiner.
 
 1. Repo auf privat stellen. GitHub Pages hört damit auf zu bauen, das Handy
-   sieht die Seite bis Schritt 4 nicht mehr. *(nur Nutzer)*
+   sieht die Seite dann nur noch über Cloudflare. *(nur Nutzer, zurückgestellt)*
 2. Cloudflare-Konto anlegen, Pages-Projekt `vanmaster` erstellen.
    *(nur Nutzer)*
 3. `CLOUDFLARE_API_TOKEN` und `CLOUDFLARE_ACCOUNT_ID` als GitHub-Secrets
