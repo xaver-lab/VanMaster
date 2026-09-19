@@ -1,22 +1,27 @@
 <script lang="ts">
+  // Startseite: wo steht der Ausbau, und was ist als Nächstes dran.
+  //
+  // Bewusst kurz. Kosten- und Kategoriezahlen standen hier früher noch einmal,
+  // obwohl sie in `#/bilanz` und `#/teile` vollständig und bedienbar stehen —
+  // doppelte Zahlen veralten unterschiedlich. Geblieben ist, was es sonst
+  // nirgends gibt: der Gesamtstand, die Bauabschnitte in ihrer Reihenfolge,
+  // was gerade läuft (hier direkt abhakbar) und was noch zu entscheiden ist.
   import { store } from '../lib/daten.svelte';
-  import { vokabular } from '../lib/vokabular.svelte';
   import type { AufgabeAntwort, BereichAntwort } from '../lib/api-typen';
+  import Schreibbar from '../lib/Schreibbar.svelte';
   import Karte from '../lib/ui/Karte.svelte';
   import Rubrik from '../lib/ui/Rubrik.svelte';
   import Etikett from '../lib/ui/Etikett.svelte';
+  import Kontrollkaestchen from '../lib/ui/Kontrollkaestchen.svelte';
   import Statusmarke from '../lib/ui/Statusmarke.svelte';
   import FortschrittBalken from '../lib/ui/FortschrittBalken.svelte';
   import Leerzustand from '../lib/ui/Leerzustand.svelte';
-  import Kennzahl from '../lib/ui/Kennzahl.svelte';
-  import { IconEuro, IconPfeil, IconTeile, IconWegweiser, IconWerkzeug } from '../lib/ui/icons';
-  import { dezimal } from '../lib/zahlformat';
+  import { IconPfeil, IconWegweiser, IconWerkzeug } from '../lib/ui/icons';
 
   const euro = new Intl.NumberFormat('de-DE', { maximumFractionDigits: 0 });
   const kg = new Intl.NumberFormat('de-DE', { maximumFractionDigits: 1 });
 
   const REIHENFOLGE: Record<string, number> = { erledigt: 0, laeuft: 1, blockiert: 2, offen: 3, verworfen: 4 };
-  const TEILE_STUFEN = $derived(vokabular.teilStatus);
   const PRIO: Record<string, number> = { kritisch: 0, hoch: 1 };
 
   let d = $derived(store.daten);
@@ -72,22 +77,7 @@
       .slice(0, 5);
   });
 
-  let teileStufen = $derived.by(() => {
-    if (!d) return [];
-    const zaehl = new Map<string, number>();
-    for (const t of d.teile) zaehl.set(t.status, (zaehl.get(t.status) ?? 0) + 1);
-    const bekannte = TEILE_STUFEN.filter((s) => zaehl.has(s));
-    const andere = [...zaehl.keys()].filter((s) => !TEILE_STUFEN.includes(s));
-    return [...bekannte, ...andere].map((s) => ({ name: s, zahl: zaehl.get(s) ?? 0 }));
-  });
-  let ohnePreis = $derived(d ? d.teile.filter((t) => !t.preis.trim()).length : 0);
-
   let offeneEntscheidungen = $derived(d ? d.entscheidungen.filter((e) => e.status !== 'entschieden' && e.status !== 'erledigt') : []);
-
-  // Kosten je Kategorie: gleiche Grundlage wie tools/build.py:daten()
-  // ("kategorien" — Summe über alle Teile der Kategorie, ohne Statusfilter),
-  // gleiche Reihenfolge wie docs/js/start.js (absteigend nach Kosten).
-  let kategorien = $derived(d ? [...d.kategorien].sort((a, b) => b.kosten - a.kosten) : []);
 
   function bereichStatus(s: string): { text: string; ton: 'signal' | 'neutral' | 'gut' } {
     if (s === 'in-arbeit') return { text: 'in Arbeit', ton: 'signal' };
@@ -95,13 +85,15 @@
     return { text: s.replace(/-/g, ' '), ton: 'neutral' };
   }
 
-  function stufenKlasse(name: string): string {
-    const i = TEILE_STUFEN.indexOf(name);
-    return i >= 0 ? `s${i}` : 's0';
-  }
-
   function bereichLink(name: string): string {
     return `#/bereiche/${encodeURIComponent(name)}`;
+  }
+
+  // Direkt von der Startseite abhaken — der häufigste Handgriff überhaupt.
+  // Sammelaufgaben bleiben gesperrt, die hängen an ihren Unterpunkten.
+  async function abhaken(a: AufgabeAntwort, erledigt: boolean): Promise<void> {
+    if (a.kinder?.length || store.beschaeftigt) return;
+    await store.aufgabePatch(a.id, a.datei ?? '', { status: erledigt ? 'erledigt' : 'offen' });
   }
 
 </script>
@@ -118,18 +110,19 @@
       </p>
     </div>
 
+    <!-- Vier Zahlen, jede ein Weg in die Ansicht, die sie ganz zeigt. -->
     <dl class="eckdaten">
       <div>
         <dt>Geplant</dt>
-        <dd><span class="zahl">{euro.format(k.kosten)}</span><small>€</small></dd>
+        <dd><a href="#/bilanz"><span class="zahl">{euro.format(k.kosten)}</span><small>€</small></a></dd>
       </div>
       <div>
         <dt>Bestellt</dt>
-        <dd><span class="zahl">{euro.format(k.kosten_bestellt)}</span><small>€</small></dd>
+        <dd><a href="#/einkauf"><span class="zahl">{euro.format(k.kosten_bestellt)}</span><small>€</small></a></dd>
       </div>
       <div>
         <dt>Zuladung</dt>
-        <dd><span class="zahl">{kg.format(k.gewicht)}</span><small>kg</small></dd>
+        <dd><a href="#/bilanz/gewicht"><span class="zahl">{kg.format(k.gewicht)}</span><small>kg</small></a></dd>
       </div>
       <div class:offen={k.offene_entscheidungen > 0}>
         <dt>Offen</dt>
@@ -210,8 +203,18 @@
       <Karte polster="keins">
         {#if laufend.length}
           <ul class="aufgabenliste">
-            {#each laufend as a}
+            {#each laufend as a (a.id)}
               <li>
+                <Schreibbar>
+                  {#snippet children()}
+                    <Kontrollkaestchen
+                      checked={false}
+                      disabled={!!a.kinder?.length || store.beschaeftigt}
+                      titel={a.kinder?.length ? 'Sammelaufgabe — Haken an den Unterpunkten' : 'erledigt'}
+                      onchange={(an) => abhaken(a, an)}
+                    />
+                  {/snippet}
+                </Schreibbar>
                 <Statusmarke status={a.status} kompakt />
                 <span class="a-text">
                   <span class="a-titel">{a.titel}</span>
@@ -229,8 +232,18 @@
         {#if alsNaechstes.length}
           <p class="zwischenkopf">Als Nächstes · wichtig</p>
           <ul class="aufgabenliste">
-            {#each alsNaechstes as { a, frei }}
+            {#each alsNaechstes as { a, frei } (a.id)}
               <li class:gesperrt={!frei}>
+                <Schreibbar>
+                  {#snippet children()}
+                    <Kontrollkaestchen
+                      checked={false}
+                      disabled={!!a.kinder?.length || store.beschaeftigt}
+                      titel={a.kinder?.length ? 'Sammelaufgabe — Haken an den Unterpunkten' : 'erledigt'}
+                      onchange={(an) => abhaken(a, an)}
+                    />
+                  {/snippet}
+                </Schreibbar>
                 <Statusmarke status={frei ? 'offen' : 'blockiert'} kompakt titel={frei ? 'offen' : 'wartet auf andere Aufgaben'} />
                 <span class="a-text">
                   <span class="a-titel">{a.titel}</span>
@@ -248,36 +261,16 @@
     </section>
   </div>
 
-  <div class="dreier">
-    <Karte titel="Budget" icon={IconEuro} href="#/teile">
-      <p class="grosszahl"><span class="zahl">{euro.format(k.kosten)}</span> <small>€ geplant</small></p>
-      <FortschrittBalken wert={k.kosten ? k.kosten_bestellt / k.kosten : 0} ton="signal" hoehe={10} />
-      <div class="budget-zeilen">
-        <span><i class="punkt signal"></i>bestellt <b class="zahl">{euro.format(k.kosten_bestellt)} €</b></span>
-        <span><i class="punkt"></i>offen <b class="zahl">{euro.format(Math.max(0, k.kosten - k.kosten_bestellt))} €</b></span>
-      </div>
-      {#if ohnePreis}
-        <p class="fussnote">{ohnePreis} von {d.teile.length} Teilen haben noch keinen Preis — die Summe wächst noch.</p>
-      {/if}
-    </Karte>
-
-    <Karte titel="Teile" icon={IconTeile} zusatz={d.teile.length} href="#/teile">
-      <div class="stufenbalken" aria-hidden="true">
-        {#each teileStufen as s}
-          <span class="stufe {stufenKlasse(s.name)}" style:flex-grow={s.zahl} title="{s.name}: {s.zahl}"></span>
-        {/each}
-      </div>
-      <ul class="stufen">
-        {#each teileStufen as s}
-          <li><i class="stufe {stufenKlasse(s.name)}"></i><span>{s.name}</span><b class="zahl">{s.zahl}</b></li>
-        {/each}
-      </ul>
-    </Karte>
-
-    <Karte titel="Offene Entscheidungen" icon={IconWegweiser} zusatz={offeneEntscheidungen.length} ton={offeneEntscheidungen.length ? 'signal' : 'flaeche'}>
+  <!-- Entscheidungen haben keine eigene Ansicht; Claude pflegt sie im Vault.
+       Deshalb stehen sie hier — und nur sie. Budget, Teilestufen und Kosten je
+       Kategorie standen früher daneben und wiederholten nur, was `#/bilanz`
+       und `#/teile` vollständig zeigen. -->
+  <section class="entscheidungen-block">
+    <Rubrik titel="Offene Entscheidungen" zahl={String(offeneEntscheidungen.length).padStart(2, '0')} />
+    <Karte ton={offeneEntscheidungen.length ? 'signal' : 'flaeche'}>
       {#if offeneEntscheidungen.length}
         <ul class="entscheidungen">
-          {#each offeneEntscheidungen as e}
+          {#each offeneEntscheidungen as e (e.datei)}
             <li>
               <a href={bereichLink(e.bereich)}>
                 <span class="e-titel">{e.titel}</span>
@@ -291,18 +284,7 @@
         <Leerzustand kompakt icon={IconWegweiser} titel="Alles entschieden" />
       {/if}
     </Karte>
-  </div>
-
-  {#if kategorien.length}
-    <section class="kategorien">
-      <Rubrik titel="Kosten je Kategorie" zahl={String(kategorien.length).padStart(2, '0')} />
-      <div class="kategorien-raster">
-        {#each kategorien as kat}
-          <Kennzahl titel={kat.name} wert="{dezimal(kat.kosten, 0)} €" zusatz="{kat.teile} Teile" href="#/teile" />
-        {/each}
-      </div>
-    </section>
-  {/if}
+  </section>
 
 {/if}
 
@@ -360,6 +342,15 @@
   .eckdaten dd .zahl { letter-spacing: -0.04em; }
   .eckdaten small { font-size: var(--text-s); color: var(--farbe-text-2); margin-left: 4px; font-weight: 500; }
   .eckdaten .offen dd { color: var(--farbe-signal); }
+  /* Die Zahlen führen in die Ansicht, die sie ganz zeigt — sichtbar erst
+     beim Überfahren, damit die Kopfzeile ruhig bleibt. */
+  .eckdaten dd a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: border-color var(--t-kurz);
+  }
+  .eckdaten dd a:hover { border-bottom-color: var(--farbe-signal); }
 
   .bauleiste { grid-column: 1 / -1; display: flex; gap: 10px; align-items: flex-start; }
   .gruppe {
@@ -506,48 +497,20 @@
     color: var(--farbe-text-2);
   }
 
-  /* ---------------------------------------------------------- Dreier */
-  .dreier {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--a-5);
-    margin-bottom: var(--a-7);
-  }
-  .grosszahl { margin-bottom: var(--a-3); font-size: var(--text-2xl); font-weight: 600; line-height: 1; letter-spacing: -0.04em; }
-  .grosszahl small { font-family: var(--schrift); font-size: var(--text-s); letter-spacing: 0; color: var(--farbe-text-2); font-weight: 500; }
-  .budget-zeilen { display: flex; justify-content: space-between; margin-top: var(--a-3); font-size: var(--text-s); color: var(--farbe-text-2); }
-  .budget-zeilen span { display: inline-flex; align-items: center; gap: 6px; }
-  .budget-zeilen b { color: var(--farbe-text); font-weight: 600; }
-  .punkt { width: 8px; height: 8px; border-radius: 2px; background: var(--farbe-flaeche-hoch); box-shadow: inset 0 0 0 1px var(--farbe-linie-stark); display: inline-block; }
-  .punkt.signal { background: var(--farbe-signal); box-shadow: none; }
+  /* --------------------------------------------------- Entscheidungen */
+  .entscheidungen-block { margin-bottom: var(--a-7); }
   .fussnote { margin-top: var(--a-4); padding-top: var(--a-3); border-top: 1px dashed var(--farbe-linie); font-size: var(--text-xs); color: var(--farbe-text-2); }
 
-  .stufenbalken { display: flex; gap: 2px; height: 10px; margin: 6px 0 var(--a-4); }
-  .stufenbalken .stufe { flex-basis: 0; border-radius: 2px; min-width: 4px; }
-  .stufe.s0 { background: var(--farbe-linie-stark); }
-  .stufe.s1 { background: var(--farbe-info); }
-  .stufe.s2 { background: var(--farbe-signal); }
-  .stufe.s3 { background: color-mix(in srgb, var(--farbe-signal) 55%, var(--farbe-gut)); }
-  .stufe.s4 { background: var(--farbe-gut); }
-  .stufe.s5 { background: var(--farbe-text); }
-  .stufen { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
-  .stufen li { display: flex; align-items: center; gap: var(--a-2); font-size: var(--text-s); }
-  .stufen i { width: 10px; height: 10px; border-radius: 2px; }
-  .stufen b { margin-left: auto; font-weight: 600; }
-
-  .kategorien { margin-bottom: var(--a-7); }
-  .kategorien-raster {
+  /* Über die ganze Breite: mehrere nebeneinander statt einer Spalte
+     langgezogener Kästen. */
+  .entscheidungen {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: var(--a-5);
-    background: var(--farbe-flaeche);
-    border: 1px solid var(--farbe-linie);
-    border-radius: var(--r-l);
-    box-shadow: var(--schatten-1);
-    padding: var(--a-5);
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: var(--a-2);
   }
-
-  .entscheidungen { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--a-2); }
   .entscheidungen a {
     display: flex;
     flex-direction: column;
