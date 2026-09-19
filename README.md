@@ -27,7 +27,7 @@ python camper.py parts excel         # Stückliste als Excel
 python camper.py parts import        # Excel zurücklesen, zeigt erst den Vergleich
 python camper.py parts import --apply
 python camper.py buy next            # Einkauf nach Händler gruppiert
-python camper.py system elektrik     # Lage eines Systems
+python camper.py bereich Elektrik    # Lage eines Bereichs
 python camper.py find "Heizung"      # Volltextsuche
 python camper.py media               # Bilder aus _input einsortieren
 python camper.py sync                # alles neu erzeugen

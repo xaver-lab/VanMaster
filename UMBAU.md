@@ -191,6 +191,8 @@ Eine Zeile je abgeschlossenem Punkt oder getroffener Entscheidung.
 
 - 2026-09-18 Phase 9: Doku auf den neuen Stand gebracht (CLAUDE.md, README.md, PLAN.md, Skill master-dev). Offen: `.claude/settings.json` sperrt noch die alten Pfade `docs/data.*`. Die Umstellung auf `web/dist/**` und `api-schema.json` hat die Auto-Modus-Prüfung blockiert, das macht der Nutzer. Phase 9 fertig, offen bleibt nur der Feinschliff 6–8 nach Rückmeldung.
 
+- 2026-09-19 Nacharbeit: `.claude/settings.json` sperrt jetzt `web/dist/**` und `web/src/lib/api-schema.json` statt der gelöschten `docs/data.*`. Altlasten des alten Dashboards entfernt (`appjs_full.diff.txt`, `_input/screen_b_dashboard.html`). README-Zeile `camper.py system elektrik` gegen `camper.py bereich Elektrik` getauscht, den Befehl `system` gibt es nicht. Nicht geprüft: Tests und Web-Build, die Cloud-Sitzung hat keinen Zugang zu PyPI und npm.
+
 ## Offene Fragen
 
 - Palette: Treffer mit loser Buchstabenfolge („kabel“ findet „Klappenbeschlag … Kinvaro“) stehen in ihrer Gruppe vor echten Worttreffern anderer Typen. Lose Treffer ausblenden, wenn es genug echte gibt?

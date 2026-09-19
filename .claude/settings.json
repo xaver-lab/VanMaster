@@ -1,8 +1,8 @@
 {
   "permissions": {
     "deny": [
-      "Read(./docs/data.json)",
-      "Read(./docs/data.js)"
+      "Read(./web/dist/**)",
+      "Read(./web/src/lib/api-schema.json)"
     ]
   }
 }
