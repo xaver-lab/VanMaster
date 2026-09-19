@@ -2,7 +2,7 @@
 
 Übergabe aus einer Cloud-Sitzung ohne PyPI- und npm-Zugang an eine Sitzung,
 in der `pytest` und `npm` laufen. Branch: `claude/master-dev-hzcprp`,
-vier Commits über `main`.
+sieben Commits über `main`.
 
 ## Zuerst tun
 
@@ -12,19 +12,29 @@ PYTHONIOENCODING=utf-8 python -m pytest -q
 cd web && npm ci && npm run check && npm run build
 ```
 
-Die vier neuen Testdateien sind **nie gelaufen** — sie wurden geschrieben,
-ohne dass ein `pytest` zur Verfügung stand:
+Der Stand ist grün: Lauf 6 des Workflows `Prüfen` auf Commit `31db99b`
+hat `camper check`, alle 203 Tests, `svelte-check` und `vite build` bestanden.
 
-- `tests/test_budget.py`
-- `tests/test_verlauf.py`
-- `tests/test_gewicht.py`
-- `tests/test_material.py`
+Die vier neuen Testdateien (`test_budget.py`, `test_verlauf.py`,
+`test_gewicht.py`, `test_material.py`) wurden ohne verfügbares `pytest`
+geschrieben und sind über GitHub Actions in zwei Runden geradegezogen worden —
+erst 18, dann 10 Fehlschläge, jetzt null. Dazu angepasst:
+`tests/test_kern_pruefen.py` (neue Spalte `gewicht_kg`).
 
-Dazu angepasst: `tests/test_kern_pruefen.py` (neue Spalte `gewicht_kg`).
+Zwei Dinge daraus sind der Mühe wert zu wissen:
 
-Hinweis: Der Workflow `.github/workflows/pruefen.yml` prüft genau das bei
-jedem Push auf einen Arbeitszweig. Vor dem Nacharbeiten also erst dort
-nachsehen, was rot ist — das spart das Raten.
+1. Die Fixture `repo` biegt Pfadkonstanten **nur in den `tools`-Modulen** um.
+   Wer in einer Testdatei `from tools.common import X` schreibt, hält den
+   echten Repo-Pfad und beschreibt das laufende Arbeitsverzeichnis. Richtig
+   ist `from tools import common` und dann `common.X`.
+2. Die Fixture kopiert den **echten** Bestand. Kein Test darf voraussetzen,
+   dass ein Kopffeld fehlt oder eine Datei noch nicht da ist — das gilt nur,
+   solange niemand den Wert gepflegt hat. Die Tests stellen ihren
+   Ausgangszustand deshalb selbst her.
+
+Der Workflow `.github/workflows/pruefen.yml` prüft all das bei jedem Push auf
+einen Arbeitszweig. Vor dem Nacharbeiten dort nachsehen, was rot ist — das
+spart das Raten.
 
 ## Was in dieser Sitzung entstanden ist
 
