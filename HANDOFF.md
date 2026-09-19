@@ -106,6 +106,32 @@ zum geschriebenen CSV.
   „Status-Alter" war nicht machbar — die CSV führt keinen Zeitpunkt des
   letzten Statuswechsels, nur `gekauft_am`. Teile ohne Preis gelten als
   unbekannt, nicht als billig, und stehen bei „günstigste zuerst" hinten.
+**Ablaufplan** (`camper ablauf`, im Dashboard der Umschalter „Ablauf" in der
+Aufgabenansicht) — die `@braucht:`-Bezüge waren bisher nur Hinweistext unter
+`camper next`. Jetzt liegen die offenen Aufgaben in Stufen: Stufe 1 ist sofort
+möglich, Stufe 2 wird frei, sobald Stufe 1 steht. Zwei Dinge fallen dabei ab,
+die es sonst nirgends gab:
+
+- **Schlüsselaufgaben** — wie viele Aufgaben an einer hängen, über die ganze
+  Kette. Beim jetzigen Stand: „Position bestimmen" hält 6 auf, „Holzrahmen
+  bauen" und „Strombilanz rechnen" je 5. Da lohnt Aufwand am meisten.
+- **Ringe** — `a @braucht:b` und `b @braucht:a`. Die lösen sich nie auf und
+  blieben bisher unbemerkt; jetzt stehen sie als Warnung oben. Derzeit keiner.
+
+Der Plan rechnet immer über alle Bereiche, auch wenn nur einer angezeigt wird —
+sonst verschöben sich die Stufen, obwohl die Abhängigkeit bleibt. 10 Tests in
+`tests/test_ablauf.py`, dazu einer, der API und Befehl deckungsgleich hält.
+
+- **Rückgängig nach einem Statuswechsel.** Ein Statuswechsel ist ein Klick
+  und schnell danebengegriffen. Der Toast nennt jetzt die Änderung
+  („Dampfbremse setzen: offen → erledigt") und hat einen Knopf, der sie
+  zurücknimmt; er steht 9 statt 3,5 Sekunden. Das sitzt zentral im Store
+  (`daten.svelte.ts`), nicht in den Ansichten — wer `status` oder
+  `prioritaet` schreibt, bekommt es ohne Zutun, bei Aufgaben, Teilen und
+  Einzelteilen gleichermaßen. Freitextfelder bleiben außen vor, sonst käme
+  nach jedem Tippen ein Toast. Das Zurücknehmen erzeugt keinen zweiten
+  Toast, und ein Bestelllauf über mehrere Teile bündelt zu einem
+  (`store.ohneRueckgaengig`).
 - `scroll-padding-top` auf `html`: die Kopfzeile klebt oben, ohne das landete
   jeder programmatische Sprung (Tastaturfokus, Anker) darunter.
 
@@ -134,17 +160,19 @@ zum geschriebenen CSV.
    die Zeilen danach wieder entfernt. Sobald echte Zuschnitte drin sind, lohnt
    ein zweiter Blick.
 
-**Paket C — UI entschlacken** (bis auf den letzten Punkt durch)
+**Paket C — UI entschlacken** (durch bis auf einen Rest)
 
-6. Vier getrennte Suchfelder statt einer Suche über alle Ansichten (die
-   Befehlspalette deckt das halb ab); kein Rückgängig nach versehentlichem
-   Statuswechsel, nur ein Toast.
+6. Vier getrennte Suchfelder statt einer Suche über alle Ansichten. Die
+   Befehlspalette (Strg+K) deckt das inzwischen weitgehend ab — lohnt vor
+   einer Umstellung erst zu prüfen, ob es überhaupt noch stört.
 
 **Aus PLAN.md Stufe 3 noch offen**
 
 7. Strombilanz (Verbraucher × Laufzeit → Ah/Tag gegen Batteriekapazität).
    Steht als Aufgabe in `vault/Bereiche/Elektrik.md`, es gibt keinen Befehl.
-8. Blocker-Übersicht über `@braucht:` als Ablaufplan statt nur Hinweistext.
+   Der Ablaufplan weist sie jetzt als Schlüsselaufgabe aus: fünf Aufgaben
+   hängen daran. Sie braucht ein neues Datenformat (Verbraucherliste mit
+   Watt und Laufzeit) — das ist eine Format-Entscheidung, keine Fleißarbeit.
 
 ## Zwei Lehren, die weiter gelten
 

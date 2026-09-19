@@ -206,6 +206,10 @@ Eine Zeile je abgeschlossenem Punkt oder getroffener Entscheidung.
 
 - 2026-09-19 Paket C: Teileliste sortierbar (Titel, Preis auf/ab, Priorität, Status, zuletzt gekauft), Wahl wird in localStorage gemerkt. Ein „Status-Alter" gibt es nicht — `parts.csv` führt keinen Zeitpunkt des letzten Statuswechsels, nur `gekauft_am`; das steht als Kommentar bei den Sortier-Optionen. Teile ohne Preis sinken bei „günstigste zuerst" ans Ende, weil ohne Preis unbekannt heißt und nicht billig.
 
+- 2026-09-19 `camper ablauf` (`tools/ablauf.py`) — die `@braucht:`-Bezüge als Stufen statt als Hinweistext unter `camper next`. Topologisch gelegt: Stufe 1 ohne offene Blocker, Stufe n nach Stufe n−1. Dazu Schlüsselaufgaben (wie viele Aufgaben über die ganze Kette an einer hängen) und Ringerkennung (`a @braucht:b`, `b @braucht:a` — löst sich nie auf und blieb bisher unbemerkt). Gerechnet wird immer über alle Bereiche, `--bereich` filtert nur die Anzeige; sonst verschöben sich die Stufen. Im Dashboard kein neunter Eintrag in der Schiene, sondern ein Umschalter Liste ↔ Ablauf in der Aufgabenansicht (gemerkt in localStorage), eingebettet im Bereich-Reiter genauso. `tests/test_ablauf.py`, 10 Tests, plus einer in `test_server.py`.
+
+- 2026-09-19 Paket C: Rückgängig nach einem Statuswechsel. `toasts.zeigen()` nimmt jetzt eine Aktion ({label, tun}); Toasts mit Aktion stehen 9 s statt 3,5 s. Angeboten wird es zentral in `daten.svelte.ts` für `status` und `prioritaet` bei Aufgaben, Teilen und Einzelteilen — nicht in den Ansichten, sonst müsste jede Stelle daran denken; Freitextfelder bleiben außen vor (die haben ihren eigenen Überschreibschutz). Das Zurücknehmen selbst löst keinen neuen Toast aus (`#nimmtZurueck`), und ein Lauf über mehrere Teile bündelt über `store.ohneRueckgaengig()` — sonst kämen beim Bestelllauf zehn Toasts auf einmal.
+
 ## Offene Fragen
 
 - Entschieden (2026-09-19): Palette blendet lose Buchstabenfolgen-Treffer aus, solange es mindestens einen echten Worttreffer gibt — erst bei null echten Treffern kommen sie zurück (`web/src/lib/palette/suche.ts`).
