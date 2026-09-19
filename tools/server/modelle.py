@@ -182,6 +182,23 @@ class MaterialGruppeAntwort(_Basis):
     zuschnitte: list[str] = []
 
 
+class EinkaufGruppeAntwort(_Basis):
+    """Ein Händlerbündel aus ``camper buy next``. ``teile`` sind Teile-IDs;
+    die Sätze stehen in ``teile`` der Gesamtantwort."""
+
+    haendler: str
+    summe: float
+    teile: list[str] = []
+
+
+class EinkaufAntwort(_Basis):
+    """``camper buy next`` — was als Nächstes bestellt werden kann."""
+
+    gruppen: list[EinkaufGruppeAntwort] = []
+    teile_gesamt: int
+    summe: float
+
+
 class DatenAntwort(_Basis):
     """Form von ``GET /api/daten`` — vollständiger Bestand."""
 
@@ -201,6 +218,7 @@ class DatenAntwort(_Basis):
     budget: BudgetAntwort
     gewicht: GewichtAntwort
     material: list[MaterialGruppeAntwort]
+    einkauf: EinkaufAntwort
     bearbeitbar: dict[str, Any]
     vokabular: dict[str, list[str]]
 

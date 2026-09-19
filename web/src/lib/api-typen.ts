@@ -94,8 +94,21 @@ export interface DatenAntwort {
   budget: BudgetAntwort;
   gewicht: GewichtAntwort;
   material: MaterialGruppeAntwort[];
+  einkauf: EinkaufAntwort;
   bearbeitbar: Record<string, any>;
   vokabular: Record<string, string[]>;
+}
+
+export interface EinkaufAntwort {
+  gruppen?: EinkaufGruppeAntwort[];
+  teile_gesamt: number;
+  summe: number;
+}
+
+export interface EinkaufGruppeAntwort {
+  haendler: string;
+  summe: number;
+  teile?: string[];
 }
 
 export interface EinzelteilAnlegenAnfrage {

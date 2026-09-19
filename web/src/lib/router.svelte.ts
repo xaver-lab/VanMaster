@@ -1,7 +1,7 @@
 // Hash-Routing wie im alten Dashboard: #/ansicht/param1/param2 —
 // Parameter sind erlaubt und werden einzeln weitergereicht.
 
-export const ANSICHTEN = ['start', 'bereiche', 'aufgaben', 'teile', 'zuschnitt', 'medien', 'bilanz'] as const;
+export const ANSICHTEN = ['start', 'bereiche', 'aufgaben', 'teile', 'zuschnitt', 'medien', 'einkauf', 'bilanz'] as const;
 // Erreichbar per Adresse, aber nicht in der Navigation und ohne Zifferntaste.
 export const NEBENANSICHTEN = ['muster'] as const;
 export type Ansicht = (typeof ANSICHTEN)[number] | (typeof NEBENANSICHTEN)[number];
@@ -57,6 +57,7 @@ export const TITEL: Record<Ansicht, string> = {
   teile: 'Teile',
   zuschnitt: 'Zuschnitt',
   medien: 'Medien',
+  einkauf: 'Einkauf',
   bilanz: 'Bilanz',
   muster: 'Muster',
 };

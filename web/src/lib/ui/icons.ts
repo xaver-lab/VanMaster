@@ -15,6 +15,7 @@ export { default as IconTeile } from '@lucide/svelte/icons/package';
 export { default as IconZuschnitt } from '@lucide/svelte/icons/ruler';
 export { default as IconMedien } from '@lucide/svelte/icons/images';
 export { default as IconBilanz } from '@lucide/svelte/icons/scale';
+export { default as IconEinkauf } from '@lucide/svelte/icons/shopping-cart';
 
 export { default as IconSonne } from '@lucide/svelte/icons/sun';
 export { default as IconMond } from '@lucide/svelte/icons/moon';

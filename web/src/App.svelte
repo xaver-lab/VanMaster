@@ -18,6 +18,7 @@
   import Teile from './routen/Teile.svelte';
   import Zuschnitt from './routen/Zuschnitt.svelte';
   import Medien from './routen/Medien.svelte';
+  import Einkauf from './routen/Einkauf.svelte';
   import Bilanz from './routen/Bilanz.svelte';
   import Muster from './routen/Muster.svelte';
 
@@ -94,6 +95,8 @@
         <Zuschnitt />
       {:else if router.route.ansicht === 'medien'}
         <Medien />
+      {:else if router.route.ansicht === 'einkauf'}
+        <Einkauf />
       {:else if router.route.ansicht === 'bilanz'}
         <Bilanz />
       {:else if router.route.ansicht === 'muster'}

@@ -11,6 +11,7 @@ from typing import Any
 from .. import budget as budget_mod
 from .. import build, common
 from .. import gewicht as gewicht_mod
+from .. import parts
 from .. import material as material_mod
 from ..common import STANDARD_SORTIERUNG
 from ..kern import abschnitte as kern_abschnitte
@@ -140,6 +141,7 @@ def daten_json(sortierung: str = STANDARD_SORTIERUNG) -> dict:
         "budget": budget_mod.daten(),
         "gewicht": gewicht_mod.bilanz(),
         "material": _material(),
+        "einkauf": parts.buy_daten(),
         "bearbeitbar": _bearbeitbar(),
         "vokabular": _vokabular(),
     }

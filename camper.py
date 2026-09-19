@@ -117,6 +117,9 @@ def cmd_parts(args) -> None:
 
 
 def cmd_buy(args) -> None:
+    if args.json:
+        zeige("", parts.buy_daten(limit=args.limit), True)
+        return
     print(parts.buy_next(limit=args.limit))
 
 
@@ -366,6 +369,7 @@ def parser() -> argparse.ArgumentParser:
     s = sub.add_parser("buy", help="Einkaufsvorschlag")
     s.add_argument("was", nargs="?", default="next", choices=["next"])
     s.add_argument("--limit", type=int, default=0)
+    s.add_argument("--json", action="store_true")
     s.set_defaults(func=cmd_buy)
 
     s = sub.add_parser("bereich", help="alles zu einem Arbeitsbereich")

@@ -448,6 +448,9 @@
       "budget": {
         "$ref": "#/$defs/BudgetAntwort"
       },
+      "einkauf": {
+        "$ref": "#/$defs/EinkaufAntwort"
+      },
       "einzelteile": {
         "items": {
           "$ref": "#/$defs/EinzelteilAntwort"
@@ -549,10 +552,65 @@
       "budget",
       "gewicht",
       "material",
+      "einkauf",
       "bearbeitbar",
       "vokabular"
     ],
     "title": "DatenAntwort",
+    "type": "object"
+  },
+  "EinkaufAntwort": {
+    "description": "``camper buy next`` — was als Nächstes bestellt werden kann.",
+    "properties": {
+      "gruppen": {
+        "default": [],
+        "items": {
+          "$ref": "#/$defs/EinkaufGruppeAntwort"
+        },
+        "title": "Gruppen",
+        "type": "array"
+      },
+      "summe": {
+        "title": "Summe",
+        "type": "number"
+      },
+      "teile_gesamt": {
+        "title": "Teile Gesamt",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "teile_gesamt",
+      "summe"
+    ],
+    "title": "EinkaufAntwort",
+    "type": "object"
+  },
+  "EinkaufGruppeAntwort": {
+    "description": "Ein Händlerbündel aus ``camper buy next``. ``teile`` sind Teile-IDs;\ndie Sätze stehen in ``teile`` der Gesamtantwort.",
+    "properties": {
+      "haendler": {
+        "title": "Haendler",
+        "type": "string"
+      },
+      "summe": {
+        "title": "Summe",
+        "type": "number"
+      },
+      "teile": {
+        "default": [],
+        "items": {
+          "type": "string"
+        },
+        "title": "Teile",
+        "type": "array"
+      }
+    },
+    "required": [
+      "haendler",
+      "summe"
+    ],
+    "title": "EinkaufGruppeAntwort",
     "type": "object"
   },
   "EinzelteilAnlegenAnfrage": {
