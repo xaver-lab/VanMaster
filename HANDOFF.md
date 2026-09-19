@@ -90,6 +90,22 @@ zum geschriebenen CSV.
   Ansicht in alle anderen leckten (`gruppen-`, `kategorie-`, `bereich-`,
   `material-`, `sortier-`, `status-wahl`). Vier sind im Baustein
   aufgegangen, die übrigen zwei an ihren Container gebunden.
+- `Start.svelte` hatte sieben dauerhaft sichtbare Blöcke, alle nur lesend.
+  Drei davon — Budget-Karte, Teilestufen, Kosten je Kategorie — wiederholten
+  nur, was `#/bilanz` und `#/teile` vollständig und bedienbar zeigen; mit der
+  neuen Bilanz-Ansicht war das schlicht dieselbe Tabelle zweimal. Geblieben
+  ist, was es sonst nirgends gibt: Gesamtstand, Bauabschnitte in ihrer
+  Reihenfolge, „Jetzt dran" und offene Entscheidungen (die haben keine eigene
+  Ansicht). Die vier Eckdaten im Kopf sind jetzt Wege nach `#/bilanz`,
+  `#/einkauf` und `#/bilanz/gewicht`. Vor allem: „Jetzt dran" hat
+  Kontrollkästchen — abhaken, ohne die Seite zu wechseln. Im Browser geprüft,
+  der Gesamtstand springt sofort mit. Die Datei ist von 582 auf 527 Zeilen
+  geschrumpft, der Rest passt auf einen Bildschirm.
+- Teile lassen sich jetzt sortieren: Titel, Preis (beide Richtungen),
+  Priorität, Status, zuletzt gekauft. Die Wahl wird gemerkt. Ein
+  „Status-Alter" war nicht machbar — die CSV führt keinen Zeitpunkt des
+  letzten Statuswechsels, nur `gekauft_am`. Teile ohne Preis gelten als
+  unbekannt, nicht als billig, und stehen bei „günstigste zuerst" hinten.
 - `scroll-padding-top` auf `html`: die Kopfzeile klebt oben, ohne das landete
   jeder programmatische Sprung (Tastaturfokus, Anker) darunter.
 
@@ -118,22 +134,17 @@ zum geschriebenen CSV.
    die Zeilen danach wieder entfernt. Sobald echte Zuschnitte drin sind, lohnt
    ein zweiter Blick.
 
-**Paket C — UI entschlacken**
+**Paket C — UI entschlacken** (bis auf den letzten Punkt durch)
 
-6. `Start.svelte` hat sieben dauerhaft sichtbare Blöcke, alle read-only, und
-   dupliziert Kosten- und Kategoriezahlen aus Teile und Bereiche. Kürzen auf
-   Kennzahlen und „Jetzt dran", letzteres mit Direkt-Aktion zum Abhaken.
-7. Teile: keine Sortierung nach Preis oder Status-Alter. (Die Mehrfachauswahl
-   für Bestellläufe steckt jetzt in der Einkaufsansicht.)
-8. Vier getrennte Suchfelder statt einer Suche über alle Ansichten (die
+6. Vier getrennte Suchfelder statt einer Suche über alle Ansichten (die
    Befehlspalette deckt das halb ab); kein Rückgängig nach versehentlichem
    Statuswechsel, nur ein Toast.
 
 **Aus PLAN.md Stufe 3 noch offen**
 
-9. Strombilanz (Verbraucher × Laufzeit → Ah/Tag gegen Batteriekapazität).
+7. Strombilanz (Verbraucher × Laufzeit → Ah/Tag gegen Batteriekapazität).
    Steht als Aufgabe in `vault/Bereiche/Elektrik.md`, es gibt keinen Befehl.
-10. Blocker-Übersicht über `@braucht:` als Ablaufplan statt nur Hinweistext.
+8. Blocker-Übersicht über `@braucht:` als Ablaufplan statt nur Hinweistext.
 
 ## Zwei Lehren, die weiter gelten
 

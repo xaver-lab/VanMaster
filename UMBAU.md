@@ -202,6 +202,10 @@ Eine Zeile je abgeschlossenem Punkt oder getroffener Entscheidung.
 
 - 2026-09-19 Paket C: Filterleiste als Baustein (`lib/ui/Filterleiste.svelte`) — Reiter links, Werkzeuge rechts, ohne Reiter alles in einer Reihe. Ersetzt die vierfach fast byte-gleiche Kopie in `AufgabenListe`, `TeileListe`, `EinzelteilListe` und `MedienAnsicht`. Schmale Auswahlfelder heißen jetzt überall `filter-wahl` statt `gruppen-`/`kategorie-`/`bereich-`/`material-wahl`; die zugehörigen unscoped `:global()`-Regeln leckten bis dahin aus einer Ansicht in alle anderen. `sortier-wahl` (BereichListe) und `status-wahl` (TeilZeile) sind an ihren Container gebunden statt entfernt, weil ihre Anordnung nicht zum Baustein passt. Auf `#/muster` in beiden Ausführungen, in `web/DESIGN.md` beschrieben.
 
+- 2026-09-19 Paket C: `Start.svelte` von sieben auf vier Blöcke gekürzt (582 → 527 Zeilen). Budget-Karte, Teilestufen und „Kosten je Kategorie" raus — sie wiederholten `#/bilanz` und `#/teile`, seit der Bilanz-Ansicht sogar dieselbe Tabelle. Geblieben: Gesamtstand mit Bauleiste, Bauabschnitte, „Jetzt dran", offene Entscheidungen (die haben keine eigene Ansicht, Claude pflegt sie im Vault). Neu: die laufenden und die wichtigen nächsten Aufgaben haben Kontrollkästchen und lassen sich direkt von der Startseite abhaken; die vier Eckdaten im Kopf verlinken nach `#/bilanz`, `#/einkauf` und `#/bilanz/gewicht`.
+
+- 2026-09-19 Paket C: Teileliste sortierbar (Titel, Preis auf/ab, Priorität, Status, zuletzt gekauft), Wahl wird in localStorage gemerkt. Ein „Status-Alter" gibt es nicht — `parts.csv` führt keinen Zeitpunkt des letzten Statuswechsels, nur `gekauft_am`; das steht als Kommentar bei den Sortier-Optionen. Teile ohne Preis sinken bei „günstigste zuerst" ans Ende, weil ohne Preis unbekannt heißt und nicht billig.
+
 ## Offene Fragen
 
 - Entschieden (2026-09-19): Palette blendet lose Buchstabenfolgen-Treffer aus, solange es mindestens einen echten Worttreffer gibt — erst bei null echten Treffern kommen sie zurück (`web/src/lib/palette/suche.ts`).
