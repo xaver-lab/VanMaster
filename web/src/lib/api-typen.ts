@@ -59,6 +59,24 @@ export interface BereichAntwort {
   aufgaben?: AufgabeAntwort[];
 }
 
+export interface BudgetAntwort {
+  ziel?: number | null;
+  bezahlt: number;
+  geplant: number;
+  prognose: number;
+  rest?: number | null;
+  differenz_prognose?: number | null;
+  kategorien?: BudgetKategorieAntwort[];
+}
+
+export interface BudgetKategorieAntwort {
+  kategorie: string;
+  bezahlt: number;
+  geplant: number;
+  prognose: number;
+  budget?: number | null;
+}
+
 export interface DatenAntwort {
   erzeugt: string;
   bereiche: BereichAntwort[];
@@ -73,6 +91,9 @@ export interface DatenAntwort {
   versionen: Record<string, string>;
   kennzahlen: KennzahlenAntwort;
   kategorien: KategorieAntwort[];
+  budget: BudgetAntwort;
+  gewicht: GewichtAntwort;
+  material: MaterialGruppeAntwort[];
   bearbeitbar: Record<string, any>;
   vokabular: Record<string, string[]>;
 }
@@ -110,6 +131,19 @@ export interface FehlerAntwort {
   fehler: string;
 }
 
+export interface GewichtAntwort {
+  teile_kg: number;
+  teile_fehlt: number;
+  teile_gesamt: number;
+  bauteile_kg: number;
+  bauteile_fehlt: number;
+  bauteile_gesamt: number;
+  ausbau_kg: number;
+  leergewicht_kg?: number | null;
+  zul_gesamtgewicht_kg?: number | null;
+  zuladung_erlaubt_kg?: number | null;
+}
+
 export interface KategorieAntwort {
   name: string;
   teile: number;
@@ -142,12 +176,20 @@ export interface KopfAnfrage {
   version: string;
 }
 
+export interface MaterialGruppeAntwort {
+  material: string;
+  dicke_mm?: string;
+  bedarf: string;
+  zuschnitte?: string[];
+}
+
 export interface MediumAntwort {
   name: string;
   dateiname: string;
   bereich: string;
   art: string;
   datei: string;
+  groesse?: number;
 }
 
 export interface QuerverweisAntwort {

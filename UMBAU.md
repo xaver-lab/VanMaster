@@ -193,13 +193,18 @@ Eine Zeile je abgeschlossenem Punkt oder getroffener Entscheidung.
 
 - 2026-09-19 Nacharbeit: `.claude/settings.json` sperrt jetzt `web/dist/**` und `web/src/lib/api-schema.json` statt der gelöschten `docs/data.*`. Altlasten des alten Dashboards entfernt (`appjs_full.diff.txt`, `_input/screen_b_dashboard.html`). README-Zeile `camper.py system elektrik` gegen `camper.py bereich Elektrik` getauscht, den Befehl `system` gibt es nicht. Nicht geprüft: Tests und Web-Build, die Cloud-Sitzung hat keinen Zugang zu PyPI und npm.
 
+- 2026-09-19 Browser-Prüfung der drei in HANDOFF.md als verdächtig markierten Stellen (Playwright/Chromium, Port 8767). Zwei davon waren echte Fehler: (1) `router.ausHash()` dekodierte den ganzen Hash vor dem Zerlegen, während `gehe()` jedes Stück einzeln kodiert — die Palette glich das mit einem zusätzlichen `encodeURIComponent` aus, die Medien-Ansicht mit einem zweiten `decodeURIComponent`. Jetzt wird stückweise dekodiert, beide Ausgleiche sind raus; ein Medium mit Leerzeichen, `&`, `%` und Umlaut im Namen öffnet sich, übersteht das Neuladen und das Bild lädt. (2) Über einen Direktlink geöffnet ließ sich die Lupe gar nicht mehr schließen: der Route-Effekt setzte den Index sofort wieder, den das Schließen genullt hatte. Er reagiert jetzt nur auf echte Adressänderungen. Der dritte Punkt (Dialog ohne Kopf) war in Ordnung — Escape schließt, der Dialog ist über `aria-label` benannt. Zuschnitt-Detailroute über beide Wege geprüft.
+- 2026-09-19 Neue Ansicht `#/bilanz` (Reiter Budget, Gewicht, Material) — `camper budget|gewicht|material` haben damit die fehlende Dashboard-Ansicht, die Projektregel „jede Funktion braucht Befehl und Ansicht" ist wieder erfüllt. `/api/daten` liefert dafür `budget`, `gewicht` und `material`; gerechnet wird weiter in `tools/`, die Ansicht zeigt nur an. Material trägt nur die Einzelteil-IDs, die Sätze stehen schon unter `einzelteile`. Medien haben zusätzlich `groesse` (`tools/kern/lesen.py`). Zwei Tests in `test_server.py` halten API und Befehle deckungsgleich.
+- 2026-09-19 `.claude/settings.json`: die Push-Wache lief als `python .claude/hooks/push_wache.py` relativ zum Arbeitsverzeichnis der Shell. Nach einem `cd web` fand sie sich selbst nicht mehr und blockierte jeden weiteren Bash-Aufruf. Jetzt über `$CLAUDE_PROJECT_DIR`.
+
 ## Offene Fragen
 
 - Entschieden (2026-09-19): Palette blendet lose Buchstabenfolgen-Treffer aus, solange es mindestens einen echten Worttreffer gibt — erst bei null echten Treffern kommen sie zurück (`web/src/lib/palette/suche.ts`).
 - Entschieden (2026-09-19): Medien-Treffer der Palette öffnen bei Bildern die Lupe direkt über `#/medien/<id>`, bei Unterlagen/Modellen weiter die Galerie.
 - Entschieden (2026-09-19): Einzelteile haben jetzt die Detail-Route `#/zuschnitt/<id>`, die Palette springt direkt hinein (`web/src/lib/zuschnitt/EinzelteilListe.svelte`).
 - Entschieden (2026-09-19): Palette zeigt keine Dialog-Kopfzeile mehr, nur das Eingabefeld — `Dialog` hat dafür die Eigenschaft `kopflos` bekommen (`web/src/lib/ui/Dialog.svelte`).
-- Entschieden (2026-09-19): 3D-Modell-Kachel bleibt ohne Viewer/Web-Kopie, zeigt jetzt aber Dateiname, Vault-Pfad und einen Knopf zum Pfad-Kopieren; eine Dateigröße liefert `/api/daten` bisher nicht (offen für `tools/`, siehe Bericht).
+- Entschieden (2026-09-19): 3D-Modell-Kachel bleibt ohne Viewer/Web-Kopie, zeigt jetzt aber Dateiname, Vault-Pfad und einen Knopf zum Pfad-Kopieren. Die Dateigröße liefert `/api/daten` seit 2026-09-19 als `groesse` je Medium.
+- Entschieden (2026-09-19): `budget`, `gewicht` und `material` bekommen keine eigenen Einträge in der Schiene, sondern eine gemeinsame Ansicht `#/bilanz` mit drei Reitern. Alle drei sind reine Auswertungen über denselben Bestand; der aktive Reiter steht in der Adresse (`#/bilanz/gewicht`), damit Links teilbar bleiben.
 
 ## Übergabe an den nächsten Chat
 

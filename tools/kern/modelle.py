@@ -161,6 +161,7 @@ class Medium:
     bereich: str
     art: str        # "bild" | "dokument" | "modell"
     datei: str      # Pfad relativ zur Projektwurzel
+    groesse: int = 0  # Dateigröße in Byte
 
 
 @dataclass

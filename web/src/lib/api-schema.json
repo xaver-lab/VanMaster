@@ -308,6 +308,114 @@
     "title": "BereichAntwort",
     "type": "object"
   },
+  "BudgetAntwort": {
+    "description": "``camper budget`` — Zielbudget gegen bezahlt und geplant.",
+    "properties": {
+      "bezahlt": {
+        "title": "Bezahlt",
+        "type": "number"
+      },
+      "differenz_prognose": {
+        "anyOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Differenz Prognose"
+      },
+      "geplant": {
+        "title": "Geplant",
+        "type": "number"
+      },
+      "kategorien": {
+        "default": [],
+        "items": {
+          "$ref": "#/$defs/BudgetKategorieAntwort"
+        },
+        "title": "Kategorien",
+        "type": "array"
+      },
+      "prognose": {
+        "title": "Prognose",
+        "type": "number"
+      },
+      "rest": {
+        "anyOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Rest"
+      },
+      "ziel": {
+        "anyOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Ziel"
+      }
+    },
+    "required": [
+      "bezahlt",
+      "geplant",
+      "prognose"
+    ],
+    "title": "BudgetAntwort",
+    "type": "object"
+  },
+  "BudgetKategorieAntwort": {
+    "properties": {
+      "bezahlt": {
+        "title": "Bezahlt",
+        "type": "number"
+      },
+      "budget": {
+        "anyOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Budget"
+      },
+      "geplant": {
+        "title": "Geplant",
+        "type": "number"
+      },
+      "kategorie": {
+        "title": "Kategorie",
+        "type": "string"
+      },
+      "prognose": {
+        "title": "Prognose",
+        "type": "number"
+      }
+    },
+    "required": [
+      "kategorie",
+      "bezahlt",
+      "geplant",
+      "prognose"
+    ],
+    "title": "BudgetKategorieAntwort",
+    "type": "object"
+  },
   "DatenAntwort": {
     "description": "Form von ``GET /api/daten`` — vollständiger Bestand.",
     "properties": {
@@ -337,6 +445,9 @@
         "title": "Bereiche",
         "type": "array"
       },
+      "budget": {
+        "$ref": "#/$defs/BudgetAntwort"
+      },
       "einzelteile": {
         "items": {
           "$ref": "#/$defs/EinzelteilAntwort"
@@ -355,6 +466,9 @@
         "title": "Erzeugt",
         "type": "string"
       },
+      "gewicht": {
+        "$ref": "#/$defs/GewichtAntwort"
+      },
       "kategorien": {
         "items": {
           "$ref": "#/$defs/KategorieAntwort"
@@ -364,6 +478,13 @@
       },
       "kennzahlen": {
         "$ref": "#/$defs/KennzahlenAntwort"
+      },
+      "material": {
+        "items": {
+          "$ref": "#/$defs/MaterialGruppeAntwort"
+        },
+        "title": "Material",
+        "type": "array"
       },
       "medien": {
         "items": {
@@ -425,6 +546,9 @@
       "versionen",
       "kennzahlen",
       "kategorien",
+      "budget",
+      "gewicht",
+      "material",
       "bearbeitbar",
       "vokabular"
     ],
@@ -569,6 +693,86 @@
     "title": "FehlerAntwort",
     "type": "object"
   },
+  "GewichtAntwort": {
+    "description": "``camper gewicht`` — Zuladungsbilanz.",
+    "properties": {
+      "ausbau_kg": {
+        "title": "Ausbau Kg",
+        "type": "number"
+      },
+      "bauteile_fehlt": {
+        "title": "Bauteile Fehlt",
+        "type": "integer"
+      },
+      "bauteile_gesamt": {
+        "title": "Bauteile Gesamt",
+        "type": "integer"
+      },
+      "bauteile_kg": {
+        "title": "Bauteile Kg",
+        "type": "number"
+      },
+      "leergewicht_kg": {
+        "anyOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Leergewicht Kg"
+      },
+      "teile_fehlt": {
+        "title": "Teile Fehlt",
+        "type": "integer"
+      },
+      "teile_gesamt": {
+        "title": "Teile Gesamt",
+        "type": "integer"
+      },
+      "teile_kg": {
+        "title": "Teile Kg",
+        "type": "number"
+      },
+      "zul_gesamtgewicht_kg": {
+        "anyOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Zul Gesamtgewicht Kg"
+      },
+      "zuladung_erlaubt_kg": {
+        "anyOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Zuladung Erlaubt Kg"
+      }
+    },
+    "required": [
+      "teile_kg",
+      "teile_fehlt",
+      "teile_gesamt",
+      "bauteile_kg",
+      "bauteile_fehlt",
+      "bauteile_gesamt",
+      "ausbau_kg"
+    ],
+    "title": "GewichtAntwort",
+    "type": "object"
+  },
   "KategorieAntwort": {
     "properties": {
       "gewicht": {
@@ -699,6 +903,38 @@
     "title": "KopfAnfrage",
     "type": "object"
   },
+  "MaterialGruppeAntwort": {
+    "description": "Eine Zeile von ``camper material`` — Material + Dicke mit Bedarf.\n``zuschnitte`` sind Einzelteil-IDs; die Sätze stehen in ``einzelteile``.",
+    "properties": {
+      "bedarf": {
+        "title": "Bedarf",
+        "type": "string"
+      },
+      "dicke_mm": {
+        "default": "",
+        "title": "Dicke Mm",
+        "type": "string"
+      },
+      "material": {
+        "title": "Material",
+        "type": "string"
+      },
+      "zuschnitte": {
+        "default": [],
+        "items": {
+          "type": "string"
+        },
+        "title": "Zuschnitte",
+        "type": "array"
+      }
+    },
+    "required": [
+      "material",
+      "bedarf"
+    ],
+    "title": "MaterialGruppeAntwort",
+    "type": "object"
+  },
   "MediumAntwort": {
     "properties": {
       "art": {
@@ -716,6 +952,11 @@
       "dateiname": {
         "title": "Dateiname",
         "type": "string"
+      },
+      "groesse": {
+        "default": 0,
+        "title": "Groesse",
+        "type": "integer"
       },
       "name": {
         "title": "Name",

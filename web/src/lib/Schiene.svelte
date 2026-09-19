@@ -7,6 +7,7 @@
   import {
     IconAufgaben,
     IconBereiche,
+    IconBilanz,
     IconMedien,
     IconStart,
     IconTeile,
@@ -22,6 +23,7 @@
     teile: IconTeile,
     zuschnitt: IconZuschnitt,
     medien: IconMedien,
+    bilanz: IconBilanz,
   };
 
   let k = $derived(store.daten?.kennzahlen);
@@ -126,7 +128,7 @@
 
   <div class="fuss">
     <div class="kuerzel">
-      <span><Kbd tasten="1–6" /> Ansicht</span>
+      <span><Kbd tasten="1–7" /> Ansicht</span>
       <span><Kbd tasten="T" /> Thema</span>
       <span><Kbd tasten="/" /> Suchen</span>
     </div>

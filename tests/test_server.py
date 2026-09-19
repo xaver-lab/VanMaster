@@ -38,7 +38,8 @@ def test_daten_vollstaendig(client, repo):
     for schluessel in (
         "erzeugt", "bereiche", "aufgaben", "querverweise", "entscheidungen",
         "anleitungen", "recherche", "teile", "einzelteile", "medien",
-        "versionen", "kennzahlen", "kategorien", "bearbeitbar", "vokabular",
+        "versionen", "kennzahlen", "kategorien", "budget", "gewicht",
+        "material", "bearbeitbar", "vokabular",
     ):
         assert schluessel in d
     assert d["vokabular"]["einzelteil_art"][0] == "Platte"
@@ -53,6 +54,37 @@ def test_daten_vollstaendig(client, repo):
         kat = d["kategorien"][0]
         for feld in ("name", "teile", "kosten", "gewicht", "verbaut"):
             assert feld in kat
+
+
+def test_daten_auswertungen_stimmen_mit_den_befehlen(client, repo):
+    """budget/gewicht/material in /api/daten sind dieselben Zahlen wie
+    `camper budget|gewicht|material` — die Ansicht rechnet nicht selbst."""
+    from tools import budget, gewicht, material
+
+    d = client.get("/api/daten").json()
+
+    assert d["budget"]["bezahlt"] == budget.daten()["bezahlt"]
+    assert d["budget"]["prognose"] == budget.daten()["prognose"]
+    assert [k["kategorie"] for k in d["budget"]["kategorien"]] == \
+        [k["kategorie"] for k in budget.daten()["kategorien"]]
+
+    assert d["gewicht"] == gewicht.bilanz()
+
+    gruppen = material.liste()
+    assert len(d["material"]) == len(gruppen)
+    for gesendet, erwartet in zip(d["material"], gruppen):
+        assert gesendet["material"] == erwartet["material"]
+        assert gesendet["bedarf"] == erwartet["bedarf"]
+        # Nur IDs, nicht die ganzen Sätze — die stehen unter "einzelteile".
+        assert gesendet["zuschnitte"] == [r["id"] for r in erwartet["zuschnitte"]]
+
+
+def test_daten_medien_tragen_die_dateigroesse(client, repo):
+    d = client.get("/api/daten").json()
+    for m in d["medien"]:
+        assert m["groesse"] >= 0
+    if d["medien"]:
+        assert any(m["groesse"] > 0 for m in d["medien"])
 
 
 def test_daten_versionen_stimmen_mit_datei_version(client, repo):

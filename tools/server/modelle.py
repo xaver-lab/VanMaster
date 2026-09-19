@@ -115,6 +115,7 @@ class MediumAntwort(_Basis):
     bereich: str
     art: str
     datei: str
+    groesse: int = 0
 
 
 class KennzahlenAntwort(_Basis):
@@ -136,6 +137,51 @@ class KategorieAntwort(_Basis):
     verbaut: int
 
 
+class BudgetKategorieAntwort(_Basis):
+    kategorie: str
+    bezahlt: float
+    geplant: float
+    prognose: float
+    budget: float | None = None
+
+
+class BudgetAntwort(_Basis):
+    """``camper budget`` — Zielbudget gegen bezahlt und geplant."""
+
+    ziel: float | None = None
+    bezahlt: float
+    geplant: float
+    prognose: float
+    rest: float | None = None
+    differenz_prognose: float | None = None
+    kategorien: list[BudgetKategorieAntwort] = []
+
+
+class GewichtAntwort(_Basis):
+    """``camper gewicht`` — Zuladungsbilanz."""
+
+    teile_kg: float
+    teile_fehlt: int
+    teile_gesamt: int
+    bauteile_kg: float
+    bauteile_fehlt: int
+    bauteile_gesamt: int
+    ausbau_kg: float
+    leergewicht_kg: float | None = None
+    zul_gesamtgewicht_kg: float | None = None
+    zuladung_erlaubt_kg: float | None = None
+
+
+class MaterialGruppeAntwort(_Basis):
+    """Eine Zeile von ``camper material`` — Material + Dicke mit Bedarf.
+    ``zuschnitte`` sind Einzelteil-IDs; die Sätze stehen in ``einzelteile``."""
+
+    material: str
+    dicke_mm: str = ""
+    bedarf: str
+    zuschnitte: list[str] = []
+
+
 class DatenAntwort(_Basis):
     """Form von ``GET /api/daten`` — vollständiger Bestand."""
 
@@ -152,6 +198,9 @@ class DatenAntwort(_Basis):
     versionen: dict[str, str]
     kennzahlen: KennzahlenAntwort
     kategorien: list[KategorieAntwort]
+    budget: BudgetAntwort
+    gewicht: GewichtAntwort
+    material: list[MaterialGruppeAntwort]
     bearbeitbar: dict[str, Any]
     vokabular: dict[str, list[str]]
 
