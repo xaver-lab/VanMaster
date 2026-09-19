@@ -47,6 +47,7 @@
   let filterStatus = $state(gemerkt<string>('teileFilterStatus', ''));
   let filterKategorie = $state('');
   const wirksameKategorie = $derived(kategorie || filterKategorie);
+  let sortierung = $state(gemerkt<string>('teileSortierung', 'titel'));
   let suche = $state('');
   let formOffen = $state(false);
   let offenId = $state<string | null>(null);
@@ -76,6 +77,56 @@
     filterStatus = s;
     merken('teileFilterStatus', s);
   }
+  function sortierungWaehlen(s: string): void {
+    sortierung = s;
+    merken('teileSortierung', s);
+  }
+
+  // Ein „Status-Alter" gibt es nicht: die CSV führt keinen Zeitpunkt des
+  // letzten Statuswechsels (nur `gekauft_am`). Sortiert wird deshalb nach
+  // dem, was wirklich in den Daten steht.
+  const SORTIER_OPTIONEN = [
+    { wert: 'titel', label: 'Titel A–Z' },
+    { wert: 'preis-ab', label: 'Preis, teuerste zuerst' },
+    { wert: 'preis-auf', label: 'Preis, günstigste zuerst' },
+    { wert: 'prio', label: 'Priorität' },
+    { wert: 'status', label: 'Status' },
+    { wert: 'gekauft', label: 'zuletzt gekauft' },
+  ];
+
+  function reihung(a: TeilAntwort, b: TeilAntwort): number {
+    switch (sortierung) {
+      case 'preis-ab':
+        return gesamtpreis(b) - gesamtpreis(a) || a.titel.localeCompare(b.titel, 'de');
+      case 'preis-auf': {
+        // Ohne Preis heißt unbekannt, nicht billig — die kommen ans Ende.
+        const p = (t: TeilAntwort) => gesamtpreis(t) || Infinity;
+        return p(a) - p(b) || a.titel.localeCompare(b.titel, 'de');
+      }
+      case 'prio': {
+        const reihe = vokabular.teilPrio;
+        const i = (t: TeilAntwort) => {
+          const n = reihe.indexOf(t.prioritaet);
+          return n < 0 ? reihe.length : n;
+        };
+        return i(a) - i(b) || a.titel.localeCompare(b.titel, 'de');
+      }
+      case 'status': {
+        const reihe = vokabular.teilStatus;
+        const i = (t: TeilAntwort) => {
+          const n = reihe.indexOf(t.status);
+          return n < 0 ? reihe.length : n;
+        };
+        return i(a) - i(b) || a.titel.localeCompare(b.titel, 'de');
+      }
+      case 'gekauft':
+        // Ohne Datum nach hinten, sonst das jüngste zuerst.
+        return (b.gekauft_am || '').localeCompare(a.gekauft_am || '') ||
+          a.titel.localeCompare(b.titel, 'de');
+      default:
+        return a.titel.localeCompare(b.titel, 'de');
+    }
+  }
 
   const alleTeile = $derived(store.daten?.teile ?? []);
 
@@ -97,13 +148,16 @@
     return heuhaufen.includes(suchtext);
   }
 
+  // Kopie sortieren, nie die Liste aus dem Store.
   const gefiltert = $derived(
-    alleTeile.filter(
-      (t) =>
-        (!wirksameKategorie || t.kategorie === wirksameKategorie) &&
-        (!filterStatus || t.status === filterStatus) &&
-        passtSuche(t),
-    ),
+    [
+      ...alleTeile.filter(
+        (t) =>
+          (!wirksameKategorie || t.kategorie === wirksameKategorie) &&
+          (!filterStatus || t.status === filterStatus) &&
+          passtSuche(t),
+      ),
+    ].sort(reihung),
   );
 
   const summe = $derived(gefiltert.reduce((s, t) => s + gesamtpreis(t), 0));
@@ -195,6 +249,14 @@
       klein
     />
     {/if}
+    <Auswahl
+      class="filter-wahl"
+      wert={sortierung}
+      optionen={SORTIER_OPTIONEN}
+      onchange={(e) => sortierungWaehlen((e.target as HTMLSelectElement).value)}
+      aria-label="Sortierung"
+      klein
+    />
     <div class="ansicht-wahl" role="group" aria-label="Ansicht">
       <button type="button" class:aktiv={ansicht === 'liste'} onclick={() => ansichtWaehlen('liste')} aria-label="Liste" title="Liste">
         <IconListe size={15} strokeWidth={1.8} aria-hidden="true" />
