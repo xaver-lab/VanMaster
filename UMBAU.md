@@ -210,6 +210,8 @@ Eine Zeile je abgeschlossenem Punkt oder getroffener Entscheidung.
 
 - 2026-09-19 Paket C: Rückgängig nach einem Statuswechsel. `toasts.zeigen()` nimmt jetzt eine Aktion ({label, tun}); Toasts mit Aktion stehen 9 s statt 3,5 s. Angeboten wird es zentral in `daten.svelte.ts` für `status` und `prioritaet` bei Aufgaben, Teilen und Einzelteilen — nicht in den Ansichten, sonst müsste jede Stelle daran denken; Freitextfelder bleiben außen vor (die haben ihren eigenen Überschreibschutz). Das Zurücknehmen selbst löst keinen neuen Toast aus (`#nimmtZurueck`), und ein Lauf über mehrere Teile bündelt über `store.ohneRueckgaengig()` — sonst kämen beim Bestelllauf zehn Toasts auf einmal.
 
+- 2026-09-19 `camper strom` (`tools/strom.py`) — PLAN.md Stufe 3, laut Ablaufplan die Aufgabe mit der größten Hebelwirkung (hält 5 auf). Format-Entscheidung: keine dritte CSV, sondern zwei Spalten in `data/parts.csv` (`watt`, `stunden_pro_tag`), wie `gewicht_kg` für die Zuladung — Verbraucher sind Teile der Stückliste, eine Parallelliste liefe auseinander, und CLAUDE.md nennt parts.csv/bauteile.csv/Vault als einzige Wahrheit. Anlagendaten (`batterie_ah`, `bordspannung_v`, `batterie_nutzbar`, `wirkungsgrad`) im Kopf von `vault/Camper.md` wie Budget und Fahrzeuggewicht. Nur Teile mit beiden Werten zählen; halb gepflegte werden getrennt gemeldet statt geraten. `data/parts.csv` migriert (Spalten leer), FORMAT.md §14 ergänzt, Reiter „Strom" in `#/bilanz`. 13 Tests in `test_strom.py`, 2 in `test_server.py`.
+
 ## Offene Fragen
 
 - Entschieden (2026-09-19): Palette blendet lose Buchstabenfolgen-Treffer aus, solange es mindestens einen echten Worttreffer gibt — erst bei null echten Treffern kommen sie zurück (`web/src/lib/palette/suche.ts`).

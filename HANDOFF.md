@@ -132,6 +132,40 @@ sonst verschöben sich die Stufen, obwohl die Abhängigkeit bleibt. 10 Tests in
   nach jedem Tippen ein Toast. Das Zurücknehmen erzeugt keinen zweiten
   Toast, und ein Bestelllauf über mehrere Teile bündelt zu einem
   (`store.ohneRueckgaengig`).
+**Strombilanz** (`camper strom`, Reiter „Strom" in `#/bilanz`) — laut eigenem
+Ablaufplan die Aufgabe, die am meisten aufhält: fünf andere hängen daran.
+
+Die Format-Entscheidung, die dafür nötig war: **keine dritte CSV.** Kühlschrank,
+Pumpe und Licht *sind* Teile der Stückliste — sie dort ein zweites Mal zu führen
+hieße, zwei Listen derselben Dinge zu pflegen, die auseinanderlaufen, sobald ein
+Verbraucher umentschieden wird. Stattdessen zwei Spalten am Teil, genau wie
+`gewicht_kg` für die Zuladung: `watt` und `stunden_pro_tag`. Das hält auch die
+Regel aus CLAUDE.md ein, dass `parts.csv`, `bauteile.csv` und der Vault die
+einzige Wahrheit sind. `data/parts.csv` ist migriert (beide Spalten leer),
+`camper check` ist grün.
+
+Als Verbraucher zählt nur ein Teil mit **beiden** Werten — eines allein ergibt
+keinen Tagesverbrauch, und geraten wird nicht; halb gepflegte Zeilen listet der
+Befehl getrennt auf. Anlagendaten (`batterie_ah`, `bordspannung_v`,
+`batterie_nutzbar`, `wirkungsgrad`) stehen im Kopf von `vault/Camper.md`, wie
+Budget und Fahrzeuggewicht. Gerechnet wird schlicht und nachvollziehbar
+(Wh/Tag → Ah/Tag → Reichweite), ohne Solarertrag und ohne Temperaturgang: die
+Reichweite ist der schlechteste Fall. FORMAT.md §14 beschreibt alles. Im Teil-Detail stehen Leistung und Laufzeit
+als Kennwerte neben dem Gewicht.
+
+Eine Abweichung von der Regel, die Erwähnung verdient: `data/parts.csv` ist
+Daten und ginge nach CLAUDE.md direkt nach `main`. Hier nicht — die zwei neuen
+Spalten sind eine Schema-Migration und gehören zum Code. Ginge die CSV allein
+nach `main`, würde dort `camper check` fehlschlagen („Kopfzeile weicht ab"),
+und schlimmer: der alte `parts.save()` schreibt nur die ihm bekannten Spalten
+und würde `watt`/`stunden_pro_tag` beim nächsten Excel-Import still
+wegwerfen. Deshalb liegen CSV und Code in **einem** Commit auf dem Branch.
+
+Mit Testwerten durchgerechnet und im Browser geprüft (Kühlschrank 45 W × 8 h,
+Pumpe, Licht → 516 Wh = 43 Ah/Tag, 200 Ah zu 80 % nutzbar → 3,7 Tage); die
+erfundenen Werte sind danach wieder aus der CSV entfernt. 13 Tests in
+`tests/test_strom.py`, zwei weitere in `test_server.py`.
+
 - `scroll-padding-top` auf `html`: die Kopfzeile klebt oben, ohne das landete
   jeder programmatische Sprung (Tastaturfokus, Anker) darunter.
 
@@ -166,13 +200,14 @@ sonst verschöben sich die Stufen, obwohl die Abhängigkeit bleibt. 10 Tests in
    Befehlspalette (Strg+K) deckt das inzwischen weitgehend ab — lohnt vor
    einer Umstellung erst zu prüfen, ob es überhaupt noch stört.
 
-**Aus PLAN.md Stufe 3 noch offen**
+**Braucht Werte vom Nutzer**
 
-7. Strombilanz (Verbraucher × Laufzeit → Ah/Tag gegen Batteriekapazität).
-   Steht als Aufgabe in `vault/Bereiche/Elektrik.md`, es gibt keinen Befehl.
-   Der Ablaufplan weist sie jetzt als Schlüsselaufgabe aus: fünf Aufgaben
-   hängen daran. Sie braucht ein neues Datenformat (Verbraucherliste mit
-   Watt und Laufzeit) — das ist eine Format-Entscheidung, keine Fleißarbeit.
+7. **Verbraucher eintragen.** Die Strombilanz steht, aber `watt` und
+   `stunden_pro_tag` sind in allen 67 Zeilen leer — ohne sie zeigt der Reiter
+   nur, wie es geht. Lohnt bei Kühlschrank, Wasserpumpe, Licht, Lüfter,
+   Standheizung. Dazu `batterie_ah` in den Kopf von `vault/Camper.md`, sobald
+   die Batterie feststeht. Das ist die Aufgabe „Strombilanz rechnen" aus
+   `vault/Bereiche/Elektrik.md` — sie hält fünf andere auf.
 
 ## Zwei Lehren, die weiter gelten
 
