@@ -249,7 +249,7 @@ def test_csv_fuer_aufgabe_unbekannt(repo):
 
 def test_bauteile_art_ungueltig(repo):
     zeile = ("testbauteil,Test,Möbel,Kaputtart,Multiplex,100,50,15,1,,,gemessen,"
-             "Idee,\n")
+             "Idee,,\n")
     with common.BAUTEILE_CSV.open("a", encoding="utf-8", newline="\n") as fh:
         fh.write(zeile)
     _befund(pruefen.pruefen(), "art 'Kaputtart' ist nicht erlaubt")
@@ -257,8 +257,16 @@ def test_bauteile_art_ungueltig(repo):
 
 def test_bauteile_teil_id_unbekannt(repo):
     zeile = ("testbauteil2,Test,Möbel,Platte,Multiplex,100,50,15,1,"
-             "nichtvorhanden,,gemessen,Idee,\n")
+             "nichtvorhanden,,gemessen,Idee,,\n")
     with common.BAUTEILE_CSV.open("a", encoding="utf-8", newline="\n") as fh:
         fh.write(zeile)
     b = _befund(pruefen.pruefen(), "teil_id 'nichtvorhanden'")
     assert b.art == "warnung"
+
+
+def test_bauteile_gewicht_kg_keine_zahl(repo):
+    zeile = ("testbauteil3,Test,Möbel,Platte,Multiplex,100,50,15,1,,,gemessen,"
+             "Idee,viel,\n")
+    with common.BAUTEILE_CSV.open("a", encoding="utf-8", newline="\n") as fh:
+        fh.write(zeile)
+    _befund(pruefen.pruefen(), "gewicht_kg 'viel' ist keine Zahl")

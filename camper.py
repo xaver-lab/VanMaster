@@ -15,7 +15,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from tools import (  # noqa: E402
-    bauteile, bereiche, build, kern, media, parts, status, tasks, web,
+    bauteile, bereiche, budget, build, gewicht, kern, material, media, parts,
+    status, tasks, verlauf, web,
 )
 from tools.common import (  # noqa: E402
     BAUTEIL_ART, BAUTEIL_STATUS, MASSQUELLE, PART_KATEGORIEN, SORTIERUNGEN,
@@ -192,9 +193,38 @@ def cmd_bauteile(args) -> None:
             args.titel, args.bereich, art=args.art, material=args.material,
             laenge_mm=args.laenge, breite_mm=args.breite, dicke_mm=args.dicke,
             anzahl=args.anzahl, teil_id=args.teil, fuer_aufgabe=args.aufgabe,
-            massquelle=args.massquelle, notiz=args.notiz))
+            massquelle=args.massquelle, gewicht_kg=args.gewicht, notiz=args.notiz))
     else:
         print(bauteile.overview_text())
+
+
+def cmd_gewicht(args) -> None:
+    if args.json:
+        zeige("", gewicht.bilanz(), True)
+        return
+    print(gewicht.text())
+
+
+def cmd_material(args) -> None:
+    if args.json:
+        zeige("", material.liste(bereich=args.bereich or ""), True)
+        return
+    print(material.text(bereich=args.bereich or ""))
+
+
+def cmd_budget(args) -> None:
+    if args.json:
+        zeige("", budget.daten(), True)
+        return
+    print(budget.text())
+
+
+def cmd_verlauf(args) -> None:
+    meldung = verlauf.erfassen()
+    if args.json:
+        zeige("", verlauf.lesen(), True)
+        return
+    print(meldung + "\n\n" + verlauf.text(limit=args.limit))
 
 
 def cmd_find(args) -> None:
@@ -367,15 +397,34 @@ def parser() -> argparse.ArgumentParser:
     s.add_argument("--aufgabe")
     s.add_argument("--massquelle", choices=MASSQUELLE)
     s.add_argument("--status", choices=BAUTEIL_STATUS)
+    s.add_argument("--gewicht", help="Gewicht je Stück in kg")
     s.add_argument("--notiz")
     s.add_argument("--text")
     s.add_argument("--apply", action="store_true", help="Import wirklich schreiben")
     s.add_argument("--json", action="store_true")
     s.set_defaults(func=cmd_bauteile)
 
+    s = sub.add_parser("gewicht", help="Zuladungsbilanz gegen das zulässige Gesamtgewicht")
+    s.add_argument("--json", action="store_true")
+    s.set_defaults(func=cmd_gewicht)
+
+    s = sub.add_parser("material", help="Materialliste fürs Baumarkt, nach Material/Dicke")
+    s.add_argument("--bereich")
+    s.add_argument("--json", action="store_true")
+    s.set_defaults(func=cmd_material)
+
     s = sub.add_parser("check", help="Formatprüfung (FORMAT.md), Exit-Code 1 bei Fehlern")
     s.add_argument("--json", action="store_true")
     s.set_defaults(func=cmd_check)
+
+    s = sub.add_parser("budget", help="Zielbudget gegen bezahlte und geplante Kosten")
+    s.add_argument("--json", action="store_true")
+    s.set_defaults(func=cmd_budget)
+
+    s = sub.add_parser("verlauf", help="Kostenverlauf: heute erfassen und Zeitreihe zeigen")
+    s.add_argument("--limit", type=int, default=12, help="Anzahl gezeigter Datensätze")
+    s.add_argument("--json", action="store_true")
+    s.set_defaults(func=cmd_verlauf)
 
     s = sub.add_parser("find", help="Volltextsuche, liefert Pfade")
     s.add_argument("text")

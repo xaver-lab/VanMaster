@@ -17,8 +17,8 @@ import io
 from pathlib import Path
 
 from .common import (
-    BAUTEILE_CSV, BAUTEILE_XLSX, BAUTEIL_ART, BAUTEIL_STATUS, MASSQUELLE,
-    fail, table,
+    BAUTEILE_CSV, BAUTEILE_XLSX, BAUTEIL_ART, BAUTEIL_ART_MIT_VOLUMENGEWICHT,
+    BAUTEIL_STATUS, MASSQUELLE, MATERIAL_DICHTE, fail, table,
 )
 from .kern import datei as kern_datei
 from .kern import tabellen as kern_tabellen
@@ -77,6 +77,48 @@ def laufmeter(row: dict) -> float:
 
 def flaeche_summe(rows: list[dict]) -> float:
     return sum(flaeche(r) for r in rows)
+
+
+def material_dichte(material: str) -> float | None:
+    """kg/m³ für ein Material, per Teilstring gegen MATERIAL_DICHTE
+    (common.py) abgeglichen — None, wenn kein Eintrag passt."""
+    text = (material or "").strip().lower()
+    if not text:
+        return None
+    for schluessel, wert in MATERIAL_DICHTE.items():
+        if schluessel in text:
+            return wert
+    return None
+
+
+def gewicht(row: dict) -> tuple[float | None, str]:
+    """Gewicht aller Stück einer Zeile in kg, plus Herkunft:
+    'angegeben' (gewicht_kg gesetzt, je Stück x anzahl), 'berechnet'
+    (Holzdichte x Volumen für Platte/Leiste/Kantholz, wenn Maße und
+    Material das hergeben) oder 'fehlt' (keins von beidem möglich)."""
+    direkt = num(row.get("gewicht_kg"))
+    if direkt:
+        return direkt * anzahl(row), "angegeben"
+    if row.get("art") in BAUTEIL_ART_MIT_VOLUMENGEWICHT:
+        dichte = material_dichte(row.get("material", ""))
+        l, b, d = (num(row.get(f)) for f in ("laenge_mm", "breite_mm", "dicke_mm"))
+        if dichte and l and b and d:
+            volumen_m3 = l * b * d / 1_000_000_000
+            return volumen_m3 * dichte * anzahl(row), "berechnet"
+    return None, "fehlt"
+
+
+def gewicht_summe(rows: list[dict]) -> tuple[float, int]:
+    """(Summe kg über alle Zeilen, Anzahl Zeilen ohne ermittelbares Gewicht)."""
+    summe = 0.0
+    fehlt = 0
+    for row in rows:
+        wert, _ = gewicht(row)
+        if wert is None:
+            fehlt += 1
+        else:
+            summe += wert
+    return summe, fehlt
 
 
 def mass_text(row: dict) -> str:
@@ -143,6 +185,11 @@ def query_text(rows: list[dict]) -> str:
     qm = flaeche_summe(rows)
     if qm:
         foot += f" · {qm:.2f} m² Fläche"
+    kg, kg_fehlt = gewicht_summe(rows)
+    if kg:
+        foot += f" · {kg:.1f} kg"
+        if kg_fehlt:
+            foot += f" ({kg_fehlt} ohne Gewicht)"
     return table(body, head) + foot
 
 

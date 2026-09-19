@@ -1,6 +1,8 @@
 ---
 projekt: VanMaster
 fahrzeug: Renault Master 2013
+budget: 6000
+zul_gesamtgewicht_kg: 3500
 ---
 
 # VanMaster
