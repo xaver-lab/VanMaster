@@ -68,6 +68,33 @@ und in `.claude/skills/`, nicht hier — sonst zwei Wahrheiten.
   Dashboard-Screen)
 - Obsidian am Handy: Git-Erweiterung einrichten — eigener Schritt, noch offen
 
+### Repo absichern
+
+Das Repo ist öffentlich: Vault, CSVs und Medien liegen für jeden lesbar auf
+github.com, nicht nur die Website. Wie die Schritte im Einzelnen gehen, steht
+in `SICHERHEIT.md` — hier nur Reihenfolge und Stand.
+
+Schritt 1 trägt alles andere. Solange er offen ist, bringen die übrigen nichts.
+
+1. Repo auf privat stellen. GitHub Pages hört damit auf zu bauen, das Handy
+   sieht die Seite bis Schritt 4 nicht mehr. *(nur Nutzer)*
+2. Cloudflare-Konto anlegen, Pages-Projekt `vanmaster` erstellen.
+   *(nur Nutzer)*
+3. `CLOUDFLARE_API_TOKEN` und `CLOUDFLARE_ACCOUNT_ID` als GitHub-Secrets
+   hinterlegen. Erst dann greift `.github/workflows/cloudflare.yml`; vorher
+   läuft er absichtlich ins Leere. *(nur Nutzer)*
+4. Cloudflare Access mit E-Mail-Login davorsetzen. Ohne diesen Schritt ist die
+   Seite nur umgezogen, nicht geschützt. *(nur Nutzer)*
+5. Aufräumen: `.github/workflows/pages.yml` löschen, Branch-Schutz auf `main`
+   einschalten. *(kann Claude übernehmen)*
+
+Rückweg jederzeit: Repo wieder öffentlich stellen, dann baut `pages.yml`
+wieder wie bisher.
+
+Schon eingebaut und nicht mehr offen: Geheimnis-Wache (`camper geheim` plus
+`pre-commit`-Hook), Push-Wache und die getrennten Commit-Regeln für Daten und
+Code in `CLAUDE.md`.
+
 ---
 
 ## 5. Smart Home (separates Hobby-Nebenprojekt)

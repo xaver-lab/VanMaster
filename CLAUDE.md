@@ -45,7 +45,8 @@ Fürs Handy: GitHub Pages, nur lesend, baut sich bei jedem Push selbst.
 Aufgaben anlegen/umbenennen/löschen: `task add <Bereich> "<Titel>"`,
 `task rename <id> "<Titel>"`, `task delete <id>`. Bereichstexte und Kopffelder:
 `bereich set <Bereich> <Abschnitt> --text "…"` bzw.
-`bereich set <Bereich> --kopf feld=wert`. Formatprüfung: `camper check`.
+`bereich set <Bereich> --kopf feld=wert`. Formatprüfung: `camper check`,
+Prüfung auf sensible Daten: `camper geheim`.
 
 ## Python-Umgebung
 
@@ -53,12 +54,53 @@ Python 3.13, User-Scope (keine Adminrechte). Abhängigkeiten in `requirements.tx
 (`openpyxl`, `Pillow`, `fastapi`, `uvicorn`, `httpx`, `pytest`).
 Installation nur mit `pip install --user -r requirements.txt`.
 
-## Git läuft nebenbei
+## Git läuft nebenbei — Daten sofort, Code erst nach Sichtung
 
-Nach abgeschlossenen Arbeitsschritten selbst committen und pushen — nicht
-nachfragen. Commit-Nachricht: eine Zeile, was passiert ist. Kein Fließtext,
-keine Aufzählungen, keine Begründungen. Abschluss mit
+Ein Push auf `main` baut die Website neu. Deshalb zwei Geschwindigkeiten:
+
+- **Daten** (`vault/`, `data/`) — Aufgaben, Bereichstexte, Teile, Einzelteile,
+  Medien: nach dem Arbeitsschritt selbst committen **und pushen**, nicht
+  nachfragen. Das ist der Zweck der Kette.
+- **Code** (alles andere: `camper.py`, `tools/`, `web/`, `tests/`,
+  `.github/`, `.claude/`, die Regel- und Planungsdateien): lokal committen,
+  **nicht pushen**. Am Ende des Arbeitsschritts sagen, was geändert wurde,
+  und `git diff origin/main..HEAD` anbieten. Erst auf ausdrückliche Freigabe
+  des Nutzers pushen.
+
+Gemischt geändert: in zwei Commits trennen, den Daten-Commit pushen, den
+Code-Commit liegen lassen.
+
+Die Push-Wache (`.claude/hooks/push_wache.py`) stoppt einen Push mit
+Codeänderungen. Sie ist ein Geländer, kein Ersatz für die Regel.
+
+Commit-Nachricht: eine Zeile, was passiert ist. Kein Fließtext, keine
+Aufzählungen, keine Begründungen. Abschluss mit
 `Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>`.
+
+## Keine sensiblen Daten ins Repo
+
+Repo und Website sind kein privater Ort. Was einmal gepusht ist, steht in der
+Historie, auch nach dem Löschen. Nie ins Repo, auch nicht „nur kurz":
+
+- Zugangsdaten jeder Art: Passwörter, API-Schlüssel, Tokens, private
+  Schlüssel, WLAN-Passwörter, Cloudflare- und GitHub-Tokens. Die gehören in
+  Umgebungsvariablen oder GitHub-Secrets.
+- Fahrzeugdaten: Fahrgestellnummer, Kennzeichen, Versicherungs- und
+  Zulassungsunterlagen.
+- Persönliches: Anschrift, Telefonnummer, Geburtsdatum, Bankverbindung,
+  Rechnungen und Lieferscheine mit Klarnamen oder Kontodaten.
+- Genaue Standorte: Koordinaten von Stellplätzen, Wohn- oder Werkstattadresse.
+  Der Ort reicht.
+
+Preise, Bauteile, Maße, Datenblätter und Fotos vom Ausbau sind unkritisch.
+Fotos vorher ansehen: Kennzeichen, Papiere und Hausnummern kommen ungewollt
+mit aufs Bild.
+
+Geprüft wird mit `python camper.py geheim`. Der `pre-commit`-Hook
+(`.githooks/`) fährt denselben Scan über das, was zum Commit vorgemerkt ist,
+und bricht bei einem Fund ab. Falscher Alarm: `geheim-ok` in die Zeile
+schreiben. Echter Fund, schon gepusht: erst das Geheimnis zurückziehen
+(neues Token, neues Passwort), dann aufräumen — Löschen allein reicht nicht.
 
 ## Räumliche Planung macht der Nutzer
 

@@ -15,8 +15,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from tools import (  # noqa: E402
-    bauteile, bereiche, budget, build, gewicht, kern, material, media, parts,
-    status, tasks, verlauf, web,
+    bauteile, bereiche, budget, build, geheim, gewicht, kern, material,
+    media, parts, status, tasks, verlauf, web,
 )
 from tools.common import (  # noqa: E402
     BAUTEIL_ART, BAUTEIL_STATUS, MASSQUELLE, PART_KATEGORIEN, SORTIERUNGEN,
@@ -161,6 +161,21 @@ def cmd_check(args) -> None:
             zeilen.append(f"{anzahl_fehler} Fehler, {anzahl_warnungen} Warnungen")
             print("\n".join(zeilen))
     if any(b.art == "fehler" for b in befunde):
+        sys.exit(1)
+
+
+def cmd_geheim(args) -> None:
+    from dataclasses import asdict
+
+    if args.staged:
+        funde, umfang = geheim.staged_pruefen(), "vorgemerkt zum Commit"
+    else:
+        funde, umfang = geheim.versioniert_pruefen(), "versionierte Dateien"
+    if args.json:
+        zeige("", [asdict(f) for f in funde], True)
+    else:
+        print(geheim.bericht(funde, umfang))
+    if any(f.art == "fehler" for f in funde):
         sys.exit(1)
 
 
@@ -416,6 +431,13 @@ def parser() -> argparse.ArgumentParser:
     s = sub.add_parser("check", help="Formatprüfung (FORMAT.md), Exit-Code 1 bei Fehlern")
     s.add_argument("--json", action="store_true")
     s.set_defaults(func=cmd_check)
+
+    s = sub.add_parser("geheim", help="auf sensible Daten prüfen, "
+                                      "Exit-Code 1 bei Fehlern")
+    s.add_argument("--staged", action="store_true",
+                   help="nur den zum Commit vorgemerkten Inhalt prüfen")
+    s.add_argument("--json", action="store_true")
+    s.set_defaults(func=cmd_geheim)
 
     s = sub.add_parser("budget", help="Zielbudget gegen bezahlte und geplante Kosten")
     s.add_argument("--json", action="store_true")

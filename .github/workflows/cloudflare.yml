@@ -1,0 +1,83 @@
+name: Cloudflare Pages
+
+# Baut dieselbe Leseansicht wie pages.yml und stellt sie auf Cloudflare Pages,
+# wo Cloudflare Access einen Login davorsetzt. Siehe SICHERHEIT.md.
+#
+# Der Lauf macht nichts, solange die beiden Secrets fehlen — so wird der
+# Workflow nicht rot, bevor Cloudflare eingerichtet ist.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "vault/**"
+      - "data/**"
+      - "web/**"
+      - "tools/**"
+      - "camper.py"
+      - "requirements.txt"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cloudflare-pages
+  cancel-in-progress: false
+
+jobs:
+  bereit:
+    runs-on: ubuntu-latest
+    outputs:
+      secrets_da: ${{ steps.pruefen.outputs.da }}
+    steps:
+      - id: pruefen
+        env:
+          TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          KONTO: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [ -n "$TOKEN" ] && [ -n "$KONTO" ]; then
+            echo "da=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "da=false" >> "$GITHUB_OUTPUT"
+            echo "CLOUDFLARE_API_TOKEN oder CLOUDFLARE_ACCOUNT_ID fehlt — " \
+                 "Deploy übersprungen (siehe SICHERHEIT.md)."
+          fi
+
+  deploy:
+    needs: bereit
+    if: needs.bereit.outputs.secrets_da == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+
+      - name: Python-Abhängigkeiten installieren
+        run: pip install -r requirements.txt
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: Web-Abhängigkeiten installieren
+        working-directory: web
+        run: npm ci
+
+      - name: Web bauen
+        working-directory: web
+        run: npm run build
+
+      - name: Daten und Medien nach web/dist schreiben
+        run: python camper.py web daten
+
+      - name: Auf Cloudflare Pages stellen
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy web/dist --project-name=vanmaster --branch=main

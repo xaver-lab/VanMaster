@@ -1,0 +1,24 @@
+#!/bin/sh
+# Geheimnis-Wache vor jedem Commit (siehe tools/geheim.py).
+#
+# Aktiv, sobald einmal  git config core.hooksPath .githooks  gelaufen ist.
+# Der SessionStart-Hook in .claude/settings.json macht das automatisch.
+#
+# Notausgang, wenn die Wache falsch liegt:  git commit --no-verify
+
+wurzel=$(git rev-parse --show-toplevel 2>/dev/null) || exit 0
+
+for py in python3 python py; do
+    command -v "$py" >/dev/null 2>&1 || continue
+    ausgabe=$(PYTHONIOENCODING=utf-8 "$py" "$wurzel/camper.py" geheim --staged 2>&1)
+    if [ $? -ne 0 ]; then
+        echo "$ausgabe" >&2
+        echo "" >&2
+        echo "Commit abgebrochen. Notausgang: git commit --no-verify" >&2
+        exit 1
+    fi
+    exit 0
+done
+
+echo "pre-commit: kein Python gefunden, Geheimnis-Wache uebersprungen." >&2
+exit 0
