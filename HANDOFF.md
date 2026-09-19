@@ -10,7 +10,7 @@ Alles einmal durchgelaufen, alles grün:
 
 ```
 pip install --user -r requirements.txt
-PYTHONIOENCODING=utf-8 python -m pytest -q     # 248 Tests
+PYTHONIOENCODING=utf-8 python -m pytest -q     # 256 Tests
 python camper.py check                          # keine Abweichungen
 python camper.py geheim                         # nichts gefunden
 cd web && npm ci && npm run check && npm run build   # 0 Fehler, 0 Warnungen
@@ -58,6 +58,41 @@ durchgeprüft (Playwright/Chromium gegen Port 8767). Zwei waren echte Fehler:
 Nach einem `cd web` fand sie sich selbst nicht mehr und blockierte jeden
 weiteren Bash-Aufruf. Jetzt über `$CLAUDE_PROJECT_DIR`.
 
+**Ansicht `#/einkauf`** — damit hat auch `camper buy next` seine Ansicht, und
+kein Befehl steht mehr ohne da. Nach Händler gebündelt, mit Links in den Shop.
+Der eigentliche Gewinn ist die Mehrfachauswahl: ganzen Korb anhaken, einmal
+bestätigen, alle Teile wandern von „Entschieden“ auf „Bestellt“. Dafür wurde
+`parts.buy_next()` in `buy_daten()` (Daten) und `buy_next()` (Text) getrennt —
+Befehl, `--json` und Ansicht zeigen jetzt zwingend dieselbe Reihenfolge, sieben
+Tests in `tests/test_einkauf.py` halten das fest. Im Browser durchgespielt bis
+zum geschriebenen CSV.
+
+**Paket C angefangen:**
+
+- `BereichDetail` zeigte im Reiter „Teile“ eine tote Liste ohne Bedienung.
+  Jetzt steht dort die echte `TeileListe`, wie bei Aufgaben und Zuschnitt
+  schon länger. Sie hat dafür eine Eigenschaft `kategorie` bekommen: feste
+  Kategorie, keine Kategorie-Auswahl, Neuanlagen landen im Bereich, und das
+  Detail bleibt im Bereich statt die Adresse auf `#/teile` umzubiegen.
+- `AufgabeZeile` hatte Kontrollkästchen **und** volle Status-Auswahl für
+  denselben Zustand. Jetzt ein Weg je Sache: das Kästchen schaltet
+  offen↔erledigt, die Statusmarke führt mit einem Klick ins Detail, wo die
+  übrigen Status ohnehin schon standen. Nebenbei fiel eine unscoped
+  `:global(.status-wahl)`-Regel weg, die aus der Aufgabenzeile in alle
+  anderen Ansichten leckte.
+- Die Filterleiste stand vierfach fast byte-gleich da. Jetzt ein Baustein
+  `lib/ui/Filterleiste.svelte` (Reiter links, Werkzeuge rechts; ohne Reiter
+  alles in einer Reihe), benutzt von `AufgabenListe`, `TeileListe`,
+  `EinzelteilListe` und `MedienAnsicht`. Schmale Auswahlfelder tragen jetzt
+  alle `class="filter-wahl"` statt vier verschiedener Namen. Auf `#/muster`
+  in beiden Ausführungen zu sehen, in `web/DESIGN.md` beschrieben.
+- Dabei fielen fünf unscoped `:global(.…-wahl)`-Regeln auf, die aus einer
+  Ansicht in alle anderen leckten (`gruppen-`, `kategorie-`, `bereich-`,
+  `material-`, `sortier-`, `status-wahl`). Vier sind im Baustein
+  aufgegangen, die übrigen zwei an ihren Container gebunden.
+- `scroll-padding-top` auf `html`: die Kopfzeile klebt oben, ohne das landete
+  jeder programmatische Sprung (Tastaturfokus, Anker) darunter.
+
 ## Offen, nach Nutzen sortiert
 
 **Entscheidungen des Nutzers** (unverändert, nur der Nutzer kann sie treffen)
@@ -77,36 +112,28 @@ weiteren Bash-Aufruf. Jetzt über `$CLAUDE_PROJECT_DIR`.
 
 **Nächste Bauschritte**
 
-5. **Einkaufsansicht zu `buy next`** — existiert nur als CLI-Text. Der letzte
-   Befehl ohne Ansicht.
-6. **`data/bauteile.csv` ist leer.** Der Reiter Material und die
+5. **`data/bauteile.csv` ist leer.** Der Reiter Material und die
    Zuschnitt-Ansicht wurden in dieser Sitzung mit vier Testzeilen geprüft
    (Gruppierung, m²/lfm, Bereichsfilter, Sprung ins Detail — alles richtig) und
    die Zeilen danach wieder entfernt. Sobald echte Zuschnitte drin sind, lohnt
    ein zweiter Blick.
 
-**Paket C — UI entschlacken** (analysiert, noch nicht angefasst)
+**Paket C — UI entschlacken**
 
-7. `Start.svelte` hat sieben dauerhaft sichtbare Blöcke, alle read-only, und
+6. `Start.svelte` hat sieben dauerhaft sichtbare Blöcke, alle read-only, und
    dupliziert Kosten- und Kategoriezahlen aus Teile und Bereiche. Kürzen auf
    Kennzahlen und „Jetzt dran", letzteres mit Direkt-Aktion zum Abhaken.
-8. `BereichDetail.svelte:122-132` zeigt eine tote Mini-Teileliste statt der
-   echten, bedienbaren Komponente.
-9. Die Filterleiste (Suche + Auswahl + Tabs) ist vierfach fast identisch
-   kopiert: `AufgabenListe`, `TeileListe`, `EinzelteilListe`, `MedienAnsicht`.
-   Ein gemeinsamer Baustein in `lib/ui/` gehört her.
-10. `AufgabeZeile.svelte:50-76` bietet Kontrollkästchen und Status-Auswahl für
-    denselben Zustand — zwei Wege für eine Sache.
-11. Teile: keine Sortierung (Preis, Status-Alter), keine Mehrfachauswahl für
-    Statuswechsel bei Bestellläufen.
-12. Vier getrennte Suchfelder statt einer Suche über alle Ansichten; kein
-    Rückgängig nach versehentlichem Statuswechsel, nur ein Toast.
+7. Teile: keine Sortierung nach Preis oder Status-Alter. (Die Mehrfachauswahl
+   für Bestellläufe steckt jetzt in der Einkaufsansicht.)
+8. Vier getrennte Suchfelder statt einer Suche über alle Ansichten (die
+   Befehlspalette deckt das halb ab); kein Rückgängig nach versehentlichem
+   Statuswechsel, nur ein Toast.
 
 **Aus PLAN.md Stufe 3 noch offen**
 
-13. Strombilanz (Verbraucher × Laufzeit → Ah/Tag gegen Batteriekapazität).
-    Steht als Aufgabe in `vault/Bereiche/Elektrik.md`, es gibt keinen Befehl.
-14. Blocker-Übersicht über `@braucht:` als Ablaufplan statt nur Hinweistext.
+9. Strombilanz (Verbraucher × Laufzeit → Ah/Tag gegen Batteriekapazität).
+   Steht als Aufgabe in `vault/Bereiche/Elektrik.md`, es gibt keinen Befehl.
+10. Blocker-Übersicht über `@braucht:` als Ablaufplan statt nur Hinweistext.
 
 ## Zwei Lehren, die weiter gelten
 
