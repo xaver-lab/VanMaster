@@ -8,6 +8,7 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Any
 
+from .. import ablauf as ablauf_mod
 from .. import budget as budget_mod
 from .. import build, common
 from .. import gewicht as gewicht_mod
@@ -142,6 +143,7 @@ def daten_json(sortierung: str = STANDARD_SORTIERUNG) -> dict:
         "gewicht": gewicht_mod.bilanz(),
         "material": _material(),
         "einkauf": parts.buy_daten(),
+        "ablauf": ablauf_mod.plan(sortierung=sortierung),
         "bearbeitbar": _bearbeitbar(),
         "vokabular": _vokabular(),
     }

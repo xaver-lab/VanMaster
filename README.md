@@ -21,6 +21,7 @@ Aufbauplan und Begründungen: [PLAN.md](PLAN.md).
 ```bash
 python camper.py status --brief      # Lage in zwei Zeilen
 python camper.py tasks next          # nächste Aufgaben mit Blockern
+python camper.py ablauf              # Ablaufplan: offene Aufgaben in Stufen
 python camper.py brief <aufgabe>     # alles zu einer Aufgabe
 python camper.py task done <id>      # abhaken
 python camper.py parts excel         # Stückliste als Excel

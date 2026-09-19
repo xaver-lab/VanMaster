@@ -39,7 +39,7 @@ def test_daten_vollstaendig(client, repo):
         "erzeugt", "bereiche", "aufgaben", "querverweise", "entscheidungen",
         "anleitungen", "recherche", "teile", "einzelteile", "medien",
         "versionen", "kennzahlen", "kategorien", "budget", "gewicht",
-        "material", "einkauf", "bearbeitbar", "vokabular",
+        "material", "einkauf", "ablauf", "bearbeitbar", "vokabular",
     ):
         assert schluessel in d
     assert d["vokabular"]["einzelteil_art"][0] == "Platte"
@@ -90,6 +90,19 @@ def test_daten_einkauf_stimmt_mit_buy_next(client, repo):
         [g["haendler"] for g in erwartet["gruppen"]]
     assert [g["teile"] for g in d["gruppen"]] == \
         [g["teile"] for g in erwartet["gruppen"]]
+
+
+def test_daten_ablauf_stimmt_mit_dem_befehl(client, repo):
+    from tools import ablauf
+
+    d = client.get("/api/daten").json()["ablauf"]
+    erwartet = ablauf.plan()
+    assert d["tiefe"] == erwartet["tiefe"]
+    assert d["offen_gesamt"] == erwartet["offen_gesamt"]
+    assert [[a["id"] for a in s["aufgaben"]] for s in d["stufen"]] == \
+        [[a["id"] for a in s["aufgaben"]] for s in erwartet["stufen"]]
+    assert [a["id"] for a in d["schluessel"]] == \
+        [a["id"] for a in erwartet["schluessel"]]
 
 
 def test_daten_medien_tragen_die_dateigroesse(client, repo):

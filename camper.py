@@ -15,7 +15,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from tools import (  # noqa: E402
-    bauteile, bereiche, budget, build, geheim, gewicht, kern, material,
+    ablauf, bauteile, bereiche, budget, build, geheim, gewicht, kern, material,
     media, parts, status, tasks, verlauf, web,
 )
 from tools.common import (  # noqa: E402
@@ -214,6 +214,13 @@ def cmd_bauteile(args) -> None:
             massquelle=args.massquelle, gewicht_kg=args.gewicht, notiz=args.notiz))
     else:
         print(bauteile.overview_text())
+
+
+def cmd_ablauf(args) -> None:
+    if args.json:
+        zeige("", ablauf.plan(args.bereich or "", args.sortierung), True)
+        return
+    print(ablauf.text(args.bereich or "", args.sortierung))
 
 
 def cmd_gewicht(args) -> None:
@@ -422,6 +429,13 @@ def parser() -> argparse.ArgumentParser:
     s.add_argument("--apply", action="store_true", help="Import wirklich schreiben")
     s.add_argument("--json", action="store_true")
     s.set_defaults(func=cmd_bauteile)
+
+    s = sub.add_parser("ablauf", help="Ablaufplan: Aufgaben in Stufen nach @braucht:")
+    s.add_argument("--bereich", help="nur diesen Bereich zeigen")
+    s.add_argument("--sortierung", default=STANDARD_SORTIERUNG,
+                   choices=SORTIERUNGEN)
+    s.add_argument("--json", action="store_true")
+    s.set_defaults(func=cmd_ablauf)
 
     s = sub.add_parser("gewicht", help="Zuladungsbilanz gegen das zulässige Gesamtgewicht")
     s.add_argument("--json", action="store_true")

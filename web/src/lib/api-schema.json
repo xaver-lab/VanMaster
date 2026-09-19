@@ -1,4 +1,120 @@
 {
+  "AblaufAntwort": {
+    "description": "``camper ablauf`` — offene Aufgaben in Stufen nach ``@braucht:``.",
+    "properties": {
+      "offen_gesamt": {
+        "title": "Offen Gesamt",
+        "type": "integer"
+      },
+      "ring": {
+        "default": [],
+        "items": {
+          "$ref": "#/$defs/AblaufAufgabeAntwort"
+        },
+        "title": "Ring",
+        "type": "array"
+      },
+      "schluessel": {
+        "default": [],
+        "items": {
+          "$ref": "#/$defs/AblaufAufgabeAntwort"
+        },
+        "title": "Schluessel",
+        "type": "array"
+      },
+      "stufen": {
+        "default": [],
+        "items": {
+          "$ref": "#/$defs/AblaufStufeAntwort"
+        },
+        "title": "Stufen",
+        "type": "array"
+      },
+      "tiefe": {
+        "title": "Tiefe",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "tiefe",
+      "offen_gesamt"
+    ],
+    "title": "AblaufAntwort",
+    "type": "object"
+  },
+  "AblaufAufgabeAntwort": {
+    "description": "Eine Aufgabe im Ablaufplan. ``haelt_auf`` ist die Zahl der offenen\nAufgaben, die an ihr hängen — direkt und über die Kette.",
+    "properties": {
+      "bereich": {
+        "title": "Bereich",
+        "type": "string"
+      },
+      "braucht": {
+        "default": [],
+        "items": {
+          "type": "string"
+        },
+        "title": "Braucht",
+        "type": "array"
+      },
+      "dauer": {
+        "default": "",
+        "title": "Dauer",
+        "type": "string"
+      },
+      "haelt_auf": {
+        "default": 0,
+        "title": "Haelt Auf",
+        "type": "integer"
+      },
+      "id": {
+        "title": "Id",
+        "type": "string"
+      },
+      "prio": {
+        "default": "",
+        "title": "Prio",
+        "type": "string"
+      },
+      "status": {
+        "title": "Status",
+        "type": "string"
+      },
+      "titel": {
+        "title": "Titel",
+        "type": "string"
+      }
+    },
+    "required": [
+      "id",
+      "titel",
+      "bereich",
+      "status"
+    ],
+    "title": "AblaufAufgabeAntwort",
+    "type": "object"
+  },
+  "AblaufStufeAntwort": {
+    "properties": {
+      "aufgaben": {
+        "default": [],
+        "items": {
+          "$ref": "#/$defs/AblaufAufgabeAntwort"
+        },
+        "title": "Aufgaben",
+        "type": "array"
+      },
+      "stufe": {
+        "title": "Stufe",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "stufe"
+    ],
+    "title": "AblaufStufeAntwort",
+    "type": "object"
+  },
   "AbschnittAnfrage": {
     "properties": {
       "text": {
@@ -419,6 +535,9 @@
   "DatenAntwort": {
     "description": "Form von ``GET /api/daten`` — vollständiger Bestand.",
     "properties": {
+      "ablauf": {
+        "$ref": "#/$defs/AblaufAntwort"
+      },
       "anleitungen": {
         "items": {
           "$ref": "#/$defs/SeiteAntwort"
@@ -553,6 +672,7 @@
       "gewicht",
       "material",
       "einkauf",
+      "ablauf",
       "bearbeitbar",
       "vokabular"
     ],

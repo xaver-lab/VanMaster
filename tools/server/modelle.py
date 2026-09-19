@@ -199,6 +199,35 @@ class EinkaufAntwort(_Basis):
     summe: float
 
 
+class AblaufAufgabeAntwort(_Basis):
+    """Eine Aufgabe im Ablaufplan. ``haelt_auf`` ist die Zahl der offenen
+    Aufgaben, die an ihr hängen — direkt und über die Kette."""
+
+    id: str
+    titel: str
+    bereich: str
+    status: str
+    prio: str = ""
+    dauer: str = ""
+    braucht: list[str] = []
+    haelt_auf: int = 0
+
+
+class AblaufStufeAntwort(_Basis):
+    stufe: int
+    aufgaben: list[AblaufAufgabeAntwort] = []
+
+
+class AblaufAntwort(_Basis):
+    """``camper ablauf`` — offene Aufgaben in Stufen nach ``@braucht:``."""
+
+    stufen: list[AblaufStufeAntwort] = []
+    tiefe: int
+    offen_gesamt: int
+    schluessel: list[AblaufAufgabeAntwort] = []
+    ring: list[AblaufAufgabeAntwort] = []
+
+
 class DatenAntwort(_Basis):
     """Form von ``GET /api/daten`` — vollständiger Bestand."""
 
@@ -219,6 +248,7 @@ class DatenAntwort(_Basis):
     gewicht: GewichtAntwort
     material: list[MaterialGruppeAntwort]
     einkauf: EinkaufAntwort
+    ablauf: AblaufAntwort
     bearbeitbar: dict[str, Any]
     vokabular: dict[str, list[str]]
 

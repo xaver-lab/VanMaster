@@ -1,6 +1,30 @@
 // erzeugt — nicht von Hand ändern, neu mit `python -m tools.server.schema`
 // Quelle: tools/server/modelle.py (JSON-Schema der Pydantic-Modelle)
 
+export interface AblaufAntwort {
+  stufen?: AblaufStufeAntwort[];
+  tiefe: number;
+  offen_gesamt: number;
+  schluessel?: AblaufAufgabeAntwort[];
+  ring?: AblaufAufgabeAntwort[];
+}
+
+export interface AblaufAufgabeAntwort {
+  id: string;
+  titel: string;
+  bereich: string;
+  status: string;
+  prio?: string;
+  dauer?: string;
+  braucht?: string[];
+  haelt_auf?: number;
+}
+
+export interface AblaufStufeAntwort {
+  stufe: number;
+  aufgaben?: AblaufAufgabeAntwort[];
+}
+
 export interface AbschnittAnfrage {
   text: string;
   version: string;
@@ -95,6 +119,7 @@ export interface DatenAntwort {
   gewicht: GewichtAntwort;
   material: MaterialGruppeAntwort[];
   einkauf: EinkaufAntwort;
+  ablauf: AblaufAntwort;
   bearbeitbar: Record<string, any>;
   vokabular: Record<string, string[]>;
 }
