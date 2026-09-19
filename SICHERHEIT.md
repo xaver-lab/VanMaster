@@ -83,8 +83,14 @@ Falscher Alarm: `geheim-ok` in die Zeile schreiben.
 ### Push-Wache
 
 `.claude/hooks/push_wache.py` hängt als PreToolUse-Hook an der Bash-Nutzung
-und stoppt ein `git push`, dessen Commits Code berühren. Daten (`vault/`,
-`data/`) gehen durch. Die Regel dazu steht in `CLAUDE.md`.
+und stoppt einen Push, der auf den Website-Branch zielt und Code mitbringt.
+Daten (`vault/`, `data/`) gehen durch, und ein Push auf einen eigenen Branch
+geht immer durch — der Branch ist der Weg, auf dem Code zur Sichtung kommt.
+Die Regel dazu steht in `CLAUDE.md`.
+
+Geprüft wird der rohe Befehlstext. Ein Befehl, der die Wortfolge nur
+erwähnt — etwa ein Skript, das sie in einen String schreibt —, wird deshalb
+mitgeprüft und kann fälschlich anschlagen. Lieber einmal zu viel.
 
 Das ist ein Geländer gegen automatisches Durchpushen, **keine
 Sicherheitsgrenze**: wer den Befehl schreibt, kann sie mit
