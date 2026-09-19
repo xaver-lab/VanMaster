@@ -169,6 +169,47 @@ erfundenen Werte sind danach wieder aus der CSV entfernt. 13 Tests in
 - `scroll-padding-top` auf `html`: die Kopfzeile klebt oben, ohne das landete
   jeder programmatische Sprung (Tastaturfokus, Anker) darunter.
 
+**Kostenverlauf** (`camper verlauf`, Reiter „Verlauf" in `#/bilanz`) — der
+letzte Befehl ohne Dashboard-Ansicht. Damit ist auch `PLAN.md` Stufe 3
+„Kostenverlauf" abgehakt; von Stufe 3 bleibt nur die Blocker-Übersicht, und
+die ist inhaltlich noch nicht entschieden — `camper ablauf` zeigt Stufen und
+Schlüsselaufgaben bereits.
+
+Kein neues Format nötig: `data/verlauf.csv` stand schon (FORMAT.md §12), es
+fehlte nur die Anzeige. `tools/verlauf.py` ist dafür getrennt worden wie
+`parts.buy_daten()` / `buy_next()`: `daten()` liefert die Zahlen, `text()`
+setzt darauf auf. Befehl, `--json` und Ansicht rechnen damit zwingend
+dieselbe Zeitreihe. Zwei Entscheidungen, die darin stecken:
+
+- `daten(limit=n)` kürzt nur die gezeigten Punkte. Die Veränderung („seit
+  02.08.: +443 €") geht immer über den ganzen Verlauf — sonst hinge die
+  Aussage am zufällig gewählten Ausschnitt.
+- Kaputte Zahlen in der CSV werden zu 0, statt die Ansicht zu sprengen. Die
+  Datei ist von Hand editierbar, also muss sie das aushalten.
+
+Im Diagramm liegen nur die drei Geldreihen zusammen — gleiche Einheit,
+gleicher Maßstab. Aufgabenstand und Gewicht bekommen **keine** zweite Achse
+danebengelegt (zwei Maßstäbe in einem Bild lesen sich falsch); sie stehen in
+der Tabelle darunter und im Tooltip. Unterschieden werden die Reihen über die
+Strichart — durchgezogen, gestrichelt, gepunktet —, nicht über Farbe: das
+Designsystem kennt genau eine Signalfarbe, und Strichart trägt auch im
+Ausdruck und bei Farbsehschwäche. Endmarken werden auseinandergeschoben, wenn
+zwei Reihen dicht beieinander enden.
+
+Mit fünf erfundenen Datensätzen im Browser durchgeprüft (Port 8767,
+`--kein-commit`): keine Konsolenfehler, Adresse `#/bilanz/verlauf` übersteht
+das Neuladen, drei Linien mit je fünf Punkten, Tooltip mit Fadenkreuz,
+dunkles Thema fehlerfrei. Die Testzeilen sind danach wieder aus
+`data/verlauf.csv` entfernt — dort steht wieder der eine echte Datensatz vom
+19.09. 5 Tests in `test_verlauf.py`, einer in `test_server.py`.
+
+Noch offen und nur vom Nutzer zu entscheiden: **wann `camper verlauf` läuft.**
+Derzeit schreibt es nur, wer den Befehl aufruft, und ein Verlauf mit einem
+einzigen Datensatz ist noch keine Kurve. Naheliegend wäre, ihn an `sync` zu
+hängen oder täglich laufen zu lassen — das ändert aber, wie oft `data/`
+committet wird, und das ist eine Entscheidung über den Arbeitsablauf, nicht
+über Code.
+
 ## Offen, nach Nutzen sortiert
 
 **Entscheidungen des Nutzers** (unverändert, nur der Nutzer kann sie treffen)
