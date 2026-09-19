@@ -7,15 +7,14 @@ selbst ausgeführt.
 from __future__ import annotations
 
 import camper
-from tools import budget
-from tools.common import CAMPER_MD
+from tools import budget, common
 
 
 def _budget_kopf_setzen(zeilen: list[str]) -> None:
-    text = CAMPER_MD.read_text(encoding="utf-8")
+    text = common.CAMPER_MD.read_text(encoding="utf-8")
     kopf, rest = text.split("\n---", 1)
     neuer_kopf = kopf + "\n" + "\n".join(zeilen) + "\n---" + rest
-    CAMPER_MD.write_text(neuer_kopf, encoding="utf-8", newline="\n")
+    common.CAMPER_MD.write_text(neuer_kopf, encoding="utf-8", newline="\n")
 
 
 def test_ziel_fehlt_ohne_camper_md_feld(repo):

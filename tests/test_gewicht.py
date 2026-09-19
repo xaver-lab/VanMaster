@@ -7,15 +7,14 @@ selbst ausgeführt.
 from __future__ import annotations
 
 import camper
-from tools import bauteile, gewicht
-from tools.common import CAMPER_MD
+from tools import bauteile, common, gewicht
 
 
 def _camper_md_kopf_setzen(zeilen: list[str]) -> None:
-    text = CAMPER_MD.read_text(encoding="utf-8")
+    text = common.CAMPER_MD.read_text(encoding="utf-8")
     kopf, rest = text.split("\n---", 1)
     neuer_kopf = kopf + "\n" + "\n".join(zeilen) + "\n---" + rest
-    CAMPER_MD.write_text(neuer_kopf, encoding="utf-8", newline="\n")
+    common.CAMPER_MD.write_text(neuer_kopf, encoding="utf-8", newline="\n")
 
 
 def _einzelteil_anlegen(**felder):
@@ -88,10 +87,12 @@ def test_bilanz_nutzt_angegebenes_gewicht_vor_berechnung(repo):
 
 # ---------------------------------------------------------------------- cmd
 
-def test_cmd_gewicht_ohne_fahrzeugdaten_erklaert_eintrag(repo, capsys):
+def test_cmd_gewicht_benennt_das_fehlende_feld(repo, capsys):
+    # Im Bestand steht zul_gesamtgewicht_kg, aber kein leergewicht_kg.
     camper.main(["gewicht"])
     out = capsys.readouterr().out
-    assert "Kein zulässiges Gesamtgewicht hinterlegt" in out
+    assert "Keine Zuladungsbilanz" in out
+    assert "Leergewicht fehlt" in out
     assert "leergewicht_kg" in out
 
 
