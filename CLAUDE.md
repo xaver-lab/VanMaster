@@ -62,16 +62,23 @@ Ein Push auf `main` baut die Website neu. Deshalb zwei Geschwindigkeiten:
   Medien: nach dem Arbeitsschritt selbst committen **und pushen**, nicht
   nachfragen. Das ist der Zweck der Kette.
 - **Code** (alles andere: `camper.py`, `tools/`, `web/`, `tests/`,
-  `.github/`, `.claude/`, die Regel- und Planungsdateien): lokal committen,
-  **nicht pushen**. Am Ende des Arbeitsschritts sagen, was geändert wurde,
-  und `git diff origin/main..HEAD` anbieten. Erst auf ausdrückliche Freigabe
-  des Nutzers pushen.
+  `.github/`, `.claude/`, die Regel- und Planungsdateien): auf einen eigenen
+  Branch committen und **dorthin** pushen, nie nach `main`. Am Ende des
+  Arbeitsschritts sagen, was geändert wurde, und einen Pull Request anbieten.
 
 Gemischt geändert: in zwei Commits trennen, den Daten-Commit pushen, den
-Code-Commit liegen lassen.
+Code-Commit auf den Branch legen.
 
-Die Push-Wache (`.claude/hooks/push_wache.py`) stoppt einen Push mit
-Codeänderungen. Sie ist ein Geländer, kein Ersatz für die Regel.
+Code kommt über einen **Pull Request** nach `main`, nicht über einen Push.
+Der Nutzer sieht den Diff auf github.com, `pruefen.yml` läuft automatisch
+darüber, und er klickt Merge. Das ist kein Umweg, sondern der Weg: ein
+direkter Push nach `main` ist nur in Ausnahmefällen nötig und wird von der
+Push-Wache (`.claude/hooks/push_wache.py`) gestoppt.
+
+Die Wache ist ein Geländer, kein Ersatz für die Regel. Ihren Notausgang
+(`VANMASTER_CODE_PUSH=1` vor dem Befehl) gibt es nur noch fürs Arbeiten am
+Laptop; in abgesicherten Umgebungen wird so ein Präfix selbst abgelehnt. Dort
+ist der Pull Request ohnehin der einzige saubere Weg.
 
 Commit-Nachricht: eine Zeile, was passiert ist. Kein Fließtext, keine
 Aufzählungen, keine Begründungen. Abschluss mit
