@@ -79,13 +79,16 @@
 
     laeuft = true;
     let fertig = 0;
-    for (const id of ids) {
-      // Nacheinander, nicht parallel: jede Antwort trägt die neue
-      // Dateiversion, sonst läuft der zweite Schreibzugriff in einen 409.
-      const erfolg = await store.teilPatch(id, 'status', 'Bestellt');
-      if (!erfolg) break;
-      fertig++;
-    }
+    // Ein Toast für den ganzen Lauf, nicht einer je Teil.
+    await store.ohneRueckgaengig(async () => {
+      for (const id of ids) {
+        // Nacheinander, nicht parallel: jede Antwort trägt die neue
+        // Dateiversion, sonst läuft der zweite Schreibzugriff in einen 409.
+        const erfolg = await store.teilPatch(id, 'status', 'Bestellt');
+        if (!erfolg) break;
+        fertig++;
+      }
+    });
     laeuft = false;
 
     if (fertig === ids.length) {

@@ -6,6 +6,8 @@
 
   // Spiegelt die Standzeiten aus toasts.svelte.ts für die Ablaufleiste.
   const DAUER: Record<ToastArt, number> = { info: 3500, fehler: 6000, konflikt: 7000 };
+  // Spiegelt DAUER_MIT_AKTION aus toasts.svelte.ts.
+  const DAUER_MIT_AKTION = 9000;
   const ICON: Record<ToastArt, IconKomponente> = { info: IconInfo, fehler: IconFehler, konflikt: IconWarnung };
   const TITEL: Record<ToastArt, string> = { info: 'Hinweis', fehler: 'Fehler', konflikt: 'Konflikt' };
 </script>
@@ -15,7 +17,7 @@
     {@const Icon = ICON[t.art]}
     <div
       class="toast {t.art}"
-      style:--dauer="{DAUER[t.art]}ms"
+      style:--dauer="{t.aktion ? DAUER_MIT_AKTION : DAUER[t.art]}ms"
       animate:flip={{ duration: 200 }}
       in:fly={{ y: 12, duration: 220 }}
       out:fly={{ x: 24, duration: 160 }}
@@ -25,6 +27,19 @@
         <strong>{TITEL[t.art]}</strong>
         <span>{t.text}</span>
       </div>
+      {#if t.aktion}
+        <button
+          type="button"
+          class="aktion"
+          onclick={() => {
+            const tun = t.aktion!.tun;
+            toasts.entfernen(t.id);
+            void tun();
+          }}
+        >
+          {t.aktion.label}
+        </button>
+      {/if}
       <button type="button" aria-label="Schließen" onclick={() => toasts.entfernen(t.id)}>
         <IconSchliessen size={15} strokeWidth={2} />
       </button>
@@ -86,6 +101,19 @@
     color: var(--farbe-text-2);
   }
   button:hover { background: var(--farbe-flaeche-hoch); color: var(--farbe-text); }
+  /* Der Aktionsknopf trägt Text statt eines Icons und ist die Hauptsache
+     im Toast — der Schließen-Knopf bleibt daneben leise. */
+  button.aktion {
+    width: auto;
+    height: 26px;
+    padding: 0 10px;
+    font: inherit;
+    font-size: var(--text-s);
+    font-weight: 600;
+    color: var(--farbe-text);
+    box-shadow: inset 0 0 0 1px var(--farbe-linie-stark);
+  }
+  button.aktion:hover { background: var(--farbe-tinte-fuellung); color: var(--farbe-auf-tinte); }
   .ablauf {
     position: absolute;
     left: 0;
