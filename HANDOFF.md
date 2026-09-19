@@ -10,10 +10,10 @@ Alles einmal durchgelaufen, alles grün:
 
 ```
 pip install --user -r requirements.txt
-PYTHONIOENCODING=utf-8 python -m pytest -q     # 256 Tests
+PYTHONIOENCODING=utf-8 python -m pytest -q     # 288 Tests
 python camper.py check                          # keine Abweichungen
 python camper.py geheim                         # nichts gefunden
-cd web && npm ci && npm run check && npm run build   # 0 Fehler, 0 Warnungen
+cd web && npm ci && npm run check && npm run build   # 4123 Dateien, 0 Fehler, 0 Warnungen
 ```
 
 Damit ist die Umgebungsnotiz des letzten Handoffs erledigt. Die vier
