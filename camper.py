@@ -254,7 +254,7 @@ def cmd_budget(args) -> None:
 def cmd_verlauf(args) -> None:
     meldung = verlauf.erfassen()
     if args.json:
-        zeige("", verlauf.lesen(), True)
+        zeige("", verlauf.daten(limit=args.limit), True)
         return
     print(meldung + "\n\n" + verlauf.text(limit=args.limit))
 

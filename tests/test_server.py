@@ -39,7 +39,7 @@ def test_daten_vollstaendig(client, repo):
         "erzeugt", "bereiche", "aufgaben", "querverweise", "entscheidungen",
         "anleitungen", "recherche", "teile", "einzelteile", "medien",
         "versionen", "kennzahlen", "kategorien", "budget", "gewicht",
-        "material", "einkauf", "ablauf", "strom", "bearbeitbar",
+        "material", "einkauf", "ablauf", "strom", "verlauf", "bearbeitbar",
         "vokabular",
     ):
         assert schluessel in d
@@ -116,6 +116,18 @@ def test_daten_strom_stimmt_mit_dem_befehl(client, repo):
         assert d[feld] == erwartet[feld], feld
     assert [v["id"] for v in d["verbraucher"]] == \
         [v["id"] for v in erwartet["verbraucher"]]
+
+
+def test_daten_verlauf_stimmt_mit_dem_befehl(client, repo):
+    from tools import verlauf
+
+    d = client.get("/api/daten").json()["verlauf"]
+    erwartet = verlauf.daten()
+    for feld in ("anzahl", "von", "bis", "delta_bezahlt", "delta_geplant",
+                 "delta_prognose", "delta_aufgaben_fertig"):
+        assert d[feld] == erwartet[feld], feld
+    assert [p["datum"] for p in d["punkte"]] == \
+        [p["datum"] for p in erwartet["punkte"]]
 
 
 def test_daten_teile_tragen_die_stromfelder(client, repo):

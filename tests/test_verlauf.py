@@ -1,8 +1,4 @@
-"""Tests für ``tools.verlauf`` und den Befehl ``camper verlauf``.
-
-Ungeprüft in dieser Sitzung — kein pytest verfügbar. Im Stil der übrigen
-Tests geschrieben (Fixture ``repo``).
-"""
+"""Tests für ``tools.verlauf`` und den Befehl ``camper verlauf``."""
 from __future__ import annotations
 
 import pytest
@@ -67,3 +63,51 @@ def test_cmd_verlauf_zweimal_am_selben_tag_keine_dublette(repo, capsys):
     camper.main(["verlauf"])
     capsys.readouterr()
     assert len(verlauf.lesen()) == 1
+
+
+def test_daten_ohne_verlauf_ist_leer_aber_vollstaendig(repo):
+    d = verlauf.daten()
+    assert d["punkte"] == []
+    assert d["anzahl"] == 0
+    assert d["von"] is None
+    assert d["delta_bezahlt"] == 0.0
+
+
+def test_daten_liefert_zahlen_keine_zeichenketten(repo):
+    verlauf.erfassen(heute="2026-01-01")
+    p = verlauf.daten()["punkte"][0]
+    assert isinstance(p["bezahlt"], float)
+    assert isinstance(p["aufgaben_fertig"], int)
+    assert p["gewicht_kg"] is None or isinstance(p["gewicht_kg"], float)
+
+
+def test_daten_rechnet_die_veraenderung_ueber_den_ganzen_zeitraum(repo):
+    verlauf.erfassen(heute="2026-01-01")
+    verlauf.erfassen(heute="2026-01-02")
+    verlauf.erfassen(heute="2026-01-03")
+    d = verlauf.daten()
+    assert d["anzahl"] == 3
+    assert d["von"] == "2026-01-01"
+    assert d["bis"] == "2026-01-03"
+    # Gleicher Bestand an allen drei Tagen — also keine Veränderung.
+    assert d["delta_bezahlt"] == 0.0
+    assert d["delta_aufgaben_fertig"] == 0
+
+
+def test_daten_limit_kuerzt_die_punkte_aber_nicht_die_veraenderung(repo):
+    for tag in ("2026-01-01", "2026-01-02", "2026-01-03"):
+        verlauf.erfassen(heute=tag)
+    d = verlauf.daten(limit=2)
+    assert [p["datum"] for p in d["punkte"]] == ["2026-01-02", "2026-01-03"]
+    assert d["anzahl"] == 3
+    assert d["von"] == "2026-01-01"
+
+
+def test_daten_uebersteht_kaputte_zahlen_in_der_csv(repo):
+    verlauf.erfassen(heute="2026-01-01")
+    text = common.VERLAUF_CSV.read_text(encoding="utf-8")
+    kopf, zeile = text.splitlines()[0], text.splitlines()[1]
+    felder = zeile.split(",")
+    felder[1] = "keine-zahl"
+    common.VERLAUF_CSV.write_text(kopf + "\n" + ",".join(felder) + "\n", encoding="utf-8")
+    assert verlauf.daten()["punkte"][0]["bezahlt"] == 0.0

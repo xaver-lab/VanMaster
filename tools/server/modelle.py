@@ -268,6 +268,32 @@ class StromAntwort(_Basis):
     reichweite_tage: float | None = None
 
 
+
+class VerlaufPunktAntwort(_Basis):
+    """Ein Datensatz aus ``data/verlauf.csv`` — ein Tag."""
+
+    datum: str
+    bezahlt: float
+    geplant: float
+    prognose: float
+    aufgaben_fertig: int
+    aufgaben_gesamt: int
+    gewicht_kg: float | None = None
+
+
+class VerlaufAntwort(_Basis):
+    """``camper verlauf`` — Kostenverlauf als Zeitreihe."""
+
+    punkte: list[VerlaufPunktAntwort] = []
+    anzahl: int
+    von: str | None = None
+    bis: str | None = None
+    delta_bezahlt: float
+    delta_geplant: float
+    delta_prognose: float
+    delta_aufgaben_fertig: int
+
+
 class DatenAntwort(_Basis):
     """Form von ``GET /api/daten`` — vollständiger Bestand."""
 
@@ -290,6 +316,7 @@ class DatenAntwort(_Basis):
     einkauf: EinkaufAntwort
     ablauf: AblaufAntwort
     strom: StromAntwort
+    verlauf: VerlaufAntwort
     bearbeitbar: dict[str, Any]
     vokabular: dict[str, list[str]]
 

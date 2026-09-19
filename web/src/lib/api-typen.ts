@@ -121,6 +121,7 @@ export interface DatenAntwort {
   einkauf: EinkaufAntwort;
   ablauf: AblaufAntwort;
   strom: StromAntwort;
+  verlauf: VerlaufAntwort;
   bearbeitbar: Record<string, any>;
   vokabular: Record<string, string[]>;
 }
@@ -323,4 +324,25 @@ export interface TeilPatchAnfrage {
   feld: string;
   wert: string;
   version: string;
+}
+
+export interface VerlaufAntwort {
+  punkte?: VerlaufPunktAntwort[];
+  anzahl: number;
+  von?: string | null;
+  bis?: string | null;
+  delta_bezahlt: number;
+  delta_geplant: number;
+  delta_prognose: number;
+  delta_aufgaben_fertig: number;
+}
+
+export interface VerlaufPunktAntwort {
+  datum: string;
+  bezahlt: number;
+  geplant: number;
+  prognose: number;
+  aufgaben_fertig: number;
+  aufgaben_gesamt: number;
+  gewicht_kg?: number | null;
 }

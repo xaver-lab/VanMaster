@@ -64,23 +64,72 @@ def erfassen(heute: str | None = None) -> str:
             f"{gewicht_txt}")
 
 
-def text(limit: int = 12) -> str:
+def _zahl(wert: str) -> float:
+    try:
+        return float(wert or 0)
+    except ValueError:
+        return 0.0
+
+
+def _ganz(wert: str) -> int:
+    try:
+        return int(float(wert or 0))
+    except ValueError:
+        return 0
+
+
+def daten(limit: int | None = None) -> dict:
+    """Die Zeitreihe als Zahlen, samt Veränderung über den ganzen Zeitraum.
+
+    Einzige Rechenstelle: ``text()``, ``--json`` und die Dashboard-Ansicht
+    lesen hier, damit die drei nicht auseinanderlaufen. ``limit`` kürzt nur
+    die Punkte auf die letzten n; die Veränderung wird immer über den
+    vollen Verlauf gerechnet, sonst hinge sie am Ausschnitt.
+    """
     rows = lesen()
-    if not rows:
+    alle = [{
+        "datum": r.get("datum", ""),
+        "bezahlt": round(_zahl(r.get("bezahlt", "")), 2),
+        "geplant": round(_zahl(r.get("geplant", "")), 2),
+        "prognose": round(_zahl(r.get("prognose", "")), 2),
+        "aufgaben_fertig": _ganz(r.get("aufgaben_fertig", "")),
+        "aufgaben_gesamt": _ganz(r.get("aufgaben_gesamt", "")),
+        "gewicht_kg": round(_zahl(r["gewicht_kg"]), 2) if r.get("gewicht_kg") else None,
+    } for r in rows]
+
+    punkte = alle[-limit:] if limit else alle
+    if not alle:
+        return {"punkte": [], "anzahl": 0, "von": None, "bis": None,
+                "delta_bezahlt": 0.0, "delta_geplant": 0.0,
+                "delta_prognose": 0.0, "delta_aufgaben_fertig": 0}
+
+    erster, letzter = alle[0], alle[-1]
+    return {
+        "punkte": punkte,
+        "anzahl": len(alle),
+        "von": erster["datum"],
+        "bis": letzter["datum"],
+        "delta_bezahlt": round(letzter["bezahlt"] - erster["bezahlt"], 2),
+        "delta_geplant": round(letzter["geplant"] - erster["geplant"], 2),
+        "delta_prognose": round(letzter["prognose"] - erster["prognose"], 2),
+        "delta_aufgaben_fertig": letzter["aufgaben_fertig"] - erster["aufgaben_fertig"],
+    }
+
+
+def text(limit: int = 12) -> str:
+    d = daten(limit=limit)
+    if not d["punkte"]:
         return ("Noch kein Verlauf erfasst — 'camper verlauf' legt für heute "
                 "den ersten Datensatz an.")
-    zeigen = rows[-limit:]
     body = [[
-        r["datum"], euro(float(r["bezahlt"] or 0)), euro(float(r["geplant"] or 0)),
-        bar(int(r["aufgaben_fertig"] or 0), int(r["aufgaben_gesamt"] or 0), 8),
-        f"{r['gewicht_kg']} kg" if r["gewicht_kg"] else "—",
-    ] for r in zeigen]
+        p["datum"], euro(p["bezahlt"]), euro(p["geplant"]),
+        bar(p["aufgaben_fertig"], p["aufgaben_gesamt"], 8),
+        f"{p['gewicht_kg']:.1f} kg" if p["gewicht_kg"] else "—",
+    ] for p in d["punkte"]]
     kopf = table(body, ["Datum", "Bezahlt", "Geplant", "Aufgaben", "Gewicht"])
 
-    if len(rows) < 2:
+    if d["anzahl"] < 2:
         return kopf
-    erster, letzter = rows[0], rows[-1]
-    delta = float(letzter["bezahlt"] or 0) - float(erster["bezahlt"] or 0)
-    vz = "+" if delta >= 0 else ""
-    return (f"{kopf}\n\nSeit {erster['datum']}: {vz}{euro(delta)} bezahlt "
-            f"({len(rows)} Datensätze)")
+    vz = "+" if d["delta_bezahlt"] >= 0 else ""
+    return (f"{kopf}\n\nSeit {d['von']}: {vz}{euro(d['delta_bezahlt'])} bezahlt "
+            f"({d['anzahl']} Datensätze)")

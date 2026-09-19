@@ -41,9 +41,12 @@ Bildergalerie mit Bereichszuordnung ✅, Kacheln nach Status/Thema mit
 Detailmodal (Beschreibung, Fotos) ✅, Entscheidungen je Bereich, Markdown
 gerendert, Anleitungen und Recherche in den Bereichsreitern, `[[…]]`-Verlinkung ✅.
 
-**Stufe 3 — Auswertungen** offen
-Strombilanz: Tagesverbrauch gegen Batteriekapazität und Solarertrag.
-Gewichtsbilanz gegen zulässige Zuladung. Kostenverlauf. Blocker-Übersicht.
+**Stufe 3 — Auswertungen** bis auf einen Punkt erledigt
+Strombilanz (`camper strom`, Reiter Strom) ✅ — ohne Solarertrag, die Reichweite
+ist der schlechteste Fall. Gewichtsbilanz gegen die zulässige Zuladung
+(`camper gewicht`, Reiter Gewicht) ✅. Kostenverlauf (`camper verlauf`, Reiter
+Verlauf) ✅. Blocker-Übersicht offen — `camper ablauf` zeigt die Stufen und die
+Schlüsselaufgaben schon; was darüber hinaus fehlt, ist noch nicht entschieden.
 
 **Stufe 4 — Komfort** teilweise
 Volltextsuche über alles (Strg+K) ✅. Ansichten per Link teilbar ✅.

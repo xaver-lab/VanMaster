@@ -639,6 +639,9 @@
         "title": "Teile",
         "type": "array"
       },
+      "verlauf": {
+        "$ref": "#/$defs/VerlaufAntwort"
+      },
       "versionen": {
         "additionalProperties": {
           "type": "string"
@@ -677,6 +680,7 @@
       "einkauf",
       "ablauf",
       "strom",
+      "verlauf",
       "bearbeitbar",
       "vokabular"
     ],
@@ -1614,6 +1618,123 @@
       "version"
     ],
     "title": "TeilPatchAnfrage",
+    "type": "object"
+  },
+  "VerlaufAntwort": {
+    "description": "``camper verlauf`` — Kostenverlauf als Zeitreihe.",
+    "properties": {
+      "anzahl": {
+        "title": "Anzahl",
+        "type": "integer"
+      },
+      "bis": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Bis"
+      },
+      "delta_aufgaben_fertig": {
+        "title": "Delta Aufgaben Fertig",
+        "type": "integer"
+      },
+      "delta_bezahlt": {
+        "title": "Delta Bezahlt",
+        "type": "number"
+      },
+      "delta_geplant": {
+        "title": "Delta Geplant",
+        "type": "number"
+      },
+      "delta_prognose": {
+        "title": "Delta Prognose",
+        "type": "number"
+      },
+      "punkte": {
+        "default": [],
+        "items": {
+          "$ref": "#/$defs/VerlaufPunktAntwort"
+        },
+        "title": "Punkte",
+        "type": "array"
+      },
+      "von": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Von"
+      }
+    },
+    "required": [
+      "anzahl",
+      "delta_bezahlt",
+      "delta_geplant",
+      "delta_prognose",
+      "delta_aufgaben_fertig"
+    ],
+    "title": "VerlaufAntwort",
+    "type": "object"
+  },
+  "VerlaufPunktAntwort": {
+    "description": "Ein Datensatz aus ``data/verlauf.csv`` — ein Tag.",
+    "properties": {
+      "aufgaben_fertig": {
+        "title": "Aufgaben Fertig",
+        "type": "integer"
+      },
+      "aufgaben_gesamt": {
+        "title": "Aufgaben Gesamt",
+        "type": "integer"
+      },
+      "bezahlt": {
+        "title": "Bezahlt",
+        "type": "number"
+      },
+      "datum": {
+        "title": "Datum",
+        "type": "string"
+      },
+      "geplant": {
+        "title": "Geplant",
+        "type": "number"
+      },
+      "gewicht_kg": {
+        "anyOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Gewicht Kg"
+      },
+      "prognose": {
+        "title": "Prognose",
+        "type": "number"
+      }
+    },
+    "required": [
+      "datum",
+      "bezahlt",
+      "geplant",
+      "prognose",
+      "aufgaben_fertig",
+      "aufgaben_gesamt"
+    ],
+    "title": "VerlaufPunktAntwort",
     "type": "object"
   }
 }
