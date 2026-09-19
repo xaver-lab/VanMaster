@@ -10,7 +10,18 @@ import camper
 from tools import budget, common
 
 
+def _kopf_ohne(schluessel: set[str]) -> None:
+    """Die genannten Kopffelder aus `vault/Camper.md` entfernen."""
+    text = common.CAMPER_MD.read_text(encoding="utf-8")
+    kopf, rest = text.split("\n---", 1)
+    behalten = [z for z in kopf.splitlines()
+                if z.split(":", 1)[0].strip() not in schluessel]
+    common.CAMPER_MD.write_text("\n".join(behalten) + "\n---" + rest,
+                                encoding="utf-8", newline="\n")
+
+
 def _budget_kopf_setzen(zeilen: list[str]) -> None:
+    _kopf_ohne({z.split(":", 1)[0].strip() for z in zeilen})
     text = common.CAMPER_MD.read_text(encoding="utf-8")
     kopf, rest = text.split("\n---", 1)
     neuer_kopf = kopf + "\n" + "\n".join(zeilen) + "\n---" + rest
@@ -18,6 +29,7 @@ def _budget_kopf_setzen(zeilen: list[str]) -> None:
 
 
 def test_ziel_fehlt_ohne_camper_md_feld(repo):
+    _kopf_ohne({"budget"})
     z = budget.ziel()
     assert z["gesamt"] is None
     assert z["kategorien"] == {}
@@ -36,6 +48,7 @@ def test_ziel_akzeptiert_komma(repo):
 
 
 def test_daten_ohne_ziel_liefert_trotzdem_bezahlt_und_geplant(repo):
+    _kopf_ohne({"budget"})
     d = budget.daten()
     assert d["ziel"] is None
     assert d["rest"] is None
@@ -58,6 +71,7 @@ def test_kategorie_feld_slug():
 
 
 def test_cmd_budget_ohne_ziel_erklaert_eintrag(repo, capsys):
+    _kopf_ohne({"budget"})
     camper.main(["budget"])
     out = capsys.readouterr().out
     assert "Kein Zielbudget gesetzt" in out

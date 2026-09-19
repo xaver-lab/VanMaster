@@ -10,7 +10,18 @@ import camper
 from tools import bauteile, common, gewicht
 
 
+def _kopf_ohne(schluessel: set[str]) -> None:
+    """Die genannten Kopffelder aus `vault/Camper.md` entfernen."""
+    text = common.CAMPER_MD.read_text(encoding="utf-8")
+    kopf, rest = text.split("\n---", 1)
+    behalten = [z for z in kopf.splitlines()
+                if z.split(":", 1)[0].strip() not in schluessel]
+    common.CAMPER_MD.write_text("\n".join(behalten) + "\n---" + rest,
+                                encoding="utf-8", newline="\n")
+
+
 def _camper_md_kopf_setzen(zeilen: list[str]) -> None:
+    _kopf_ohne({z.split(":", 1)[0].strip() for z in zeilen})
     text = common.CAMPER_MD.read_text(encoding="utf-8")
     kopf, rest = text.split("\n---", 1)
     neuer_kopf = kopf + "\n" + "\n".join(zeilen) + "\n---" + rest
@@ -26,6 +37,7 @@ def _einzelteil_anlegen(**felder):
 # ------------------------------------------------------------------ fahrzeug
 
 def test_fahrzeug_fehlt_ohne_camper_md_felder(repo):
+    _kopf_ohne({"leergewicht_kg", "zul_gesamtgewicht_kg"})
     f = gewicht.fahrzeug()
     assert f["leergewicht_kg"] is None
     assert f["zul_gesamtgewicht_kg"] is None
@@ -73,8 +85,8 @@ def test_bilanz_berechnet_gewicht_aus_holzdichte(repo):
                         laenge_mm="1000", breite_mm="1000", dicke_mm="15")
     d = gewicht.bilanz()
     assert d["bauteile_fehlt"] == 0
-    # 1 m x 1 m x 0.015 m x 650 kg/m3 = 9.75 kg
-    assert d["bauteile_kg"] == 9.75
+    # 1 m x 1 m x 0.015 m x 650 kg/m3 = 9.75 kg, die Bilanz rundet auf 0.1 kg
+    assert d["bauteile_kg"] == 9.8
 
 
 def test_bilanz_nutzt_angegebenes_gewicht_vor_berechnung(repo):

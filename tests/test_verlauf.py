@@ -5,8 +5,17 @@ Tests geschrieben (Fixture ``repo``).
 """
 from __future__ import annotations
 
+import pytest
+
 import camper
 from tools import common, verlauf
+
+
+@pytest.fixture(autouse=True)
+def ohne_verlauf(repo):
+    """Der Bestand bringt bereits eine `verlauf.csv` mit — hier zählt nur,
+    was der Test selbst schreibt."""
+    common.VERLAUF_CSV.unlink(missing_ok=True)
 
 
 def test_erfassen_legt_datei_an(repo):
